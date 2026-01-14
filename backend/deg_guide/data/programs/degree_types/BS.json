@@ -1,0 +1,13 @@
+{
+  "id": "UO_BS",
+  "name": "UO Bachelor of Science",
+  "requirements": [
+    {
+      "id": "bs_math_or_cis_year",
+      "type": "credits_at_least",
+      "min_credits": 12,
+      "where": { "tags_any": ["bs_math_cis"] }
+    }
+  ],
+  "overlap_rules": []
+}
