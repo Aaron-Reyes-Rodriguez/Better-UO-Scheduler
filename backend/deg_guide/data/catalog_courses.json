@@ -5,7 +5,7 @@
     "number": 210,
     "credits": 4,
     "level": 200,
-    "tags": ["core_major_cs"]
+    "tags": []
   },
   {
     "id": "CS211",
@@ -13,7 +13,7 @@
     "number": 211,
     "credits": 4,
     "level": 200,
-    "tags": ["core_major_cs"]
+    "tags": []
   },
   {
     "id": "CS212",
@@ -21,7 +21,7 @@
     "number": 212,
     "credits": 4,
     "level": 200,
-    "tags": ["core_major_cs"]
+    "tags": []
   },
   {
     "id": "CS315",
@@ -29,7 +29,7 @@
     "number": 315,
     "credits": 4,
     "level": 300,
-    "tags": ["upper_div_cs", "core_major_cs"]
+    "tags": []
   },
   {
     "id": "CS330",
@@ -37,7 +37,7 @@
     "number": 330,
     "credits": 4,
     "level": 300,
-    "tags": ["upper_div_cs", "core_major_cs"]
+    "tags": []
   },
   {
     "id": "CS422",
@@ -45,7 +45,7 @@
     "number": 422,
     "credits": 4,
     "level": 400,
-    "tags": ["upper_div_cs", "core_major_cs"]
+    "tags": []
   },
   {
     "id": "MATH251",
@@ -53,7 +53,7 @@
     "number": 251,
     "credits": 4,
     "level": 200,
-    "tags": ["core_major_cs"]
+    "tags": []
   },
   {
     "id": "MATH252",
@@ -61,7 +61,7 @@
     "number": 252,
     "credits": 4,
     "level": 200,
-    "tags": ["core_major_cs"]
+    "tags": []
   },
   {
     "id": "MATH253",
@@ -69,7 +69,7 @@
     "number": 253,
     "credits": 4,
     "level": 200,
-    "tags": ["core_major_cs"]
+    "tags": []
   },
   {
     "id": "MATH307",
@@ -77,6 +77,6 @@
     "number": 307,
     "credits": 4,
     "level": 300,
-    "tags": ["cs_math_sci_wr"]
+    "tags": []
   }
 ]

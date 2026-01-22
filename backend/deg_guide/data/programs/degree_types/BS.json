@@ -1,12 +1,15 @@
 {
   "id": "UO_BS",
   "name": "UO Bachelor of Science",
+  "sets": {
+    "bs_math_cis_allowed": ["MATH251", "MATH252", "CIS210", "CIS211"]
+  },
   "requirements": [
     {
       "id": "bs_math_or_cis_year",
       "type": "credits_at_least",
       "min_credits": 12,
-      "where": { "tags_any": ["bs_math_cis"] }
+      "from_set": "bs_math_cis_allowed"
     }
   ],
   "overlap_rules": []

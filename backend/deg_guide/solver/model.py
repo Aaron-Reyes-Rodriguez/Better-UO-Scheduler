@@ -28,6 +28,7 @@ def load_program(path: str) -> Program:
             id=r["id"],
             type=r["type"],
             courses=r.get("courses"),
+            from_set=r.get("from_set"),
             k=r.get("k"),
             min_credits=r.get("min_credits"),
             where=r.get("where"),
@@ -37,6 +38,7 @@ def load_program(path: str) -> Program:
         name=data["name"],
         requirements=reqs,
         overlap_rules=list(data.get("overlap_rules", [])),
+        sets=dict(data.get("sets", {}))
     )
 
 def solve_degree_audit(
@@ -62,13 +64,12 @@ def solve_degree_audit(
 
     # Simple completion score: 1 - (slack / total_required)
     total_slack = sum(slack_out.values())
-    # total_required is not perfect here; good enough MVP: use slack upper bounds
-    total_required = sum(v.Proto().domain[-1] for v in slack.values()) if slack else 0
+    total_required = sum(v.UpperBound() for v in slack.values()) if slack else 0
     completion = 1.0 if total_required == 0 else max(0.0, 1.0 - total_slack / total_required)
 
     return {
         "status": "ok",
-        "completion precentage": completion,
+        "completion_percentage": completion,
         "assignments": assignments,
         "slack": slack_out,
     }

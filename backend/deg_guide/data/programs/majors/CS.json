@@ -1,15 +1,23 @@
 {
   "id": "MAJOR_CS",
   "name": "Computer Science Major (MVP)",
+  "sets": {
+    "cs_core": ["CS210", "CS211", "CS212"],
+
+    "cs_math_sci_wr_options": [
+      "MATH251", "MATH252"
+      
+    ]
+  },
   "requirements": [
-    { "id": "cs_core", "type": "all_of", "courses": ["CS210", "CS211", "CS212"] },
+    { "id": "cs_core", "type": "all_of", "from_set": "cs_core" },
 
     { "id": "cs_math_sci_wr_req", "type": "choose_k", "k": 1,
-      "where": { "tags_any": ["cs_math_sci_wr"] }
+      "from_set": "cs_math_sci_wr_options"
     },
 
     { "id": "cs_upper_div", "type": "credits_at_least", "min_credits": 12,
-      "where": { "tags_any": ["upper_div_cs"] }
+      "where": { "subject": "CS", "min_number": 300 }
     }
   ],
   "overlap_rules": [
