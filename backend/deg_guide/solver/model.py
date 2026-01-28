@@ -6,18 +6,97 @@ from .data_types import Course, Requirement, Program
 from .compile import build_model
 
 def load_courses(path: str) -> Dict[str, Course]:
-    data = json.load(open(path, "r", encoding="utf-8"))
-    courses = {}
-    for row in data:
+    """
+    Load course catalog data.
+
+    Supports either:
+      - a single JSON file containing a list of course objects, OR
+      - a directory containing multiple *.json files (e.g., one per subject),
+        each containing a list of course objects.
+
+    Credit handling (easiest path):
+      - Keep Course.credits as an int (solver-facing "default" credits).
+      - If a course has variable credits, include an optional credits_range object:
+          {"min": int, "max": int, "default": int}
+        If "default" is omitted, we choose:
+          - default = 2 if max == 2, else 4
+        Then clamp default into [min, max].
+      - If credits is provided as an object (min/max[/default]) or a "1-5" string,
+        we derive credits and credits_range from it.
+    """
+    from pathlib import Path
+    import re
+
+    def _choose_default(cmin: int, cmax: int) -> int:
+        desired = 2 if cmax == 2 else 4
+        return max(cmin, min(desired, cmax))
+
+    def _normalize_credits(row: Dict[str, Any]) -> tuple[int, Any]:
+        raw = row.get("credits")
+        # Case 1: int-like credits
+        if isinstance(raw, (int, float)) or (isinstance(raw, str) and raw.strip().isdigit()):
+            return int(raw), None
+
+        # Case 2: object credits {"min":..,"max":.., ...}
+        if isinstance(raw, dict):
+            cmin = int(raw["min"])
+            cmax = int(raw["max"])
+            cdef = int(raw.get("default", _choose_default(cmin, cmax)))
+            cdef = max(cmin, min(cdef, cmax))
+            return cdef, {"min": cmin, "max": cmax, "default": cdef}
+
+        # Case 3: string range like "1-5"
+        if isinstance(raw, str):
+            m = re.match(r"^\s*(\d+)\s*-\s*(\d+)\s*$", raw)
+            if m:
+                cmin = int(m.group(1))
+                cmax = int(m.group(2))
+                cdef = _choose_default(cmin, cmax)
+                return cdef, {"min": cmin, "max": cmax, "default": cdef}
+
+        raise ValueError(f"Unsupported credits format for {row.get('id')}: {raw!r}")
+
+    p = Path(path)
+    rows: List[Dict[str, Any]] = []
+
+    if p.is_dir():
+        for f in sorted(p.glob("*.json")):
+            data = json.loads(f.read_text(encoding="utf-8"))
+            if not isinstance(data, list):
+                raise ValueError(f"{f} must contain a JSON array of courses")
+            rows.extend(data)
+    else:
+        data = json.load(open(path, "r", encoding="utf-8"))
+        if not isinstance(data, list):
+            raise ValueError(f"{path} must contain a JSON array of courses")
+        rows = data
+
+    courses: Dict[str, Course] = {}
+    for row in rows:
+        credits, credits_range = _normalize_credits(row)
+
+        # Alternate easiest format: keep credits as int + add credits_range separately
+        if credits_range is None and isinstance(row.get("credits_range"), dict):
+            cr = row["credits_range"]
+            cmin = int(cr["min"])
+            cmax = int(cr["max"])
+            cdef = int(cr.get("default", _choose_default(cmin, cmax)))
+            cdef = max(cmin, min(cdef, cmax))
+            credits_range = {"min": cmin, "max": cmax, "default": cdef}
+
         c = Course(
             id=row["id"],
             subject=row["subject"],
             number=int(row["number"]),
-            credits=int(row["credits"]),
+            credits=int(credits),
             level=int(row["level"]),
             tags=list(row.get("tags", [])),
+            credits_range=credits_range,
         )
+        if c.id in courses:
+            raise ValueError(f"Duplicate course id found while loading catalog: {c.id}")
         courses[c.id] = c
+
     return courses
 
 def load_program(path: str) -> Program:

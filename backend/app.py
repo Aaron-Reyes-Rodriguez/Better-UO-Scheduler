@@ -6,7 +6,8 @@ from deg_guide.solver.model import load_courses, load_program, solve_degree_audi
 
 app = FastAPI()
 
-COURSES = load_courses("deg_guide/data/catalog_courses.json")
+COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
+#COURSES = load_courses("deg_guide/data/catalogs") this is to load all the courses from the catalogs folder
 MAJOR_CS = load_program("deg_guide/data/programs/majors/CS.json")
 BS = load_program("deg_guide/data/programs/uo_degree_types/BS.json")
 

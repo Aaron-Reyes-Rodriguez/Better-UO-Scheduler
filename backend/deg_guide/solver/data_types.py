@@ -9,6 +9,7 @@ class Course:
     credits: int
     level: int
     tags: List[str]
+    credits_range: Optional[Dict[str, int]] = None  # {"min": int, "max": int, "default": int}
 
 @dataclass(frozen=True)
 class Requirement:
