@@ -5,6 +5,11 @@ from ortools.sat.python import cp_model
 from .data_types import Course, Requirement, Program
 from .compile import build_model
 
+def intvar_upper_bound(v: cp_model.IntVar) -> int:
+    dom = list(v.Proto().domain)  # [lb, ub, lb, ub, ...]
+    return max(dom[1::2]) if dom else 0
+
+
 def load_courses(path: str) -> Dict[str, Course]:
     """
     Load course catalog data.
@@ -108,9 +113,14 @@ def load_program(path: str) -> Program:
             type=r["type"],
             courses=r.get("courses"),
             from_set=r.get("from_set"),
+            from_requirements=r.get("from_requirements"),
             k=r.get("k"),
             min_credits=r.get("min_credits"),
             where=r.get("where"),
+            constraints=r.get("constraints"),
+            must_be=r.get("must_be"),
+            exclude_courses=r.get("exclude_courses"),
+            exclude_from_set=r.get("exclude_from_set"),
         ))
     return Program(
         id=data["id"],
@@ -120,35 +130,34 @@ def load_program(path: str) -> Program:
         sets=dict(data.get("sets", {}))
     )
 
-def solve_degree_audit(
-    courses: Dict[str, Course],
-    taken: Set[str],
-    programs: List[Program],
-) -> dict:
-    model, x, slack = build_model(courses, taken, programs)
+def solve_degree_audit(courses, taken_attempts, programs) -> dict:
+    model, x, slack = build_model(courses, taken_attempts, programs)
     solver = cp_model.CpSolver()
-    solver.parameters.max_time_in_seconds = 3.0  # keep snappy for API
+    solver.parameters.max_time_in_seconds = 3.0
     status = solver.Solve(model)
 
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         return {"status": "infeasible", "message": "No solution found"}
 
-    # Build assignment results
-    assignments = {}
-    for (cid, req_key), var in x.items():
+    attempt_to_course = {a.attempt_id: a.course_id for a in taken_attempts}
+
+    assignments: dict[str, list[dict]] = {}
+    for (attempt_id, req_key), var in x.items():
         if solver.Value(var) == 1:
-            assignments.setdefault(req_key, []).append(cid)
+            assignments.setdefault(req_key, []).append({
+                "attempt_id": attempt_id,
+                "course_id": attempt_to_course.get(attempt_id, attempt_id),
+            })
 
     slack_out = {k: int(solver.Value(v)) for k, v in slack.items()}
 
-    # Simple completion score: 1 - (slack / total_required)
     total_slack = sum(slack_out.values())
-    total_required = sum(v.UpperBound() for v in slack.values()) if slack else 0
-    completion = 1.0 if total_required == 0 else max(0.0, 1.0 - total_slack / total_required)
+    total_required = sum(intvar_upper_bound(v) for v in slack.values()) if slack else 0
+    completion_ratio = 1.0 if total_required == 0 else max(0.0, 1.0 - total_slack / total_required)
 
     return {
         "status": "ok",
-        "completion_percentage": completion,
+        "completion_percentage": round(completion_ratio * 100, 1),
         "assignments": assignments,
         "slack": slack_out,
     }
