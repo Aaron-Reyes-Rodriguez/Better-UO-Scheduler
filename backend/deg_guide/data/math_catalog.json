@@ -1,0 +1,525 @@
+[
+    {
+    "id": "CS322",
+    "subject": "CS",
+    "number": 322,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      { "course": "CS210", "min_grade": "B-" },
+      { "course": "CS211", "min_grade": "B-" },
+      { "course": "CS212", "min_grade": "B-" }],
+    "title": "Introduction to Software Engineering"
+    },
+
+    {
+    "id": "MATH253",
+    "subject": "MATH",
+    "number": 253,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [
+      { "course": "MATH247", "min_grade": "B-" },
+      { "course": "MATH252", "min_grade": "B-" }],
+    "title": "Calculus III"
+    },
+
+    {
+    "id": "MATH281",
+    "subject": "MATH",
+    "number": 281,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [
+      { "course": "MATH253", "min_grade": "B-" }],
+    "title": "Several-Variable Calculus I"
+    },
+
+    {
+    "id": "MATH282",
+    "subject": "MATH",
+    "number": 282,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [
+      { "course": "MATH281", "min_grade": "B-" }],
+    "title": "Several-Variable Calculus II"
+    },
+    
+    {
+    "id": "MATH341",
+    "subject": "MATH",
+    "number": 341,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH247", "min_grade": "B-" },
+        { "course": "MATH252", "min_grade": "B-" },
+        { "course": "MATH253", "min_grade": "B-" }
+    ],
+    "title": "Elementary Linear Algebra I"
+    },
+    
+    {
+    "id": "MATH342",
+    "subject": "MATH",
+    "number": 342,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH341", "min_grade": "C-" }
+    ],
+    "title": "Elementary Linear Algebra II"
+    },
+    
+    {
+    "id": "CS122",
+    "subject": "CS",
+    "number": 122,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH101", "min_grade": "B-" }
+    ],
+    "title": "Intro to Programming and Problem Solving"
+    },
+    
+    {
+    "id": "CS210",
+    "subject": "CS",
+    "number": 210,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH112", "min_grade": "B-" }
+    ],
+    "title": "Computer Science I"
+    },
+    
+    {
+    "id": "MATH307",
+    "subject": "MATH",
+    "number": 307,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH247", "min_grade": "B-" },
+        { "course": "MATH252", "min_grade": "B-" }
+    ],
+    "title": "Introduction to Proof"
+    },
+    
+    {
+    "id": "MATH231",
+    "subject": "MATH",
+    "number": 231,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH251", "min_grade": "B-" },
+        { "course": "MATH252", "min_grade": "B-" },
+        { "course": "MATH253", "min_grade": "B-" }
+
+    ],
+    "title": "Elements of Discrete Mathematics I"
+    },
+    
+    {
+    "id": "MATH232",
+    "subject": "MATH",
+    "number": 232,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH231", "min_grade": "B-" }
+    ],
+    "title": "Elements of Discrete Mathematics II"
+    },
+    
+    {
+    "id": "MATH316",
+    "subject": "MATH",
+    "number": 316,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH253", "min_grade": "B-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Fundamentals of Analysis I"
+    },
+    
+    {
+    "id": "MATH317",
+    "subject": "MATH",
+    "number": 317,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH316", "min_grade": "C-" }
+    ],
+    "title": "Fundamentals of Analysis II"
+    },
+    
+    {
+    "id": "MATH347",
+    "subject": "MATH",
+    "number": 347,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH253", "min_grade": "B-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Fundamentals of Number Theory I"
+    },
+    
+    {
+    "id": "MATH348",
+    "subject": "MATH",
+    "number": 348,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH347", "min_grade": "C-" }
+    ],
+    "title": "Fundamentals of Number Theory II"
+    },
+    
+    {
+    "id": "MATH343",
+    "subject": "MATH",
+    "number": 343,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH252", "min_grade": "B-" }
+    ],
+    "title": "Statistical Models and Methods"
+    },
+
+    {
+    "id": "MATH345",
+    "subject": "MATH",
+    "number": 345,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH342", "min_grade": "C-" },
+        { "course": "CS211", "min_grade": "B-" }
+    ],
+    "title": "Probability and Statistics for Data Science"
+    },
+
+    {
+    "id": "MATH351",
+    "subject": "MATH",
+    "number": 351,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH253", "min_grade": "B-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Elementary Numerical Analysis I"
+    },
+    
+    {
+    "id": "MATH352",
+    "subject": "MATH",
+    "number": 352,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH351", "min_grade": "C-" }
+    ],
+    "title": "Elementary Numerical Analysis II"
+    },
+
+    {
+    "id": "MATH394",
+    "subject": "MATH",
+    "number": 394,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH253", "min_grade": "B-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Geometries from an Advanced Viewpoint I"
+    },
+
+    {
+    "id": "MATH395",
+    "subject": "MATH",
+    "number": 395,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH394", "min_grade": "C-" }
+    ],
+    "title": "Geometries from an Advanced Viewpoint II"
+    },
+    
+    {
+    "id": "MATH397",
+    "subject": "MATH",
+    "number": 397,
+    "credits": 4,
+    "level": 300,
+    "tags": [
+    ],
+    "prereqs": [
+        { "course": "MATH253", "min_grade": "B-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "History and Applications of Calculus"
+    },
+    
+    {
+    "id": "MATH410",
+    "subject": "MATH",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course"
+    },
+    
+    {
+    "id": "MATH411",
+    "subject": "MATH",
+    "number": 411,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH281", "min_grade": "B-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Functions of a Complex Variable I"
+    },
+    
+    {
+    "id": "MATH413",
+    "subject": "MATH",
+    "number": 413,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH282", "min_grade": "B-" },
+        { "course": "MATH317", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Analysis I"
+    },
+    
+    {
+    "id": "MATH414",
+    "subject": "MATH",
+    "number": 414,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH413", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Analysis II"
+    },
+    
+    {
+    "id": "MATH431",
+    "subject": "MATH",
+    "number": 431,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH317", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Topology I"
+    },
+    
+    {
+    "id": "MATH432",
+    "subject": "MATH",
+    "number": 432,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH281", "min_grade": "B-" },
+        { "course": "MATH341", "min_grade": "C-" },
+        { "course": "MATH431", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Topology II"
+    },
+    
+    {
+    "id": "MATH433",
+    "subject": "MATH",
+    "number": 433,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH282", "min_grade": "B-" },
+        { "course": "MATH342", "min_grade": "C-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Differential Geometry"
+    },
+    
+    {
+    "id": "MATH441",
+    "subject": "MATH",
+    "number": 441,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH342", "min_grade": "C-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Linear Algebra"
+    },
+
+    {
+    "id": "MATH444",
+    "subject": "MATH",
+    "number": 444,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH342", "min_grade": "C-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Abstract Algebra I"
+    },
+    
+    {
+    "id": "MATH445",
+    "subject": "MATH",
+    "number": 445,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH444", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Abstract Algebra II"
+    },
+    
+    {
+    "id": "MATH446",
+    "subject": "MATH",
+    "number": 446,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH445", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Abstract Algebra III"
+    },
+    
+    {
+    "id": "MATH458",
+    "subject": "MATH",
+    "number": 458,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH341", "min_grade": "C-" }
+    ],
+    "title": "Introduction to Mathematical Cryptography"
+    },
+    
+    {
+    "id": "MATH461",
+    "subject": "MATH",
+    "number": 461,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH253", "min_grade": "B-" },
+        { "course": "MATH232", "min_grade": "B-" },
+        { "course": "MATH307", "min_grade": "C-" }
+
+    ],
+    "title": "Introduction to Mathematical Methods of Statistics I"
+    },
+    
+    {
+    "id": "MATH462",
+    "subject": "MATH",
+    "number": 462,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH461", "min_grade": "C-" }],
+    "title": "Introduction to Mathematical Methods of Statistics II"
+    },
+    
+    { 
+    "id": "MATH463",
+    "subject": "MATH",
+    "number": 463,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH342", "min_grade": "C-" },
+        { "course": "MATH462", "min_grade": "C-" }],
+    "title": "Mathematical Methods of Regression Analysis and Analysis of Variance"
+    },
+    
+    {
+    "id": "MATH467",
+    "subject": "MATH",
+    "number": 467,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+        { "course": "MATH341", "min_grade": "C-" },
+        { "course": "MATH461", "min_grade": "C-" }],
+    "title": "Stochastic Processes"
+    }
+
+]
