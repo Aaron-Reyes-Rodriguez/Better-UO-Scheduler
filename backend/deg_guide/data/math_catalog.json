@@ -1,19 +1,5 @@
 [
     {
-    "id": "CS322",
-    "subject": "CS",
-    "number": 322,
-    "credits": 4,
-    "level": 300,
-    "tags": [],
-    "prereqs": [
-      { "course": "CS210", "min_grade": "B-" },
-      { "course": "CS211", "min_grade": "B-" },
-      { "course": "CS212", "min_grade": "B-" }],
-    "title": "Introduction to Software Engineering"
-    },
-
-    {
     "id": "MATH253",
     "subject": "MATH",
     "number": 253,
