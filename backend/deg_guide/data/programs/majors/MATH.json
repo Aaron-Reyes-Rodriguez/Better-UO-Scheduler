@@ -1,0 +1,38 @@
+{
+  "https://naturalsciences.uoregon.edu/sites/default/files/2025-03/math-standard-track-requirements.pdf": "comment",
+
+  "id": "MAJOR_MATH",
+  "name": "Mathematics Major (MVP)",
+  "sets": {
+    "math_core": ["MATH253", "MATH281", "MATH282", "MATH341", "MATH342"],
+
+    "math_cs_options": ["CS122", "CS210"],
+
+    "math_uppder_div_seq": [["MATH316", "Math317"], ["MATH347", "MATH348"], ["MATH444", "MATH445"]],
+
+    "cs_math_sci_wr_options": [
+      "MATH251", "MATH252"
+    ]
+
+  },
+  "requirements": [
+    { "id": "math_core", "type": "all_of", "from_set": "math_core" },
+
+    { "id": "math_cs_options", "type": "choose_k", "k": 1,
+      "from_set": "math_cs_options"
+    },
+
+    { "id": "math_uppder_div_seq", "type": "choose_k", "k": 1,
+      "from_set": "math_uppder_div_seq"
+    },
+
+    { "id": "math_upper_div_ele", "type": "credits_at_least", "min_credits": 16,
+      "where": { "subject": "MATH", "min_number": 300 }
+    }
+
+
+  ],
+  "overlap_rules": [
+    { "type": "no_double_counting_default" }
+  ]
+}
