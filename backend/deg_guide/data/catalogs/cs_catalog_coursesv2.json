@@ -1,0 +1,1567 @@
+[
+  {
+    "id": "CS102",
+    "subject": "CS",
+    "number": 102,
+    "credits": 4,
+    "level": 100,
+    "tags": [
+      "science_area"
+    ],
+    "prereqs": [],
+    "title": "Fundamentals of Computer and Information Security"
+  },
+  {
+    "id": "CS110",
+    "subject": "CS",
+    "number": 110,
+    "credits": 4,
+    "level": 100,
+    "tags": [
+      "science_area"
+    ],
+    "prereqs": [],
+    "title": "Fluency with Information Technology"
+  },
+  {
+    "id": "CS111",
+    "subject": "CS",
+    "number": 111,
+    "credits": 4,
+    "level": 100,
+    "tags": [
+      "science_area",
+      "bs_math"
+    ],
+    "prereqs": [
+      {
+        "course": "MATH101",
+        "min_grade": ""
+      }
+    ],
+    "title": "Introduction to Web Programming",
+    "notes": "Prereq: MATH 101 or equivalent. CS 110 recommended preparation."
+  },
+  {
+    "id": "CS122",
+    "subject": "CS",
+    "number": 122,
+    "credits": 4,
+    "level": 100,
+    "tags": [
+      "science_area",
+      "bs_math"
+    ],
+    "prereqs": [
+      {
+        "course": "MATH101",
+        "min_grade": ""
+      }
+    ],
+    "title": "Introduction to Programming and Problem Solving",
+    "notes": "Prereq: MATH 101 or equivalent."
+  },
+  {
+    "id": "CS196",
+    "subject": "CS",
+    "number": 196,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Field Studies: Topic",
+    "notes": "Repeatable (topic-based).",
+    "credit_range": {
+      "min": 1,
+      "max": 2,
+      "default": 2
+    }
+  },
+  {
+    "id": "CS198",
+    "subject": "CS",
+    "number": 198,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Workshop: Topic",
+    "notes": "Repeatable (topic-based).",
+    "credit_range": {
+      "min": 1,
+      "max": 2,
+      "default": 2
+    }
+  },
+  {
+    "id": "CS199",
+    "subject": "CS",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies: Topic",
+    "notes": "Experimental course; topic varies. Repeatable (topic changes).",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS199L",
+    "subject": "CS",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies in Computer Science: Topic",
+    "notes": "Experimental course; topic varies. Repeatable (topic changes).",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS210",
+    "subject": "CS",
+    "number": 210,
+    "credits": 4,
+    "level": 200,
+    "tags": [
+      "science_area",
+      "bs_math"
+    ],
+    "prereqs": [
+      {
+        "course": "MATH112Z",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer Science I",
+    "notes": "Prior programming experience strongly encouraged. Sequence with CS 211, CS 212."
+  },
+  {
+    "id": "CS211",
+    "subject": "CS",
+    "number": 211,
+    "credits": 4,
+    "level": 200,
+    "tags": [
+      "science_area",
+      "bs_math"
+    ],
+    "prereqs": [
+      {
+        "course": "CS210",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer Science II",
+    "notes": "Sequence with CS 210, CS 212."
+  },
+  {
+    "id": "CS212",
+    "subject": "CS",
+    "number": 212,
+    "credits": 4,
+    "level": 200,
+    "tags": [
+      "science_area",
+      "bs_math"
+    ],
+    "prereqs": [
+      {
+        "course": "CS211",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer Science III",
+    "notes": "Sequence with CS 210, CS 211."
+  },
+  {
+    "id": "CS299",
+    "subject": "CS",
+    "number": 299,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies: Topic",
+    "notes": "Repeatable (topic-based).",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS313",
+    "subject": "CS",
+    "number": 313,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS210",
+        "min_grade": "B-"
+      },
+      {
+        "course": "CS211",
+        "min_grade": "B-"
+      },
+      {
+        "course": "CS212",
+        "min_grade": "B-"
+      },
+      {
+        "course": "MATH231",
+        "min_grade": "B-"
+      },
+      {
+        "course": "MATH232",
+        "min_grade": "B-"
+      }
+    ],
+    "title": "Intermediate Data Structures"
+  },
+  {
+    "id": "CS314",
+    "subject": "CS",
+    "number": 314,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS210",
+        "min_grade": "B-"
+      },
+      {
+        "course": "CS211",
+        "min_grade": "B-"
+      },
+      {
+        "course": "CS212",
+        "min_grade": "B-"
+      }
+    ],
+    "title": "Computer Organization"
+  },
+  {
+    "id": "CS315",
+    "subject": "CS",
+    "number": 315,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Intermediate Algorithms"
+  },
+  {
+    "id": "CS322",
+    "subject": "CS",
+    "number": 322,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS210",
+        "min_grade": "B-"
+      },
+      {
+        "course": "CS211",
+        "min_grade": "B-"
+      },
+      {
+        "course": "CS212",
+        "min_grade": "B-"
+      }
+    ],
+    "title": "Introduction to Software Engineering"
+  },
+  {
+    "id": "CS330",
+    "subject": "CS",
+    "number": 330,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS314",
+        "min_grade": ""
+      }
+    ],
+    "title": "C/C++ and Unix"
+  },
+  {
+    "id": "CS332",
+    "subject": "CS",
+    "number": 332,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "System and Security Administration Lab"
+  },
+  {
+    "id": "CS333",
+    "subject": "CS",
+    "number": 333,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS212",
+        "min_grade": ""
+      }
+    ],
+    "title": "Applied Cryptography"
+  },
+  {
+    "id": "CS372M",
+    "subject": "CS",
+    "number": 372,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS212",
+        "min_grade": ""
+      },
+      {
+        "course": "MATH342",
+        "min_grade": ""
+      }
+    ],
+    "title": "Machine Learning for Data Science",
+    "equivalents": [
+      "DSCI372M"
+    ],
+    "notes": "Prereq: CS 212; DSCI 345M or MATH 345M; MATH 342. Multilisted with DSCI 372M."
+  },
+  {
+    "id": "CS399",
+    "subject": "CS",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies: Topic",
+    "notes": "Experimental course; topic varies. Repeatable when topic changes.",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS401",
+    "subject": "CS",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Research: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS402",
+    "subject": "CS",
+    "number": 402,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Supervised College Teaching",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 2,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS403",
+    "subject": "CS",
+    "number": 403,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Thesis",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 12,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS404",
+    "subject": "CS",
+    "number": 404,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Internship: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 4,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS405",
+    "subject": "CS",
+    "number": 405,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Reading and Conference: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 12,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS406",
+    "subject": "CS",
+    "number": 406,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Practicum: Topic",
+    "notes": "Repeatable (max 4 credits).",
+    "credit_range": {
+      "min": 1,
+      "max": 2,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS407",
+    "subject": "CS",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Seminar: Topic",
+    "notes": "Repeatable when topic changes.",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS408",
+    "subject": "CS",
+    "number": 408,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Workshop: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 21,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS409",
+    "subject": "CS",
+    "number": 409,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Terminal Project",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 12,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS410",
+    "subject": "CS",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course: Topic",
+    "notes": "Experimental course; topic varies. Repeatable when topic changes.",
+    "topics": [
+      {
+        "name": "AI and Cybersecurity",
+        "credits": 4,
+        "prereqs": []
+      },
+      {
+        "name": "Cybersecurity Operations",
+        "credits": 4,
+        "prereqs": []
+      },
+      {
+        "name": "Digital Forensics",
+        "credits": 4,
+        "prereqs": []
+      }
+    ],
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS413",
+    "subject": "CS",
+    "number": 413,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS315",
+        "min_grade": ""
+      }
+    ],
+    "title": "Advanced Data Structures"
+  },
+  {
+    "id": "CS415",
+    "subject": "CS",
+    "number": 415,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "Operating Systems"
+  },
+  {
+    "id": "CS420",
+    "subject": "CS",
+    "number": 420,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS315",
+        "min_grade": ""
+      }
+    ],
+    "title": "Automata Theory"
+  },
+  {
+    "id": "CS422",
+    "subject": "CS",
+    "number": 422,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "Software Methodology I"
+  },
+  {
+    "id": "CS423",
+    "subject": "CS",
+    "number": 423,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS422",
+        "min_grade": "B-"
+      }
+    ],
+    "title": "Software Methodology II"
+  },
+  {
+    "id": "CS425",
+    "subject": "CS",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS315",
+        "min_grade": ""
+      }
+    ],
+    "title": "Principles of Programming Languages"
+  },
+  {
+    "id": "CS429",
+    "subject": "CS",
+    "number": 429,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      },
+      {
+        "course": "CS314",
+        "min_grade": ""
+      },
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer Architecture"
+  },
+  {
+    "id": "CS431",
+    "subject": "CS",
+    "number": 431,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "Introduction to Parallel Computing"
+  },
+  {
+    "id": "CS432",
+    "subject": "CS",
+    "number": 432,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "Introduction to Networks",
+    "notes": "CS 415 recommended."
+  },
+  {
+    "id": "CS433",
+    "subject": "CS",
+    "number": 433,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS415",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer and Network Security"
+  },
+  {
+    "id": "CS434",
+    "subject": "CS",
+    "number": 434,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS433",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer and Network Security II"
+  },
+  {
+    "id": "CS436",
+    "subject": "CS",
+    "number": 436,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "Secure Software Development"
+  },
+  {
+    "id": "CS437",
+    "subject": "CS",
+    "number": 437,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS433",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer and Network Security Practicum"
+  },
+  {
+    "id": "CS441",
+    "subject": "CS",
+    "number": 441,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "Introduction to Computer Graphics"
+  },
+  {
+    "id": "CS443",
+    "subject": "CS",
+    "number": 443,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      }
+    ],
+    "title": "User Interfaces"
+  },
+  {
+    "id": "CS445",
+    "subject": "CS",
+    "number": 445,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS315",
+        "min_grade": ""
+      },
+      {
+        "course": "CS330",
+        "min_grade": ""
+      }
+    ],
+    "title": "Modeling and Simulation"
+  },
+  {
+    "id": "CS451",
+    "subject": "CS",
+    "number": 451,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      },
+      {
+        "course": "CS314",
+        "min_grade": ""
+      }
+    ],
+    "title": "Database Processing",
+    "notes": "Students cannot receive credit for both CS 451 and DSCI 431.",
+    "equivalents": [
+      "DSCI431"
+    ]
+  },
+  {
+    "id": "CS453",
+    "subject": "CS",
+    "number": 453,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS451",
+        "min_grade": ""
+      }
+    ],
+    "title": "Data Mining",
+    "notes": "Students cannot receive credit for both CS 453 and DSCI 435.",
+    "equivalents": [
+      "DSCI435"
+    ]
+  },
+  {
+    "id": "CS461",
+    "subject": "CS",
+    "number": 461,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS314",
+        "min_grade": ""
+      },
+      {
+        "course": "CS425",
+        "min_grade": ""
+      }
+    ],
+    "title": "Introduction to Compilers",
+    "notes": "CS 420 strongly recommended."
+  },
+  {
+    "id": "CS471",
+    "subject": "CS",
+    "number": 471,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS315",
+        "min_grade": ""
+      }
+    ],
+    "title": "Introduction to Artificial Intelligence"
+  },
+  {
+    "id": "CS472",
+    "subject": "CS",
+    "number": 472,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS315",
+        "min_grade": ""
+      }
+    ],
+    "title": "Machine Learning"
+  },
+  {
+    "id": "CS473",
+    "subject": "CS",
+    "number": 473,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS315",
+        "min_grade": ""
+      }
+    ],
+    "title": "Probabilistic Methods for Artificial Intelligence"
+  },
+  {
+    "id": "CS480",
+    "subject": "CS",
+    "number": 480,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS313",
+        "min_grade": ""
+      },
+      {
+        "course": "CS314",
+        "min_grade": ""
+      }
+    ],
+    "title": "Game Programming",
+    "notes": "MATH 341 recommended."
+  },
+  {
+    "id": "CS503",
+    "subject": "CS",
+    "number": 503,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Thesis",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS507",
+    "subject": "CS",
+    "number": 507,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar: Topic",
+    "notes": "Repeatable when topic changes.",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS508",
+    "subject": "CS",
+    "number": 508,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Workshop: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 21,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS510",
+    "subject": "CS",
+    "number": 510,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course: Topic",
+    "notes": "Experimental course; topic varies. Repeatable when topic changes.",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS513",
+    "subject": "CS",
+    "number": 513,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Data Structures"
+  },
+  {
+    "id": "CS520",
+    "subject": "CS",
+    "number": 520,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Automata Theory"
+  },
+  {
+    "id": "CS522",
+    "subject": "CS",
+    "number": 522,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Software Methodology I"
+  },
+  {
+    "id": "CS523",
+    "subject": "CS",
+    "number": 523,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS522",
+        "min_grade": ""
+      }
+    ],
+    "title": "Software Methodology II"
+  },
+  {
+    "id": "CS529",
+    "subject": "CS",
+    "number": 529,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Computer Architecture"
+  },
+  {
+    "id": "CS531",
+    "subject": "CS",
+    "number": 531,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Parallel Computing"
+  },
+  {
+    "id": "CS532",
+    "subject": "CS",
+    "number": 532,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Networks"
+  },
+  {
+    "id": "CS533",
+    "subject": "CS",
+    "number": 533,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Computer and Network Security"
+  },
+  {
+    "id": "CS534",
+    "subject": "CS",
+    "number": 534,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS532",
+        "min_grade": ""
+      },
+      {
+        "course": "CS533",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer and Network Security II",
+    "credit_range": {
+      "min": 1,
+      "max": 4,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS536",
+    "subject": "CS",
+    "number": 536,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Secure Software Development"
+  },
+  {
+    "id": "CS537",
+    "subject": "CS",
+    "number": 537,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Computer and Network Security Practicum"
+  },
+  {
+    "id": "CS541",
+    "subject": "CS",
+    "number": 541,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Computer Graphics"
+  },
+  {
+    "id": "CS543",
+    "subject": "CS",
+    "number": 543,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "User Interfaces"
+  },
+  {
+    "id": "CS545",
+    "subject": "CS",
+    "number": 545,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Modeling and Simulation"
+  },
+  {
+    "id": "CS551",
+    "subject": "CS",
+    "number": 551,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Database Processing",
+    "notes": "Students cannot receive credit for both CS 551 and DSCI 531.",
+    "equivalents": [
+      "DSCI531"
+    ]
+  },
+  {
+    "id": "CS553",
+    "subject": "CS",
+    "number": 553,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS551",
+        "min_grade": ""
+      }
+    ],
+    "title": "Data Mining",
+    "notes": "Students cannot receive credit for both CS 553 and DSCI 535.",
+    "equivalents": [
+      "DSCI535"
+    ]
+  },
+  {
+    "id": "CS561",
+    "subject": "CS",
+    "number": 561,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Compilers",
+    "notes": "CS 520 strongly recommended."
+  },
+  {
+    "id": "CS571",
+    "subject": "CS",
+    "number": 571,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Artificial Intelligence"
+  },
+  {
+    "id": "CS572",
+    "subject": "CS",
+    "number": 572,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Machine Learning"
+  },
+  {
+    "id": "CS573",
+    "subject": "CS",
+    "number": 573,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Probabilistic Methods for Artificial Intelligence"
+  },
+  {
+    "id": "CS580",
+    "subject": "CS",
+    "number": 580,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Game Programming"
+  },
+  {
+    "id": "CS601",
+    "subject": "CS",
+    "number": 601,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS603",
+    "subject": "CS",
+    "number": 603,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Dissertation",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS604",
+    "subject": "CS",
+    "number": 604,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Internship: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 4,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS605",
+    "subject": "CS",
+    "number": 605,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Reading and Conference: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS606",
+    "subject": "CS",
+    "number": 606,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Field Studies: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS607",
+    "subject": "CS",
+    "number": 607,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS608",
+    "subject": "CS",
+    "number": 608,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Workshop: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS609",
+    "subject": "CS",
+    "number": 609,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Terminal Project",
+    "notes": "Repeatable.",
+    "credit_range": {
+      "min": 1,
+      "max": 16,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS610",
+    "subject": "CS",
+    "number": 610,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course: Topic",
+    "notes": "Experimental course; topic varies. Repeatable when topic changes.",
+    "credit_range": {
+      "min": 1,
+      "max": 5,
+      "default": 4
+    }
+  },
+  {
+    "id": "CS621",
+    "subject": "CS",
+    "number": 621,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Algorithms and Complexity",
+    "notes": "CS 520 recommended."
+  },
+  {
+    "id": "CS630",
+    "subject": "CS",
+    "number": 630,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS529",
+        "min_grade": ""
+      }
+    ],
+    "title": "Distributed Systems"
+  },
+  {
+    "id": "CS631",
+    "subject": "CS",
+    "number": 631,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS529",
+        "min_grade": ""
+      }
+    ],
+    "title": "Advanced Parallel Computing"
+  },
+  {
+    "id": "CS632",
+    "subject": "CS",
+    "number": 632,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS532",
+        "min_grade": ""
+      }
+    ],
+    "title": "Computer Networks"
+  },
+  {
+    "id": "CS633",
+    "subject": "CS",
+    "number": 633,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS533",
+        "min_grade": ""
+      }
+    ],
+    "title": "Advanced Network Security",
+    "notes": "Offered alternate years."
+  },
+  {
+    "id": "CS640",
+    "subject": "CS",
+    "number": 640,
+    "credits": 2,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Writing in Computer Research"
+  },
+  {
+    "id": "CS670",
+    "subject": "CS",
+    "number": 670,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [
+      {
+        "course": "CS551",
+        "min_grade": ""
+      }
+    ],
+    "title": "Data Science"
+  },
+  {
+    "id": "MATH251",
+    "subject": "MATH",
+    "number": 251,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": ""
+  },
+  {
+    "id": "MATH252",
+    "subject": "MATH",
+    "number": 252,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": ""
+  },
+  {
+    "id": "MATH253",
+    "subject": "MATH",
+    "number": 253,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": ""
+  },
+  {
+    "id": "MATH307",
+    "subject": "MATH",
+    "number": 307,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": ""
+  }
+]
