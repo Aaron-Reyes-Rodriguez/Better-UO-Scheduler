@@ -86,13 +86,6 @@
     },
 
     {
-      "id": "ethics",
-      "type": "choose_k",
-      "k": 1,
-      "from_set": "ethics_options"
-    },
-
-    {
       "id": "writing",
       "type": "choose_k",
       "k": 1,
