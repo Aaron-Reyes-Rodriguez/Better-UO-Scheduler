@@ -5,6 +5,9 @@ from typing import List, Optional
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
 from deg_guide.solver.data_types import CourseAttempt
 
+from pydantic import BaseModel
+from parser import parse_transcript_pdf
+
 app = FastAPI()
 
 COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
@@ -56,6 +59,15 @@ def audit_cs(req: AuditRequest):
     return solve_degree_audit(COURSES, attempts, [MAJOR_CS])
 
 
+class TranscriptParseRequest(BaseModel):
+    pdf_path: str  # local path (easy for dev)
+
+@app.post("/transcript/parse")
+def transcript_parse(req: TranscriptParseRequest):
+    return parse_transcript_pdf(req.pdf_path)
+
+
+
 #for temp testing run uvicorn app:app --reload.  Then go to http://127.0.0.1:8000/docs. go to the post/audit/cs. and try it out. 
 
 '''
@@ -93,6 +105,14 @@ def audit_cs(req: AuditRequest):
     { "attempt_id": "2026S-CS422-01", "course_id": "CS422", "credits_taken": 4, "grading_basis": "pnp" },
     { "attempt_id": "2026F-CS423-01", "course_id": "CS423", "credits_taken": 4, "grading_basis": "graded" }
   ]
+}
+
+
+
+for the transcripts:
+
+{
+  "pdf_path": "deg_guide/data/records/Test_Transcript.pdf"
 }
 
 '''
