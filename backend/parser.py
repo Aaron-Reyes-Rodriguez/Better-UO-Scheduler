@@ -147,62 +147,109 @@ def build_attempts_and_grades(lines: List[ParsedLine]) -> Tuple[List[Dict[str, A
     return taken_attempts, class_grades
 
 
+TERM_RE = r"(?:Fall|Winter|Spring|Summer)\s+\d{4}"
+YEAR_RANGE_RE = r"\d{4}\s*-\s*\d{4}"
+CATALOG_RE = rf"(?:{YEAR_RANGE_RE}|{TERM_RE})"
+
+
 def parse_broad_data(text: str) -> Dict[str, Any]:
     def grab(pattern: str) -> Optional[str]:
         m = re.search(pattern, text, flags=re.IGNORECASE)
         return m.group(1).strip() if m else None
 
+    def norm_catalog(s: Optional[str]) -> Optional[str]:
+        if not s:
+            return None
+        if re.fullmatch(YEAR_RANGE_RE, s.strip()):
+            return re.sub(r"\s*", "", s)  # "2022 - 2023" -> "2022-2023"
+        return s.strip()
+    
+    def clean_name(s: Optional[str]) -> Optional[str]:
+        if not s:
+            return None
+        s = s.strip()
+        # Remove trailing tokens that DegreeWorks PDFs sometimes append
+        s = re.sub(r"\s+(section|requirement[s]?|block[s]?)\s*$", "", s, flags=re.IGNORECASE)
+        return s.strip()
+
     broad: Dict[str, Any] = {}
 
-    # --- program / level ---
-    # Typical DegreeWorks-ish: "Program <...> College <...>"
-    broad["program"] = grab(r"\bProgram\s+(.+?)\s+College\b")
-    broad["level"] = grab(r"\bLevel\s+([A-Za-z]+)\b")  # Undergraduate/Graduate/etc
+    # -------------------------
+    # Student name (strip trailing "Degree progress")
+    # -------------------------
+    name = grab(r"\bStudent name\s+([^\n]+)")
+    if name:
+        name = re.sub(r"\s+Degree progress\s*$", "", name, flags=re.IGNORECASE).strip()
+    broad["student_name"] = name
 
-    # --- GPA ---
-    gpa = grab(r"\bUO GPA\s+([0-9.]+)\b") or grab(r"\bGPA\s+([0-9.]+)\b")
+    # -------------------------
+    # Program / Level
+    # -------------------------
+    program = grab(r"\bProgram\s+(.+?)\s+College\b")
+    broad["program"] = program.rstrip("-").strip() if program else None
+    broad["level"] = grab(r"\bLevel\s+([A-Za-z]+)\b")
+
+    # -------------------------
+    # GPA (handle same-line OR next-line)
+    # -------------------------
+    gpa = (
+        grab(r"\bUO GPA\s+([0-9.]+)\b")
+        or grab(r"\bUO GPA\s*\n\s*([0-9.]+)\b")
+        or grab(r"\bCumulative GPA\s+([0-9.]+)\b")
+        or grab(r"\bOverall GPA\s+([0-9.]+)\b")
+        or grab(r"\bUO GPA:\s*([0-9.]+)\b")
+        or grab(r"\bGPA:\s*([0-9.]+)\b")
+    )
     broad["gpa"] = float(gpa) if gpa else None
 
-    # --- earned credits ---
+    # -------------------------
+    # Earned credits
+    # -------------------------
     earned = grab(r"\bEarned Credits\s+([0-9.]+)\b")
     broad["earned_credits"] = float(earned) if earned else None
 
-    # --- catalog year ---
-    # Try multiple patterns because PDFs differ
-    catalog_year = (
-        grab(r"\bCatalog Year\s+(\d{4}\s*-\s*\d{4})\b")
-        or grab(r"\bCatalog\s+(\d{4}\s*-\s*\d{4})\b")
-        or grab(r"\b(\d{4}\s*-\s*\d{4})\s+UO catalog\b")
+    # -------------------------
+    # Degree-level catalog year (Degree in ...)
+    # Capture degree title on one line, then find catalog year later in the same block
+    # -------------------------
+    degree_block = re.search(
+        rf"(?is)\bDegree in[^\n]*\n.*?\bCatalog year:\s*(?P<catalog>{CATALOG_RE})",
+        text,
     )
-    # Normalize spacing: "2025 - 2026" -> "2025-2026"
-    if catalog_year:
-        catalog_year = re.sub(r"\s*", "", catalog_year)  # remove all spaces
-    broad["catalog_year"] = catalog_year
+    broad["catalog_year"] = norm_catalog(degree_block.group("catalog")) if degree_block else None
 
-    # --- major/minors ---
-    major = grab(r"\bMajor\s+(.+?)\s+Minors\b")
-    minors_raw = grab(r"\bMinors\s+(.+?)\s+Academic Standing\b")
-
-    # minors list split
-    minors_list: List[str] = []
-    if minors_raw:
-        minors_list = [m.strip() for m in minors_raw.split(",") if m.strip()]
-
-    # Build recommended structure (with catalog year on each)
-    broad["declared_major"] = (
-        {"name": major, "catalog_year": catalog_year}
-        if major
-        else None
+    # -------------------------
+    # Major (Major in <name> ... Catalog year: <...>)
+    # Capture major name ONLY to end-of-line to avoid giant multiline grabs
+    # -------------------------
+    major_block = re.search(
+        rf"(?is)\bMajor in\s+(?P<name>[^\n]+).*?\bCatalog year:\s*(?P<catalog>{CATALOG_RE})",
+        text,
     )
+    #major_name = major_block.group("name").strip() if major_block else None
+    major_name = clean_name(major_block.group("name")) if major_block else None
+    major_catalog = norm_catalog(major_block.group("catalog")) if major_block else None
+    broad["declared_major"] = {"name": major_name, "catalog_year": major_catalog} if major_name else None
 
-    broad["minors"] = [
-        {"name": m, "catalog_year": catalog_year}
-        for m in minors_list
-    ]
+    # -------------------------
+    # Minors (Minor in <name> ... Catalog year: <...>)
+    # Again capture name ONLY to end-of-line.
+    # Use a dict to de-duplicate by name.
+    # -------------------------
+    minors_map: Dict[str, str] = {}
+    for mb in re.finditer(
+        rf"(?is)\bMinor in\s+(?P<name>[^\n]+).*?\bCatalog year:\s*(?P<catalog>{CATALOG_RE})",
+        text,
+    ):
+        #nm = mb.group("name").strip()
+        nm = clean_name(mb.group("name"))
+        if not nm:
+            continue
+        cy = norm_catalog(mb.group("catalog"))
+        # keep first occurrence per name (or overwrite—either is fine; choose overwrite to be safe)
+        minors_map[nm] = cy
 
-    # You can keep catalog_year inside broad_data or drop it.
-    # If you ONLY want it attached to major/minors, uncomment next line:
-    # broad.pop("catalog_year", None)
+    broad["minors"] = [{"name": n, "catalog_year": minors_map[n]} for n in sorted(minors_map.keys())]
 
     return broad
 
