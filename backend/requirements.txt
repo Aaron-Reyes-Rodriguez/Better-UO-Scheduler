@@ -2,4 +2,4 @@ fastapi
 uvicorn
 ortools
 pydantic
-pdfplumber
+pandas
