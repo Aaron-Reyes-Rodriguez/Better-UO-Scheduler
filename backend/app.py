@@ -1,11 +1,33 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
+import os
 
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
 from deg_guide.solver.data_types import CourseAttempt
 
+from pydantic import BaseModel
+from parser import parse_transcript_pdf
+
 app = FastAPI()
+
+# Allow frontend (e.g. AWS Amplify) to call this API when backend is on Render
+ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[o.strip() for o in ALLOWED_ORIGINS],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/health")
+def health():
+    """Simple ping to check the API is up (e.g. for Render)."""
+    return {"status": "ok"}
+
 
 COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
 #COURSES = load_courses("deg_guide/data/catalogs") this is to load all the courses from the catalogs folder
@@ -56,6 +78,15 @@ def audit_cs(req: AuditRequest):
     return solve_degree_audit(COURSES, attempts, [MAJOR_CS])
 
 
+class TranscriptParseRequest(BaseModel):
+    pdf_path: str  # local path (easy for dev)
+
+@app.post("/transcript/parse")
+def transcript_parse(req: TranscriptParseRequest):
+    return parse_transcript_pdf(req.pdf_path)
+
+
+
 #for temp testing run uvicorn app:app --reload.  Then go to http://127.0.0.1:8000/docs. go to the post/audit/cs. and try it out. 
 
 '''
@@ -93,6 +124,14 @@ def audit_cs(req: AuditRequest):
     { "attempt_id": "2026S-CS422-01", "course_id": "CS422", "credits_taken": 4, "grading_basis": "pnp" },
     { "attempt_id": "2026F-CS423-01", "course_id": "CS423", "credits_taken": 4, "grading_basis": "graded" }
   ]
+}
+
+
+
+for the transcripts:
+
+{
+  "pdf_path": "deg_guide/data/records/Test_Transcript.pdf"
 }
 
 '''
