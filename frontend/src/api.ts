@@ -23,11 +23,28 @@ export async function auditCs(takenAttempts: Array<{
   term?: string;
   subtitle?: string;
 }>) {
-  const res = await fetch(apiUrl("/audit/cs"), {
+  const url = apiUrl("/audit/cs");
+  const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ taken_attempts: takenAttempts }),
   });
-  if (!res.ok) throw new Error(`Audit failed: ${res.status}`);
+  if (!res.ok) throw new Error(`Audit failed: ${res.status} ${res.statusText}`);
   return res.json();
+}
+
+/** Fetch with clearer errors for CORS, network, and timeouts. */
+export async function fetchHealth(): Promise<{ status: string }> {
+  const url = apiUrl("/health");
+  try {
+    const res = await fetch(url, { method: "GET" });
+    const data = await res.json();
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    return data as { status: string };
+  } catch (e) {
+    if (e instanceof TypeError && e.message.includes("fetch"))
+      throw new Error("Network error (CORS or backend unreachable). Check Render CORS_ORIGINS and that the backend is running.");
+    if (e instanceof Error) throw e;
+    throw new Error("Request failed");
+  }
 }
