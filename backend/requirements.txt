@@ -3,3 +3,7 @@ uvicorn
 ortools
 pydantic
 pandas
+pdfplumber
+pdfminer
+pdf2image
+pdf2image
