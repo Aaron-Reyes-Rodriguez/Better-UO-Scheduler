@@ -4,7 +4,14 @@ from typing import List, Optional
 
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
 from deg_guide.solver.data_types import CourseAttempt
+from fastapi.middleware.cors import CORSMiddleware
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://main.d3f30e6npwa1ai.amplifyapp.com"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app = FastAPI()
 
 COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
