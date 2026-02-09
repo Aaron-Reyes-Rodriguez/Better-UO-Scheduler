@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Dict, List, Set, Tuple
 from ortools.sat.python import cp_model
 
-from .data_types import Course, Requirement, Program
+from .data_types import Course, Requirement, Program, CourseAttempt
 
 
 def matches_where(course: Course, where: dict | None) -> bool:
@@ -33,28 +33,65 @@ def matches_where(course: Course, where: dict | None) -> bool:
     min_number = where.get("min_number")
     if min_number is not None and course.number < int(min_number):
         return False
+    
+    max_number = where.get("max_number")
+    if max_number is not None and course.number > int(max_number):
+        return False
 
     return True
 
 
 def eligible_courses_for_req(req: Requirement, program: Program, courses: Dict[str, Course]) -> List[Course]:
+
+    if getattr(req, "from_requirements", None):
+        return []
+
     # 1) explicit list
     if req.courses:
-        return [courses[cid] for cid in req.courses if cid in courses]
+        candidates = [courses[cid] for cid in req.courses if cid in courses]
 
-    # 2) from_set (NEW)
-    if getattr(req, "from_set", None):
+    # 2) from_set
+    elif getattr(req, "from_set", None):
         ids = program.sets.get(req.from_set, [])
-        return [courses[cid] for cid in ids if cid in courses]
+        candidates = [courses[cid] for cid in ids if cid in courses]
 
     # 3) where filter fallback
-    where = req.where or {}
-    return [c for c in courses.values() if matches_where(c, where)]
+    else:
+        where = req.where or {}
+        candidates = [c for c in courses.values() if matches_where(c, where)]
 
+    # ✅ NEW: apply exclusions (MVP)
+    excluded_ids = set(req.exclude_courses or [])
+    if getattr(req, "exclude_from_set", None):
+        excluded_ids.update(program.sets.get(req.exclude_from_set, []))
+
+    if excluded_ids:
+        candidates = [c for c in candidates if c.id not in excluded_ids]
+
+    return candidates
+
+def matches_attempt_where(att: CourseAttempt, where: dict | None) -> bool:
+    if not where:
+        return True
+    gb = where.get("grading_basis")
+    if gb and getattr(att, "grading_basis", None) != gb:
+        return False
+    return True
+
+def _slacks_for_req_key(slack: Dict[str, cp_model.IntVar], req_key: str) -> List[cp_model.IntVar]:
+    # child slack vars can be stored as:
+    # - slack[req_key] for choose_k / credits_at_least / credit_pool
+    # - slack[f"{req_key}:{cid}"] for all_of
+    out = []
+    for k, v in slack.items():
+        if k == req_key or k.startswith(req_key + ":"):
+            out.append(v)
+    return out
 
 def build_model(
     courses: Dict[str, Course],
-    taken_course_ids: Set[str],
+    #taken_course_ids: Set[str],
+    taken_attempts: List[CourseAttempt],
     programs: List[Program],
 ):
     """
@@ -69,37 +106,80 @@ def build_model(
             reqs.append((p, r))
 
     # Only allow taken courses to be assigned (MVP)
-    taken_courses = [courses[cid] for cid in taken_course_ids if cid in courses]
+    #taken_courses = [courses[cid] for cid in taken_course_ids if cid in courses]
+    taken_attempt_objs = [
+        (att, courses[att.course_id])
+        for att in taken_attempts
+        if att.course_id in courses
+    ]
 
-    # Create assignment vars: x[(course_id, req_key)] in {0,1}
+    # Create assignment vars: x[(attempt_id, req_key)] in {0,1}
+
     x: Dict[Tuple[str, str], cp_model.IntVar] = {}
+    
 
     # Build x vars only when a course is eligible for a requirement
+
+    '''
     for course in taken_courses:
         for program, req in reqs:
             req_key = f"{program.id}:{req.id}"
             elig_ids = {c.id for c in eligible_courses_for_req(req, program, courses)}
             if course.id in elig_ids:
                 x[(course.id, req_key)] = model.NewBoolVar(f"x_{course.id}_{req_key}")
+    '''
+    for att, course in taken_attempt_objs:
+        for program, req in reqs:
+            
+            if getattr(req, "from_requirements", None):
+                continue
 
+            req_key = f"{program.id}:{req.id}"
+            elig_ids = {c.id for c in eligible_courses_for_req(req, program, courses)}
+            
+            if req.must_be and not matches_attempt_where(att, req.must_be):
+                continue
+            
+            if course.id in elig_ids:
+                x[(att.attempt_id, req_key)] = model.NewBoolVar(f"x_{att.attempt_id}_{req_key}")
+
+
+    '''
     # No double counting across ALL requirements by default:
     # For each course, sum over all req buckets <= 1
     for course in taken_courses:
         vars_for_course = [var for (cid, _), var in x.items() if cid == course.id]
         if vars_for_course:
             model.Add(sum(vars_for_course) <= 1)
+    '''
+    for att, _course in taken_attempt_objs:
+        vars_for_att = [var for (aid, _), var in x.items() if aid == att.attempt_id]
+        if vars_for_att:
+            model.Add(sum(vars_for_att) <= 1)
 
+
+    # Add constraints per requirement
     # Add constraints per requirement
     slack: Dict[str, cp_model.IntVar] = {}
 
+    deferred_meta: List[Tuple[Program, Requirement]] = []
+
     for program, req in reqs:
+        # defer meta requirements for second pass
+        if getattr(req, "from_requirements", None):
+            deferred_meta.append((program, req))
+            continue
+
         req_key = f"{program.id}:{req.id}"
-        elig_courses = eligible_courses_for_req(req, program, courses)
-        vars_for_req = [x[(c.id, req_key)] for c in elig_courses if (c.id, req_key) in x]
+        elig_course_ids = {c.id for c in eligible_courses_for_req(req, program, courses)}
+
+        vars_for_req = [
+            x[(att.attempt_id, req_key)]
+            for att, course in taken_attempt_objs
+            if course.id in elig_course_ids and (att.attempt_id, req_key) in x
+        ]
 
         if req.type == "all_of":
-            # each specified course must be assigned to this req
-            # (for all_of we expect req.courses or req.from_set to specify exact required courses)
             required_ids: List[str] = []
             if req.courses:
                 required_ids = list(req.courses)
@@ -107,13 +187,16 @@ def build_model(
                 required_ids = list(program.sets.get(req.from_set, []))
 
             for cid in required_ids:
-                if (cid, req_key) in x:
-                    model.Add(x[(cid, req_key)] == 1)
-                else:
-                    # course not taken or not in catalog -> create slack 1 for missing course
-                    s = model.NewIntVar(0, 1, f"slack_{req_key}_{cid}")
-                    slack[f"{req_key}:{cid}"] = s
-                    model.Add(s == 1)
+                matching_attempt_vars = [
+                    x[(att.attempt_id, req_key)]
+                    for att, course in taken_attempt_objs
+                    if course.id == cid and (att.attempt_id, req_key) in x
+                ]
+                s = model.NewIntVar(0, 1, f"slack_{req_key}_{cid}")
+                slack[f"{req_key}:{cid}"] = s
+
+                # satisfied if any matching attempt assigned, else slack=1
+                model.Add(sum(matching_attempt_vars) + s >= 1)
 
         elif req.type == "choose_k":
             k = int(req.k or 0)
@@ -127,16 +210,87 @@ def build_model(
             slack[req_key] = s
 
             credit_sum = sum(
-                c.credits * x[(c.id, req_key)]
-                for c in elig_courses
-                if (c.id, req_key) in x
+                att.credits_taken * x[(att.attempt_id, req_key)]
+                for att, course in taken_attempt_objs
+                if course.id in elig_course_ids and (att.attempt_id, req_key) in x
             )
             model.Add(credit_sum + s >= min_credits)
+
+        elif req.type == "credit_pool":
+            pool_min = int(req.min_credits or 0)
+            s = model.NewIntVar(0, pool_min, f"slack_{req_key}")
+            slack[req_key] = s
+
+            pool_credit_sum = sum(
+                att.credits_taken * x[(att.attempt_id, req_key)]
+                for att, course in taken_attempt_objs
+                if course.id in elig_course_ids and (att.attempt_id, req_key) in x
+            )
+            model.Add(pool_credit_sum + s >= pool_min)
+
+            for j, rule in enumerate(req.constraints or []):
+                sub_where_course = rule.get("where") or {}
+                sub_where_attempt = rule.get("where_attempt") or None
+
+                subset_sum = sum(
+                    att.credits_taken * x[(att.attempt_id, req_key)]
+                    for att, course in taken_attempt_objs
+                    if course.id in elig_course_ids
+                    and (att.attempt_id, req_key) in x
+                    and matches_where(course, sub_where_course)
+                    and matches_attempt_where(att, sub_where_attempt)
+                )
+
+                if "min_credits" in rule:
+                    m = int(rule["min_credits"])
+                    s2 = model.NewIntVar(0, m, f"slack_{req_key}_submin_{j}")
+                    slack[f"{req_key}:submin:{j}"] = s2
+                    model.Add(subset_sum + s2 >= m)
+
+                if "max_credits" in rule:
+                    model.Add(subset_sum <= int(rule["max_credits"]))
 
         else:
             raise ValueError(f"Unknown requirement type: {req.type}")
 
-    # Objective: minimize total slack (i.e., maximize completion)
+
+    # ---- PASS 2: meta requirements (choose_k from_requirements) ----
+    for program, req in deferred_meta:
+        req_key = f"{program.id}:{req.id}"
+
+        if req.type != "choose_k":
+            raise ValueError(f"{req_key}: from_requirements currently supported only for choose_k")
+
+        k = int(req.k or 0)
+        parent_slack = model.NewIntVar(0, k, f"slack_{req_key}")
+        slack[req_key] = parent_slack
+
+        sat_vars: List[cp_model.IntVar] = []
+
+        for child_id in (req.from_requirements or []):
+            child_key = f"{program.id}:{child_id}"
+            child_slacks = _slacks_for_req_key(slack, child_key)
+
+            # If child has no slack vars, treat it as always satisfied
+            sat = model.NewBoolVar(f"sat_{req_key}_from_{child_id}")
+
+            if not child_slacks:
+                model.Add(sat == 1)
+                sat_vars.append(sat)
+                continue
+
+            # sat == 1  <=>  sum(child_slacks) == 0
+            M = 1000  # safe big-M for slack sums in this project
+            sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
+            model.Add(sum_sl == sum(child_slacks))
+
+            model.Add(sum_sl == 0).OnlyEnforceIf(sat)
+            model.Add(sum_sl >= 1).OnlyEnforceIf(sat.Not())
+
+            sat_vars.append(sat)
+
+        model.Add(sum(sat_vars) + parent_slack >= k)
+
     model.Minimize(sum(slack.values()) if slack else 0)
 
     return model, x, slack
