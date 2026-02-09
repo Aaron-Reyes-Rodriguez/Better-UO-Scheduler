@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { apiUrl, auditCs } from './api'
+import { apiBase, auditCs, fetchHealth } from './api'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,8 +16,7 @@ function App() {
     setHealth(null)
     setLoading(true)
     try {
-      const res = await fetch(apiUrl('/health'))
-      const data = await res.json()
+      const data = await fetchHealth()
       setHealth(JSON.stringify(data))
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Request failed')
@@ -59,7 +58,8 @@ function App() {
       </div>
 
       <div className="card">
-        <p>Backend calls (uses VITE_API_URL or localhost:8000)</p>
+        <p>Backend: <code>{apiBase}</code></p>
+        <p className="hint">Set VITE_API_URL in Amplify env, then redeploy so the build picks it up.</p>
         <button onClick={checkBackend} disabled={loading}>
           Check API health
         </button>

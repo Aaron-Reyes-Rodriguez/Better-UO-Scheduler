@@ -122,3 +122,29 @@ curl -X POST https://better-uo-scheduler.onrender.com/audit/cs \
 If these return JSON (and the audit returns a result), the backend is working. The main thing that can still fail in the browser is CORS; that’s fixed by setting `CORS_ORIGINS` on Render to your Amplify URL.
 
 The frontend uses `api.ts` and `apiUrl()` / `auditCs()` so all requests go to the correct backend in dev and production.
+
+---
+
+## 6. Troubleshooting: "Cannot fetch" from Amplify
+
+If the Amplify app shows **Request failed** or **Network error** when calling the API:
+
+1. **Confirm the API URL in the app**  
+   The UI shows "Backend: …" with the resolved base URL. If it shows `http://localhost:8000` on Amplify, `VITE_API_URL` was not set or not used at build time.
+
+2. **Redeploy Amplify after setting `VITE_API_URL`**  
+   Vite bakes `VITE_*` env vars into the bundle at **build time**. After adding or changing `VITE_API_URL` in Amplify, trigger a new build (Redeploy this version / Redeploy branch). Otherwise the old bundle still has the previous (or empty) URL.
+
+3. **Set CORS on Render**  
+   In Render → your service → **Environment** → add:
+   - **Key:** `CORS_ORIGINS`
+   - **Value:** Your **exact** Amplify app URL, e.g. `https://main.d3f30e6npwa1ai.amplifyapp.com` (no trailing slash). Get the URL from the Amplify app overview (branch URL).  
+   Save and let the service redeploy. If the origin doesn’t match exactly, the browser will block the response (CORS error).
+
+4. **Check the browser**  
+   Open DevTools (F12) → **Console** and **Network**. When you hit "Check API health", look for:
+   - **CORS error** → fix `CORS_ORIGINS` on Render (step 3).
+   - **Failed to fetch / net::ERR_** → backend unreachable (e.g. Render service down or cold start; try again after 30–60 s on free tier).
+
+5. **Confirm the backend is up**  
+   Open `https://better-uo-scheduler.onrender.com/health` in a new tab. You should see `{"status":"ok"}`. If it never loads, the Render service may be down or sleeping.
