@@ -4,13 +4,24 @@ import pandas as pd
 
 GRADE_COLS = ["AP", "A", "AM", "BP", "B", "BM", "CP", "C", "CM", "DP", "D", "DM", "F"]
 
+# Wsubjucts
+SUBJECTS = {"CS", "CIS"}
+
 
 def weighted_gpa(df: pd.DataFrame) -> pd.Series:
     return (
-        df["A_count"] * 4.0
-        + df["B_count"] * 3.0
-        + df["C_count"] * 2.0
-        + df["D_count"] * 1.0
+        df["AP"] * 4.0
+        + df["A"] * 4.0
+        + df["AM"] * 3.7
+        + df["BP"] * 3.3
+        + df["B"] * 3.0
+        + df["BM"] * 2.7
+        + df["CP"] * 2.3
+        + df["C"] * 2.0
+        + df["CM"] * 1.7
+        + df["DP"] * 1.3
+        + df["D"] * 1.0
+        + df["DM"] * 0.7
     ) / df["total_students"]
 
 
@@ -25,7 +36,7 @@ def main() -> None:
     if not xlsx_path.exists():
         raise FileNotFoundError(f"file not found: {xlsx_path}")
 
-    # Load/normalzie headers
+    # Load/normalize headers
     df = pd.read_excel(xlsx_path)
     df.columns = df.columns.str.strip()
 
@@ -38,8 +49,9 @@ def main() -> None:
     if missing:
         raise KeyError(f"Missing required columns: {sorted(missing)}")
 
-    # Course filter
-    df = df[df["SUBJ"].astype(str).str.strip().str.upper() == "CS"].copy()
+    # Filter CS + CIS
+    df["SUBJ"] = df["SUBJ"].astype(str).str.strip().str.upper()
+    df = df[df["SUBJ"].isin(SUBJECTS)].copy()
 
     # Convert * and blanks to 0
     df[GRADE_COLS] = (
@@ -51,7 +63,7 @@ def main() -> None:
         .astype(int)
     )
 
-    # Combine all letter grades
+    # combined buckets (easy to work with)
     df["A_count"] = df["AP"] + df["A"] + df["AM"]
     df["B_count"] = df["BP"] + df["B"] + df["BM"]
     df["C_count"] = df["CP"] + df["C"] + df["CM"]
@@ -65,8 +77,9 @@ def main() -> None:
     # Drop rows with no letter grade
     df = df[df["total_students"] > 0].copy()
 
+    # IDs + cleanup
     df["course_number"] = df["NUMB"].astype(int)
-    df["course_id"] = "CS " + df["course_number"].astype(str)
+    df["course_id"] = df["SUBJ"] + " " + df["course_number"].astype(str)
     df["term_code"] = df["TERM"].astype(str).str.strip()
     df["term"] = df[term_descr_col].astype(str).str.strip()
     df["professor"] = (
@@ -79,7 +92,7 @@ def main() -> None:
     # 1) TERM + COURSE + PROF
     course_prof = (
         df.groupby(["term_code", "term", "course_id", "course_number", "professor"], as_index=False)[
-            ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
+            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
         ]
         .sum()
     )
@@ -93,6 +106,7 @@ def main() -> None:
             "course_number",
             "professor",
             "total_students",
+            *GRADE_COLS,
             "A_count",
             "B_count",
             "C_count",
@@ -100,14 +114,14 @@ def main() -> None:
             "F_count",
             "avg_gpa",
         ]
-    ].sort_values(["term_code", "course_number", "professor"], ascending=[True, True, True])
+    ].sort_values(["term_code", "course_id", "professor"], ascending=[True, True, True])
 
     course_prof.to_csv(out_course_prof, index=False, encoding="utf-8")
 
     # 2) COURSE (ALL TERMS)
     courses = (
         course_prof.groupby(["course_id", "course_number"], as_index=False)[
-            ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
+            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
         ]
         .sum()
     )
@@ -118,6 +132,7 @@ def main() -> None:
             "course_id",
             "course_number",
             "total_students",
+            *GRADE_COLS,
             "A_count",
             "B_count",
             "C_count",
@@ -125,14 +140,14 @@ def main() -> None:
             "F_count",
             "avg_gpa",
         ]
-    ].sort_values(["course_number"], ascending=True)
+    ].sort_values(["course_id"], ascending=True)
 
     courses.to_csv(out_courses, index=False, encoding="utf-8")
 
     # 3) PROFESSOR (ALL TERMS)
     professors = (
         course_prof.groupby(["professor"], as_index=False)[
-            ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
+            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
         ]
         .sum()
     )
@@ -143,8 +158,12 @@ def main() -> None:
         course_prof.groupby("professor")["course_id"]
         .apply(lambda s: sorted(set(s.tolist())))
     )
-    professors["courses_taught_count"] = professors["professor"].map(lambda p: len(prof_courses.get(p, [])))
-    professors["courses_taught"] = professors["professor"].map(lambda p: "; ".join(prof_courses.get(p, [])))
+    professors["courses_taught_count"] = professors["professor"].map(
+        lambda p: len(prof_courses.get(p, []))
+    )
+    professors["courses_taught"] = professors["professor"].map(
+        lambda p: "; ".join(prof_courses.get(p, []))
+    )
 
     professors = professors[
         [
@@ -152,6 +171,7 @@ def main() -> None:
             "courses_taught_count",
             "courses_taught",
             "total_students",
+            *GRADE_COLS,
             "A_count",
             "B_count",
             "C_count",
