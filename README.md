@@ -29,3 +29,8 @@ Installl Requirements
 ~~~
 pip install -r requirements.txt
 ~~~
+
+Run
+~~~
+uvicorn app:app --reload
+~~~

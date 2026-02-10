@@ -48,3 +48,17 @@ export async function fetchHealth(): Promise<{ status: string }> {
     throw new Error("Request failed");
   }
 }
+
+export async function getClass(class_id: string) {
+  const url = apiUrl(`/class/${class_id}`);
+  const res = await fetch(url, { method: "GET" });
+  if (!res.ok) throw new Error(`Class not found: ${res.status} ${res.statusText}`);
+  return res.json();
+}
+
+export async function getProfessor(professor_id: string) {
+  const url = apiUrl(`/professor/${professor_id}`);
+  const res = await fetch(url, { method: "GET" });
+  if (!res.ok) throw new Error(`Professor not found: ${res.status} ${res.statusText}`);
+  return res.json();
+}

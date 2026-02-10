@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { apiBase, auditCs, fetchHealth } from './api'
+import { apiBase, auditCs, fetchHealth, getClass, getProfessor } from './api'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,6 +10,20 @@ function App() {
   const [audit, setAudit] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [classData, setClassData] = useState<unknown>(null)
+  const [classId, setClassId] = useState<string | null>(null)
+
+  async function getClassData(classId: string) {
+    console.log(classId)
+    const data = await getClass(classId)
+    setClassData(JSON.stringify(data))
+    console.log(classData)
+  }
+
+  const handleClassData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 2. Update the state with the current text box value
+    setClassId(event.target.value);
+  };
 
   async function checkBackend() {
     setError(null)
@@ -72,9 +86,22 @@ function App() {
         {audit != null && <pre>{JSON.stringify(audit, null, 2)}</pre>}
       </div>
 
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      
+      <div className="card"></div>
+        <input 
+          type="text" 
+          value={classId || ''} // Binds the box to the state
+          onChange={handleClassData} // Fires on every keystroke
+        />
+        <button onClick={() => getClassData(classId || '')} disabled={loading || !classId}>
+          Get Class Data
+        </button>
+
+       
     </>
   )
 }
