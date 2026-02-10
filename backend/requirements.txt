@@ -7,3 +7,4 @@ pdfplumber
 pdfminer
 pdf2image
 pdf2image
+statistics

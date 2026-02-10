@@ -3,12 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 import os
-
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
 from deg_guide.solver.data_types import CourseAttempt
-
 from pydantic import BaseModel
 from parser import parse_transcript_pdf
+import apiHelperFunctions as apiHelper
 
 app = FastAPI()
 
@@ -28,6 +27,13 @@ def health():
     """Simple ping to check the API is up (e.g. for Render)."""
     return {"status": "ok"}
 
+@app.get("/class/{class_id}")
+def get_class(class_id: str):
+  return apiHelper.classFinder(class_id)
+
+@app.get("/professor/{professor_id}")
+def get_professor(professor_id: str):
+  return apiHelper.professorFinder(professor_id)
 
 COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
 #COURSES = load_courses("deg_guide/data/catalogs") this is to load all the courses from the catalogs folder
