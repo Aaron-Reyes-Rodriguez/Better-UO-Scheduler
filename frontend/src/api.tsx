@@ -65,6 +65,14 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
+export async function getTranscriptData()
+{
+  const url = apiUrl(`/transcriptData`);
+  const res = await fetch(url, { method: "GET" });
+  if (!res.ok) throw new Error(`File Not Found/Wrong File: ${res.status} ${res.statusText}`);
+  return res.json();
+}
+
 //Upload File API
 type UploadStatus = "idle" | 'uploading' | 'success' | 'error'
 

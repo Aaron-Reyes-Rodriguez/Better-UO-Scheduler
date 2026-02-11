@@ -77,8 +77,12 @@ async def upload_transcript(file: UploadFile):
     save_to = UPLOAD_DIR / file.filename
     with open(save_to, "wb") as f:
       f.write(data)
-    
     return {"filename": file.filename}
+
+@app.get("/transcriptData")
+def get_transcriptData():
+  return apiHelper.getTranscriptData()
+
 
 @app.post("/audit/cs")
 def audit_cs(req: AuditRequest):

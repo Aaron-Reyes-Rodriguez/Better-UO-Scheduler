@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { apiBase, auditCs, fetchHealth, getClass} from './api'
+import { apiBase, auditCs, fetchHealth, getClass, getTranscriptData} from './api'
 import FileUploader from './api'
 
 
@@ -13,7 +13,17 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [classData, setClassData] = useState<unknown>(null)
   const [classId, setClassId] = useState<string | null>(null)
+  const [transcriptData, setTranscriptData] = useState<string| null>(null)
 
+  async function TranscriptData() {
+    console.log(classId)
+    const data = await getTranscriptData()
+    
+    setTranscriptData(JSON.stringify(data))
+    console.log(transcriptData)
+  }
+
+  
   async function getClassData(classId: string) {
     console.log(classId)
     const data = await getClass(classId)
@@ -100,7 +110,9 @@ function App() {
           Get Class Data
         </button>
 
-       
+       <button onClick={()=> TranscriptData()}>
+        Get Transcipt Data
+       </button>
     </>
   )
 }
