@@ -85,8 +85,8 @@ async def upload_transcript(file: UploadFile):
             course_id=a["course_id"],
             credits_taken=a["credits_taken"],
             grading_basis=a["grading_basis"],
-            term=a["term"],
-            subtitle=a["subtitle"],
+            term=a.get('term'),      
+            subtitle=a.get('subtitle'),
         )
         for a in parsedData["taken_attempts"]
     ]
