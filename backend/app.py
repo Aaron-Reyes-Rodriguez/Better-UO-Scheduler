@@ -77,8 +77,20 @@ async def upload_transcript(file: UploadFile):
   save_to = UPLOAD_DIR / file.filename
   with open(save_to, "wb") as f:
     f.write(data)
-  returnData = parse_transcript_pdf(save_to)
-  print(returnData)
+  parsedData = parse_transcript_pdf(save_to)
+  
+  attempts = [
+        CourseAttempt(
+            attempt_id=a.attempt_id,
+            course_id=a.course_id,
+            credits_taken=a.credits_taken,
+            grading_basis=a.grading_basis,
+            term=a.term,
+            subtitle=a.subtitle,
+        )
+        for a in parsedData["taken_attempts"]
+    ]
+  returnData = solve_degree_audit(COURSES, attempts, [MAJOR_CS])
   return returnData
 
 @app.get("/transcriptData")
