@@ -73,11 +73,13 @@ class AuditRequest(BaseModel):
 
 @app.post("/upload/transcript")
 async def upload_transcript(file: UploadFile):
-    data = await file.read()
-    save_to = UPLOAD_DIR / file.filename
-    with open(save_to, "wb") as f:
-      f.write(data)
-    return {"filename": file.filename}
+  data = await file.read()
+  save_to = UPLOAD_DIR / file.filename
+  with open(save_to, "wb") as f:
+    f.write(data)
+  returnData = parse_transcript_pdf(save_to)
+  print(returnData)
+  return returnData
 
 @app.get("/transcriptData")
 def get_transcriptData():
@@ -100,12 +102,12 @@ def audit_cs(req: AuditRequest):
     return solve_degree_audit(COURSES, attempts, [MAJOR_CS])
 
 
-class TranscriptParseRequest(BaseModel):
-    pdf_path: str  # local path (easy for dev)
+# class TranscriptParseRequest(BaseModel):
+#     pdf_path: str  # local path (easy for dev)
 
-@app.post("/transcript/parse")
-def transcript_parse(req: TranscriptParseRequest):
-    return parse_transcript_pdf(req.pdf_path)
+# @app.post("/transcript/parse")
+# def transcript_parse(req: TranscriptParseRequest):
+#     return parse_transcript_pdf(req.pdf_path)
 
 
 

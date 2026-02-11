@@ -19,6 +19,6 @@ def getTranscriptData():
     Parse the backend transcript and send it back to the frontend
     """
     transcriptData = {"Something": "Blah"}
-
+    
     return transcriptData
 
