@@ -15,7 +15,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 app = FastAPI()
 
 # Allow frontend (e.g. AWS Amplify) to call this API when backend is on Render
-ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
+ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173, http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in ALLOWED_ORIGINS],
@@ -81,12 +81,12 @@ async def upload_transcript(file: UploadFile):
   
   attempts = [
         CourseAttempt(
-            attempt_id=a.attempt_id,
-            course_id=a.course_id,
-            credits_taken=a.credits_taken,
-            grading_basis=a.grading_basis,
-            term=a.term,
-            subtitle=a.subtitle,
+            attempt_id=a["attempt_id"],
+            course_id=a["course_id"],
+            credits_taken=a["credits_taken"],
+            grading_basis=a["grading_basis"],
+            term=a["term"],
+            subtitle=a["subtitle"],
         )
         for a in parsedData["taken_attempts"]
     ]
