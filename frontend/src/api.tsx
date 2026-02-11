@@ -1,3 +1,5 @@
+import { type ChangeEvent, useState } from "react"
+import axios from 'axios';
 /**
  * API base URL for the backend.
  * - Development: use .env with VITE_API_URL=http://localhost:8000
@@ -61,4 +63,82 @@ export async function getProfessor(professor_id: string) {
   const res = await fetch(url, { method: "GET" });
   if (!res.ok) throw new Error(`Professor not found: ${res.status} ${res.statusText}`);
   return res.json();
+}
+
+//Upload File API
+type UploadStatus = "idle" | 'uploading' | 'success' | 'error'
+
+export default function FileUploader()
+{
+    const [file, setFile] = useState<File | null>(null)
+    const [status, setStatus] = useState<UploadStatus>("idle")
+    function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
+    {
+      setStatus('idle')
+        if (e.target.files) {
+            setFile(e.target.files[0])
+            
+        }
+    }
+    async function handleFileUpload()
+    {
+        if (!file) return
+
+        setStatus("uploading")
+
+        const formData = new FormData()
+        formData.append('file', file)
+
+        try {
+            await axios.post(apiUrl("/upload/transcript"), formData, 
+          {
+            headers:{
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          setStatus('success')
+        } catch {
+          setStatus('error')
+        }
+    }
+    
+    return (
+        <div>
+            <input type="file" onChange={handleFileChange}/>
+            {
+                file && (
+                    <div>
+                        <p>File Name: {file.name}</p>
+                        <p>Size: {(file.size/1024).toFixed(2)} KB</p>
+                        <p>Type: {file.type}</p>
+                    </div>
+                )
+            }
+            {file && status !== "uploading" &&
+                <button onClick={handleFileUpload}>Upload</button>
+            }
+            {status === 'success' && (
+              <p className="text-red-600">
+                Upload Success
+              </p>
+            )
+            }
+            
+            {status === 'error' && (
+              <p className="text-red-600">
+                Upload Failed
+              </p>
+            )
+            }
+
+            {status == 'uploading' && (
+              <p>
+              </p>
+            )}
+            {status == 'idle' && (
+              <p>
+              </p>
+            )}
+        </div>
+    )
 }

@@ -2,10 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { apiBase, auditCs, fetchHealth, getClass, getProfessor } from './api'
+import { apiBase, auditCs, fetchHealth, getClass, getProfessor} from './api'
+import FileUploader from './api'
+
 
 function App() {
-  const [count, setCount] = useState(0)
   const [health, setHealth] = useState<string | null>(null)
   const [audit, setAudit] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
@@ -66,9 +67,7 @@ function App() {
       </div>
       <h1>Quackademics</h1>
       <div className="card">
-        <button onClick={() => setCount((c) => c + 1)}>
-          count is {count}
-        </button>
+        <FileUploader/>
       </div>
 
       <div className="card">
@@ -105,5 +104,4 @@ function App() {
     </>
   )
 }
-
 export default App

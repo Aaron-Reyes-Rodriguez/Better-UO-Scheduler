@@ -1,14 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 import os
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
 from deg_guide.solver.data_types import CourseAttempt
-from pydantic import BaseModel
 from parser import parse_transcript_pdf
 import apiHelperFunctions as apiHelper
+from pathlib import Path
 
+UPLOAD_DIR = Path() / 'uploadTranscript'
 app = FastAPI()
 
 # Allow frontend (e.g. AWS Amplify) to call this API when backend is on Render
@@ -67,6 +68,15 @@ class AttemptIn(BaseModel):
 class AuditRequest(BaseModel):
     taken_attempts: List[AttemptIn]
 
+
+@app.post("/upload/transcript")
+async def upload_transcript(file: UploadFile):
+    data = await file.read()
+    save_to = UPLOAD_DIR / file.filename
+    with open(save_to, "wb") as f:
+      f.write(data)
+    
+    return {"filename": file.filename}
 
 @app.post("/audit/cs")
 def audit_cs(req: AuditRequest):

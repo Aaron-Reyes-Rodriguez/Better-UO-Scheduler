@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+from pathlib import Path
 
 def classFinder(class_id):
     with open("deg_guide/data/jsonData/classes.json", "r") as f:
