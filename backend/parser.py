@@ -30,7 +30,8 @@ def extract_pdf_text(path: str) -> str:
 
 
 def canonical_course_id(subj: str, num: str) -> str:
-    return f"{subj.strip().upper()}{int(num)}"
+    # Preserve things like "110T" -> "PS110T" (can't int() those)
+    return f"{subj.strip().upper()}{num.strip().upper()}"
 
 
 def parse_float_maybe(s: str) -> Optional[float]:
@@ -74,21 +75,30 @@ def normalize_grade_and_credits(raw_grade: str, raw_credits: str) -> Tuple[str, 
 
 def parse_course_lines(text: str) -> List[ParsedLine]:
     """
-    Matches rows like:
-      "MATH 251 Calculus I A- 4 Winter 2026"
-      "COLT 212 Top Comp Wrld Cinema IP (4) Winter 2026"
+    Match course attempts anywhere in a line, not only when the line starts with SUBJECT NUMBER.
+
+    This catches rows like:
+      "College Composition II/III WR 122 College Composition II A- 4 Spring 2023"
+      "Computer Science I CS 210 Computer Science I A 4 Fall 2023"
+      "PS 110T Social Science Group B 4.5 Fall 2020"
+      "GEOG 120T Science A 6 Fall 2020"
+      "COLT 212 ... IP (4) Winter 2026"
     """
-    course_line_re = re.compile(
-        rf"(?m)^(?P<subj>[A-Z]{{2,5}})\s+(?P<num>\d{{2,3}})\s+"
-        rf"(?P<title>.+?)\s+"
+
+    # Course number: allow trailing letter (110T), and also allow 3 digits + letter.
+    # Credits: allow decimals (4.5) and parentheses (IP (4))
+    course_anywhere_re = re.compile(
+        rf"(?m)"
+        rf"(?P<subj>[A-Z]{{2,5}})\s+"
+        rf"(?P<num>\d{{2,3}}[A-Z]?)\s+"
+        rf"(?P<title>[^\n]+?)\s+"
         rf"(?P<grade>{GRADE_RE}(?:\s*\([\d.]+\))?)\s+"
         rf"(?P<credits>\(?[\d.]+\)?)\s+"
-        rf"(?P<term>{TERM_RE})"
-        rf".*$"
+        rf"(?P<term>{TERM_RE})\b"
     )
 
     out: List[ParsedLine] = []
-    for m in course_line_re.finditer(text):
+    for m in course_anywhere_re.finditer(text):
         course_id = canonical_course_id(m.group("subj"), m.group("num"))
         raw_grade = m.group("grade")
         raw_credits = m.group("credits")
@@ -107,7 +117,18 @@ def parse_course_lines(text: str) -> List[ParsedLine]:
                 grading_basis=grading_basis,
             )
         )
+    seen = set()
+    deduped: List[ParsedLine] = []
+    for ln in out:
+        key = (ln.course_id, ln.term_text, ln.grade, ln.credits)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(ln)
+    return deduped
+
     return out
+
 
 
 def build_attempts_and_grades(lines: List[ParsedLine]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
