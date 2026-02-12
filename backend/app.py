@@ -8,7 +8,6 @@ from deg_guide.solver.data_types import CourseAttempt
 from parser import parse_transcript_pdf
 import apiHelperFunctions as apiHelper
 from pathlib import Path
-
 import tempfile
 
 # 1. CRITICAL FOR RENDER: Create the directory if it doesn't exist

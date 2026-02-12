@@ -80,6 +80,7 @@ export default function FileUploader()
 {
     const [file, setFile] = useState<File | null>(null)
     const [status, setStatus] = useState<UploadStatus>("idle")
+
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
     {
       setStatus('idle')
@@ -105,6 +106,7 @@ export default function FileUploader()
             }
           })
           setStatus('success')
+
         } catch {
           setStatus('error')
         }
@@ -122,13 +124,14 @@ export default function FileUploader()
                     </div>
                 )
             }
-            {file && status !== "uploading" &&
+            {file && status !== "uploading" && status !== "success" &&
                 <button onClick={handleFileUpload}>Upload</button>
             }
             {status === 'success' && (
               <p className="text-red-600">
                 Upload Success
               </p>
+             
             )
             }
             
