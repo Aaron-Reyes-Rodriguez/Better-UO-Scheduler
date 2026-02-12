@@ -65,7 +65,7 @@
       "type": "credit_pool",
       "min_credits": 20,
       "where": { "subject": "CS", "min_number": 300 },
-      "exclude_from_set": "cs_upper_core",
+      "exclude_from_set": "cs_core_upper",
       "constraints": [
         { "min_credits": 12, "where": { "subject": "CS", "min_number": 410 }, "where_attempt": { "grading_basis": "graded" } },
         { "max_credits": 8,  "where": { "subject": "CS", "min_number": 300, "max_number": 409 } },
@@ -92,16 +92,13 @@
       "from_set": "writing_options"
     },
 
-    {
-      "id": "science_sequence",
-      "type": "choose_k",
-      "k": 1,
-      "options": [
-        { "type": "all_of", "from_set": "science_biology_sequence" },
-        { "type": "all_of", "from_set": "science_earth_sequence" },
-        { "type": "all_of", "from_set": "science_physics_sequence_a" },
-        { "type": "all_of", "from_set": "science_physics_sequence_b" }
-      ]
+    { "id": "science_bio_seq", "type": "all_of", "from_set": "science_biology_sequence" },
+    { "id": "science_earth_seq", "type": "all_of", "from_set": "science_earth_sequence" },
+    { "id": "science_phys_a_seq", "type": "all_of", "from_set": "science_physics_sequence_a" },
+    { "id": "science_phys_b_seq", "type": "all_of", "from_set": "science_physics_sequence_b" },
+
+    { "id": "science_sequence", "type": "choose_k", "k": 1,
+      "from_requirements": ["science_bio_seq", "science_earth_seq", "science_phys_a_seq", "science_phys_b_seq"]
     }
 
 
