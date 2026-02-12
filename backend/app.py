@@ -9,8 +9,10 @@ from parser import parse_transcript_pdf
 import apiHelperFunctions as apiHelper
 from pathlib import Path
 
+import tempfile
+
 # 1. CRITICAL FOR RENDER: Create the directory if it doesn't exist
-UPLOAD_DIR = Path() / 'uploadTranscript'
+UPLOAD_DIR = Path(tempfile.gettempdir()) / 'uploadTranscript'
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 app = FastAPI()
 

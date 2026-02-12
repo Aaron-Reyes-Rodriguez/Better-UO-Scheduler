@@ -3,7 +3,6 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { apiBase, auditCs, fetchHealth, getClass, getTranscriptData} from './api'
-import FileUploader from './api'
 
 
 function App() {
@@ -77,7 +76,6 @@ function App() {
       </div>
       <h1>Quackademics</h1>
       <div className="card">
-        <FileUploader/>
       </div>
 
       <div className="card">
