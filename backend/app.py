@@ -1,4 +1,6 @@
 from fastapi import FastAPI, UploadFile
+import asyncio
+from concurrent.futures import ProcessPoolExecutor
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -78,7 +80,9 @@ async def upload_transcript(file: UploadFile):
   save_to = UPLOAD_DIR / file.filename
   with open(save_to, "wb") as f:
     f.write(data)
-  parsedData = parse_transcript_pdf(save_to)
+  loop = asyncio.get_running_loop()
+  with ProcessPoolExecutor(max_workers=1) as executor:
+      parsedData = await loop.run_in_executor(executor, parse_transcript_pdf, save_to)
   
   attempts = [
         CourseAttempt(
