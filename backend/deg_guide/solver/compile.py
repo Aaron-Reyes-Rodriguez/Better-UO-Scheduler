@@ -161,6 +161,7 @@ def build_model(
     # Add constraints per requirement
     # Add constraints per requirement
     slack: Dict[str, cp_model.IntVar] = {}
+    slack_bounds: Dict[str, int] = {}  # {req_key: max_possible_slack}
 
     deferred_meta: List[Tuple[Program, Requirement]] = []
 
@@ -193,7 +194,9 @@ def build_model(
                     if course.id == cid and (att.attempt_id, req_key) in x
                 ]
                 s = model.NewIntVar(0, 1, f"slack_{req_key}_{cid}")
-                slack[f"{req_key}:{cid}"] = s
+                slack_key = f"{req_key}:{cid}"
+                slack[slack_key] = s
+                slack_bounds[slack_key] = 1
 
                 # satisfied if any matching attempt assigned, else slack=1
                 model.Add(sum(matching_attempt_vars) + s >= 1)
@@ -202,12 +205,14 @@ def build_model(
             k = int(req.k or 0)
             s = model.NewIntVar(0, k, f"slack_{req_key}")
             slack[req_key] = s
+            slack_bounds[req_key] = k
             model.Add(sum(vars_for_req) + s >= k)
 
         elif req.type == "credits_at_least":
             min_credits = int(req.min_credits or 0)
             s = model.NewIntVar(0, min_credits, f"slack_{req_key}")
             slack[req_key] = s
+            slack_bounds[req_key] = min_credits
 
             credit_sum = sum(
                 att.credits_taken * x[(att.attempt_id, req_key)]
@@ -220,6 +225,7 @@ def build_model(
             pool_min = int(req.min_credits or 0)
             s = model.NewIntVar(0, pool_min, f"slack_{req_key}")
             slack[req_key] = s
+            slack_bounds[req_key] = pool_min
 
             pool_credit_sum = sum(
                 att.credits_taken * x[(att.attempt_id, req_key)]
@@ -244,7 +250,9 @@ def build_model(
                 if "min_credits" in rule:
                     m = int(rule["min_credits"])
                     s2 = model.NewIntVar(0, m, f"slack_{req_key}_submin_{j}")
-                    slack[f"{req_key}:submin:{j}"] = s2
+                    slack_key = f"{req_key}:submin:{j}"
+                    slack[slack_key] = s2
+                    slack_bounds[slack_key] = m
                     model.Add(subset_sum + s2 >= m)
 
                 if "max_credits" in rule:
@@ -264,6 +272,7 @@ def build_model(
         k = int(req.k or 0)
         parent_slack = model.NewIntVar(0, k, f"slack_{req_key}")
         slack[req_key] = parent_slack
+        slack_bounds[req_key] = k
 
         sat_vars: List[cp_model.IntVar] = []
 
@@ -293,4 +302,4 @@ def build_model(
 
     model.Minimize(sum(slack.values()) if slack else 0)
 
-    return model, x, slack
+    return model, x, slack, slack_bounds
