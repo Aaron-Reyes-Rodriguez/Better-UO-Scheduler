@@ -85,7 +85,7 @@ async def upload_transcript(file: UploadFile):
       parsedData = await loop.run_in_executor(executor, parse_transcript_pdf, save_to)
   
   # Save the parsed data to the helper for retrieval via /transcriptData
-  apiHelper.saveTranscriptData(parsedData)
+  
 
   attempts = [
         CourseAttempt(
@@ -99,6 +99,7 @@ async def upload_transcript(file: UploadFile):
         for a in parsedData["taken_attempts"]
     ]
   returnData = solve_degree_audit(COURSES, attempts, [MAJOR_CS])
+  apiHelper.saveTranscriptData(returnData)
   return returnData
 
 @app.get("/transcriptData")
