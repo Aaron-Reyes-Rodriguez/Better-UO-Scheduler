@@ -131,6 +131,7 @@ def professorToJson(csvFile):
     professor_data[professor_id] = {
       "professor_name": row["professor"],
       "courses_taught_count": row["courses_taught_count"],
+      "courses_taught": row["courses_taught"],
       "gradeDistribution": {
         "AP": row["AP"],
         "A": row["A"],
