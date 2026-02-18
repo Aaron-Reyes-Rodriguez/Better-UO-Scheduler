@@ -1,5 +1,7 @@
 import { type ChangeEvent, useState } from "react"
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 /**
  * API base URL for the backend.
  * - Development: use .env with VITE_API_URL=http://localhost:8000
@@ -65,10 +67,12 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
-export async function getTranscriptData()
-{
+export async function getTranscriptData() {
   const url = apiUrl(`/transcriptData`);
-  const res = await fetch(url, { method: "GET" });
+  const res = await fetch(url, { 
+    method: "GET",
+    credentials: "include"
+  });
   if (!res.ok) throw new Error(`File Not Found/Wrong File: ${res.status} ${res.statusText}`);
   return res.json();
 }
@@ -80,76 +84,52 @@ export default function FileUploader()
 {
     const [file, setFile] = useState<File | null>(null)
     const [status, setStatus] = useState<UploadStatus>("idle")
+    const navigate = useNavigate()
 
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
     {
-      setStatus('idle')
+        setStatus('idle')
         if (e.target.files) {
             setFile(e.target.files[0])
-            
         }
     }
+
     async function handleFileUpload()
     {
         if (!file) return
-
         setStatus("uploading")
 
         const formData = new FormData()
         formData.append('file', file)
 
         try {
-            await axios.post(apiUrl("/upload/transcript"), formData, 
-          {
-            headers:{
-              'Content-Type': 'multipart/form-data'
-            }
-          })
-          setStatus('success')
-
+            await axios.post(apiUrl("/upload/transcript"), formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+              withCredentials: true
+        })
+            setStatus('success')
+            navigate("/transcriptdata")
         } catch {
-          setStatus('error')
+            setStatus('error')
         }
     }
     
     return (
         <div>
-            <input type="file" onChange={handleFileChange}/>
-            {
-                file && (
-                    <div>
-                        <p>File Name: {file.name}</p>
-                        <p>Size: {(file.size/1024).toFixed(2)} KB</p>
-                        <p>Type: {file.type}</p>
-                    </div>
-                )
-            }
-            {file && status !== "uploading" && status !== "success" &&
+            <input type="file" accept=".pdf" onChange={handleFileChange}/>
+            {file && (
+                <div>
+                    <p>File Name: {file.name}</p>
+                    <p>Size: {(file.size/1024).toFixed(2)} KB</p>
+                    <p>Type: {file.type}</p>
+                </div>
+            )}
+            {file && status !== "uploading" && status !== "success" && (
                 <button onClick={handleFileUpload}>Upload</button>
-            }
-            {status === 'success' && (
-              <p className="text-red-600">
-                Upload Success
-              </p>
-             
-            )
-            }
-            
-            {status === 'error' && (
-              <p className="text-red-600">
-                Upload Failed
-              </p>
-            )
-            }
-
-            {status == 'uploading' && (
-              <p>
-              </p>
             )}
-            {status == 'idle' && (
-              <p>
-              </p>
-            )}
+            {status === 'uploading' && <p>Uploading...</p>}
+            {status === 'success' && <p className="text-green-600">Upload Successful!</p>}
+            {status === 'error' && <p className="text-red-600">Upload Failed. Please try again.</p>}
         </div>
     )
 }

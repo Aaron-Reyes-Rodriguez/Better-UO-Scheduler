@@ -8,6 +8,7 @@ import GeneralClass from './pages/general_class.tsx'
 import GeneralProfessor from './pages/general_professor.tsx'
 import Scheduler from './pages/scheduler.tsx'
 import Search from './pages/search.tsx'
+import TranscriptData from './pages/transcriptdata.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="professor" element={<GeneralProfessor />} />
           <Route path="scheduler" element={<Scheduler />} />
           <Route path="search" element={<Search />} />
+          <Route path="transcriptdata" element={<TranscriptData />} />
         </Route>
       </Routes>
     </BrowserRouter>
