@@ -122,8 +122,49 @@ def classCsvToJson(csvFile):
   print("Classes data saved to deg_guide/data/jsonData/classes.json")
   return class_data
 
+def professorToJson(csvFile):
+  professor_data = {}
+  df = pd.read_csv(csvFile)
+  for index, row in df.iterrows():
+    professor_id = row["professor"].strip()
+    professor_id = professor_id.replace(" ", "")
+    professor_data[professor_id] = {
+      "professor_name": row["professor"],
+      "courses_taught_count": row["courses_taught_count"],
+      "gradeDistribution": {
+        "AP": row["AP"],
+        "A": row["A"],
+        "AM": row["AM"],
+        "BP": row["BP"],
+        "B": row["B"],
+        "BM": row["BM"],
+        "CP": row["CP"],
+        "C": row["C"],
+        "CM": row["CM"],
+        "DP": row["DP"],
+        "D": row["D"],
+        "DM": row["DM"],  
+        "F": row["F"],
+        "A_Count": row["A_count"],
+        "B_Count": row["B_count"],
+        "C_Count": row["C_count"],
+        "D_Count": row["D_count"],
+        "F_Count": row["F_count"],
+      },
+      "stats": {
+        "averageGrade": row["avg_gpa"],
+        "totalStudents": row["total_students"]
+      }
+    }
+  with open("deg_guide/data/jsonData/professors.json", "w") as f:
+    json.dump(professor_data, f)
+  print("Professors data saved to deg_guide/data/jsonData/professors.json")
+  return professor_data
+
+
 if __name__ == "__main__":
   class_data = classCsvToJson("deg_guide/data/records/cs_courses.csv") #change this to the csv file you want to convert
+  professor_data = professorToJson("deg_guide/data/records/cs_professors.csv") #change this to the csv file you want to convert
   
 
 
