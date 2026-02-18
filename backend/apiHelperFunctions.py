@@ -14,11 +14,20 @@ def professorFinder(professor_id):
     print(professor_data)
     return professor_data[professor_id]
 
+# Global variable to store transcript data in memory
+transcriptData = {}
+
+def saveTranscriptData(data):
+    """
+    Save the parsed transcript data to the global variable
+    """
+    global transcriptData
+    transcriptData = data
+
 def getTranscriptData():
     """
     Parse the backend transcript and send it back to the frontend
     """
-    transcriptData = {"Something": "Blah"}
-    
+    global transcriptData
     return transcriptData
 

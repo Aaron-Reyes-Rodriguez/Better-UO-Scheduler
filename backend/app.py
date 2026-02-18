@@ -84,6 +84,9 @@ async def upload_transcript(file: UploadFile):
   with ProcessPoolExecutor(max_workers=1) as executor:
       parsedData = await loop.run_in_executor(executor, parse_transcript_pdf, save_to)
   
+  # Save the parsed data to the helper for retrieval via /transcriptData
+  apiHelper.saveTranscriptData(parsedData)
+
   attempts = [
         CourseAttempt(
             attempt_id=a["attempt_id"],
