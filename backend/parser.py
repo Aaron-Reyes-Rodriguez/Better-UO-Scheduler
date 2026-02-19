@@ -72,6 +72,38 @@ def normalize_grade_and_credits(raw_grade: str, raw_credits: str) -> Tuple[str, 
 
     return raw_grade, parse_float_maybe(raw_credits), "completed"
 
+def strip_disallowed_sections(text: str) -> str:
+    """
+    Remove blocks that should NOT contribute to the degree:
+    - Excess credits
+    - Insufficient - Does not count towards degree
+    - Over The Limit - Does not count towards degree
+
+    Keep In-progress (it counts as planned/in-progress courses).
+    """
+    disallowed_headers = [
+        r"Excess credits",
+        r"Insufficient\s*-\s*Does not count towards degree",
+        r"Over The Limit\s*-\s*Does not count towards degree",
+    ]
+
+    # Start cutting from each disallowed header until the next known header OR end of file.
+    # Known “next headers” at end of the PDF:
+    # - In-progress
+    # - Legend
+    # - Disclaimer
+    # - (or another disallowed header)
+    next_header = r"(?:In-progress|Legend|Disclaimer|" + "|".join(disallowed_headers) + r")"
+
+    cleaned = text
+    for hdr in disallowed_headers:
+        cleaned = re.sub(
+            rf"(?is)\b{hdr}\b.*?(?=\b{next_header}\b|$)",
+            "",
+            cleaned,
+        )
+    return cleaned
+
 
 def parse_course_lines(text: str) -> List[ParsedLine]:
     """
@@ -87,6 +119,9 @@ def parse_course_lines(text: str) -> List[ParsedLine]:
 
     # Course number: allow trailing letter (110T), and also allow 3 digits + letter.
     # Credits: allow decimals (4.5) and parentheses (IP (4))
+
+    text = strip_disallowed_sections(text)
+    
     course_anywhere_re = re.compile(
         rf"(?m)"
         rf"(?P<subj>[A-Z]{{2,5}})\s+"
