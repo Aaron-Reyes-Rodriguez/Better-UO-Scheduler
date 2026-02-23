@@ -1,6 +1,6 @@
 {
-  "id": "UO_BS",
-  "name": "UO Bachelor of Science",
+  "id": "UO_BS_2022-2023",
+  "name": "UO Bachelor of Science (2022-2023)",
   "sets": {
     "bs_math_cis_allowed": ["MATH251", "MATH252", "CIS210", "CIS211"]
   },

@@ -1,0 +1,16 @@
+{
+  "id": "UO_BS_2024-2025",
+  "name": "UO Bachelor of Science (2024-2025)",
+  "sets": {
+    "bs_math_cis_allowed": ["MATH251", "MATH252", "CIS210", "CIS211"]
+  },
+  "requirements": [
+    {
+      "id": "bs_math_or_cis_year",
+      "type": "credits_at_least",
+      "min_credits": 12,
+      "from_set": "bs_math_cis_allowed"
+    }
+  ],
+  "overlap_rules": []
+}

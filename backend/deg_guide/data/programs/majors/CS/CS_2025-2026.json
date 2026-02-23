@@ -1,0 +1,110 @@
+{
+  "id": "MAJOR_CS_2025-2026",
+  "name": "Computer Science Major (2025-2026)",
+  "sets": {
+
+    "math_seq_251_252": ["MATH251", "MATH252"],
+    "math_seq_261_262": ["MATH261", "MATH262"],
+    "math_seq_246_247": ["MATH246", "MATH247"],
+    
+    "cs_core_lower": ["CS210", "CS211", "CS212"],
+
+    "cs_core_upper": ["CS313", "CS314", "CS315", "CS330", "CS415", "CS422", "CS425"],
+
+    "cs_math_core": [
+      "MATH231",
+      "MATH232",
+      "MATH251",
+      "MATH252",
+      "MATH341",
+      "MATH343",
+      "MATH345M"
+    ],
+
+    "ethics_options": ["PHIL223", "PHIL123"],
+
+    "writing_options": ["WR320", "WR321", "HC301H"],
+
+    "science_biology_sequence": [
+      "BI221Z",
+      "BI222Z",
+      "BI223Z"
+    ],
+
+    "science_earth_sequence": [
+      "ERTH201",
+      "ERTH202",
+      "ERTH203"
+    ],
+
+    "science_physics_sequence_a": [
+      "PHYS201",
+      "PHYS202",
+      "PHYS203"
+    ],
+
+    "science_physics_sequence_b": [
+      "PHYS251",
+      "PHYS252",
+      "PHYS253"
+    ]
+  },
+
+  "requirements": [
+    
+    { "id": "seq_calc_251_252", "type": "all_of", "courses": ["MATH251", "MATH252"], "must_be": { "grading_basis": "graded" } },
+    { "id": "seq_calc_261_262", "type": "all_of", "courses": ["MATH261", "MATH262"], "must_be": { "grading_basis": "graded" } },
+    { "id": "seq_calc_246_247", "type": "all_of", "courses": ["MATH246", "MATH247"], "must_be": { "grading_basis": "graded" } },
+
+    { "id": "math_two_course_sequence", "type": "choose_k", "k": 1,
+      "from_requirements": ["seq_calc_251_252", "seq_calc_261_262", "seq_calc_246_247"]
+    },
+
+    {
+      "id": "cs_upper_div_elective",
+      "type": "credit_pool",
+      "min_credits": 20,
+      "where": { "subject": "CS", "min_number": 300 },
+      "exclude_from_set": "cs_core_upper",
+      "constraints": [
+        { "min_credits": 12, "where": { "subject": "CS", "min_number": 410 }, "where_attempt": { "grading_basis": "graded" } },
+        { "max_credits": 8,  "where": { "subject": "CS", "min_number": 300, "max_number": 409 } },
+        { "max_credits": 8,  "where_attempt": { "grading_basis": "pnp" } }
+      ]
+    },
+
+    {
+      "id": "cs_core_lower",
+      "type": "all_of",
+      "from_set": "cs_core_lower"
+    },
+
+    {
+      "id": "cs_core_upper",
+      "type": "all_of",
+      "from_set": "cs_core_upper"
+    },
+
+    {
+      "id": "writing",
+      "type": "choose_k",
+      "k": 1,
+      "from_set": "writing_options"
+    },
+
+    { "id": "science_bio_seq", "type": "all_of", "from_set": "science_biology_sequence" },
+    { "id": "science_earth_seq", "type": "all_of", "from_set": "science_earth_sequence" },
+    { "id": "science_phys_a_seq", "type": "all_of", "from_set": "science_physics_sequence_a" },
+    { "id": "science_phys_b_seq", "type": "all_of", "from_set": "science_physics_sequence_b" },
+
+    { "id": "science_sequence", "type": "choose_k", "k": 1,
+      "from_requirements": ["science_bio_seq", "science_earth_seq", "science_phys_a_seq", "science_phys_b_seq"]
+    }
+
+
+  ],
+
+  "overlap_rules": [
+    { "type": "no_double_counting_default" }
+  ]
+}

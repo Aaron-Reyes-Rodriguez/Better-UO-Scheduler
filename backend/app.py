@@ -43,8 +43,96 @@ def get_professor(professor_id: str):
 
 COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
 #COURSES = load_courses("deg_guide/data/catalogs") this is to load all the courses from the catalogs folder
-MAJOR_CS = load_program("deg_guide/data/programs/majors/CS.json")
-BS = load_program("deg_guide/data/programs/degree_types/BS.json")
+
+VALID_CATALOG_YEARS = ["2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025-2026"]
+DEFAULT_CATALOG_YEAR = "2025-2026"
+
+# Mapping from program name to code (also tracks what we've implemented)
+DEGREE_TYPE_MAP = {
+    "Bachelor of Science": "BS",
+    "Bachelor of Arts": "BA",
+}
+
+MAJOR_CODE_MAP = {
+    "Computer Science": "CS",
+}
+
+MINOR_CODE_MAP = {
+    "Mathematics": "MATH",
+}
+
+
+def normalize_catalog_year(year_str: str) -> str:
+    """
+    Normalize catalog year strings to YYYY-YYYY format.
+    Handles formats like: "2022-2023", "Winter 2025", "Fall 2024", "2025"
+    """
+    if not year_str:
+        return DEFAULT_CATALOG_YEAR
+    
+    year_str = year_str.strip()
+    
+    # Already in correct format
+    if year_str in VALID_CATALOG_YEARS:
+        return year_str
+    
+    # Handle "Season YYYY" format (e.g., "Winter 2025", "Fall 2024")
+    season_year_parts = year_str.split()
+    if len(season_year_parts) == 2:
+        season, year = season_year_parts[0].lower(), season_year_parts[1]
+        if year.isdigit():
+            year_int = int(year)
+            # Fall/Winter terms belong to the academic year starting that fall
+            # Spring/Summer terms belong to the academic year that started previous fall
+            if season in ["fall", "winter"]:
+                catalog_year = f"{year_int}-{year_int + 1}"
+            else:  # spring, summer
+                catalog_year = f"{year_int - 1}-{year_int}"
+            if catalog_year in VALID_CATALOG_YEARS:
+                return catalog_year
+    
+    # Handle bare year "2025"
+    if year_str.isdigit():
+        year_int = int(year_str)
+        catalog_year = f"{year_int - 1}-{year_int}"
+        if catalog_year in VALID_CATALOG_YEARS:
+            return catalog_year
+    
+    return DEFAULT_CATALOG_YEAR
+
+
+def load_program_by_type(program_type: str, code: str, year: str):
+    """
+    Load a program JSON file by type, code, and catalog year.
+    
+    Args:
+        program_type: "degree_types", "majors", or "minors"
+        code: Program code (e.g., "BS", "CS", "MATH")
+        year: Catalog year in YYYY-YYYY format
+    
+    Returns:
+        Loaded program dict, or None if file doesn't exist
+    """
+    year = normalize_catalog_year(year)
+    
+    if program_type == "degree_types":
+        path = f"deg_guide/data/programs/degree_types/{code}_{year}.json"
+    elif program_type == "majors":
+        path = f"deg_guide/data/programs/majors/{code}/{code}_{year}.json"
+    elif program_type == "minors":
+        path = f"deg_guide/data/programs/minors/{code}/{code}_{year}.json"
+    else:
+        return None
+    
+    try:
+        return load_program(path)
+    except Exception:
+        return None
+
+
+def load_cs_major(year: str):
+    """Load the CS major requirements for a specific catalog year."""
+    return load_program_by_type("majors", "CS", year)
 
 '''
     { 
@@ -84,8 +172,56 @@ async def upload_transcript(file: UploadFile):
   with ProcessPoolExecutor(max_workers=1) as executor:
       parsedData = await loop.run_in_executor(executor, parse_transcript_pdf, save_to)
   
-  # Save the parsed data to the helper for retrieval via /transcriptData
+  broad_data = parsedData.get("broad_data", {})
+  programs_to_audit = []
+  programs_loaded_info = {}
   
+  # 1. Load degree type (BS/BA) with its catalog year
+  degree_catalog_year = normalize_catalog_year(broad_data.get("catalog_year", ""))
+  program_name = broad_data.get("program", "")
+  degree_code = DEGREE_TYPE_MAP.get(program_name)
+  if degree_code:
+      degree_program = load_program_by_type("degree_types", degree_code, degree_catalog_year)
+      if degree_program:
+          programs_to_audit.append(degree_program)
+          programs_loaded_info["degree_type"] = {
+              "code": degree_code,
+              "catalog_year": degree_catalog_year
+          }
+  
+  # 2. Load major with its catalog year
+  declared_major = broad_data.get("declared_major", {})
+  major_name = declared_major.get("name", "")
+  major_catalog_year = normalize_catalog_year(declared_major.get("catalog_year", ""))
+  major_code = MAJOR_CODE_MAP.get(major_name)
+  if major_code:
+      major_program = load_program_by_type("majors", major_code, major_catalog_year)
+      if major_program:
+          programs_to_audit.append(major_program)
+          programs_loaded_info["major"] = {
+              "code": major_code,
+              "name": declared_major.get("name"),
+              "catalog_year": major_catalog_year
+          }
+  
+  # 3. Load minors with their respective catalog years
+  minors = broad_data.get("minors", [])
+  loaded_minors = []
+  for minor in minors:
+      minor_name = minor.get("name", "")
+      minor_catalog_year = normalize_catalog_year(minor.get("catalog_year", ""))
+      minor_code = MINOR_CODE_MAP.get(minor_name)
+      if minor_code:
+          minor_program = load_program_by_type("minors", minor_code, minor_catalog_year)
+          if minor_program:
+              programs_to_audit.append(minor_program)
+              loaded_minors.append({
+                  "code": minor_code,
+                  "name": minor.get("name"),
+                  "catalog_year": minor_catalog_year
+              })
+  if loaded_minors:
+      programs_loaded_info["minors"] = loaded_minors
 
   attempts = [
         CourseAttempt(
@@ -98,7 +234,9 @@ async def upload_transcript(file: UploadFile):
         )
         for a in parsedData["taken_attempts"]
     ]
-  returnData = solve_degree_audit(COURSES, attempts, [MAJOR_CS])
+  
+  returnData = solve_degree_audit(COURSES, attempts, programs_to_audit)
+  returnData["programs_loaded"] = programs_loaded_info
   apiHelper.saveTranscriptData(returnData)
   return returnData
 
@@ -106,9 +244,34 @@ async def upload_transcript(file: UploadFile):
 def get_transcriptData():
   return apiHelper.getTranscriptData()
 
+@app.get("/catalog-years")
+def get_catalog_years():
+    """Return available catalog years for CS major."""
+    return {"years": VALID_CATALOG_YEARS, "default": DEFAULT_CATALOG_YEAR}
+
 
 @app.post("/audit/cs")
-def audit_cs(req: AuditRequest):
+def audit_cs(req: AuditRequest, year: str = DEFAULT_CATALOG_YEAR, degree_type: str = "BS"):
+    """
+    Audit CS major requirements.
+    
+    Args:
+        year: Catalog year (e.g., "2022-2023")
+        degree_type: "BS" or "BA"
+    """
+    year = normalize_catalog_year(year)
+    programs = []
+    
+    # Load degree type
+    degree_program = load_program_by_type("degree_types", degree_type.upper(), year)
+    if degree_program:
+        programs.append(degree_program)
+    
+    # Load CS major
+    major_cs = load_cs_major(year)
+    if major_cs:
+        programs.append(major_cs)
+    
     attempts = [
         CourseAttempt(
             attempt_id=a.attempt_id,
@@ -120,7 +283,7 @@ def audit_cs(req: AuditRequest):
         )
         for a in req.taken_attempts
     ]
-    return solve_degree_audit(COURSES, attempts, [MAJOR_CS])
+    return solve_degree_audit(COURSES, attempts, programs)
 
 
 # class TranscriptParseRequest(BaseModel):
