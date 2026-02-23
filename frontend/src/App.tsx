@@ -2,14 +2,38 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { apiBase, auditCs, fetchHealth } from './api'
+import { apiBase, auditCs, fetchHealth, getClass, getTranscriptData} from './api'
+
 
 function App() {
-  const [count, setCount] = useState(0)
   const [health, setHealth] = useState<string | null>(null)
   const [audit, setAudit] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [classData, setClassData] = useState<unknown>(null)
+  const [classId, setClassId] = useState<string | null>(null)
+  const [transcriptData, setTranscriptData] = useState<string| null>(null)
+
+  async function TranscriptData() {
+    console.log(classId)
+    const data = await getTranscriptData()
+    
+    setTranscriptData(JSON.stringify(data))
+    console.log(transcriptData)
+  }
+
+  
+  async function getClassData(classId: string) {
+    console.log(classId)
+    const data = await getClass(classId)
+    setClassData(JSON.stringify(data))
+    console.log(classData)
+  }
+
+  const handleClassData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 2. Update the state with the current text box value
+    setClassId(event.target.value);
+  };
 
   async function checkBackend() {
     setError(null)
@@ -52,9 +76,6 @@ function App() {
       </div>
       <h1>Quackademics</h1>
       <div className="card">
-        <button onClick={() => setCount((c) => c + 1)}>
-          count is {count}
-        </button>
       </div>
 
       <div className="card">
@@ -72,11 +93,25 @@ function App() {
         {audit != null && <pre>{JSON.stringify(audit, null, 2)}</pre>}
       </div>
 
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      
+      <div className="card"></div>
+        <input 
+          type="text" 
+          value={classId || ''} // Binds the box to the state
+          onChange={handleClassData} // Fires on every keystroke
+        />
+        <button onClick={() => getClassData(classId || '')} disabled={loading || !classId}>
+          Get Class Data
+        </button>
+
+       <button onClick={()=> TranscriptData()}>
+        Get Transcipt Data
+       </button>
     </>
   )
 }
-
 export default App

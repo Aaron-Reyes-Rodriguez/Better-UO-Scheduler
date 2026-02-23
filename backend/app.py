@@ -1,19 +1,24 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
+import asyncio
+from concurrent.futures import ProcessPoolExecutor
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 import os
-
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
 from deg_guide.solver.data_types import CourseAttempt
-
-from pydantic import BaseModel
 from parser import parse_transcript_pdf
+import apiHelperFunctions as apiHelper
+from pathlib import Path
+import tempfile
 
+# 1. CRITICAL FOR RENDER: Create the directory if it doesn't exist
+UPLOAD_DIR = Path(tempfile.gettempdir()) / 'uploadTranscript'
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 app = FastAPI()
 
 # Allow frontend (e.g. AWS Amplify) to call this API when backend is on Render
-ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
+ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173, http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in ALLOWED_ORIGINS],
@@ -28,6 +33,13 @@ def health():
     """Simple ping to check the API is up (e.g. for Render)."""
     return {"status": "ok"}
 
+@app.get("/class/{class_id}")
+def get_class(class_id: str):
+  return apiHelper.classFinder(class_id)
+
+@app.get("/professor/{professor_id}")
+def get_professor(professor_id: str):
+  return apiHelper.professorFinder(professor_id)
 
 COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
 #COURSES = load_courses("deg_guide/data/catalogs") this is to load all the courses from the catalogs folder
@@ -62,6 +74,39 @@ class AuditRequest(BaseModel):
     taken_attempts: List[AttemptIn]
 
 
+@app.post("/upload/transcript")
+async def upload_transcript(file: UploadFile):
+  data = await file.read()
+  save_to = UPLOAD_DIR / file.filename
+  with open(save_to, "wb") as f:
+    f.write(data)
+  loop = asyncio.get_running_loop()
+  with ProcessPoolExecutor(max_workers=1) as executor:
+      parsedData = await loop.run_in_executor(executor, parse_transcript_pdf, save_to)
+  
+  # Save the parsed data to the helper for retrieval via /transcriptData
+  
+
+  attempts = [
+        CourseAttempt(
+            attempt_id=a["attempt_id"],
+            course_id=a["course_id"],
+            credits_taken=a["credits_taken"],
+            grading_basis=a["grading_basis"],
+            term=a.get('term'),      
+            subtitle=a.get('subtitle'),
+        )
+        for a in parsedData["taken_attempts"]
+    ]
+  returnData = solve_degree_audit(COURSES, attempts, [MAJOR_CS])
+  apiHelper.saveTranscriptData(returnData)
+  return returnData
+
+@app.get("/transcriptData")
+def get_transcriptData():
+  return apiHelper.getTranscriptData()
+
+
 @app.post("/audit/cs")
 def audit_cs(req: AuditRequest):
     attempts = [
@@ -78,12 +123,12 @@ def audit_cs(req: AuditRequest):
     return solve_degree_audit(COURSES, attempts, [MAJOR_CS])
 
 
-class TranscriptParseRequest(BaseModel):
-    pdf_path: str  # local path (easy for dev)
+# class TranscriptParseRequest(BaseModel):
+#     pdf_path: str  # local path (easy for dev)
 
-@app.post("/transcript/parse")
-def transcript_parse(req: TranscriptParseRequest):
-    return parse_transcript_pdf(req.pdf_path)
+# @app.post("/transcript/parse")
+# def transcript_parse(req: TranscriptParseRequest):
+#     return parse_transcript_pdf(req.pdf_path)
 
 
 

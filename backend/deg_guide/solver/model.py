@@ -5,9 +5,7 @@ from ortools.sat.python import cp_model
 from .data_types import Course, Requirement, Program
 from .compile import build_model
 
-def intvar_upper_bound(v: cp_model.IntVar) -> int:
-    dom = list(v.Proto().domain)  # [lb, ub, lb, ub, ...]
-    return max(dom[1::2]) if dom else 0
+
 
 
 def load_courses(path: str) -> Dict[str, Course]:
@@ -130,8 +128,9 @@ def load_program(path: str) -> Program:
         sets=dict(data.get("sets", {}))
     )
 
+
 def solve_degree_audit(courses, taken_attempts, programs) -> dict:
-    model, x, slack = build_model(courses, taken_attempts, programs)
+    model, x, slack, slack_bounds = build_model(courses, taken_attempts, programs)
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = 3.0
     status = solver.Solve(model)
@@ -152,7 +151,7 @@ def solve_degree_audit(courses, taken_attempts, programs) -> dict:
     slack_out = {k: int(solver.Value(v)) for k, v in slack.items()}
 
     total_slack = sum(slack_out.values())
-    total_required = sum(intvar_upper_bound(v) for v in slack.values()) if slack else 0
+    total_required = sum(slack_bounds.get(k, 0) for k in slack.keys())
     completion_ratio = 1.0 if total_required == 0 else max(0.0, 1.0 - total_slack / total_required)
 
     return {
