@@ -24,20 +24,142 @@ def weighted_gpa(df: pd.DataFrame) -> pd.Series:
         + df["DM"] * 0.7
     ) / df["total_students"]
 
+def get_course_professor_term_data(df: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    # 1) TERM + COURSE + PROF
+    course_prof = (
+        df.groupby(["term_code", "term", "course_id", "course_number", "professor"], as_index=False)[
+            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
+        ]
+        .sum()
+    )
+    course_prof["avg_gpa"] = weighted_gpa(course_prof).round(3)
 
-def main() -> None:
-    base_dir = Path(__file__).parent
-    xlsx_path = base_dir / "pub_rec_master_f2015-u2025.xlsx"
+    course_prof = course_prof[
+        [
+            "term_code",
+            "term",
+            "course_id",
+            "course_number",
+            "professor",
+            "total_students",
+            *GRADE_COLS,
+            "A_count",
+            "B_count",
+            "C_count",
+            "D_count",
+            "F_count",
+            "avg_gpa",
+        ]
+    ].sort_values(["term_code", "course_id", "professor"], ascending=[True, True, True])
 
-    out_course_prof = base_dir / "cs_course_professor.csv"
-    out_courses = base_dir / "cs_courses.csv"
-    out_professors = base_dir / "cs_professors.csv"
+    course_prof.to_csv(output_path, index=False, encoding="utf-8")
+    return course_prof
 
-    if not xlsx_path.exists():
-        raise FileNotFoundError(f"file not found: {xlsx_path}")
+def get_class_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    # 2) COURSE (ALL TERMS)
+    courses = (
+        course_prof.groupby(["course_id", "course_number"], as_index=False)[
+            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
+        ]
+        .sum()
+    )
+    courses["avg_gpa"] = weighted_gpa(courses).round(3)
+
+    courses = courses[
+        [
+            "course_id",
+            "course_number",
+            "total_students",
+            *GRADE_COLS,
+            "A_count",
+            "B_count",
+            "C_count",
+            "D_count",
+            "F_count",
+            "avg_gpa",
+        ]
+    ].sort_values(["course_id"], ascending=True)
+
+    courses.to_csv(output_path, index=False, encoding="utf-8")
+    return courses
+
+def get_professor_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    # 3) PROFESSOR (ALL TERMS)
+    professors = (
+        course_prof.groupby(["professor"], as_index=False)[
+            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
+        ]
+        .sum()
+    )
+    professors["avg_gpa"] = weighted_gpa(professors).round(3)
+
+    # Add courses taught
+    prof_courses = (
+        course_prof.groupby("professor")["course_id"]
+        .apply(lambda s: sorted(set(s.tolist())))
+    )
+    professors["courses_taught_count"] = professors["professor"].map(
+        lambda p: len(prof_courses.get(p, []))
+    )
+    professors["courses_taught"] = professors["professor"].map(
+        lambda p: "; ".join(prof_courses.get(p, []))
+    )
+
+    professors = professors[
+        [
+            "professor",
+            "courses_taught_count",
+            "courses_taught",
+            "total_students",
+            *GRADE_COLS,
+            "A_count",
+            "B_count",
+            "C_count",
+            "D_count",
+            "F_count",
+            "avg_gpa",
+        ]
+    ].sort_values(["professor"], ascending=True)
+
+    professors.to_csv(output_path, index=False, encoding="utf-8")
+    return professors
+
+def get_class_professor_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    # 4) CLASS + PROFESSOR (ALL TERMS)
+    class_prof = (
+        course_prof.groupby(["course_id", "course_number", "professor"], as_index=False)[
+            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
+        ]
+        .sum()
+    )
+    class_prof["avg_gpa"] = weighted_gpa(class_prof).round(3)
+
+    class_prof = class_prof[
+        [
+            "course_id",
+            "course_number",
+            "professor",
+            "total_students",
+            *GRADE_COLS,
+            "A_count",
+            "B_count",
+            "C_count",
+            "D_count",
+            "F_count",
+            "avg_gpa",
+        ]
+    ].sort_values(["course_id", "professor"], ascending=True)
+
+    class_prof.to_csv(output_path, index=False, encoding="utf-8")
+    return class_prof
+
+
+def clean_up_data(file_path: Path) -> pd.DataFrame:
+    if not file_path.exists():
+        raise FileNotFoundError(f"file not found: {file_path}")
 
     # Load/normalize headers
-    df = pd.read_excel(xlsx_path)
+    df = pd.read_excel(file_path)
     df.columns = df.columns.str.strip()
 
     term_descr_col = "TERM_DESC"
@@ -88,104 +210,31 @@ def main() -> None:
         .str.replace("*", "", regex=False)
         .str.strip()
     )
+    return df
 
-    # 1) TERM + COURSE + PROF
-    course_prof = (
-        df.groupby(["term_code", "term", "course_id", "course_number", "professor"], as_index=False)[
-            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
-        ]
-        .sum()
-    )
-    course_prof["avg_gpa"] = weighted_gpa(course_prof).round(3)
 
-    course_prof = course_prof[
-        [
-            "term_code",
-            "term",
-            "course_id",
-            "course_number",
-            "professor",
-            "total_students",
-            *GRADE_COLS,
-            "A_count",
-            "B_count",
-            "C_count",
-            "D_count",
-            "F_count",
-            "avg_gpa",
-        ]
-    ].sort_values(["term_code", "course_id", "professor"], ascending=[True, True, True])
+def main() -> None:
+    base_dir = Path(__file__).parent
+    xlsx_path = base_dir / "pub_rec_master_f2015-u2025.xlsx"
+    df = clean_up_data(xlsx_path)
 
-    course_prof.to_csv(out_course_prof, index=False, encoding="utf-8")
+    out_course_prof_term = base_dir / "course_professor_term.csv"
+    out_courses = base_dir / "courses.csv"
+    out_professors = base_dir / "professors.csv"
+    out_course_prof = base_dir / "course_professor.csv"
 
+    # 1) COURSE + Professor (PER TERM)
+    course_prof_term = get_course_professor_term_data(df, out_course_prof_term)
+    print(f"Generated: {out_course_prof_term}")
     # 2) COURSE (ALL TERMS)
-    courses = (
-        course_prof.groupby(["course_id", "course_number"], as_index=False)[
-            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
-        ]
-        .sum()
-    )
-    courses["avg_gpa"] = weighted_gpa(courses).round(3)
-
-    courses = courses[
-        [
-            "course_id",
-            "course_number",
-            "total_students",
-            *GRADE_COLS,
-            "A_count",
-            "B_count",
-            "C_count",
-            "D_count",
-            "F_count",
-            "avg_gpa",
-        ]
-    ].sort_values(["course_id"], ascending=True)
-
-    courses.to_csv(out_courses, index=False, encoding="utf-8")
-
-    # 3) PROFESSOR (ALL TERMS)
-    professors = (
-        course_prof.groupby(["professor"], as_index=False)[
-            GRADE_COLS + ["A_count", "B_count", "C_count", "D_count", "F_count", "total_students"]
-        ]
-        .sum()
-    )
-    professors["avg_gpa"] = weighted_gpa(professors).round(3)
-
-    # Add courses taught
-    prof_courses = (
-        course_prof.groupby("professor")["course_id"]
-        .apply(lambda s: sorted(set(s.tolist())))
-    )
-    professors["courses_taught_count"] = professors["professor"].map(
-        lambda p: len(prof_courses.get(p, []))
-    )
-    professors["courses_taught"] = professors["professor"].map(
-        lambda p: "; ".join(prof_courses.get(p, []))
-    )
-
-    professors = professors[
-        [
-            "professor",
-            "courses_taught_count",
-            "courses_taught",
-            "total_students",
-            *GRADE_COLS,
-            "A_count",
-            "B_count",
-            "C_count",
-            "D_count",
-            "F_count",
-            "avg_gpa",
-        ]
-    ].sort_values(["professor"], ascending=True)
-
-    professors.to_csv(out_professors, index=False, encoding="utf-8")
-
-    print(f"Generated: {out_course_prof}")
+    courses = get_class_data(course_prof_term, out_courses)
     print(f"Generated: {out_courses}")
+    # 3) PROFESSOR (ALL TERMS)
+    professors = get_professor_data(course_prof_term, out_professors)
     print(f"Generated: {out_professors}")
+    # 4) CLASS + PROFESSOR (ALL TERMS)
+    course_prof = get_class_professor_data(course_prof_term, out_course_prof)
+    print(f"Generated: {out_course_prof}")
 
 
 if __name__ == "__main__":
