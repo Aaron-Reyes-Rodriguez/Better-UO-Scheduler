@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, UploadFile, HTTPException
 import asyncio
 from concurrent.futures import ProcessPoolExecutor
 from fastapi.middleware.cors import CORSMiddleware
@@ -35,11 +35,17 @@ def health():
 
 @app.get("/class/{class_id}")
 def get_class(class_id: str):
-  return apiHelper.classFinder(class_id)
+  try:
+    return apiHelper.classFinder(class_id)
+  except KeyError:
+    raise HTTPException(status_code=404, detail=f"Class not found: {class_id}")
 
 @app.get("/professor/{professor_id}")
 def get_professor(professor_id: str):
-  return apiHelper.professorFinder(professor_id)
+  try:
+    return apiHelper.professorFinder(professor_id)
+  except KeyError:
+    raise HTTPException(status_code=404, detail=f"Professor not found: {professor_id}")
 
 COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
 #COURSES = load_courses("deg_guide/data/catalogs") this is to load all the courses from the catalogs folder
