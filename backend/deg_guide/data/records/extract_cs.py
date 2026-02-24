@@ -174,6 +174,9 @@ def clean_up_data(file_path: Path) -> pd.DataFrame:
     # Filter CS + CIS
     df["SUBJ"] = df["SUBJ"].astype(str).str.strip().str.upper()
     df = df[df["SUBJ"].isin(SUBJECTS)].copy()
+    
+    # Map CIS to CS to combine averages
+    df["SUBJ"] = df["SUBJ"].replace("CIS", "CS")
 
     # Convert * and blanks to 0
     df[GRADE_COLS] = (
