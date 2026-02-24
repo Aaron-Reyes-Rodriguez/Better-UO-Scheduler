@@ -117,9 +117,9 @@ def classCsvToJson(csvFile):
         "totalStudents": row["total_students"]
       }
     }
-  with open("deg_guide/data/jsonData/classes.json", "w") as f:
+  with open("ClassProfessorData/jsonData/classes.json", "w") as f:
     json.dump(class_data, f)
-  print("Classes data saved to deg_guide/data/jsonData/classes.json")
+  print("Classes data saved to ClassProfessorData/jsonData/classes.json")
   return class_data
 
 def professorToJson(csvFile, course_professor_csv):
