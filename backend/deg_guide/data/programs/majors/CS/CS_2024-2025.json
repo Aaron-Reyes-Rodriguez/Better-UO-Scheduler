@@ -1,6 +1,6 @@
 {
-  "id": "MAJOR_CS",
-  "name": "Computer Science Major",
+  "id": "MAJOR_CS_2024-2025",
+  "name": "Computer Science Major (2024-2025)",
   "sets": {
 
     "math_seq_251_252": ["MATH251", "MATH252"],
@@ -108,4 +108,3 @@
     { "type": "no_double_counting_default" }
   ]
 }
-
