@@ -218,7 +218,7 @@ def clean_up_data(file_path: Path) -> pd.DataFrame:
 
 def main() -> None:
     base_dir = Path(__file__).parent
-    xlsx_path = base_dir / "pub_rec_master_f2015-u2025.xlsx"
+    xlsx_path = base_dir / "../deg_guide/data/records/pub_rec_master_f2015-u2025.xlsx" 
     df = clean_up_data(xlsx_path)
 
     out_course_prof_term = base_dir / "course_professor_term.csv"
