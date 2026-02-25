@@ -15,7 +15,7 @@ import tempfile
 # 1. CRITICAL FOR RENDER: Create the directory if it doesn't exist
 UPLOAD_DIR = Path(tempfile.gettempdir()) / 'uploadTranscript'
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-app = FastAPI()
+app = FastAPI(root_path="/api")
 
 # Allow frontend (e.g. AWS Amplify) to call this API when backend is on Render
 ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173, http://localhost:3000").split(",")
