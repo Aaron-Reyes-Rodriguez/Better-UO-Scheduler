@@ -39,7 +39,10 @@ export async function auditCs(takenAttempts: Array<{
 
 /** Fetch with clearer errors for CORS, network, and timeouts. */
 export async function fetchHealth(): Promise<{ status: string }> {
-  console.log("My API URL is:", import.meta.env.VITE_API_URL);
+  fetch("https://d2egsb0kohxz1u.cloudfront.net/api/health")
+  .then(r => r.json())
+  .then(console.log)
+  .catch(err => console.error("Error found:", err));
   const url = apiUrl("/health");
   try {
     const res = await fetch(url, { method: "GET" });
