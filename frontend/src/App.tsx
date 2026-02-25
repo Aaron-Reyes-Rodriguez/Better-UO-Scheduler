@@ -2,25 +2,15 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { apiBase, auditCs, fetchHealth, getClass, getTranscriptData} from './api'
+import { fetchHealth, getClass } from './api'
 
 
 function App() {
   const [health, setHealth] = useState<string | null>(null)
-  const [audit, setAudit] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [classData, setClassData] = useState<unknown>(null)
   const [classId, setClassId] = useState<string | null>(null)
-  const [transcriptData, setTranscriptData] = useState<string| null>(null)
-
-  async function TranscriptData() {
-    console.log(classId)
-    const data = await getTranscriptData()
-    
-    setTranscriptData(JSON.stringify(data))
-    console.log(transcriptData)
-  }
 
   
   async function getClassData(classId: string) {
@@ -49,20 +39,6 @@ function App() {
     }
   }
 
-  async function runAudit() {
-    setError(null)
-    setAudit(null)
-    setLoading(true)
-    try {
-      // Example: empty transcript; replace with real attempts from your UI
-      const result = await auditCs([])
-      setAudit(result)
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Audit failed')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
     <>
@@ -82,13 +58,10 @@ function App() {
         <button onClick={checkBackend} disabled={loading}>
           Check API health
         </button>
-        <button onClick={runAudit} disabled={loading}>
-          Run CS audit (empty)
-        </button>
+
         {loading && <p>Loading…</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {health != null && <pre>{health}</pre>}
-        {audit != null && <pre>{JSON.stringify(audit, null, 2)}</pre>}
       </div>
 
 
@@ -105,10 +78,6 @@ function App() {
         <button onClick={() => getClassData(classId || '')} disabled={loading || !classId}>
           Get Class Data
         </button>
-
-       <button onClick={()=> TranscriptData()}>
-        Get Transcipt Data
-       </button>
     </>
   )
 }

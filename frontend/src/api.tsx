@@ -68,15 +68,6 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
-export async function getTranscriptData() {
-  const url = apiUrl(`/transcriptData`);
-  const res = await fetch(url, { 
-    method: "GET",
-    credentials: "include"
-  });
-  if (!res.ok) throw new Error(`File Not Found/Wrong File: ${res.status} ${res.statusText}`);
-  return res.json();
-}
 
 //Upload File API
 type UploadStatus = "idle" | 'uploading' | 'success' | 'error'
@@ -104,12 +95,12 @@ export default function FileUploader()
         formData.append('file', file)
 
         try {
-            await axios.post(apiUrl("/upload/transcript"), formData, {
+            const res = await axios.post(apiUrl("/upload/transcript"), formData, {
               headers: { 'Content-Type': 'multipart/form-data' },
               withCredentials: true
-        })
+            })
             setStatus('success')
-            navigate("/transcriptdata")
+            navigate("/audit", { state: { auditData: res.data } })
         } catch {
             setStatus('error')
         }

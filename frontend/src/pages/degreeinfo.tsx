@@ -2,9 +2,9 @@
 // This page fetches the student's transcript and runs the degree audit,
 // then displays the results as a simple list of requirements.
 
-import { useEffect, useState } from "react";
-import { auditCs, getTranscriptData } from "../api";
-import "./degreeinfo.css"; // all styles live in the companion CSS file
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import "./degreeinfo.css";
 
 // ---------------------------------------------------------------------------
 // TYPES
@@ -220,20 +220,10 @@ function Section({ section }: { section: Section }) {
 // ---------------------------------------------------------------------------
 export default function DegreeAudit() {
   // Holds the API response once loaded; null while loading or on error
-  const [auditData, setAuditData] = useState<AuditData | null>(null);
-  const [error, setError]         = useState<string | null>(null);
+  const location = useLocation();
+  const auditData = location.state?.auditData as AuditData | undefined;
 
-  // On mount: get transcript from session → run audit → store result
-  useEffect(() => {
-    getTranscriptData()                           // 1. fetch taken_attempts from session
-      .then((t) => auditCs(t.taken_attempts))     // 2. POST to /audit/cs
-      .then(setAuditData)                         // 3. save the result into state
-      .catch((e: Error) => setError(e.message));  // 4. capture any error message
-  }, []); // empty dependency array = run once when the component first mounts
-
-  // Render loading and error states while waiting for data
-  if (error)      return <p className="da-state-msg error">Error: {error}</p>;
-  if (!auditData) return <p className="da-state-msg">Loading audit…</p>;
+  if (!auditData) return <p className="da-state-msg error">Error: No transcript or audit data found. Please upload a transcript first.</p>;
 
   const { programs_loaded, completion_percentage, assignments, slack } = auditData;
 

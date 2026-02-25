@@ -11,6 +11,7 @@ from parser import parse_transcript_pdf
 import apiHelperFunctions as apiHelper
 from pathlib import Path
 import tempfile
+import uuid
 
 # 1. CRITICAL FOR RENDER: Create the directory if it doesn't exist
 UPLOAD_DIR = Path(tempfile.gettempdir()) / 'uploadTranscript'
@@ -171,7 +172,8 @@ class AuditRequest(BaseModel):
 @app.post("/upload/transcript")
 async def upload_transcript(file: UploadFile):
   data = await file.read()
-  save_to = UPLOAD_DIR / file.filename
+  unique_filename = f"{uuid.uuid4()}_{file.filename}"
+  save_to = UPLOAD_DIR / unique_filename
   with open(save_to, "wb") as f:
     f.write(data)
   loop = asyncio.get_running_loop()
@@ -243,12 +245,7 @@ async def upload_transcript(file: UploadFile):
   
   returnData = solve_degree_audit(COURSES, attempts, programs_to_audit)
   returnData["programs_loaded"] = programs_loaded_info
-  apiHelper.saveTranscriptData(returnData)
   return returnData
-
-@app.get("/transcriptData")
-def get_transcriptData():
-  return apiHelper.getTranscriptData()
 
 @app.get("/catalog-years")
 def get_catalog_years():
