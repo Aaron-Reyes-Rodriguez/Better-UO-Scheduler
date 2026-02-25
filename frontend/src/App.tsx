@@ -79,8 +79,6 @@ function App() {
       </div>
 
       <div className="card">
-        <p>Backend: <code>{apiBase}</code></p>
-        <p className="hint">Set VITE_API_URL in Amplify env, then redeploy so the build picks it up.</p>
         <button onClick={checkBackend} disabled={loading}>
           Check API health
         </button>
