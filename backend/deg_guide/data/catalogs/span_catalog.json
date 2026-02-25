@@ -1,0 +1,345 @@
+[
+  {
+    "id": "SPAN101",
+    "subject": "SPAN",
+    "number": 101,
+    "credits": 5,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "First-Year Spanish"
+  },
+  {
+    "id": "SPAN102",
+    "subject": "SPAN",
+    "number": 102,
+    "credits": 5,
+    "level": 100,
+    "tags": [],
+    "prereqs": ["SPAN101"],
+    "title": "First-Year Spanish"
+  },
+  {
+    "id": "SPAN103",
+    "subject": "SPAN",
+    "number": 103,
+    "credits": 5,
+    "level": 100,
+    "tags": [],
+    "prereqs": ["SPAN102"],
+    "title": "First-Year Spanish"
+  },
+  {
+    "id": "SPAN111",
+    "subject": "SPAN",
+    "number": 111,
+    "credits": 5,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Intensive Beginning Spanish"
+  },
+  {
+    "id": "SPAN112",
+    "subject": "SPAN",
+    "number": 112,
+    "credits": 5,
+    "level": 100,
+    "tags": [],
+    "prereqs": ["SPAN111"],
+    "title": "Intensive Beginning Spanish"
+  },
+  {
+    "id": "SPAN150",
+    "subject": "SPAN",
+    "number": 150,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Hispanic and Latinx Cultures"
+  },
+  {
+    "id": "SPAN199",
+    "subject": "SPAN",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "SPAN201",
+    "subject": "SPAN",
+    "number": 201,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN103", "SPAN112"],
+    "title": "Intermediate Spanish I"
+  },
+  {
+    "id": "SPAN202",
+    "subject": "SPAN",
+    "number": 202,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN201"],
+    "title": "Intermediate Spanish II"
+  },
+  {
+    "id": "SPAN203",
+    "subject": "SPAN",
+    "number": 203,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN202"],
+    "title": "Intermediate Spanish III"
+  },
+  {
+    "id": "SPAN218",
+    "subject": "SPAN",
+    "number": 218,
+    "credits": 5,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Latino Heritage I"
+  },
+  {
+    "id": "SPAN228",
+    "subject": "SPAN",
+    "number": 228,
+    "credits": 5,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN218"],
+    "title": "Latino Heritage II"
+  },
+  {
+    "id": "SPAN301",
+    "subject": "SPAN",
+    "number": 301,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN203", "SPAN228"],
+    "title": "Cultura y lengua: Identidades hispanas"
+  },
+  {
+    "id": "SPAN303",
+    "subject": "SPAN",
+    "number": 303,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN203", "SPAN228"],
+    "title": "Cultura y lengua: Expresiones artisticas"
+  },
+  {
+    "id": "SPAN305",
+    "subject": "SPAN",
+    "number": 305,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN203", "SPAN228"],
+    "title": "Cultura y lengua Cambio social"
+  },
+  {
+    "id": "SPAN307",
+    "subject": "SPAN",
+    "number": 307,
+    "credits": 2,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["SPAN203", "SPAN228"],
+    "title": "Oral Skills"
+  },
+  {
+    "id": "SPAN308",
+    "subject": "SPAN",
+    "number": 308,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["SPAN203", "SPAN228"],
+    "title": "Culture and Language Bilingual Communities"
+  },
+  {
+    "id": "SPAN311",
+    "subject": "SPAN",
+    "number": 311,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Advanced Writing in Spanish"
+  },
+  {
+    "id": "SPAN320",
+    "subject": "SPAN",
+    "number": 320,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["SPAN203", "SPAN228"],
+    "title": "Grammars of Spanish"
+  },
+  {
+    "id": "SPAN322",
+    "subject": "SPAN",
+    "number": 322,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["SPAN308"],
+    "title": "Introduction to Hispanic Linguistics"
+  },
+  {
+    "id": "SPAN323",
+    "subject": "SPAN",
+    "number": 323,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Languages in Contact"
+  },
+  {
+    "id": "SPAN341",
+    "subject": "SPAN",
+    "number": 341,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Hispanic Cultures through Literature I"
+  },
+  {
+    "id": "SPAN342",
+    "subject": "SPAN",
+    "number": 342,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Hispanic Cultures through Literature II"
+  },
+  {
+    "id": "SPAN343",
+    "subject": "SPAN",
+    "number": 343,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Hispanic Cultures through Literature III"
+  },
+  {
+    "id": "SPAN344",
+    "subject": "SPAN",
+    "number": 344,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Hispanic Cultures through Literature IV"
+  },
+  {
+    "id": "SPAN348",
+    "subject": "SPAN",
+    "number": 348,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Latinx Culture and Society"
+  },
+  {
+    "id": "SPAN350",
+    "subject": "SPAN",
+    "number": 350,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Introduction to Poetry"
+  },
+  {
+    "id": "SPAN351",
+    "subject": "SPAN",
+    "number": 351,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Introduction to Theater"
+  },
+  {
+    "id": "SPAN353",
+    "subject": "SPAN",
+    "number": 353,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["SPAN301", "SPAN303", "SPAN305", "SPAN308"],
+    "title": "Introduction to Narrative"
+  },
+  {
+    "id": "SPAN399",
+    "subject": "SPAN",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "SPAN407",
+    "subject": "SPAN",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credit_range": {"min": 1, "max": 6, "default": 4}
+  },
+  {
+    "id": "SPAN420",
+    "subject": "SPAN",
+    "number": 420,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["SPAN320", "SPAN322", "SPAN324"],
+    "title": "Spanish Linguistics"
+  },
+  {
+    "id": "SPAN424",
+    "subject": "SPAN",
+    "number": 424,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["SPAN320", "SPAN322", "SPAN324"],
+    "title": "History of the Spanish Language"
+  },
+  {
+    "id": "SPAN428",
+    "subject": "SPAN",
+    "number": 428,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["SPAN320", "SPAN322", "SPAN324"],
+    "title": "Spanish in the United States"
+  }
+]

@@ -1,0 +1,535 @@
+[
+  {
+    "id": "ANTH110",
+    "subject": "ANTH",
+    "number": 110,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Traditional Ecological Knowledge"
+  },
+  {
+    "id": "ANTH114",
+    "subject": "ANTH",
+    "number": 114,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Anthropology of Pirates and Piracy"
+  },
+  {
+    "id": "ANTH119",
+    "subject": "ANTH",
+    "number": 119,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Anthropology and Aliens"
+  },
+  {
+    "id": "ANTH145",
+    "subject": "ANTH",
+    "number": 145,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Principles of Archaeology"
+  },
+  {
+    "id": "ANTH150",
+    "subject": "ANTH",
+    "number": 150,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "World Archaeology"
+  },
+  {
+    "id": "ANTH161",
+    "subject": "ANTH",
+    "number": 161,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Cultural Anthropology"
+  },
+  {
+    "id": "ANTH163",
+    "subject": "ANTH",
+    "number": 163,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Origins of Storytelling"
+  },
+  {
+    "id": "ANTH165",
+    "subject": "ANTH",
+    "number": 165,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Sexuality and Culture"
+  },
+  {
+    "id": "ANTH170",
+    "subject": "ANTH",
+    "number": 170,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Human Origins"
+  },
+  {
+    "id": "ANTH171",
+    "subject": "ANTH",
+    "number": 171,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Monkeys and Apes"
+  },
+  {
+    "id": "ANTH173",
+    "subject": "ANTH",
+    "number": 173,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Evolution of Human Sexuality"
+  },
+  {
+    "id": "ANTH175",
+    "subject": "ANTH",
+    "number": 175,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Evolutionary Medicine"
+  },
+  {
+    "id": "ANTH176",
+    "subject": "ANTH",
+    "number": 176,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Forensic Anthropology"
+  },
+  {
+    "id": "ANTH199",
+    "subject": "ANTH",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ANTH209",
+    "subject": "ANTH",
+    "number": 209,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": ["ANTH161"],
+    "title": "Business Anthropology"
+  },
+  {
+    "id": "ANTH220",
+    "subject": "ANTH",
+    "number": 220,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Nutritional Anthropology"
+  },
+  {
+    "id": "ANTH243",
+    "subject": "ANTH",
+    "number": 243,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Island Archaeology"
+  },
+  {
+    "id": "ANTH255",
+    "subject": "ANTH",
+    "number": 255,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Atlantis, Aliens, and Archaeology"
+  },
+  {
+    "id": "ANTH260",
+    "subject": "ANTH",
+    "number": 260,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Domestic Animals"
+  },
+  {
+    "id": "ANTH270",
+    "subject": "ANTH",
+    "number": 270,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Biological Anthropology"
+  },
+  {
+    "id": "ANTH274",
+    "subject": "ANTH",
+    "number": 274,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Animals and People"
+  },
+  {
+    "id": "ANTH278",
+    "subject": "ANTH",
+    "number": 278,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Science, Race, and Society"
+  },
+  {
+    "id": "ANTH311",
+    "subject": "ANTH",
+    "number": 311,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Anthropology of Globalization"
+  },
+  {
+    "id": "ANTH315",
+    "subject": "ANTH",
+    "number": 315,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Gender, Folklore, Inequality"
+  },
+  {
+    "id": "ANTH320",
+    "subject": "ANTH",
+    "number": 320,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["ANTH161"],
+    "title": "Native North Americans"
+  },
+  {
+    "id": "ANTH322",
+    "subject": "ANTH",
+    "number": 322,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["ANTH161"],
+    "title": "Anthropology of the United States"
+  },
+  {
+    "id": "ANTH329",
+    "subject": "ANTH",
+    "number": 329,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Immigration and Farmworkers"
+  },
+  {
+    "id": "ANTH330",
+    "subject": "ANTH",
+    "number": 330,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Hunters and Gatherers"
+  },
+  {
+    "id": "ANTH332",
+    "subject": "ANTH",
+    "number": 332,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Human Attraction and Mating Strategies"
+  },
+  {
+    "id": "ANTH340",
+    "subject": "ANTH",
+    "number": 340,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": ["ANTH145", "ANTH150"],
+    "title": "Fundamentals of Archaeology"
+  },
+  {
+    "id": "ANTH341",
+    "subject": "ANTH",
+    "number": 341,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Food Origins"
+  },
+  {
+    "id": "ANTH342",
+    "subject": "ANTH",
+    "number": 342,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Archaeology of Egypt and Near East"
+  },
+  {
+    "id": "ANTH344",
+    "subject": "ANTH",
+    "number": 344,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Oregon Archaeology"
+  },
+  {
+    "id": "ANTH349",
+    "subject": "ANTH",
+    "number": 349,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Origins of Art"
+  },
+  {
+    "id": "ANTH351",
+    "subject": "ANTH",
+    "number": 351,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["ANTH145", "ANTH150"],
+    "title": "Decolonizing Archaeology"
+  },
+  {
+    "id": "ANTH361",
+    "subject": "ANTH",
+    "number": 361,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": ["ANTH170", "ANTH270"],
+    "title": "Human Evolution"
+  },
+  {
+    "id": "ANTH362",
+    "subject": "ANTH",
+    "number": 362,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Human Biological Variation"
+  },
+  {
+    "id": "ANTH366",
+    "subject": "ANTH",
+    "number": 366,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["ANTH170", "ANTH176", "ANTH270", "HPHY321"],
+    "title": "Human Osteology Laboratory"
+  },
+  {
+    "id": "ANTH369",
+    "subject": "ANTH",
+    "number": 369,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Human Growth and Development"
+  },
+  {
+    "id": "ANTH376",
+    "subject": "ANTH",
+    "number": 376,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": ["ANTH175", "ANTH270", "BI221Z", "BI282H"],
+    "title": "Decoding Your Genome"
+  },
+  {
+    "id": "ANTH399",
+    "subject": "ANTH",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ANTH401",
+    "subject": "ANTH",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "ANTH420",
+    "subject": "ANTH",
+    "number": 420,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH161"],
+    "title": "Culture, Illness, and Healing"
+  },
+  {
+    "id": "ANTH425",
+    "subject": "ANTH",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH161"],
+    "title": "Migrant, Citizen, Refugee"
+  },
+  {
+    "id": "ANTH441",
+    "subject": "ANTH",
+    "number": 441,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Recent Cultural Theory"
+  },
+  {
+    "id": "ANTH442",
+    "subject": "ANTH",
+    "number": 442,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH145", "ANTH150"],
+    "title": "Northwest Coast Archaeology"
+  },
+  {
+    "id": "ANTH459",
+    "subject": "ANTH",
+    "number": 459,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH175", "ANTH270", "ANTH468", "BI380"],
+    "title": "Advanced Evolutionary Medicine"
+  },
+  {
+    "id": "ANTH462",
+    "subject": "ANTH",
+    "number": 462,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH270"],
+    "title": "Primate Evolution"
+  },
+  {
+    "id": "ANTH463",
+    "subject": "ANTH",
+    "number": 463,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH171", "ANTH270"],
+    "title": "Primate Behavior"
+  },
+  {
+    "id": "ANTH470",
+    "subject": "ANTH",
+    "number": 470,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["STAT243Z", "MATH425"],
+    "title": "Statistical Analysis of Biological Anthropology"
+  },
+  {
+    "id": "ANTH472",
+    "subject": "ANTH",
+    "number": 472,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH171", "ANTH270"],
+    "title": "Primate Conservation Biology"
+  },
+  {
+    "id": "ANTH473",
+    "subject": "ANTH",
+    "number": 473,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH176", "ANTH366"],
+    "title": "Advanced Forensic Anthropology"
+  },
+  {
+    "id": "ANTH481",
+    "subject": "ANTH",
+    "number": 481,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ANTH170", "ANTH270"],
+    "title": "Principles of Evolutionary Psychology"
+  }
+]

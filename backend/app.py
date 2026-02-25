@@ -5,12 +5,28 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 import os
+import re
+import logging
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
 from deg_guide.solver.data_types import CourseAttempt
 from parser import parse_transcript_pdf
 import apiHelperFunctions as apiHelper
 from pathlib import Path
 import tempfile
+
+# Configure logging with more readable format
+logging.basicConfig(
+    level=logging.DEBUG, 
+    format='%(asctime)s | %(levelname)-8s | %(message)s',
+    datefmt='%H:%M:%S'
+)
+logger = logging.getLogger(__name__)
+
+def log_section(title: str):
+    """Helper to log a section header for better readability."""
+    logger.info("=" * 60)
+    logger.info(f"  {title}")
+    logger.info("=" * 60)
 
 # 1. CRITICAL FOR RENDER: Create the directory if it doesn't exist
 UPLOAD_DIR = Path(tempfile.gettempdir()) / 'uploadTranscript'
@@ -41,8 +57,41 @@ def get_class(class_id: str):
 def get_professor(professor_id: str):
   return apiHelper.professorFinder(professor_id)
 
-COURSES = load_courses("deg_guide/data/catalogs/cs_catalog_coursesv2.json")
-#COURSES = load_courses("deg_guide/data/catalogs") this is to load all the courses from the catalogs folder
+# Choose ONE of these options:
+# Option 1: Load only CS courses (faster startup, limited matching)
+#COURSES_PATH = "deg_guide/data/catalogs/cs_catalog_courses.json"
+
+# Option 2: Load ALL catalogs (slower startup, matches more courses)
+COURSES_PATH = "deg_guide/data/catalogs"
+
+log_section("BACKEND STARTUP")
+logger.info(f"Loading courses from: {COURSES_PATH}")
+
+# Check if loading from directory or single file
+courses_path = Path(COURSES_PATH)
+if courses_path.is_dir():
+    catalog_files = list(courses_path.glob("*.json"))
+    logger.info(f"Found {len(catalog_files)} catalog files:")
+    for f in sorted(catalog_files):
+        logger.info(f"  - {f.name}")
+
+COURSES, EQUIV_MAP = load_courses(COURSES_PATH)
+logger.info(f"Total courses loaded: {len(COURSES)}")
+logger.info(f"Equivalent course mappings: {len(EQUIV_MAP)}")
+
+# Show breakdown by subject
+subject_counts = {}
+for course_id in COURSES.keys():
+    # Extract subject (letters before numbers)
+    match = re.match(r'^([A-Z]+)', course_id)
+    if match:
+        subj = match.group(1)
+        subject_counts[subj] = subject_counts.get(subj, 0) + 1
+logger.info(f"Subjects loaded: {len(subject_counts)}")
+for subj, count in sorted(subject_counts.items()):
+    logger.info(f"  {subj}: {count} courses")
+
+logger.info("Backend ready to accept requests")
 
 VALID_CATALOG_YEARS = ["2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025-2026"]
 DEFAULT_CATALOG_YEAR = "2025-2026"
@@ -59,6 +108,7 @@ MAJOR_CODE_MAP = {
 
 MINOR_CODE_MAP = {
     "Mathematics": "MATH",
+    "Computer Science": "CS",
 }
 
 
@@ -77,17 +127,20 @@ def normalize_catalog_year(year_str: str) -> str:
         return year_str
     
     # Handle "Season YYYY" format (e.g., "Winter 2025", "Fall 2024")
+    # Academic year: Fall 2024, Winter 2025, Spring 2025 -> 2024-2025
     season_year_parts = year_str.split()
     if len(season_year_parts) == 2:
         season, year = season_year_parts[0].lower(), season_year_parts[1]
         if year.isdigit():
             year_int = int(year)
-            # Fall/Winter terms belong to the academic year starting that fall
-            # Spring/Summer terms belong to the academic year that started previous fall
-            if season in ["fall", "winter"]:
+            # Fall STARTS the academic year (Fall 2024 -> 2024-2025)
+            # Winter/Spring/Summer are PART of the year that started previous fall
+            # (Winter 2025 -> 2024-2025, Spring 2025 -> 2024-2025)
+            if season == "fall":
                 catalog_year = f"{year_int}-{year_int + 1}"
-            else:  # spring, summer
+            else:  # winter, spring, summer
                 catalog_year = f"{year_int - 1}-{year_int}"
+            logger.debug(f"Catalog year mapping: '{year_str}' -> '{catalog_year}'")
             if catalog_year in VALID_CATALOG_YEARS:
                 return catalog_year
     
@@ -164,65 +217,146 @@ class AuditRequest(BaseModel):
 
 @app.post("/upload/transcript")
 async def upload_transcript(file: UploadFile):
+  log_section("TRANSCRIPT UPLOAD")
+  logger.info(f"Received file: {file.filename}")
+  
   data = await file.read()
   save_to = UPLOAD_DIR / file.filename
   with open(save_to, "wb") as f:
     f.write(data)
+  logger.debug(f"File saved to: {save_to}")
+  
   loop = asyncio.get_running_loop()
   with ProcessPoolExecutor(max_workers=1) as executor:
       parsedData = await loop.run_in_executor(executor, parse_transcript_pdf, save_to)
   
+  log_section("PARSED TRANSCRIPT DATA")
   broad_data = parsedData.get("broad_data", {})
+  
+  # Display student info
+  logger.info("STUDENT INFO:")
+  logger.info(f"  Name: {broad_data.get('student_name', 'N/A')}")
+  logger.info(f"  Student ID: {broad_data.get('student_id', 'N/A')}")
+  logger.info(f"  Program: {broad_data.get('program', 'N/A')}")
+  logger.info(f"  Catalog Year: {broad_data.get('catalog_year', 'N/A')}")
+  
+  # Display declared major
+  declared_major = broad_data.get("declared_major", {})
+  logger.info("DECLARED MAJOR:")
+  logger.info(f"  Name: {declared_major.get('name', 'N/A')}")
+  logger.info(f"  Catalog Year: {declared_major.get('catalog_year', 'N/A')}")
+  
+  # Display minors
+  minors = broad_data.get("minors", [])
+  logger.info(f"DECLARED MINORS: {len(minors)}")
+  for i, minor in enumerate(minors, 1):
+      logger.info(f"  {i}. {minor.get('name', 'N/A')} (Catalog: {minor.get('catalog_year', 'N/A')})")
+  
+  # Display courses taken
+  taken_attempts = parsedData.get("taken_attempts", [])
+  logger.info(f"COURSES TAKEN: {len(taken_attempts)} total")
+  for att in taken_attempts[:15]:  # Show first 15
+      logger.info(f"  - {att['course_id']} ({att['credits_taken']} cr, {att['grading_basis']}, {att.get('term', 'N/A')})")
+  if len(taken_attempts) > 15:
+      logger.info(f"  ... and {len(taken_attempts) - 15} more courses")
+  
   programs_to_audit = []
   programs_loaded_info = {}
   
+  log_section("LOADING PROGRAM JSON FILES")
+  
   # 1. Load degree type (BS/BA) with its catalog year
+  logger.info("Step 1: Loading DEGREE TYPE")
   degree_catalog_year = normalize_catalog_year(broad_data.get("catalog_year", ""))
   program_name = broad_data.get("program", "")
+  logger.info(f"  Program from transcript: '{program_name}'")
+  logger.info(f"  Catalog year (normalized): '{degree_catalog_year}'")
+  
   degree_code = DEGREE_TYPE_MAP.get(program_name)
+  logger.info(f"  Code mapping: '{program_name}' -> '{degree_code}'")
+  
   if degree_code:
+      degree_json_path = f"deg_guide/data/programs/degree_types/{degree_code}_{degree_catalog_year}.json"
+      logger.info(f"  Loading JSON: {degree_json_path}")
       degree_program = load_program_by_type("degree_types", degree_code, degree_catalog_year)
       if degree_program:
           programs_to_audit.append(degree_program)
           programs_loaded_info["degree_type"] = {
               "code": degree_code,
-              "catalog_year": degree_catalog_year
+              "catalog_year": degree_catalog_year,
+              "json_file": degree_json_path
           }
+          logger.info(f"  ✓ Loaded: {degree_program.id}")
+      else:
+          logger.warning(f"  ✗ Failed to load: {degree_json_path}")
+  else:
+      logger.warning(f"  ✗ No code mapping for: '{program_name}'")
   
   # 2. Load major with its catalog year
+  logger.info("Step 2: Loading MAJOR")
   declared_major = broad_data.get("declared_major", {})
   major_name = declared_major.get("name", "")
   major_catalog_year = normalize_catalog_year(declared_major.get("catalog_year", ""))
+  logger.info(f"  Major from transcript: '{major_name}'")
+  logger.info(f"  Catalog year (normalized): '{major_catalog_year}'")
+  
   major_code = MAJOR_CODE_MAP.get(major_name)
+  logger.info(f"  Code mapping: '{major_name}' -> '{major_code}'")
+  
   if major_code:
+      major_json_path = f"deg_guide/data/programs/majors/{major_code}/{major_code}_{major_catalog_year}.json"
+      logger.info(f"  Loading JSON: {major_json_path}")
       major_program = load_program_by_type("majors", major_code, major_catalog_year)
       if major_program:
           programs_to_audit.append(major_program)
           programs_loaded_info["major"] = {
               "code": major_code,
               "name": declared_major.get("name"),
-              "catalog_year": major_catalog_year
+              "catalog_year": major_catalog_year,
+              "json_file": major_json_path
           }
+          logger.info(f"  ✓ Loaded: {major_program.id}")
+      else:
+          logger.warning(f"  ✗ Failed to load: {major_json_path}")
+  else:
+      logger.warning(f"  ✗ No code mapping for: '{major_name}'")
   
   # 3. Load minors with their respective catalog years
+  logger.info(f"Step 3: Loading MINORS ({len(minors)} declared)")
   minors = broad_data.get("minors", [])
+  
   loaded_minors = []
-  for minor in minors:
+  for i, minor in enumerate(minors, 1):
       minor_name = minor.get("name", "")
       minor_catalog_year = normalize_catalog_year(minor.get("catalog_year", ""))
+      logger.info(f"  Minor {i}: '{minor_name}' (Catalog: {minor_catalog_year})")
+      
       minor_code = MINOR_CODE_MAP.get(minor_name)
+      logger.info(f"    Code mapping: '{minor_name}' -> '{minor_code}'")
+      
       if minor_code:
+          minor_json_path = f"deg_guide/data/programs/minors/{minor_code}/{minor_code}_{minor_catalog_year}.json"
+          logger.info(f"    Loading JSON: {minor_json_path}")
           minor_program = load_program_by_type("minors", minor_code, minor_catalog_year)
           if minor_program:
               programs_to_audit.append(minor_program)
               loaded_minors.append({
                   "code": minor_code,
                   "name": minor.get("name"),
-                  "catalog_year": minor_catalog_year
+                  "catalog_year": minor_catalog_year,
+                  "json_file": minor_json_path
               })
+              logger.info(f"    ✓ Loaded: {minor_program.id}")
+          else:
+              logger.warning(f"    ✗ Failed to load: {minor_json_path}")
+      else:
+          logger.warning(f"    ✗ No code mapping for: '{minor_name}'")
+  
   if loaded_minors:
       programs_loaded_info["minors"] = loaded_minors
 
+  # 4. Build course attempts
+  log_section("RUNNING DEGREE AUDIT")
   attempts = [
         CourseAttempt(
             attempt_id=a["attempt_id"],
@@ -235,8 +369,26 @@ async def upload_transcript(file: UploadFile):
         for a in parsedData["taken_attempts"]
     ]
   
-  returnData = solve_degree_audit(COURSES, attempts, programs_to_audit)
+  logger.info(f"Course attempts to evaluate: {len(attempts)}")
+  logger.info(f"Programs to audit: {[p.id for p in programs_to_audit]}")
+  logger.info(f"Course catalog loaded: {len(COURSES)} courses available")
+  
+  # Check which courses match the catalog
+  matched_courses = [a for a in attempts if a.course_id in COURSES]
+  unmatched_courses = [a for a in attempts if a.course_id not in COURSES]
+  logger.info(f"Courses matched in catalog: {len(matched_courses)}")
+  if unmatched_courses:
+      logger.warning(f"Courses NOT in catalog ({len(unmatched_courses)}): {[a.course_id for a in unmatched_courses[:10]]}")
+  
+  # 5. Run the solver
+  logger.info("Running solver...")
+  returnData = solve_degree_audit(COURSES, attempts, programs_to_audit, EQUIV_MAP)
   returnData["programs_loaded"] = programs_loaded_info
+  
+  log_section("AUDIT RESULTS")
+  logger.info(f"Status: {returnData.get('status')}")
+  logger.info(f"Completion: {returnData.get('completion_percentage', 'N/A')}%")
+  logger.info(f"Programs audited: {list(programs_loaded_info.keys())}")
   apiHelper.saveTranscriptData(returnData)
   return returnData
 
@@ -250,6 +402,23 @@ def get_catalog_years():
     return {"years": VALID_CATALOG_YEARS, "default": DEFAULT_CATALOG_YEAR}
 
 
+@app.get("/backend-info")
+def get_backend_info():
+    """Return backend configuration and loaded data info."""
+    return {
+        "courses_path": COURSES_PATH,
+        "courses_loaded": len(COURSES),
+        "sample_course_ids": list(COURSES.keys())[:20],
+        "valid_catalog_years": VALID_CATALOG_YEARS,
+        "default_catalog_year": DEFAULT_CATALOG_YEAR,
+        "supported_mappings": {
+            "degree_types": DEGREE_TYPE_MAP,
+            "majors": MAJOR_CODE_MAP,
+            "minors": MINOR_CODE_MAP
+        }
+    }
+
+
 @app.post("/audit/cs")
 def audit_cs(req: AuditRequest, year: str = DEFAULT_CATALOG_YEAR, degree_type: str = "BS"):
     """
@@ -259,18 +428,34 @@ def audit_cs(req: AuditRequest, year: str = DEFAULT_CATALOG_YEAR, degree_type: s
         year: Catalog year (e.g., "2022-2023")
         degree_type: "BS" or "BA"
     """
+    log_section("CS AUDIT REQUEST")
+    logger.info(f"Request params: year={year}, degree_type={degree_type}")
     year = normalize_catalog_year(year)
+    logger.info(f"Normalized year: {year}")
+    
     programs = []
     
     # Load degree type
+    degree_json = f"deg_guide/data/programs/degree_types/{degree_type.upper()}_{year}.json"
+    logger.info(f"Loading degree JSON: {degree_json}")
     degree_program = load_program_by_type("degree_types", degree_type.upper(), year)
     if degree_program:
         programs.append(degree_program)
+        logger.info(f"  ✓ Loaded: {degree_program.id}")
+    else:
+        logger.warning(f"  ✗ Failed to load: {degree_json}")
     
     # Load CS major
+    major_json = f"deg_guide/data/programs/majors/CS/CS_{year}.json"
+    logger.info(f"Loading major JSON: {major_json}")
     major_cs = load_cs_major(year)
     if major_cs:
         programs.append(major_cs)
+        logger.info(f"  ✓ Loaded: {major_cs.id}")
+    else:
+        logger.warning(f"  ✗ Failed to load: {major_json}")
+    
+    logger.info(f"Programs to audit: {[p.id for p in programs]}")
     
     attempts = [
         CourseAttempt(
@@ -283,7 +468,20 @@ def audit_cs(req: AuditRequest, year: str = DEFAULT_CATALOG_YEAR, degree_type: s
         )
         for a in req.taken_attempts
     ]
-    return solve_degree_audit(COURSES, attempts, programs)
+    
+    logger.info(f"Course attempts: {len(attempts)}")
+    for att in attempts[:10]:
+        logger.info(f"  - {att.course_id} ({att.credits_taken} cr)")
+    if len(attempts) > 10:
+        logger.info(f"  ... and {len(attempts) - 10} more")
+    
+    logger.info("Running solver...")
+    result = solve_degree_audit(COURSES, attempts, programs, EQUIV_MAP)
+    
+    log_section("CS AUDIT RESULTS")
+    logger.info(f"Status: {result.get('status')}")
+    logger.info(f"Completion: {result.get('completion_percentage', 'N/A')}%")
+    return result
 
 
 # class TranscriptParseRequest(BaseModel):

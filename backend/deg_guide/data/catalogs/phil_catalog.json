@@ -1,0 +1,520 @@
+[
+  {
+    "id": "PHIL101",
+    "subject": "PHIL",
+    "number": 101,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Philosophical Problems"
+  },
+  {
+    "id": "PHIL102",
+    "subject": "PHIL",
+    "number": 102,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Ethics"
+  },
+  {
+    "id": "PHIL103",
+    "subject": "PHIL",
+    "number": 103,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Critical Reasoning"
+  },
+  {
+    "id": "PHIL104",
+    "subject": "PHIL",
+    "number": 104,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of Western Philosophy"
+  },
+  {
+    "id": "PHIL110",
+    "subject": "PHIL",
+    "number": 110,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Human Nature"
+  },
+  {
+    "id": "PHIL120",
+    "subject": "PHIL",
+    "number": 120,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Ethics of Enterprise and Exchange"
+  },
+  {
+    "id": "PHIL123",
+    "subject": "PHIL",
+    "number": 123,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Internet, Society, and Philosophy",
+    "notes": "Introduction to philosophical problems of the Internet. Primary focus on social, political, and ethical issues."
+  },
+  {
+    "id": "PHIL130",
+    "subject": "PHIL",
+    "number": 130,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Philosophy and Popular Culture"
+  },
+  {
+    "id": "PHIL135",
+    "subject": "PHIL",
+    "number": 135,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Ethics in the Life Sciences"
+  },
+  {
+    "id": "PHIL170",
+    "subject": "PHIL",
+    "number": 170,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Love and Sex"
+  },
+  {
+    "id": "PHIL199",
+    "subject": "PHIL",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHIL211",
+    "subject": "PHIL",
+    "number": 211,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Existentialism"
+  },
+  {
+    "id": "PHIL216",
+    "subject": "PHIL",
+    "number": 216,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Philosophy and Cultural Diversity"
+  },
+  {
+    "id": "PHIL219",
+    "subject": "PHIL",
+    "number": 219,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Sports Ethics"
+  },
+  {
+    "id": "PHIL220",
+    "subject": "PHIL",
+    "number": 220,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Food Ethics"
+  },
+  {
+    "id": "PHIL223",
+    "subject": "PHIL",
+    "number": 223,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Data Ethics",
+    "notes": "Explores central ethical challenges in data science and related fields of computational analysis."
+  },
+  {
+    "id": "PHIL225",
+    "subject": "PHIL",
+    "number": 225,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Formal Logic"
+  },
+  {
+    "id": "PHIL299",
+    "subject": "PHIL",
+    "number": 299,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHIL307",
+    "subject": "PHIL",
+    "number": 307,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Social and Political Philosophy I"
+  },
+  {
+    "id": "PHIL308",
+    "subject": "PHIL",
+    "number": 308,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Social and Political Philosophy"
+  },
+  {
+    "id": "PHIL309",
+    "subject": "PHIL",
+    "number": 309,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Global Justice"
+  },
+  {
+    "id": "PHIL310",
+    "subject": "PHIL",
+    "number": 310,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of Ancient Philosophy"
+  },
+  {
+    "id": "PHIL311",
+    "subject": "PHIL",
+    "number": 311,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of Philosophy: Modern"
+  },
+  {
+    "id": "PHIL312",
+    "subject": "PHIL",
+    "number": 312,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of Philosophy: 19th Century"
+  },
+  {
+    "id": "PHIL315",
+    "subject": "PHIL",
+    "number": 315,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Feminist Philosophy"
+  },
+  {
+    "id": "PHIL320",
+    "subject": "PHIL",
+    "number": 320,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Philosophy of Religion"
+  },
+  {
+    "id": "PHIL322",
+    "subject": "PHIL",
+    "number": 322,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Philosophy of the Arts"
+  },
+  {
+    "id": "PHIL323",
+    "subject": "PHIL",
+    "number": 323,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Moral Theory"
+  },
+  {
+    "id": "PHIL331",
+    "subject": "PHIL",
+    "number": 331,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Philosophy in Literature"
+  },
+  {
+    "id": "PHIL332",
+    "subject": "PHIL",
+    "number": 332,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Philosophy of Film"
+  },
+  {
+    "id": "PHIL335",
+    "subject": "PHIL",
+    "number": 335,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Medical Ethics"
+  },
+  {
+    "id": "PHIL339",
+    "subject": "PHIL",
+    "number": 339,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Philosophy of Science"
+  },
+  {
+    "id": "PHIL340",
+    "subject": "PHIL",
+    "number": 340,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Environmental Philosophy"
+  },
+  {
+    "id": "PHIL341",
+    "subject": "PHIL",
+    "number": 341,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "African Philosophy"
+  },
+  {
+    "id": "PHIL342",
+    "subject": "PHIL",
+    "number": 342,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Latin American Philosophy"
+  },
+  {
+    "id": "PHIL343",
+    "subject": "PHIL",
+    "number": 343,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Critical Theory"
+  },
+  {
+    "id": "PHIL344",
+    "subject": "PHIL",
+    "number": 344,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Philosophy of Law"
+  },
+  {
+    "id": "PHIL345",
+    "subject": "PHIL",
+    "number": 345,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Place in the Cosmos"
+  },
+  {
+    "id": "PHIL350",
+    "subject": "PHIL",
+    "number": 350,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Metaphysics"
+  },
+  {
+    "id": "PHIL399",
+    "subject": "PHIL",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHIL401",
+    "subject": "PHIL",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "PHIL407",
+    "subject": "PHIL",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHIL410",
+    "subject": "PHIL",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHIL415",
+    "subject": "PHIL",
+    "number": 415,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Continental Philosophy"
+  },
+  {
+    "id": "PHIL420",
+    "subject": "PHIL",
+    "number": 420,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "American Philosophy"
+  },
+  {
+    "id": "PHIL421",
+    "subject": "PHIL",
+    "number": 421,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHIL310"],
+    "title": "Ancient Philosophers"
+  },
+  {
+    "id": "PHIL423",
+    "subject": "PHIL",
+    "number": 423,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Technology Ethics"
+  },
+  {
+    "id": "PHIL425",
+    "subject": "PHIL",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Philosophy of Language"
+  },
+  {
+    "id": "PHIL426",
+    "subject": "PHIL",
+    "number": 426,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHIL225"],
+    "title": "Advanced Logic"
+  },
+  {
+    "id": "PHIL451",
+    "subject": "PHIL",
+    "number": 451,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Native American Philosophy"
+  },
+  {
+    "id": "PHIL452",
+    "subject": "PHIL",
+    "number": 452,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Philosophy and Race"
+  }
+]
