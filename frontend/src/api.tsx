@@ -30,6 +30,7 @@ export async function auditCs(takenAttempts: Array<{
   const url = apiUrl("/audit/cs");
   const res = await fetch(url, {
     method: "POST",
+    credentials: "include", //added wwwwwww
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ taken_attempts: takenAttempts }),
   });
