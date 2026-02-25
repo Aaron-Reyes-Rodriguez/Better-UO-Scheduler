@@ -42,7 +42,7 @@ function App() {
           Welcome to <Box component="span" sx={{ color: '#646cff' }}>Quackademics</Box>
         </Typography>
         <Typography variant="h6" color="text.secondary" paragraph sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-          Your ultimate tool for better UO scheduling. Upload your transcript to get personalized degree info, or search for classes and professors.
+          Your ultimate tool for picking classes! Upload your transcript to get personalized degree info, or search for classes and professors.
         </Typography>
       </Box>
 
@@ -60,7 +60,7 @@ function App() {
           startIcon={<SearchIcon />}
           sx={{ py: 1.5, px: 4, fontSize: '1.1rem', borderRadius: 2, bgcolor: '#646cff', '&:hover': { bgcolor: '#535bf2' } }}
         >
-          Search Classes
+          Search Classes & Professors
         </Button>
         <Button
           component={Link}
