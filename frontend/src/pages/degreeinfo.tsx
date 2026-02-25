@@ -221,7 +221,19 @@ function Section({ section }: { section: Section }) {
 export default function DegreeAudit() {
   // Holds the API response once loaded; null while loading or on error
   const location = useLocation();
-  const auditData = location.state?.auditData as AuditData | undefined;
+  let auditData = location.state?.auditData as AuditData | undefined;
+
+  // Fallback to sessionStorage if navigated directly without state
+  if (!auditData) {
+    const storedData = sessionStorage.getItem("auditData");
+    if (storedData) {
+      try {
+        auditData = JSON.parse(storedData) as AuditData;
+      } catch (e) {
+        console.error("Failed to parse auditData from sessionStorage", e);
+      }
+    }
+  }
 
   if (!auditData) return <p className="da-state-msg error">Error: No transcript or audit data found. Please upload a transcript first.</p>;
 

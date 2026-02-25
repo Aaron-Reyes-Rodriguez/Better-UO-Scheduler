@@ -26,7 +26,18 @@ type TranscriptData = {
 
 export default function TranscriptDataView() {
   const location = useLocation()
-  const data = location.state?.transcriptData as TranscriptData | undefined
+  let data = location.state?.transcriptData as TranscriptData | undefined
+
+  if (!data) {
+    const storedData = sessionStorage.getItem("transcriptData") || sessionStorage.getItem("auditData");
+    if (storedData) {
+      try {
+        data = JSON.parse(storedData);
+      } catch (e) {
+        console.error("Failed to parse transcriptData from sessionStorage", e);
+      }
+    }
+  }
 
   if (!data) return <p style={{ color: "red" }}>Error: No transcript data found. Please upload a transcript first.</p>
 

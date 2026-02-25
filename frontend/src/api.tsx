@@ -100,6 +100,12 @@ export default function FileUploader()
               withCredentials: true
             })
             setStatus('success')
+            
+            // Store the state and data in the browser session storage
+            sessionStorage.setItem("hasUploadedTranscript", "true");
+            sessionStorage.setItem("auditData", JSON.stringify(res.data));
+            sessionStorage.setItem("transcriptData", JSON.stringify(res.data)); // For any components expecting transcriptData
+            
             navigate("/audit", { state: { auditData: res.data } })
         } catch {
             setStatus('error')
