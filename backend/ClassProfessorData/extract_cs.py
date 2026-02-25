@@ -173,7 +173,7 @@ def clean_up_data(file_path: Path) -> pd.DataFrame:
 
     # Filter CS + CIS
     df["SUBJ"] = df["SUBJ"].astype(str).str.strip().str.upper()
-    df = df[df["SUBJ"].isin(SUBJECTS)].copy()
+    #df = df[df["SUBJ"].isin(SUBJECTS)].copy()
     
     # Map CIS to CS to combine averages
     df["SUBJ"] = df["SUBJ"].replace("CIS", "CS")
@@ -203,8 +203,8 @@ def clean_up_data(file_path: Path) -> pd.DataFrame:
     df = df[df["total_students"] > 0].copy()
 
     # IDs + cleanup
-    df["course_number"] = df["NUMB"].astype(int)
-    df["course_id"] = df["SUBJ"] + " " + df["course_number"].astype(str)
+    df["course_number"] = df["NUMB"].astype(str).str.strip()
+    df["course_id"] = df["SUBJ"] + " " + df["course_number"]
     df["term_code"] = df["TERM"].astype(str).str.strip()
     df["term"] = df[term_descr_col].astype(str).str.strip()
     df["professor"] = (
