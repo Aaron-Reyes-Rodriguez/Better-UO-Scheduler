@@ -1,0 +1,219 @@
+[
+  {
+    "id": "PSY199",
+    "subject": "PSY",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PSY201Z",
+    "subject": "PSY",
+    "number": 201,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Psychology I",
+    "equivalents": ["PSY201"],
+    "notes": "Introduction to the science and application of psychology. Emphasis on Research Methods, Behavioral Neuroscience, Consciousness, Sensation/Perception, Learning, Memory."
+  },
+  {
+    "id": "PSY202Z",
+    "subject": "PSY",
+    "number": 202,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Psychology II",
+    "equivalents": ["PSY202"],
+    "notes": "Introduction to the science and application of psychology. Emphasis on Personality, Social Psychology, Health and Well-Being, Motivation and Emotion, Disorders, Therapies."
+  },
+  {
+    "id": "PSY301",
+    "subject": "PSY",
+    "number": 301,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Scientific Thinking in Psychology",
+    "notes": "Fundamentals in the empirical study of human behavior, including hypothesis formation, experiment design."
+  },
+  {
+    "id": "PSY302",
+    "subject": "PSY",
+    "number": 302,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["STAT243Z", "MATH241", "MATH246", "MATH251Z", "PSY301", "WR121Z", "HC101H", "PSY201Z", "PSY202Z"],
+    "title": "Statistical Methods in Psychology",
+    "notes": "Probability and statistics applied in psychological research."
+  },
+  {
+    "id": "PSY303",
+    "subject": "PSY",
+    "number": 303,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PSY201Z", "PSY202Z", "PSY302", "WR122Z", "WR123", "HC221H"],
+    "title": "Research Methods in Psychology"
+  },
+  {
+    "id": "PSY304",
+    "subject": "PSY",
+    "number": 304,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PSY201Z"],
+    "title": "Biopsychology",
+    "notes": "Relationships between brain and endocrine activity and behavior."
+  },
+  {
+    "id": "PSY305",
+    "subject": "PSY",
+    "number": 305,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PSY201Z"],
+    "title": "Cognition",
+    "notes": "Topics include perception, attention, memory, language, reasoning, and decision-making."
+  },
+  {
+    "id": "PSY306",
+    "subject": "PSY",
+    "number": 306,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PSY202Z"],
+    "title": "Social Psychology",
+    "notes": "Processes underlying social perception and social interaction."
+  },
+  {
+    "id": "PSY307",
+    "subject": "PSY",
+    "number": 307,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PSY202Z"],
+    "title": "Personality",
+    "notes": "Theory and methods for studying human traits, including personality tests and measures."
+  },
+  {
+    "id": "PSY308",
+    "subject": "PSY",
+    "number": 308,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PSY202Z"],
+    "title": "Developmental Psychology",
+    "notes": "Survey of cognitive, social-emotional, and personality development."
+  },
+  {
+    "id": "PSY309",
+    "subject": "PSY",
+    "number": 309,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PSY202Z"],
+    "title": "Psychopathology",
+    "notes": "Major descriptive and theoretical approaches to emotion and personality disorders."
+  },
+  {
+    "id": "PSY348",
+    "subject": "PSY",
+    "number": 348,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Music and the Brain"
+  },
+  {
+    "id": "PSY366",
+    "subject": "PSY",
+    "number": 366,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Culture and Mental Health"
+  },
+  {
+    "id": "PSY380",
+    "subject": "PSY",
+    "number": 380,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Psychology of Gender"
+  },
+  {
+    "id": "PSY383",
+    "subject": "PSY",
+    "number": 383,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Psychoactive Drugs"
+  },
+  {
+    "id": "PSY399",
+    "subject": "PSY",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PSY401",
+    "subject": "PSY",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "PSY407",
+    "subject": "PSY",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PSY410",
+    "subject": "PSY",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  }
+]

@@ -1,0 +1,344 @@
+[
+  {
+    "id": "MUS125",
+    "subject": "MUS",
+    "number": 125,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Understanding Music"
+  },
+  {
+    "id": "MUS126",
+    "subject": "MUS",
+    "number": 126,
+    "credits": 3,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Music Theory Fundamentals"
+  },
+  {
+    "id": "MUS131",
+    "subject": "MUS",
+    "number": 131,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Music Theory I"
+  },
+  {
+    "id": "MUS132",
+    "subject": "MUS",
+    "number": 132,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": ["MUS131"],
+    "title": "Music Theory II"
+  },
+  {
+    "id": "MUS133",
+    "subject": "MUS",
+    "number": 133,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": ["MUS132"],
+    "title": "Music Theory III"
+  },
+  {
+    "id": "MUS151",
+    "subject": "MUS",
+    "number": 151,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Popular Songwriting"
+  },
+  {
+    "id": "MUS199",
+    "subject": "MUS",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "MUS227",
+    "subject": "MUS",
+    "number": 227,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Elements of Electronic Music"
+  },
+  {
+    "id": "MUS231",
+    "subject": "MUS",
+    "number": 231,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["MUS133"],
+    "title": "Music Theory IV"
+  },
+  {
+    "id": "MUS240",
+    "subject": "MUS",
+    "number": 240,
+    "credits": 3,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["MUS133"],
+    "title": "Composition I"
+  },
+  {
+    "id": "MUS249",
+    "subject": "MUS",
+    "number": 249,
+    "credits": 3,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["MUS131", "MUS134"],
+    "title": "Popular Music Analysis"
+  },
+  {
+    "id": "MUS250",
+    "subject": "MUS",
+    "number": 250,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Popular Musics in Global Context"
+  },
+  {
+    "id": "MUS263",
+    "subject": "MUS",
+    "number": 263,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "US Popular Music 1800 to 1930"
+  },
+  {
+    "id": "MUS264",
+    "subject": "MUS",
+    "number": 264,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "US Popular Music 1930 to 1965"
+  },
+  {
+    "id": "MUS265",
+    "subject": "MUS",
+    "number": 265,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "US Popular Music 1965 to 2000"
+  },
+  {
+    "id": "MUS267",
+    "subject": "MUS",
+    "number": 267,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["MUS133", "WR121Z"],
+    "title": "History of Music 800 to 1600"
+  },
+  {
+    "id": "MUS268",
+    "subject": "MUS",
+    "number": 268,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Survey of Music History 1600 to 1800"
+  },
+  {
+    "id": "MUS269",
+    "subject": "MUS",
+    "number": 269,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Survey of Music History 1800 to Present"
+  },
+  {
+    "id": "MUS270",
+    "subject": "MUS",
+    "number": 270,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of the Blues"
+  },
+  {
+    "id": "MUS281",
+    "subject": "MUS",
+    "number": 281,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Music of the Woodstock Generation"
+  },
+  {
+    "id": "MUS327",
+    "subject": "MUS",
+    "number": 327,
+    "credits": 3,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["MUS233"],
+    "title": "Analysis"
+  },
+  {
+    "id": "MUS340",
+    "subject": "MUS",
+    "number": 340,
+    "credits": 3,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["MUS242"],
+    "title": "Composition II"
+  },
+  {
+    "id": "MUS351",
+    "subject": "MUS",
+    "number": 351,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "The Music of Bach and Handel"
+  },
+  {
+    "id": "MUS358",
+    "subject": "MUS",
+    "number": 358,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Music in World Cultures"
+  },
+  {
+    "id": "MUS359",
+    "subject": "MUS",
+    "number": 359,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Music of the Americas"
+  },
+  {
+    "id": "MUS360",
+    "subject": "MUS",
+    "number": 360,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Hip-Hop History, Culture, Aesthetics"
+  },
+  {
+    "id": "MUS363",
+    "subject": "MUS",
+    "number": 363,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "The Beatles and Their Times"
+  },
+  {
+    "id": "MUS367",
+    "subject": "MUS",
+    "number": 367,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Survey of African Music"
+  },
+  {
+    "id": "MUS380",
+    "subject": "MUS",
+    "number": 380,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Film Music"
+  },
+  {
+    "id": "MUS384",
+    "subject": "MUS",
+    "number": 384,
+    "credits": 2,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["MUS233"],
+    "title": "Introduction to Conducting"
+  },
+  {
+    "id": "MUS399",
+    "subject": "MUS",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "MUS416",
+    "subject": "MUS",
+    "number": 416,
+    "credits": 3,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MUS327"],
+    "title": "Post-Tonal Theory I"
+  },
+  {
+    "id": "MUS417",
+    "subject": "MUS",
+    "number": 417,
+    "credits": 3,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MUS416"],
+    "title": "Post-Tonal Theory II"
+  },
+  {
+    "id": "MUS428",
+    "subject": "MUS",
+    "number": 428,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["WR122Z", "WR123", "HC221H"],
+    "title": "Cultures of Musical Celebrity"
+  }
+]

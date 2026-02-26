@@ -1,0 +1,305 @@
+[
+  {
+    "id": "LING101",
+    "subject": "LING",
+    "number": 101,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Language"
+  },
+  {
+    "id": "LING144",
+    "subject": "LING",
+    "number": 144,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Learning How To Learn Languages"
+  },
+  {
+    "id": "LING150",
+    "subject": "LING",
+    "number": 150,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Structure of English Words"
+  },
+  {
+    "id": "LING199",
+    "subject": "LING",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "LING201",
+    "subject": "LING",
+    "number": 201,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Language and Power in the United States"
+  },
+  {
+    "id": "LING211",
+    "subject": "LING",
+    "number": 211,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Languages of the World"
+  },
+  {
+    "id": "LING225",
+    "subject": "LING",
+    "number": 225,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Writing Systems"
+  },
+  {
+    "id": "LING294",
+    "subject": "LING",
+    "number": 294,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Child Language"
+  },
+  {
+    "id": "LING296",
+    "subject": "LING",
+    "number": 296,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Language and Society in the United States"
+  },
+  {
+    "id": "LING297",
+    "subject": "LING",
+    "number": 297,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Bilingualism in the United States"
+  },
+  {
+    "id": "LING301",
+    "subject": "LING",
+    "number": 301,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Linguistics Analysis"
+  },
+  {
+    "id": "LING302",
+    "subject": "LING",
+    "number": 302,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Linguistic Behavior"
+  },
+  {
+    "id": "LING311",
+    "subject": "LING",
+    "number": 311,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["LING301"],
+    "title": "Phonetics and Phonology"
+  },
+  {
+    "id": "LING312",
+    "subject": "LING",
+    "number": 312,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["LING301"],
+    "title": "Morphosyntax"
+  },
+  {
+    "id": "LING399",
+    "subject": "LING",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "LING411",
+    "subject": "LING",
+    "number": 411,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING311"],
+    "title": "Phonetics"
+  },
+  {
+    "id": "LING415",
+    "subject": "LING",
+    "number": 415,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING301"],
+    "title": "Semantics"
+  },
+  {
+    "id": "LING416",
+    "subject": "LING",
+    "number": 416,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING301", "LING302"],
+    "title": "Language and Cognition"
+  },
+  {
+    "id": "LING420",
+    "subject": "LING",
+    "number": 420,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Language, Mind and Society"
+  },
+  {
+    "id": "LING430",
+    "subject": "LING",
+    "number": 430,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING301"],
+    "title": "Research Methods for Applied Linguistics"
+  },
+  {
+    "id": "LING431",
+    "subject": "LING",
+    "number": 431,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Statistical Methods in Linguistics"
+  },
+  {
+    "id": "LING432",
+    "subject": "LING",
+    "number": 432,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Interdisciplinary Cognitive Sciences"
+  },
+  {
+    "id": "LING435",
+    "subject": "LING",
+    "number": 435,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING312"],
+    "title": "Advanced Morphology"
+  },
+  {
+    "id": "LING444",
+    "subject": "LING",
+    "number": 444,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Second-Language Acquisition"
+  },
+  {
+    "id": "LING450",
+    "subject": "LING",
+    "number": 450,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING311"],
+    "title": "Introduction to Phonology"
+  },
+  {
+    "id": "LING451",
+    "subject": "LING",
+    "number": 451,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING312"],
+    "title": "Advanced Syntax"
+  },
+  {
+    "id": "LING460",
+    "subject": "LING",
+    "number": 460,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING311"],
+    "title": "Historical Linguistics"
+  },
+  {
+    "id": "LING491",
+    "subject": "LING",
+    "number": 491,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING301", "LING302"],
+    "title": "Sociolinguistics"
+  },
+  {
+    "id": "LING493",
+    "subject": "LING",
+    "number": 493,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["LING301", "LING302"],
+    "title": "Corpus Linguistics"
+  },
+  {
+    "id": "LING494",
+    "subject": "LING",
+    "number": 494,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "English Grammar",
+    "equivalents": ["ENG209"]
+  }
+]

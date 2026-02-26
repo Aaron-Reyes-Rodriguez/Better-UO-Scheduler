@@ -1,0 +1,492 @@
+[
+  {
+    "id": "ENG101",
+    "subject": "ENG",
+    "number": 101,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Life-Changing Books"
+  },
+  {
+    "id": "ENG104Z",
+    "subject": "ENG",
+    "number": 104,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Fiction",
+    "equivalents": ["ENG104"]
+  },
+  {
+    "id": "ENG105Z",
+    "subject": "ENG",
+    "number": 105,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Drama",
+    "equivalents": ["ENG105"]
+  },
+  {
+    "id": "ENG106Z",
+    "subject": "ENG",
+    "number": 106,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Poetry",
+    "equivalents": ["ENG106"]
+  },
+  {
+    "id": "ENG107",
+    "subject": "ENG",
+    "number": 107,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "World Literature I"
+  },
+  {
+    "id": "ENG108",
+    "subject": "ENG",
+    "number": 108,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "World Literature II"
+  },
+  {
+    "id": "ENG110M",
+    "subject": "ENG",
+    "number": 110,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Film and Media",
+    "equivalents": ["CINE110M"]
+  },
+  {
+    "id": "ENG113",
+    "subject": "ENG",
+    "number": 113,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Young Adult Literature"
+  },
+  {
+    "id": "ENG142",
+    "subject": "ENG",
+    "number": 142,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Science-Fiction and Fantasy Literature"
+  },
+  {
+    "id": "ENG199",
+    "subject": "ENG",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ENG200",
+    "subject": "ENG",
+    "number": 200,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["WR122Z", "WR123", "HC221H"],
+    "title": "Public Speaking as a Liberal Art"
+  },
+  {
+    "id": "ENG205",
+    "subject": "ENG",
+    "number": 205,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Genre"
+  },
+  {
+    "id": "ENG207",
+    "subject": "ENG",
+    "number": 207,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Early Shakespeare"
+  },
+  {
+    "id": "ENG208",
+    "subject": "ENG",
+    "number": 208,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Late Shakespeare"
+  },
+  {
+    "id": "ENG209",
+    "subject": "ENG",
+    "number": 209,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "The Craft of the Sentence",
+    "equivalents": ["LING494"]
+  },
+  {
+    "id": "ENG225",
+    "subject": "ENG",
+    "number": 225,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Age of King Arthur"
+  },
+  {
+    "id": "ENG230",
+    "subject": "ENG",
+    "number": 230,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Environmental Literature"
+  },
+  {
+    "id": "ENG240",
+    "subject": "ENG",
+    "number": 240,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Disability Studies"
+  },
+  {
+    "id": "ENG241",
+    "subject": "ENG",
+    "number": 241,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to African American Literature"
+  },
+  {
+    "id": "ENG242",
+    "subject": "ENG",
+    "number": 242,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Asian American Literature"
+  },
+  {
+    "id": "ENG243",
+    "subject": "ENG",
+    "number": 243,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Chicano and Latino Literature"
+  },
+  {
+    "id": "ENG244",
+    "subject": "ENG",
+    "number": 244,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Native American Literature"
+  },
+  {
+    "id": "ENG250",
+    "subject": "ENG",
+    "number": 250,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Literature and Digital Culture"
+  },
+  {
+    "id": "ENG280",
+    "subject": "ENG",
+    "number": 280,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Comic Studies"
+  },
+  {
+    "id": "ENG303",
+    "subject": "ENG",
+    "number": 303,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["ENG205"],
+    "title": "Foundations of the English Major: Text"
+  },
+  {
+    "id": "ENG304",
+    "subject": "ENG",
+    "number": 304,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["ENG205", "ENG303"],
+    "title": "English Major Foundations: Context"
+  },
+  {
+    "id": "ENG305",
+    "subject": "ENG",
+    "number": 305,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["ENG205"],
+    "title": "English Major Foundations: Theory"
+  },
+  {
+    "id": "ENG308",
+    "subject": "ENG",
+    "number": 308,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Literary Criticism"
+  },
+  {
+    "id": "ENG313",
+    "subject": "ENG",
+    "number": 313,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Teen and Children's Literature"
+  },
+  {
+    "id": "ENG321",
+    "subject": "ENG",
+    "number": 321,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "English Novel"
+  },
+  {
+    "id": "ENG330",
+    "subject": "ENG",
+    "number": 330,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["WR122Z", "WR123", "HC221H"],
+    "title": "Oral Controversy and Advocacy"
+  },
+  {
+    "id": "ENG335",
+    "subject": "ENG",
+    "number": 335,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["WR122Z", "WR123", "HC221H"],
+    "title": "Inventing Arguments"
+  },
+  {
+    "id": "ENG360",
+    "subject": "ENG",
+    "number": 360,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "African American Writers"
+  },
+  {
+    "id": "ENG365",
+    "subject": "ENG",
+    "number": 365,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Global Literatures in English"
+  },
+  {
+    "id": "ENG380",
+    "subject": "ENG",
+    "number": 380,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Film, Media, and History"
+  },
+  {
+    "id": "ENG391",
+    "subject": "ENG",
+    "number": 391,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "American Novel"
+  },
+  {
+    "id": "ENG394",
+    "subject": "ENG",
+    "number": 394,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "20th-Century Literature"
+  },
+  {
+    "id": "ENG399",
+    "subject": "ENG",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ENG401",
+    "subject": "ENG",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "ENG407",
+    "subject": "ENG",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ENG410",
+    "subject": "ENG",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ENG419",
+    "subject": "ENG",
+    "number": 419,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Contemporary Literary Theory"
+  },
+  {
+    "id": "ENG427",
+    "subject": "ENG",
+    "number": 427,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Chaucer"
+  },
+  {
+    "id": "ENG436",
+    "subject": "ENG",
+    "number": 436,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Shakespeare"
+  },
+  {
+    "id": "ENG455",
+    "subject": "ENG",
+    "number": 455,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "English Romantic Writers"
+  },
+  {
+    "id": "ENG475",
+    "subject": "ENG",
+    "number": 475,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Modern Poetry"
+  },
+  {
+    "id": "ENG485",
+    "subject": "ENG",
+    "number": 485,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Television Studies"
+  },
+  {
+    "id": "ENG491",
+    "subject": "ENG",
+    "number": 491,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["WR122Z", "WR123", "HC221H"],
+    "title": "Rhetoric and Ethics"
+  }
+]

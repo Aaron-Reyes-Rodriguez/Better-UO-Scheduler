@@ -1,0 +1,353 @@
+[
+  {
+    "id": "CINE110M",
+    "subject": "CINE",
+    "number": 110,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Film and Media",
+    "equivalents": ["ENG110M"]
+  },
+  {
+    "id": "CINE111",
+    "subject": "CINE",
+    "number": 111,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "How to Watch TV"
+  },
+  {
+    "id": "CINE112",
+    "subject": "CINE",
+    "number": 112,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "How to Watch Movies"
+  },
+  {
+    "id": "CINE121",
+    "subject": "CINE",
+    "number": 121,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Storytelling for Screens"
+  },
+  {
+    "id": "CINE151M",
+    "subject": "CINE",
+    "number": 151,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Korean Cinema",
+    "equivalents": ["KRN151M"]
+  },
+  {
+    "id": "CINE199",
+    "subject": "CINE",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "CINE230",
+    "subject": "CINE",
+    "number": 230,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Remix Cultures"
+  },
+  {
+    "id": "CINE260M",
+    "subject": "CINE",
+    "number": 260,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Media Aesthetics",
+    "equivalents": ["ENG260M"]
+  },
+  {
+    "id": "CINE265",
+    "subject": "CINE",
+    "number": 265,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of the Motion Picture I"
+  },
+  {
+    "id": "CINE266",
+    "subject": "CINE",
+    "number": 266,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of the Motion Picture II"
+  },
+  {
+    "id": "CINE267",
+    "subject": "CINE",
+    "number": 267,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "History of the Motion Picture III"
+  },
+  {
+    "id": "CINE268",
+    "subject": "CINE",
+    "number": 268,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Television History"
+  },
+  {
+    "id": "CINE270",
+    "subject": "CINE",
+    "number": 270,
+    "credits": 6,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["JCOM201", "CINE260M", "CINE265", "CINE266", "CINE267"],
+    "title": "Narrative Production I"
+  },
+  {
+    "id": "CINE305",
+    "subject": "CINE",
+    "number": 305,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Theory and Criticism"
+  },
+  {
+    "id": "CINE310",
+    "subject": "CINE",
+    "number": 310,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "National and Regional Cinema"
+  },
+  {
+    "id": "CINE320",
+    "subject": "CINE",
+    "number": 320,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM201", "CINE260M", "CINE265", "CINE266", "CINE267"],
+    "title": "Beginning Screenwriting"
+  },
+  {
+    "id": "CINE335",
+    "subject": "CINE",
+    "number": 335,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Exhibition and Audiences"
+  },
+  {
+    "id": "CINE340",
+    "subject": "CINE",
+    "number": 340,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Production Studies"
+  },
+  {
+    "id": "CINE345",
+    "subject": "CINE",
+    "number": 345,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Stars"
+  },
+  {
+    "id": "CINE360",
+    "subject": "CINE",
+    "number": 360,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Film Theory"
+  },
+  {
+    "id": "CINE362M",
+    "subject": "CINE",
+    "number": 362,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Contemporary Korean Film",
+    "equivalents": ["KRN362M"]
+  },
+  {
+    "id": "CINE365",
+    "subject": "CINE",
+    "number": 365,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Digital Cinema"
+  },
+  {
+    "id": "CINE370",
+    "subject": "CINE",
+    "number": 370,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM201", "CINE260M", "CINE265", "CINE266", "CINE267", "CINE270"],
+    "title": "Narrative Production II"
+  },
+  {
+    "id": "CINE381M",
+    "subject": "CINE",
+    "number": 381,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Film, Media, and Culture",
+    "equivalents": ["ENG381M"]
+  },
+  {
+    "id": "CINE399",
+    "subject": "CINE",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "CINE401",
+    "subject": "CINE",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 12, "default": 4}
+  },
+  {
+    "id": "CINE407",
+    "subject": "CINE",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "CINE410",
+    "subject": "CINE",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "CINE420",
+    "subject": "CINE",
+    "number": 420,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["CINE320"],
+    "title": "Advanced Screenwriting"
+  },
+  {
+    "id": "CINE425",
+    "subject": "CINE",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["CINE260M", "JCOM201", "CINE265", "CINE266", "CINE267", "CINE270"],
+    "title": "Cinema Production"
+  },
+  {
+    "id": "CINE430",
+    "subject": "CINE",
+    "number": 430,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Media Industry Studies"
+  },
+  {
+    "id": "CINE440",
+    "subject": "CINE",
+    "number": 440,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "National and Regional Cinema"
+  },
+  {
+    "id": "CINE486M",
+    "subject": "CINE",
+    "number": 486,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "New Media and Digital Culture",
+    "equivalents": ["ENG486M"]
+  },
+  {
+    "id": "CINE490",
+    "subject": "CINE",
+    "number": 490,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Directors and Genres"
+  }
+]

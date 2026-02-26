@@ -1,0 +1,239 @@
+[
+  {
+    "id": "WR121Z",
+    "subject": "WR",
+    "number": 121,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Composition I"
+  },
+  {
+    "id": "WR122Z",
+    "subject": "WR",
+    "number": 122,
+    "credits": 4,
+    "level": 100,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["WR121Z"],
+    "title": "Composition II"
+  },
+  {
+    "id": "WR199",
+    "subject": "WR",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "WR214",
+    "subject": "WR",
+    "number": 214,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Business Writing"
+  },
+  {
+    "id": "WR241",
+    "subject": "WR",
+    "number": 241,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Introduction to Professional Writing"
+  },
+  {
+    "id": "WR320",
+    "subject": "WR",
+    "number": 320,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Writing for Computer Science",
+    "notes": "Writing for professionals in computer and information science fields."
+  },
+  {
+    "id": "WR321",
+    "subject": "WR",
+    "number": 321,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Technical Writing",
+    "notes": "Writing for professional scientists and engineers."
+  },
+  {
+    "id": "WR323",
+    "subject": "WR",
+    "number": 323,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Writing for Publication"
+  },
+  {
+    "id": "WR326",
+    "subject": "WR",
+    "number": 326,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Document Design"
+  },
+  {
+    "id": "WR327",
+    "subject": "WR",
+    "number": 327,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Technical Reports"
+  },
+  {
+    "id": "WR330",
+    "subject": "WR",
+    "number": 330,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Advanced Composition"
+  },
+  {
+    "id": "WR340",
+    "subject": "WR",
+    "number": 340,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Argument and Persuasion"
+  },
+  {
+    "id": "WR341",
+    "subject": "WR",
+    "number": 341,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR241"],
+    "title": "Advanced Professional Writing"
+  },
+  {
+    "id": "WR350",
+    "subject": "WR",
+    "number": 350,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Writing and Social Media"
+  },
+  {
+    "id": "WR360",
+    "subject": "WR",
+    "number": 360,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["WR121Z"],
+    "title": "Rhetoric of Science and Technology"
+  },
+  {
+    "id": "WR399",
+    "subject": "WR",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "WR401",
+    "subject": "WR",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "WR405",
+    "subject": "WR",
+    "number": 405,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Reading and Conference",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "WR410",
+    "subject": "WR",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "WR420",
+    "subject": "WR",
+    "number": 420,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Studies in Style"
+  },
+  {
+    "id": "WR423",
+    "subject": "WR",
+    "number": 423,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Writing Creative Nonfiction"
+  },
+  {
+    "id": "WR424",
+    "subject": "WR",
+    "number": 424,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Essay as a Literary Form"
+  },
+  {
+    "id": "WR425",
+    "subject": "WR",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Writing about Place"
+  }
+]

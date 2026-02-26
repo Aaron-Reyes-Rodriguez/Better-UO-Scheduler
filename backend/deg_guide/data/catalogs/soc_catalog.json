@@ -1,0 +1,285 @@
+[
+  {
+    "id": "SOC204Z",
+    "subject": "SOC",
+    "number": 204,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Sociology",
+    "notes": "Introduces central concepts, theories, and methods that define the sociological approach."
+  },
+  {
+    "id": "SOC207",
+    "subject": "SOC",
+    "number": 207,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Social Inequality"
+  },
+  {
+    "id": "SOC280",
+    "subject": "SOC",
+    "number": 280,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Criminology"
+  },
+  {
+    "id": "SOC301",
+    "subject": "SOC",
+    "number": 301,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["SOC204Z"],
+    "title": "American Society"
+  },
+  {
+    "id": "SOC304",
+    "subject": "SOC",
+    "number": 304,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Community, Environment, and Society"
+  },
+  {
+    "id": "SOC310",
+    "subject": "SOC",
+    "number": 310,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Social Theory"
+  },
+  {
+    "id": "SOC311",
+    "subject": "SOC",
+    "number": 311,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["SOC204Z", "SOC207"],
+    "title": "Research Methods"
+  },
+  {
+    "id": "SOC312",
+    "subject": "SOC",
+    "number": 312,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Statistical Analysis in Sociology"
+  },
+  {
+    "id": "SOC313",
+    "subject": "SOC",
+    "number": 313,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Social Issues and Movements"
+  },
+  {
+    "id": "SOC317",
+    "subject": "SOC",
+    "number": 317,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Sociology of the Mass Media"
+  },
+  {
+    "id": "SOC328",
+    "subject": "SOC",
+    "number": 328,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Self and Society"
+  },
+  {
+    "id": "SOC330",
+    "subject": "SOC",
+    "number": 330,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["SOC204Z", "SOC207"],
+    "title": "Sociology of the Family"
+  },
+  {
+    "id": "SOC345",
+    "subject": "SOC",
+    "number": 345,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Race and Ethnicity"
+  },
+  {
+    "id": "SOC346",
+    "subject": "SOC",
+    "number": 346,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Work and Occupations"
+  },
+  {
+    "id": "SOC355",
+    "subject": "SOC",
+    "number": 355,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Sociology of Gender"
+  },
+  {
+    "id": "SOC370",
+    "subject": "SOC",
+    "number": 370,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Urban Sociology"
+  },
+  {
+    "id": "SOC380",
+    "subject": "SOC",
+    "number": 380,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Deviance, Social Control, and Crime"
+  },
+  {
+    "id": "SOC385",
+    "subject": "SOC",
+    "number": 385,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Medical Sociology"
+  },
+  {
+    "id": "SOC399",
+    "subject": "SOC",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "SOC401",
+    "subject": "SOC",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "SOC412",
+    "subject": "SOC",
+    "number": 412,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Sociological Research Methods"
+  },
+  {
+    "id": "SOC413",
+    "subject": "SOC",
+    "number": 413,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["SOC412"],
+    "title": "Sociological Research Methods"
+  },
+  {
+    "id": "SOC445",
+    "subject": "SOC",
+    "number": 445,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["SOC310", "SOC311"],
+    "title": "Sociology of Race and Ethnicity"
+  },
+  {
+    "id": "SOC451",
+    "subject": "SOC",
+    "number": 451,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["SOC310", "SOC311", "SOC312"],
+    "title": "Social Stratification"
+  },
+  {
+    "id": "SOC455",
+    "subject": "SOC",
+    "number": 455,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Issues in Sociology of Gender"
+  },
+  {
+    "id": "SOC456",
+    "subject": "SOC",
+    "number": 456,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Feminist Theory"
+  },
+  {
+    "id": "SOC465",
+    "subject": "SOC",
+    "number": 465,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Political Sociology"
+  },
+  {
+    "id": "SOC467",
+    "subject": "SOC",
+    "number": 467,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["SOC310"],
+    "title": "Economic Sociology"
+  }
+]

@@ -1,0 +1,406 @@
+[
+  {
+    "id": "JCOM101",
+    "subject": "JCOM",
+    "number": 101,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Media Professions"
+  },
+  {
+    "id": "JCOM102",
+    "subject": "JCOM",
+    "number": 102,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Story Craft Audio"
+  },
+  {
+    "id": "JCOM103",
+    "subject": "JCOM",
+    "number": 103,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Story Craft Visual"
+  },
+  {
+    "id": "JCOM185M",
+    "subject": "JCOM",
+    "number": 185,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Science and Popular Media",
+    "equivalents": ["BI185M"]
+  },
+  {
+    "id": "JCOM199",
+    "subject": "JCOM",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "JCOM201",
+    "subject": "JCOM",
+    "number": 201,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Making Sense of Media"
+  },
+  {
+    "id": "JCOM202",
+    "subject": "JCOM",
+    "number": 202,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "How Stories Work"
+  },
+  {
+    "id": "JCOM203",
+    "subject": "JCOM",
+    "number": 203,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Writing as Practice"
+  },
+  {
+    "id": "JCOM220",
+    "subject": "JCOM",
+    "number": 220,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Documentary Production"
+  },
+  {
+    "id": "JCOM241",
+    "subject": "JCOM",
+    "number": 241,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["JCOM102", "JCOM103"],
+    "title": "Principles of Multimedia Techniques"
+  },
+  {
+    "id": "JCOM280",
+    "subject": "JCOM",
+    "number": 280,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Studying Games"
+  },
+  {
+    "id": "JCOM301",
+    "subject": "JCOM",
+    "number": 301,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM201"],
+    "title": "Gender, Media and Diversity"
+  },
+  {
+    "id": "JCOM302",
+    "subject": "JCOM",
+    "number": 302,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["JCOM201"],
+    "title": "Communication Law"
+  },
+  {
+    "id": "JCOM303",
+    "subject": "JCOM",
+    "number": 303,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": ["JCOM201"],
+    "title": "Media Ethics"
+  },
+  {
+    "id": "JCOM304",
+    "subject": "JCOM",
+    "number": 304,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM201"],
+    "title": "The Media Business"
+  },
+  {
+    "id": "JCOM305",
+    "subject": "JCOM",
+    "number": 305,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["JCOM201"],
+    "title": "Media History"
+  },
+  {
+    "id": "JCOM306",
+    "subject": "JCOM",
+    "number": 306,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM201"],
+    "title": "Global Communications"
+  },
+  {
+    "id": "JCOM311",
+    "subject": "JCOM",
+    "number": 311,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM201"],
+    "title": "Introduction to Media Studies"
+  },
+  {
+    "id": "JCOM312",
+    "subject": "JCOM",
+    "number": 312,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM102", "JCOM103", "JCOM201", "JCOM202", "JCOM311"],
+    "title": "Media Studies Research Methods"
+  },
+  {
+    "id": "JCOM330",
+    "subject": "JCOM",
+    "number": 330,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM101", "JCOM201", "JCOM202"],
+    "title": "Journalism and Democracy"
+  },
+  {
+    "id": "JCOM331",
+    "subject": "JCOM",
+    "number": 331,
+    "credits": 8,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM101", "JCOM102", "JCOM103", "JCOM201", "JCOM202", "JCOM203", "JCOM330"],
+    "title": "Fundamentals of Reporting and Interviewing"
+  },
+  {
+    "id": "JCOM332",
+    "subject": "JCOM",
+    "number": 332,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM331"],
+    "title": "Public Affairs Journalism"
+  },
+  {
+    "id": "JCOM333",
+    "subject": "JCOM",
+    "number": 333,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM331"],
+    "title": "Audiences"
+  },
+  {
+    "id": "JCOM341",
+    "subject": "JCOM",
+    "number": 341,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM331"],
+    "title": "Audio Journalism I"
+  },
+  {
+    "id": "JCOM342",
+    "subject": "JCOM",
+    "number": 342,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM241", "JCOM331"],
+    "title": "Video Journalism I"
+  },
+  {
+    "id": "JCOM345",
+    "subject": "JCOM",
+    "number": 345,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM102", "JCOM103", "JCOM202", "JCOM203"],
+    "title": "Photojournalism I"
+  },
+  {
+    "id": "JCOM350",
+    "subject": "JCOM",
+    "number": 350,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["JCOM101", "JCOM201", "JCOM202"],
+    "title": "Creative Strategist"
+  },
+  {
+    "id": "JCOM370",
+    "subject": "JCOM",
+    "number": 370,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Public Relations Fundamentals"
+  },
+  {
+    "id": "JCOM399",
+    "subject": "JCOM",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "JCOM401",
+    "subject": "JCOM",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 9, "default": 4}
+  },
+  {
+    "id": "JCOM412",
+    "subject": "JCOM",
+    "number": 412,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM201"],
+    "title": "Internet Law and Regulation"
+  },
+  {
+    "id": "JCOM430",
+    "subject": "JCOM",
+    "number": 430,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM333"],
+    "title": "In-Depth Reporting"
+  },
+  {
+    "id": "JCOM431",
+    "subject": "JCOM",
+    "number": 431,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM333"],
+    "title": "Data Journalism"
+  },
+  {
+    "id": "JCOM434",
+    "subject": "JCOM",
+    "number": 434,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM333"],
+    "title": "Investigative Journalism"
+  },
+  {
+    "id": "JCOM435",
+    "subject": "JCOM",
+    "number": 435,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM331"],
+    "title": "Profiles and Narrative"
+  },
+  {
+    "id": "JCOM470",
+    "subject": "JCOM",
+    "number": 470,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM311", "JCOM330", "JCOM350", "JCOM370"],
+    "title": "Strategic Communications Research Methods"
+  },
+  {
+    "id": "JCOM471",
+    "subject": "JCOM",
+    "number": 471,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM371"],
+    "title": "The Public Relations Planning Process"
+  },
+  {
+    "id": "JCOM472",
+    "subject": "JCOM",
+    "number": 472,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["JCOM372", "JCOM470", "JCOM471"],
+    "title": "Public Relations Campaigns"
+  },
+  {
+    "id": "JCOM474",
+    "subject": "JCOM",
+    "number": 474,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Crisis Communication"
+  },
+  {
+    "id": "JCOM476",
+    "subject": "JCOM",
+    "number": 476,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Social Media Strategies"
+  }
+]

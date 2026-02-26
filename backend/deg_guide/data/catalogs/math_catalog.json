@@ -1,294 +1,542 @@
 [
-    {
-    "id": "MATH253",
+  {
+    "id": "MATH101",
     "subject": "MATH",
-    "number": 253,
-    "credits": 4,
-    "level": 200,
-    "tags": [],
-    "prereqs": [
-      { "course": "MATH247", "min_grade": "B-" },
-      { "course": "MATH252", "min_grade": "B-" }],
-    "title": "Calculus III"
-    },
-
-    {
-    "id": "MATH281",
-    "subject": "MATH",
-    "number": 281,
-    "credits": 4,
-    "level": 200,
-    "tags": [],
-    "prereqs": [
-      { "course": "MATH253", "min_grade": "B-" }],
-    "title": "Several-Variable Calculus I"
-    },
-
-    {
-    "id": "MATH282",
-    "subject": "MATH",
-    "number": 282,
-    "credits": 4,
-    "level": 200,
-    "tags": [],
-    "prereqs": [
-      { "course": "MATH281", "min_grade": "B-" }],
-    "title": "Several-Variable Calculus II"
-    },
-    
-    {
-    "id": "MATH341",
-    "subject": "MATH",
-    "number": 341,
-    "credits": 4,
-    "level": 300,
-    "tags": [],
-    "prereqs": [
-        { "course": "MATH247", "min_grade": "B-" },
-        { "course": "MATH252", "min_grade": "B-" },
-        { "course": "MATH253", "min_grade": "B-" }
-    ],
-    "title": "Elementary Linear Algebra I"
-    },
-    
-    {
-    "id": "MATH342",
-    "subject": "MATH",
-    "number": 342,
-    "credits": 4,
-    "level": 300,
-    "tags": [],
-    "prereqs": [
-        { "course": "MATH341", "min_grade": "C-" }
-    ],
-    "title": "Elementary Linear Algebra II"
-    },
-    
-    {
-    "id": "CS122",
-    "subject": "CS",
-    "number": 122,
+    "number": 101,
     "credits": 4,
     "level": 100,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH101", "min_grade": "B-" }
-    ],
-    "title": "Intro to Programming and Problem Solving"
-    },
-    
-    {
-    "id": "CS210",
-    "subject": "CS",
-    "number": 210,
+    "prereqs": [],
+    "title": "Foundations of Algebra and Mathematical Modeling",
+    "notes": "Prereq: UO Math Placement Exam with score of 35-48."
+  },
+  {
+    "id": "MATH105Z",
+    "subject": "MATH",
+    "number": 105,
     "credits": 4,
+    "level": 100,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH101", "min_grade": ""}],
+    "title": "Math in Society",
+    "equivalents": ["MATH105"]
+  },
+  {
+    "id": "MATH106",
+    "subject": "MATH",
+    "number": 106,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH101", "min_grade": ""}],
+    "title": "University Mathematics II"
+  },
+  {
+    "id": "MATH107",
+    "subject": "MATH",
+    "number": 107,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH101", "min_grade": ""}],
+    "title": "University Mathematics III"
+  },
+  {
+    "id": "MATH111Z",
+    "subject": "MATH",
+    "number": 111,
+    "credits": 4,
+    "level": 100,
+    "tags": ["bs_math"],
+    "prereqs": [{"course": "MATH101", "min_grade": ""}],
+    "title": "Precalculus I: Functions",
+    "equivalents": ["MATH111"]
+  },
+  {
+    "id": "MATH112Z",
+    "subject": "MATH",
+    "number": 112,
+    "credits": 4,
+    "level": 100,
+    "tags": ["bs_math"],
+    "prereqs": [{"course": "MATH111Z", "min_grade": ""}],
+    "title": "Precalculus II: Trigonometry",
+    "equivalents": ["MATH112"]
+  },
+  {
+    "id": "MATH199",
+    "subject": "MATH",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies: Topic",
+    "notes": "Experimental course - topic varies. Repeatable.",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH201",
+    "subject": "MATH",
+    "number": 201,
+    "credits": 2,
     "level": 200,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH112", "min_grade": "B-" }
-    ],
-    "title": "Computer Science I"
-    },
-    
-    {
-    "id": "MATH307",
+    "prereqs": [],
+    "title": "Algebra Math Lab"
+  },
+  {
+    "id": "MATH202",
     "subject": "MATH",
-    "number": 307,
-    "credits": 4,
-    "level": 300,
+    "number": 202,
+    "credits": 2,
+    "level": 200,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH247", "min_grade": "B-" },
-        { "course": "MATH252", "min_grade": "B-" }
-    ],
-    "title": "Introduction to Proof"
-    },
-    
-    {
+    "prereqs": [],
+    "title": "Geometry Math Lab"
+  },
+  {
+    "id": "MATH203",
+    "subject": "MATH",
+    "number": 203,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Analysis and Number Theory Math Lab"
+  },
+  {
+    "id": "MATH204",
+    "subject": "MATH",
+    "number": 204,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Probability and Statistics Math Lab"
+  },
+  {
+    "id": "MATH205",
+    "subject": "MATH",
+    "number": 205,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Foundations Math Lab"
+  },
+  {
+    "id": "MATH206",
+    "subject": "MATH",
+    "number": 206,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Combinatorics Math Lab"
+  },
+  {
+    "id": "MATH211",
+    "subject": "MATH",
+    "number": 211,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH101", "min_grade": ""}],
+    "title": "Fundamentals of Elementary Mathematics I",
+    "notes": "Sequence with MATH 212, MATH 213."
+  },
+  {
+    "id": "MATH212",
+    "subject": "MATH",
+    "number": 212,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH211", "min_grade": ""}],
+    "title": "Fundamentals of Elementary Mathematics II",
+    "notes": "Sequence with MATH 211, MATH 213."
+  },
+  {
+    "id": "MATH213",
+    "subject": "MATH",
+    "number": 213,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH212", "min_grade": ""}],
+    "title": "Fundamentals of Elementary Mathematics III",
+    "notes": "Sequence with MATH 211, MATH 212."
+  },
+  {
     "id": "MATH231",
     "subject": "MATH",
     "number": 231,
     "credits": 4,
     "level": 200,
-    "tags": [],
-    "prereqs": [
-        { "course": "MATH251", "min_grade": "B-" },
-        { "course": "MATH252", "min_grade": "B-" },
-        { "course": "MATH253", "min_grade": "B-" }
-
-    ],
-    "title": "Elements of Discrete Mathematics I"
-    },
-    
-    {
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH251Z", "min_grade": ""}],
+    "title": "Elements of Discrete Mathematics I",
+    "notes": "Sequence with MATH 232."
+  },
+  {
     "id": "MATH232",
     "subject": "MATH",
     "number": 232,
     "credits": 4,
     "level": 200,
-    "tags": [],
-    "prereqs": [
-        { "course": "MATH231", "min_grade": "B-" }
-    ],
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH231", "min_grade": ""}],
     "title": "Elements of Discrete Mathematics II"
-    },
-    
-    {
+  },
+  {
+    "id": "MATH241",
+    "subject": "MATH",
+    "number": 241,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH111Z", "min_grade": ""}],
+    "title": "Calculus for Business and Social Science I",
+    "equivalents": ["MATH246", "MATH251Z"],
+    "notes": "Students cannot receive credit for more than one of MATH 241, MATH 246, MATH 251Z."
+  },
+  {
+    "id": "MATH242",
+    "subject": "MATH",
+    "number": 242,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH241", "min_grade": ""}],
+    "title": "Calculus for Business and Social Science II",
+    "equivalents": ["MATH247", "MATH252Z"],
+    "notes": "Students cannot receive credit for more than one of MATH 242, MATH 247, MATH 252Z."
+  },
+  {
+    "id": "MATH246",
+    "subject": "MATH",
+    "number": 246,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH112Z", "min_grade": ""}],
+    "title": "Calculus for the Biological Sciences I",
+    "equivalents": ["MATH241", "MATH251Z"],
+    "notes": "Students cannot receive credit for more than one of MATH 241, MATH 246, MATH 251Z. Sequence with MATH 247."
+  },
+  {
+    "id": "MATH247",
+    "subject": "MATH",
+    "number": 247,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH246", "min_grade": ""}],
+    "title": "Calculus for the Biological Sciences II",
+    "equivalents": ["MATH242", "MATH252Z"],
+    "notes": "Students cannot receive credit for more than one of MATH 242, MATH 247, MATH 252Z."
+  },
+  {
+    "id": "MATH251Z",
+    "subject": "MATH",
+    "number": 251,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH112Z", "min_grade": ""}],
+    "title": "Differential Calculus",
+    "equivalents": ["MATH241", "MATH246", "MATH251"],
+    "notes": "Students cannot receive credit for more than one of MATH 241, MATH 246, MATH 251Z. Sequence with MATH 252Z, MATH 253Z."
+  },
+  {
+    "id": "MATH252Z",
+    "subject": "MATH",
+    "number": 252,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH251Z", "min_grade": ""}],
+    "title": "Integral Calculus",
+    "equivalents": ["MATH242", "MATH247", "MATH252"],
+    "notes": "Students cannot receive credit for more than one of MATH 242, 247, 252Z. Sequence with MATH 251Z, MATH 253Z."
+  },
+  {
+    "id": "MATH253Z",
+    "subject": "MATH",
+    "number": 253,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH252Z", "min_grade": ""}],
+    "title": "Calculus: Sequences and Series",
+    "equivalents": ["MATH253"]
+  },
+  {
+    "id": "MATH256",
+    "subject": "MATH",
+    "number": 256,
+    "credits": 4,
+    "level": 200,
+    "tags": ["bs_math"],
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}],
+    "title": "Introduction to Differential Equations"
+  },
+  {
+    "id": "MATH281",
+    "subject": "MATH",
+    "number": 281,
+    "credits": 4,
+    "level": 200,
+    "tags": ["bs_math"],
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}],
+    "title": "Several-Variable Calculus I",
+    "notes": "Sequence with MATH 282."
+  },
+  {
+    "id": "MATH282",
+    "subject": "MATH",
+    "number": 282,
+    "credits": 4,
+    "level": 200,
+    "tags": ["bs_math"],
+    "prereqs": [{"course": "MATH281", "min_grade": ""}],
+    "title": "Several-Variable Calculus II"
+  },
+  {
+    "id": "MATH307",
+    "subject": "MATH",
+    "number": 307,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH252Z", "min_grade": ""}],
+    "title": "Introduction to Proof"
+  },
+  {
     "id": "MATH316",
     "subject": "MATH",
     "number": 316,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH253", "min_grade": "B-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
-    "title": "Fundamentals of Analysis I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Fundamentals of Analysis I",
+    "notes": "Sequence with MATH 317."
+  },
+  {
     "id": "MATH317",
     "subject": "MATH",
     "number": 317,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH316", "min_grade": "C-" }
-    ],
-    "title": "Fundamentals of Analysis II"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH316", "min_grade": ""}],
+    "title": "Fundamentals of Analysis II",
+    "notes": "Sequence with MATH 316."
+  },
+  {
+    "id": "MATH341",
+    "subject": "MATH",
+    "number": 341,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [{"course": "MATH252Z", "min_grade": ""}],
+    "title": "Elementary Linear Algebra",
+    "notes": "Sequence with MATH 342. MATH 253Z recommended."
+  },
+  {
+    "id": "MATH342",
+    "subject": "MATH",
+    "number": 342,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [{"course": "MATH341", "min_grade": ""}],
+    "title": "Elementary Linear Algebra"
+  },
+  {
+    "id": "MATH343",
+    "subject": "MATH",
+    "number": 343,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": [{"course": "MATH252Z", "min_grade": ""}],
+    "title": "Statistical Models and Methods",
+    "equivalents": ["DSCI345M", "MATH345M"],
+    "notes": "Students cannot get credit for both MATH 343 and DSCI 345M/MATH 345M."
+  },
+  {
+    "id": "MATH345M",
+    "subject": "MATH",
+    "number": 345,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [{"course": "MATH342", "min_grade": ""}, {"course": "CS211", "min_grade": ""}],
+    "title": "Probability and Statistics for Data Science",
+    "equivalents": ["DSCI345M", "MATH343"],
+    "notes": "Multilisted with DSCI 345M. Students cannot get credit for both MATH 343 and DSCI 345M/MATH 345M."
+  },
+  {
     "id": "MATH347",
     "subject": "MATH",
     "number": 347,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH253", "min_grade": "B-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
-    "title": "Fundamentals of Number Theory I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Fundamentals of Number Theory I",
+    "notes": "Sequence with MATH 348."
+  },
+  {
     "id": "MATH348",
     "subject": "MATH",
     "number": 348,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH347", "min_grade": "C-" }
-    ],
-    "title": "Fundamentals of Number Theory II"
-    },
-    
-    {
-    "id": "MATH343",
-    "subject": "MATH",
-    "number": 343,
-    "credits": 4,
-    "level": 300,
-    "tags": [],
-    "prereqs": [
-        { "course": "MATH252", "min_grade": "B-" }
-    ],
-    "title": "Statistical Models and Methods"
-    },
-
-    {
-    "id": "MATH345",
-    "subject": "MATH",
-    "number": 345,
-    "credits": 4,
-    "level": 300,
-    "tags": [],
-    "prereqs": [
-        { "course": "MATH342", "min_grade": "C-" },
-        { "course": "CS211", "min_grade": "B-" }
-    ],
-    "title": "Probability and Statistics for Data Science"
-    },
-
-    {
+    "prereqs": [{"course": "MATH347", "min_grade": ""}],
+    "title": "Fundamentals of Number Theory II",
+    "notes": "Sequence with MATH 347."
+  },
+  {
     "id": "MATH351",
     "subject": "MATH",
     "number": 351,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH253", "min_grade": "B-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
-    "title": "Elementary Numerical Analysis I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Elementary Numerical Analysis I",
+    "notes": "Sequence with MATH 352."
+  },
+  {
     "id": "MATH352",
     "subject": "MATH",
     "number": 352,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH351", "min_grade": "C-" }
-    ],
+    "prereqs": [{"course": "MATH351", "min_grade": ""}],
     "title": "Elementary Numerical Analysis II"
-    },
-
-    {
+  },
+  {
+    "id": "MATH391",
+    "subject": "MATH",
+    "number": 391,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [{"course": "MATH341", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Fundamentals of Abstract Algebra I",
+    "notes": "Sequence with MATH 392."
+  },
+  {
+    "id": "MATH392",
+    "subject": "MATH",
+    "number": 392,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [{"course": "MATH391", "min_grade": ""}],
+    "title": "Fundamentals of Abstract Algebra II"
+  },
+  {
     "id": "MATH394",
     "subject": "MATH",
     "number": 394,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH253", "min_grade": "B-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
-    "title": "Geometries from an Advanced Viewpoint I"
-    },
-
-    {
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Geometries from an Advanced Viewpoint I",
+    "notes": "For prospective secondary and middle school teachers."
+  },
+  {
     "id": "MATH395",
     "subject": "MATH",
     "number": 395,
     "credits": 4,
     "level": 300,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH394", "min_grade": "C-" }
-    ],
-    "title": "Geometries from an Advanced Viewpoint II"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH394", "min_grade": ""}],
+    "title": "Geometries from an Advanced Viewpoint II",
+    "notes": "For prospective secondary teachers."
+  },
+  {
     "id": "MATH397",
     "subject": "MATH",
     "number": 397,
     "credits": 4,
     "level": 300,
-    "tags": [
-    ],
-    "prereqs": [
-        { "course": "MATH253", "min_grade": "B-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
+    "tags": [],
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
     "title": "History and Applications of Calculus"
-    },
-    
-    {
+  },
+  {
+    "id": "MATH399",
+    "subject": "MATH",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies: Topic",
+    "notes": "Experimental course - topic varies. Repeatable.",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH401",
+    "subject": "MATH",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "MATH403",
+    "subject": "MATH",
+    "number": 403,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Thesis",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 4, "default": 4}
+  },
+  {
+    "id": "MATH405",
+    "subject": "MATH",
+    "number": 405,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Reading and Conference: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 4, "default": 4}
+  },
+  {
+    "id": "MATH407",
+    "subject": "MATH",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 4, "default": 4}
+  },
+  {
     "id": "MATH410",
     "subject": "MATH",
     "number": 410,
@@ -296,216 +544,850 @@
     "level": 400,
     "tags": [],
     "prereqs": [],
-    "title": "Experimental Course"
-    },
-    
-    {
+    "title": "Experimental Course: Topic",
+    "notes": "Experimental course - topic varies. Repeatable.",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
     "id": "MATH411",
     "subject": "MATH",
     "number": 411,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH281", "min_grade": "B-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
-    "title": "Functions of a Complex Variable I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH281", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Functions of a Complex Variable I",
+    "notes": "Sequence."
+  },
+  {
     "id": "MATH413",
     "subject": "MATH",
     "number": 413,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH282", "min_grade": "B-" },
-        { "course": "MATH317", "min_grade": "C-" }
-    ],
-    "title": "Introduction to Analysis I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH282", "min_grade": ""}, {"course": "MATH317", "min_grade": ""}],
+    "title": "Introduction to Analysis I",
+    "notes": "Sequence with MATH 414, MATH 415."
+  },
+  {
     "id": "MATH414",
     "subject": "MATH",
     "number": 414,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH413", "min_grade": "C-" }
-    ],
+    "prereqs": [{"course": "MATH413", "min_grade": ""}],
     "title": "Introduction to Analysis II"
-    },
-    
-    {
+  },
+  {
+    "id": "MATH415",
+    "subject": "MATH",
+    "number": 415,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [{"course": "MATH414", "min_grade": ""}],
+    "title": "Introduction to Analysis III"
+  },
+  {
+    "id": "MATH421M",
+    "subject": "MATH",
+    "number": 421,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}, {"course": "MATH256", "min_grade": ""}],
+    "title": "Partial Differential Equations: Fourier Analysis I",
+    "equivalents": ["PHYS421M"],
+    "notes": "Multilisted with PHYS 421M."
+  },
+  {
+    "id": "MATH422",
+    "subject": "MATH",
+    "number": 422,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [{"course": "MATH421M", "min_grade": ""}],
+    "title": "Partial Differential Equations: Fourier Analysis II"
+  },
+  {
+    "id": "MATH425",
+    "subject": "MATH",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": ["bs_math"],
+    "prereqs": [{"course": "MATH111Z", "min_grade": ""}],
+    "title": "Statistical Methods I",
+    "equivalents": ["MATH243", "STAT243Z"],
+    "notes": "Sequence. Only nonmajors and nonminors may receive upper-division credit. Students cannot receive credit for both STAT 243Z and MATH 425."
+  },
+  {
     "id": "MATH431",
     "subject": "MATH",
     "number": 431,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH317", "min_grade": "C-" }
-    ],
-    "title": "Introduction to Topology I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH317", "min_grade": ""}],
+    "title": "Introduction to Topology I",
+    "notes": "Sequence with MATH 432, MATH 434."
+  },
+  {
     "id": "MATH432",
     "subject": "MATH",
     "number": 432,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH281", "min_grade": "B-" },
-        { "course": "MATH341", "min_grade": "C-" },
-        { "course": "MATH431", "min_grade": "C-" }
-    ],
-    "title": "Introduction to Topology II"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH281", "min_grade": ""}, {"course": "MATH341", "min_grade": ""}, {"course": "MATH431", "min_grade": ""}],
+    "title": "Introduction to Topology II",
+    "notes": "Sequence with MATH 431, MATH 434."
+  },
+  {
     "id": "MATH433",
     "subject": "MATH",
     "number": 433,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH282", "min_grade": "B-" },
-        { "course": "MATH342", "min_grade": "C-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
+    "prereqs": [{"course": "MATH282", "min_grade": ""}, {"course": "MATH342", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
     "title": "Introduction to Differential Geometry"
-    },
-    
-    {
+  },
+  {
+    "id": "MATH434",
+    "subject": "MATH",
+    "number": 434,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [{"course": "MATH432", "min_grade": ""}],
+    "title": "Introduction to Topology III",
+    "notes": "Sequence with MATH 431, MATH 432."
+  },
+  {
     "id": "MATH441",
     "subject": "MATH",
     "number": 441,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH342", "min_grade": "C-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
+    "prereqs": [{"course": "MATH342", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
     "title": "Linear Algebra"
-    },
-
-    {
+  },
+  {
     "id": "MATH444",
     "subject": "MATH",
     "number": 444,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH342", "min_grade": "C-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-    ],
-    "title": "Introduction to Abstract Algebra I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH342", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Introduction to Abstract Algebra I",
+    "notes": "Sequence with MATH 445, MATH 446."
+  },
+  {
     "id": "MATH445",
     "subject": "MATH",
     "number": 445,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH444", "min_grade": "C-" }
-    ],
+    "prereqs": [{"course": "MATH444", "min_grade": ""}],
     "title": "Introduction to Abstract Algebra II"
-    },
-    
-    {
+  },
+  {
     "id": "MATH446",
     "subject": "MATH",
     "number": 446,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH445", "min_grade": "C-" }
-    ],
+    "prereqs": [{"course": "MATH445", "min_grade": ""}],
     "title": "Introduction to Abstract Algebra III"
-    },
-    
-    {
+  },
+  {
     "id": "MATH458",
     "subject": "MATH",
     "number": 458,
     "credits": 4,
     "level": 400,
-    "tags": [],
-    "prereqs": [
-        { "course": "MATH341", "min_grade": "C-" }
-    ],
-    "title": "Introduction to Mathematical Cryptography"
-    },
-    
-    {
+    "tags": ["bs_math"],
+    "prereqs": [{"course": "MATH341", "min_grade": ""}],
+    "title": "Introduction to Mathematical Cryptography",
+    "notes": "Offered alternate years."
+  },
+  {
     "id": "MATH461",
     "subject": "MATH",
     "number": 461,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH253", "min_grade": "B-" },
-        { "course": "MATH232", "min_grade": "B-" },
-        { "course": "MATH307", "min_grade": "C-" }
-
-    ],
-    "title": "Introduction to Mathematical Methods of Statistics I"
-    },
-    
-    {
+    "prereqs": [{"course": "MATH253Z", "min_grade": ""}, {"course": "MATH232", "min_grade": ""}],
+    "title": "Introduction to Mathematical Methods of Statistics I",
+    "notes": "Sequence with MATH 462."
+  },
+  {
     "id": "MATH462",
     "subject": "MATH",
     "number": 462,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH461", "min_grade": "C-" }],
+    "prereqs": [{"course": "MATH461", "min_grade": ""}],
     "title": "Introduction to Mathematical Methods of Statistics II"
-    },
-    
-    { 
+  },
+  {
     "id": "MATH463",
     "subject": "MATH",
     "number": 463,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH342", "min_grade": "C-" },
-        { "course": "MATH462", "min_grade": "C-" }],
+    "prereqs": [{"course": "MATH342", "min_grade": ""}, {"course": "MATH462", "min_grade": ""}],
     "title": "Mathematical Methods of Regression Analysis and Analysis of Variance"
-    },
-    
-    {
+  },
+  {
     "id": "MATH467",
     "subject": "MATH",
     "number": 467,
     "credits": 4,
     "level": 400,
     "tags": [],
-    "prereqs": [
-        { "course": "MATH341", "min_grade": "C-" },
-        { "course": "MATH461", "min_grade": "C-" }],
+    "prereqs": [{"course": "MATH341", "min_grade": ""}, {"course": "MATH461", "min_grade": ""}],
     "title": "Stochastic Processes"
-    }
-
+  },
+  {
+    "id": "MATH497M",
+    "subject": "MATH",
+    "number": 497,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [{"course": "MATH252Z", "min_grade": ""}, {"course": "MATH461", "min_grade": ""}],
+    "title": "Deterministic Dynamical Modeling in Biology",
+    "equivalents": ["BI497M"],
+    "notes": "Multilisted with BI 497M."
+  },
+  {
+    "id": "MATH499M",
+    "subject": "MATH",
+    "number": 499,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [{"course": "MATH252Z", "min_grade": ""}, {"course": "MATH461", "min_grade": ""}],
+    "title": "Stochastic Dynamical Modeling in Biology",
+    "equivalents": ["BI499M"],
+    "notes": "Multilisted with BI 499M. Basic programming skills recommended."
+  },
+  {
+    "id": "MATH503",
+    "subject": "MATH",
+    "number": 503,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Thesis",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 12, "default": 4}
+  },
+  {
+    "id": "MATH507",
+    "subject": "MATH",
+    "number": 507,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 4, "default": 4}
+  },
+  {
+    "id": "MATH510",
+    "subject": "MATH",
+    "number": 510,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course: Topic",
+    "notes": "Experimental course - topic varies. Repeatable.",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH511",
+    "subject": "MATH",
+    "number": 511,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Functions of a Complex Variable I",
+    "notes": "Sequence."
+  },
+  {
+    "id": "MATH513",
+    "subject": "MATH",
+    "number": 513,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Analysis I",
+    "notes": "Sequence."
+  },
+  {
+    "id": "MATH514",
+    "subject": "MATH",
+    "number": 514,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH513", "min_grade": ""}],
+    "title": "Introduction to Analysis II",
+    "notes": "Sequence."
+  },
+  {
+    "id": "MATH515",
+    "subject": "MATH",
+    "number": 515,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH514", "min_grade": ""}],
+    "title": "Introduction to Analysis III",
+    "notes": "Sequence."
+  },
+  {
+    "id": "MATH521M",
+    "subject": "MATH",
+    "number": 521,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Partial Differential Equations: Fourier Analysis I",
+    "equivalents": ["PHYS521M"],
+    "notes": "Multilisted with PHYS 521M."
+  },
+  {
+    "id": "MATH522",
+    "subject": "MATH",
+    "number": 522,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH521M", "min_grade": ""}],
+    "title": "Partial Differential Equations: Fourier Analysis II"
+  },
+  {
+    "id": "MATH525",
+    "subject": "MATH",
+    "number": 525,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Statistical Methods I",
+    "notes": "Sequence. Only nonmajors may receive graduate credit."
+  },
+  {
+    "id": "MATH531",
+    "subject": "MATH",
+    "number": 531,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Topology I",
+    "notes": "Sequence with MATH 532, MATH 534."
+  },
+  {
+    "id": "MATH532",
+    "subject": "MATH",
+    "number": 532,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH531", "min_grade": ""}],
+    "title": "Introduction to Topology II",
+    "notes": "Sequence with MATH 531, MATH 534."
+  },
+  {
+    "id": "MATH533",
+    "subject": "MATH",
+    "number": 533,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Differential Geometry"
+  },
+  {
+    "id": "MATH534",
+    "subject": "MATH",
+    "number": 534,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH532", "min_grade": ""}],
+    "title": "Introduction to Topology III",
+    "notes": "Sequence with MATH 531, MATH 532."
+  },
+  {
+    "id": "MATH541",
+    "subject": "MATH",
+    "number": 541,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Linear Algebra"
+  },
+  {
+    "id": "MATH544",
+    "subject": "MATH",
+    "number": 544,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Abstract Algebra I",
+    "notes": "Sequence."
+  },
+  {
+    "id": "MATH545",
+    "subject": "MATH",
+    "number": 545,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH544", "min_grade": ""}],
+    "title": "Introduction to Abstract Algebra II"
+  },
+  {
+    "id": "MATH546",
+    "subject": "MATH",
+    "number": 546,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH545", "min_grade": ""}],
+    "title": "Introduction to Abstract Algebra III"
+  },
+  {
+    "id": "MATH561",
+    "subject": "MATH",
+    "number": 561,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Introduction to Mathematical Methods of Statistics I",
+    "notes": "Sequence."
+  },
+  {
+    "id": "MATH562",
+    "subject": "MATH",
+    "number": 562,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH561", "min_grade": ""}],
+    "title": "Introduction to Mathematical Methods of Statistics II"
+  },
+  {
+    "id": "MATH563",
+    "subject": "MATH",
+    "number": 563,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH562", "min_grade": ""}],
+    "title": "Mathematical Methods of Regression Analysis and Analysis of Variance"
+  },
+  {
+    "id": "MATH567",
+    "subject": "MATH",
+    "number": 567,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [{"course": "MATH561", "min_grade": ""}],
+    "title": "Stochastic Processes"
+  },
+  {
+    "id": "MATH597M",
+    "subject": "MATH",
+    "number": 597,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Deterministic Dynamical Modeling in Biology",
+    "notes": "Multilisted with BI 597M."
+  },
+  {
+    "id": "MATH599M",
+    "subject": "MATH",
+    "number": 599,
+    "credits": 4,
+    "level": 500,
+    "tags": [],
+    "prereqs": [],
+    "title": "Stochastic Dynamical Modeling in Biology",
+    "notes": "Multilisted with BI 599M."
+  },
+  {
+    "id": "MATH601",
+    "subject": "MATH",
+    "number": 601,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 9, "default": 4}
+  },
+  {
+    "id": "MATH603",
+    "subject": "MATH",
+    "number": 603,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Dissertation",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 16, "default": 4}
+  },
+  {
+    "id": "MATH604",
+    "subject": "MATH",
+    "number": 604,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Internship: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 9, "default": 4}
+  },
+  {
+    "id": "MATH605",
+    "subject": "MATH",
+    "number": 605,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Reading and Conference: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 1, "max": 16, "default": 4}
+  },
+  {
+    "id": "MATH607",
+    "subject": "MATH",
+    "number": 607,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar: Topic",
+    "notes": "Topics include Advanced Topics in Geometry, Ring Theory, Teaching Mathematics. Repeatable.",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH610",
+    "subject": "MATH",
+    "number": 610,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course: Topic",
+    "notes": "Experimental course - topic varies. Repeatable.",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH616",
+    "subject": "MATH",
+    "number": 616,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Real Analysis",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH617",
+    "subject": "MATH",
+    "number": 617,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH616", "min_grade": ""}],
+    "title": "Real Analysis",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH618",
+    "subject": "MATH",
+    "number": 618,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH617", "min_grade": ""}],
+    "title": "Real Analysis",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH634",
+    "subject": "MATH",
+    "number": 634,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Algebraic Topology",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH635",
+    "subject": "MATH",
+    "number": 635,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH634", "min_grade": ""}],
+    "title": "Algebraic Topology",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH636",
+    "subject": "MATH",
+    "number": 636,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH635", "min_grade": ""}],
+    "title": "Algebraic Topology",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH637",
+    "subject": "MATH",
+    "number": 637,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Differential Geometry",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH638",
+    "subject": "MATH",
+    "number": 638,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH637", "min_grade": ""}],
+    "title": "Differential Geometry",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH639",
+    "subject": "MATH",
+    "number": 639,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Differential Geometry",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH647",
+    "subject": "MATH",
+    "number": 647,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Abstract Algebra",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH648",
+    "subject": "MATH",
+    "number": 648,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH647", "min_grade": ""}],
+    "title": "Abstract Algebra",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH649",
+    "subject": "MATH",
+    "number": 649,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH648", "min_grade": ""}],
+    "title": "Abstract Algebra",
+    "notes": "Sequence.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH672",
+    "subject": "MATH",
+    "number": 672,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH671", "min_grade": ""}],
+    "title": "Theory of Probability",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH673",
+    "subject": "MATH",
+    "number": 673,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [{"course": "MATH672", "min_grade": ""}],
+    "title": "Theory of Probability",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH681",
+    "subject": "MATH",
+    "number": 681,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Algebra: Topic",
+    "notes": "Topics selected from theory of finite groups, representations of finite groups, Lie groups, Lie algebras, algebraic groups, ring theory, algebraic number theory. Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH682",
+    "subject": "MATH",
+    "number": 682,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Algebra: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH683",
+    "subject": "MATH",
+    "number": 683,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Algebra: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH684",
+    "subject": "MATH",
+    "number": 684,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Analysis: Topic",
+    "notes": "Topics selected from Banach algebras, operator theory, functional analysis, harmonic analysis on topological groups, theory of distributions. Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH685",
+    "subject": "MATH",
+    "number": 685,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Analysis: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH686",
+    "subject": "MATH",
+    "number": 686,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Analysis: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH690",
+    "subject": "MATH",
+    "number": 690,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Geometry and Topology: Topic",
+    "notes": "Topics selected from classical and local differential geometry; symmetric spaces; low-dimensional topology; differential topology; global analysis; homology, cohomology, and homotopy; differential analysis and singularity theory; knot theory. Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH691",
+    "subject": "MATH",
+    "number": 691,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Geometry and Topology: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  },
+  {
+    "id": "MATH692",
+    "subject": "MATH",
+    "number": 692,
+    "credits": 4,
+    "level": 600,
+    "tags": [],
+    "prereqs": [],
+    "title": "Advanced Geometry and Topology: Topic",
+    "notes": "Repeatable.",
+    "credit_range": {"min": 4, "max": 5, "default": 4}
+  }
 ]

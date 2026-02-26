@@ -1,0 +1,348 @@
+[
+  {
+    "id": "EC101",
+    "subject": "EC",
+    "number": 101,
+    "credits": 4,
+    "level": 100,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Contemporary Economic Issues"
+  },
+  {
+    "id": "EC199",
+    "subject": "EC",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "EC201Z",
+    "subject": "EC",
+    "number": 201,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Principles of Microeconomics",
+    "equivalents": ["EC201"]
+  },
+  {
+    "id": "EC202Z",
+    "subject": "EC",
+    "number": 202,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Principles of Macroeconomics",
+    "equivalents": ["EC202"]
+  },
+  {
+    "id": "EC311",
+    "subject": "EC",
+    "number": 311,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["EC201Z", "MATH241", "MATH251Z"],
+    "title": "Intermediate Microeconomic Theory",
+    "equivalents": ["FIN311", "FIN311H"]
+  },
+  {
+    "id": "EC313",
+    "subject": "EC",
+    "number": 313,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["EC202Z", "MATH241", "MATH251Z", "EC311"],
+    "title": "Intermediate Macroeconomic Theory"
+  },
+  {
+    "id": "EC320",
+    "subject": "EC",
+    "number": 320,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["MATH242", "MATH252Z", "STAT243Z", "DSCI102", "MATH343", "MATH345M", "DSCI345M"],
+    "title": "Introduction to Econometrics I"
+  },
+  {
+    "id": "EC327",
+    "subject": "EC",
+    "number": 327,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC101", "EC201Z"],
+    "title": "Introduction to Game Theory"
+  },
+  {
+    "id": "EC328",
+    "subject": "EC",
+    "number": 328,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "Behavioral Economics and Its Applications"
+  },
+  {
+    "id": "EC330",
+    "subject": "EC",
+    "number": 330,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "Urban and Regional Economic Problems"
+  },
+  {
+    "id": "EC333",
+    "subject": "EC",
+    "number": 333,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "Resource and Environmental Economic Issues"
+  },
+  {
+    "id": "EC340",
+    "subject": "EC",
+    "number": 340,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "Issues in Public Economics"
+  },
+  {
+    "id": "EC350",
+    "subject": "EC",
+    "number": 350,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "Labor Market Issues"
+  },
+  {
+    "id": "EC360",
+    "subject": "EC",
+    "number": 360,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "Issues in Industrial Organization"
+  },
+  {
+    "id": "EC370",
+    "subject": "EC",
+    "number": 370,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC202Z"],
+    "title": "Money and Banking"
+  },
+  {
+    "id": "EC380",
+    "subject": "EC",
+    "number": 380,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "International Economic Issues"
+  },
+  {
+    "id": "EC390",
+    "subject": "EC",
+    "number": 390,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["EC201Z"],
+    "title": "Problems and Issues in the Developing Economies"
+  },
+  {
+    "id": "EC399",
+    "subject": "EC",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "EC401",
+    "subject": "EC",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "EC411",
+    "subject": "EC",
+    "number": 411,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH253Z"],
+    "title": "Advanced Microeconomic Theory"
+  },
+  {
+    "id": "EC413",
+    "subject": "EC",
+    "number": 413,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH253Z"],
+    "title": "Advanced Macroeconomic Theory"
+  },
+  {
+    "id": "EC421",
+    "subject": "EC",
+    "number": 421,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC320", "EC423"],
+    "title": "Introduction to Econometrics II"
+  },
+  {
+    "id": "EC423",
+    "subject": "EC",
+    "number": 423,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH281", "MATH341", "MATH282", "MATH461"],
+    "title": "Econometrics"
+  },
+  {
+    "id": "EC427",
+    "subject": "EC",
+    "number": 427,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC320", "EC423"],
+    "title": "Games and Decisions"
+  },
+  {
+    "id": "EC428",
+    "subject": "EC",
+    "number": 428,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC320", "EC423"],
+    "title": "Behavioral and Experimental Economics"
+  },
+  {
+    "id": "EC430",
+    "subject": "EC",
+    "number": 430,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "FIN311", "EC320", "EC423"],
+    "title": "Urban and Regional Economics"
+  },
+  {
+    "id": "EC434",
+    "subject": "EC",
+    "number": 434,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC320", "EC423"],
+    "title": "Environmental Economics"
+  },
+  {
+    "id": "EC440",
+    "subject": "EC",
+    "number": 440,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC320", "EC423"],
+    "title": "Public Economics"
+  },
+  {
+    "id": "EC450",
+    "subject": "EC",
+    "number": 450,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC320", "EC423"],
+    "title": "Labor Economics"
+  },
+  {
+    "id": "EC460",
+    "subject": "EC",
+    "number": 460,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC320", "EC423"],
+    "title": "Theories of Industrial Organization"
+  },
+  {
+    "id": "EC471",
+    "subject": "EC",
+    "number": 471,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC313", "EC320", "EC423"],
+    "title": "Monetary Theory"
+  },
+  {
+    "id": "EC480",
+    "subject": "EC",
+    "number": 480,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC313", "EC320", "EC423"],
+    "title": "International Finance"
+  },
+  {
+    "id": "EC481",
+    "subject": "EC",
+    "number": 481,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC320", "EC423"],
+    "title": "International Trade"
+  },
+  {
+    "id": "EC490",
+    "subject": "EC",
+    "number": 490,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["EC311", "EC313", "EC320", "EC423"],
+    "title": "Economic Growth and Development"
+  }
+]

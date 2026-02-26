@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from typing import Dict, List, Set, Tuple
 from ortools.sat.python import cp_model
+import logging
 
 from .data_types import Course, Requirement, Program, CourseAttempt
+
+logger = logging.getLogger(__name__)
 
 
 def matches_where(course: Course, where: dict | None) -> bool:
@@ -97,6 +100,11 @@ def build_model(
     """
     Build CP-SAT model with x[c, r] assignment vars and requirement constraints.
     """
+    logger.debug("=== BUILD MODEL START ===")
+    logger.debug(f"Total courses in catalog: {len(courses)}")
+    logger.debug(f"Total attempts: {len(taken_attempts)}")
+    logger.debug(f"Programs: {[p.id for p in programs]}")
+    
     model = cp_model.CpModel()
 
     # Flatten requirements with unique keys (program_id:req_id)
@@ -104,6 +112,7 @@ def build_model(
     for p in programs:
         for r in p.requirements:
             reqs.append((p, r))
+    logger.debug(f"Total requirements across all programs: {len(reqs)}")
 
     # Only allow taken courses to be assigned (MVP)
     #taken_courses = [courses[cid] for cid in taken_course_ids if cid in courses]
@@ -112,6 +121,7 @@ def build_model(
         for att in taken_attempts
         if att.course_id in courses
     ]
+    logger.debug(f"Matched attempts (found in catalog): {len(taken_attempt_objs)}")
 
     # Create assignment vars: x[(attempt_id, req_key)] in {0,1}
 
@@ -144,18 +154,19 @@ def build_model(
                 x[(att.attempt_id, req_key)] = model.NewBoolVar(f"x_{att.attempt_id}_{req_key}")
 
 
-    '''
-    # No double counting across ALL requirements by default:
-    # For each course, sum over all req buckets <= 1
-    for course in taken_courses:
-        vars_for_course = [var for (cid, _), var in x.items() if cid == course.id]
-        if vars_for_course:
-            model.Add(sum(vars_for_course) <= 1)
-    '''
-    for att, _course in taken_attempt_objs:
-        vars_for_att = [var for (aid, _), var in x.items() if aid == att.attempt_id]
-        if vars_for_att:
-            model.Add(sum(vars_for_att) <= 1)
+    # No double counting WITHIN each program (but allow sharing across programs)
+    # This allows BS courses to also count toward Major/Minor requirements
+    logger.debug("--- Setting up no-double-counting constraints (per-program) ---")
+    for program in programs:
+        program_prefix = f"{program.id}:"
+        for att, _course in taken_attempt_objs:
+            vars_for_att_in_program = [
+                var for (aid, req_key), var in x.items() 
+                if aid == att.attempt_id and req_key.startswith(program_prefix)
+            ]
+            if vars_for_att_in_program:
+                model.Add(sum(vars_for_att_in_program) <= 1)
+    logger.debug(f"Created per-program no-double-counting constraints for {len(programs)} programs")
 
 
     # Add constraints per requirement
@@ -301,5 +312,8 @@ def build_model(
         model.Add(sum(sat_vars) + parent_slack >= k)
 
     model.Minimize(sum(slack.values()) if slack else 0)
+    
+    logger.debug(f"Model built with {len(x)} assignment variables and {len(slack)} slack variables")
+    logger.debug("=== BUILD MODEL END ===")
 
     return model, x, slack, slack_bounds

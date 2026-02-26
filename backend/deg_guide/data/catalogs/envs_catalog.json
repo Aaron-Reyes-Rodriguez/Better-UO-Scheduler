@@ -1,0 +1,214 @@
+[
+  {
+    "id": "ENVS199",
+    "subject": "ENVS",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ENVS201",
+    "subject": "ENVS",
+    "number": 201,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Environmental Studies: Social Sciences"
+  },
+  {
+    "id": "ENVS202",
+    "subject": "ENVS",
+    "number": 202,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Environmental Studies: Natural Sciences"
+  },
+  {
+    "id": "ENVS203",
+    "subject": "ENVS",
+    "number": 203,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Introduction to Environmental Studies: Humanities"
+  },
+  {
+    "id": "ENVS225",
+    "subject": "ENVS",
+    "number": 225,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Introduction to Food Studies"
+  },
+  {
+    "id": "ENVS335",
+    "subject": "ENVS",
+    "number": 335,
+    "credits": 4,
+    "level": 300,
+    "tags": ["social_science_area"],
+    "prereqs": ["MATH105Z"],
+    "title": "Allocating Scarce Environmental Resources"
+  },
+  {
+    "id": "ENVS345",
+    "subject": "ENVS",
+    "number": 345,
+    "credits": 4,
+    "level": 300,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Environmental Ethics"
+  },
+  {
+    "id": "ENVS350",
+    "subject": "ENVS",
+    "number": 350,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["ENVS201", "MATH112Z"],
+    "title": "Ecological Footprint of Energy Generation"
+  },
+  {
+    "id": "ENVS399",
+    "subject": "ENVS",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "ENVS411",
+    "subject": "ENVS",
+    "number": 411,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Environmental Issues"
+  },
+  {
+    "id": "ENVS425",
+    "subject": "ENVS",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Environmental Education Theory and Practice"
+  },
+  {
+    "id": "ENVS427",
+    "subject": "ENVS",
+    "number": 427,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Environmental and Ecological Monitoring"
+  },
+  {
+    "id": "ENVS429",
+    "subject": "ENVS",
+    "number": 429,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Environmental Leadership"
+  },
+  {
+    "id": "ENVS430",
+    "subject": "ENVS",
+    "number": 430,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Nature in Popular Culture"
+  },
+  {
+    "id": "ENVS435",
+    "subject": "ENVS",
+    "number": 435,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ENVS201"],
+    "title": "Environmental Justice"
+  },
+  {
+    "id": "ENVS450",
+    "subject": "ENVS",
+    "number": 450,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ENVS201"],
+    "title": "Political Ecology"
+  },
+  {
+    "id": "ENVS455",
+    "subject": "ENVS",
+    "number": 455,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ENVS201"],
+    "title": "Sustainability"
+  },
+  {
+    "id": "ENVS459",
+    "subject": "ENVS",
+    "number": 459,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Water, Public Health, and the Environment"
+  },
+  {
+    "id": "ENVS465",
+    "subject": "ENVS",
+    "number": 465,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["BI307", "BI370", "GEOG360"],
+    "title": "Wetland Ecology and Management"
+  },
+  {
+    "id": "ENVS467",
+    "subject": "ENVS",
+    "number": 467,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["ENVS201", "ENVS202"],
+    "title": "Sustainable Agriculture"
+  },
+  {
+    "id": "ENVS477",
+    "subject": "ENVS",
+    "number": 477,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["CH111", "CH221Z", "CH224H"],
+    "title": "Soil Science"
+  }
+]

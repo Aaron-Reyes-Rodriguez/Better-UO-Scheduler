@@ -1,0 +1,428 @@
+[
+  {
+    "id": "BI121",
+    "subject": "BI",
+    "number": 121,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Human Physiology"
+  },
+  {
+    "id": "BI123",
+    "subject": "BI",
+    "number": 123,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Biology of Cancer"
+  },
+  {
+    "id": "BI125",
+    "subject": "BI",
+    "number": 125,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Biology of Immortality"
+  },
+  {
+    "id": "BI130",
+    "subject": "BI",
+    "number": 130,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Ecology"
+  },
+  {
+    "id": "BI132",
+    "subject": "BI",
+    "number": 132,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Introduction to Animal Behavior"
+  },
+  {
+    "id": "BI140",
+    "subject": "BI",
+    "number": 140,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Science, Policy, and Biology"
+  },
+  {
+    "id": "BI150",
+    "subject": "BI",
+    "number": 150,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Ocean Planet",
+    "equivalents": ["ERTH307"]
+  },
+  {
+    "id": "BI170",
+    "subject": "BI",
+    "number": 170,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Happiness: a Neuroscience and Psychology Perspective"
+  },
+  {
+    "id": "BI185M",
+    "subject": "BI",
+    "number": 185,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Science and Popular Media"
+  },
+  {
+    "id": "BI196",
+    "subject": "BI",
+    "number": 196,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Field Studies",
+    "credit_range": {"min": 1, "max": 2, "default": 2}
+  },
+  {
+    "id": "BI198",
+    "subject": "BI",
+    "number": 198,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Laboratory Projects",
+    "credit_range": {"min": 1, "max": 12, "default": 4}
+  },
+  {
+    "id": "BI199",
+    "subject": "BI",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "BI214",
+    "subject": "BI",
+    "number": 214,
+    "credits": 5,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["BI222Z", "CH223Z", "CH226H"],
+    "title": "General Biology IV: Biochemistry and Genetics"
+  },
+  {
+    "id": "BI221Z",
+    "subject": "BI",
+    "number": 221,
+    "credits": 5,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["CH111", "CH113", "CH114", "CH221Z", "CH224H"],
+    "title": "Principles of Biology I: Cells",
+    "equivalents": ["BI211"],
+    "notes": "Explores fundamental biological concepts about the cellular and molecular basis of life. Intended for science majors."
+  },
+  {
+    "id": "BI222Z",
+    "subject": "BI",
+    "number": 222,
+    "credits": 5,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["BI221Z"],
+    "title": "Principles of Biology II: Organisms",
+    "equivalents": ["BI212"],
+    "notes": "Explores fundamental biological concepts about the structure and function of diverse organisms. Intended for science majors."
+  },
+  {
+    "id": "BI223Z",
+    "subject": "BI",
+    "number": 223,
+    "credits": 5,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["BI221Z"],
+    "title": "Principles of Biology III: Ecology and Evolution",
+    "equivalents": ["BI213"],
+    "notes": "Explores the unity and diversity of life through evolutionary mechanisms. Intended for science majors."
+  },
+  {
+    "id": "BI281H",
+    "subject": "BI",
+    "number": 281,
+    "credits": 6,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["CH223Z", "CH226H"],
+    "title": "Accelerated Biology I: Cells, Biochemistry and Physiology"
+  },
+  {
+    "id": "BI282H",
+    "subject": "BI",
+    "number": 282,
+    "credits": 6,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["BI281H"],
+    "title": "Accelerated Biology II: Genetics and Molecular Biology"
+  },
+  {
+    "id": "BI283H",
+    "subject": "BI",
+    "number": 283,
+    "credits": 6,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["BI282H"],
+    "title": "Accelerated Biology III: Evolution, Diversity and Ecology"
+  },
+  {
+    "id": "BI307",
+    "subject": "BI",
+    "number": 307,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": ["BI223Z", "BI283H"],
+    "title": "Forest Biology"
+  },
+  {
+    "id": "BI320",
+    "subject": "BI",
+    "number": 320,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H"],
+    "title": "Molecular Genetics"
+  },
+  {
+    "id": "BI322",
+    "subject": "BI",
+    "number": 322,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H"],
+    "title": "Cell Biology"
+  },
+  {
+    "id": "BI326",
+    "subject": "BI",
+    "number": 326,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H"],
+    "title": "Immunology and Infectious Disease"
+  },
+  {
+    "id": "BI328",
+    "subject": "BI",
+    "number": 328,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H"],
+    "title": "Developmental Biology"
+  },
+  {
+    "id": "BI330",
+    "subject": "BI",
+    "number": 330,
+    "credits": 3,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H"],
+    "title": "Microbiology"
+  },
+  {
+    "id": "BI331",
+    "subject": "BI",
+    "number": 331,
+    "credits": 3,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H", "BI330"],
+    "title": "Microbiology Laboratory"
+  },
+  {
+    "id": "BI353",
+    "subject": "BI",
+    "number": 353,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H"],
+    "title": "Sensory Physiology"
+  },
+  {
+    "id": "BI356",
+    "subject": "BI",
+    "number": 356,
+    "credits": 5,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI281H"],
+    "title": "Animal Physiology"
+  },
+  {
+    "id": "BI357",
+    "subject": "BI",
+    "number": 357,
+    "credits": 4,
+    "level": 300,
+    "tags": ["science_area"],
+    "prereqs": ["BI223Z", "BI283H"],
+    "title": "Marine Biology"
+  },
+  {
+    "id": "BI359",
+    "subject": "BI",
+    "number": 359,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI221Z", "BI222Z", "BI223Z", "BI281H", "BI282H", "BI283H"],
+    "title": "Plant Biology"
+  },
+  {
+    "id": "BI360",
+    "subject": "BI",
+    "number": 360,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI214", "BI282H"],
+    "title": "Neurobiology"
+  },
+  {
+    "id": "BI370",
+    "subject": "BI",
+    "number": 370,
+    "credits": 5,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI223Z", "BI283H"],
+    "title": "Ecology"
+  },
+  {
+    "id": "BI374",
+    "subject": "BI",
+    "number": 374,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI223Z", "BI283H"],
+    "title": "Conservation Biology"
+  },
+  {
+    "id": "BI380",
+    "subject": "BI",
+    "number": 380,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI223Z", "BI283H"],
+    "title": "Evolution"
+  },
+  {
+    "id": "BI390",
+    "subject": "BI",
+    "number": 390,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI223Z", "BI283H"],
+    "title": "Animal Behavior"
+  },
+  {
+    "id": "BI399",
+    "subject": "BI",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["BI222Z", "BI223Z", "BI214", "BI283H"],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "BI401",
+    "subject": "BI",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 16, "default": 4}
+  },
+  {
+    "id": "BI407",
+    "subject": "BI",
+    "number": 407,
+    "credits": 2,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credit_range": {"min": 1, "max": 2, "default": 2}
+  },
+  {
+    "id": "BI410",
+    "subject": "BI",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["BI222Z", "BI223Z", "BI214", "BI283H"],
+    "title": "Experimental Course",
+    "credit_range": {"min": 1, "max": 16, "default": 4}
+  },
+  {
+    "id": "BI497M",
+    "subject": "BI",
+    "number": 497,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH242", "MATH247", "MATH252Z", "STAT243Z", "DSCI345M", "MATH345M", "MATH461", "MATH467"],
+    "title": "Deterministic Dynamical Modeling in Biology",
+    "equivalents": ["MATH497M"]
+  },
+  {
+    "id": "BI499M",
+    "subject": "BI",
+    "number": 499,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH242", "MATH247", "MATH252Z", "STAT243Z", "DSCI345M", "MATH345M", "MATH461", "MATH467"],
+    "title": "Stochastic Dynamical Modeling in Biology",
+    "equivalents": ["MATH499M"]
+  }
+]

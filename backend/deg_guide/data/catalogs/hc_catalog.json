@@ -1,0 +1,205 @@
+[
+  {
+    "id": "HC101H",
+    "subject": "HC",
+    "number": 101,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Liberal Arts"
+  },
+  {
+    "id": "HC199H",
+    "subject": "HC",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "HC221H",
+    "subject": "HC",
+    "number": 221,
+    "credits": 4,
+    "level": 200,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Arts and Letters Inquiry",
+    "notes": "Introduction to critical inquiry in Arts and Letters fields. Writing-intensive course."
+  },
+  {
+    "id": "HC231H",
+    "subject": "HC",
+    "number": 231,
+    "credits": 4,
+    "level": 200,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Social Science Inquiry",
+    "notes": "Introduction to critical inquiry in Social Science fields. Writing-intensive course."
+  },
+  {
+    "id": "HC241H",
+    "subject": "HC",
+    "number": 241,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Scientific Inquiry",
+    "notes": "Introduction to critical inquiry in science fields. Writing-intensive course."
+  },
+  {
+    "id": "HC277H",
+    "subject": "HC",
+    "number": 277,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Thesis Orientation"
+  },
+  {
+    "id": "HC301H",
+    "subject": "HC",
+    "number": 301,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["HC221H", "HC231H", "HC241H"],
+    "title": "Research and Writing",
+    "notes": "An introduction to research including development of research questions, methodology, analysis, and presentation."
+  },
+  {
+    "id": "HC399H",
+    "subject": "HC",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "HC401H",
+    "subject": "HC",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "HC403H",
+    "subject": "HC",
+    "number": 403,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Thesis",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "HC404H",
+    "subject": "HC",
+    "number": 404,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Internship",
+    "credit_range": {"min": 1, "max": 16, "default": 4}
+  },
+  {
+    "id": "HC405H",
+    "subject": "HC",
+    "number": 405,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Reading and Conference",
+    "credit_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "HC407H",
+    "subject": "HC",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "HC408H",
+    "subject": "HC",
+    "number": 408,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Workshop",
+    "credit_range": {"min": 1, "max": 12, "default": 4}
+  },
+  {
+    "id": "HC410H",
+    "subject": "HC",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "HC421H",
+    "subject": "HC",
+    "number": 421,
+    "credits": 4,
+    "level": 400,
+    "tags": ["arts_letters_area"],
+    "prereqs": [],
+    "title": "Honors College Arts and Letters Colloquium"
+  },
+  {
+    "id": "HC431H",
+    "subject": "HC",
+    "number": 431,
+    "credits": 4,
+    "level": 400,
+    "tags": ["social_science_area"],
+    "prereqs": [],
+    "title": "Honors College Social Science Colloquium"
+  },
+  {
+    "id": "HC441H",
+    "subject": "HC",
+    "number": 441,
+    "credits": 4,
+    "level": 400,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Honors College Science Colloquium"
+  },
+  {
+    "id": "HC477H",
+    "subject": "HC",
+    "number": 477,
+    "credits": 2,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Thesis Prospectus"
+  }
+]

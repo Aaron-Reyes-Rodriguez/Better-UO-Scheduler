@@ -10,6 +10,7 @@ class Course:
     level: int
     tags: List[str]
     credits_range: Optional[Dict[str, int]] = None  # {"min": int, "max": int, "default": int}
+    equivalents: Optional[List[str]] = None  # ["MATH251", "MATH241"] - older/alternate course IDs
 
 @dataclass(frozen=True)
 class Requirement:
