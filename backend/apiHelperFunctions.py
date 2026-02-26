@@ -29,7 +29,7 @@ def _professor_aliases(key: str, display_name: str) -> set[str]:
 
 
 def classFinder(class_id):
-    with open("deg_guide/data/jsonData/classes.json", "r") as f:
+    with open("ClassProfessorData/jsonData/classes.json", "r") as f:
         class_data = json.load(f)
 
     key = class_id if class_id in class_data else _normalize_class_key(class_id)
@@ -37,7 +37,7 @@ def classFinder(class_id):
 
 
 def professorFinder(professor_id):
-    with open("deg_guide/data/jsonData/professors.json", "r") as f:
+    with open("ClassProfessorData/jsonData/professors.json", "r") as f:
         professor_data = json.load(f)
 
     if professor_id in professor_data:
@@ -75,22 +75,3 @@ def professorFinder(professor_id):
 
     raise KeyError(professor_id)
 
-
-# Global variable to store transcript data in memory
-transcriptData = {}
-
-
-def saveTranscriptData(data):
-    """
-    Save the parsed transcript data to the global variable
-    """
-    global transcriptData
-    transcriptData = data
-
-
-def getTranscriptData():
-    """
-    Parse the backend transcript and send it back to the frontend
-    """
-    global transcriptData
-    return transcriptData

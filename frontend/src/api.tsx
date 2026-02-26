@@ -30,6 +30,7 @@ export async function auditCs(takenAttempts: Array<{
   const url = apiUrl("/audit/cs");
   const res = await fetch(url, {
     method: "POST",
+    credentials: "include", //added wwwwwww
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ taken_attempts: takenAttempts }),
   });
@@ -67,15 +68,6 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
-export async function getTranscriptData() {
-  const url = apiUrl(`/transcriptData`);
-  const res = await fetch(url, { 
-    method: "GET",
-    credentials: "include"
-  });
-  if (!res.ok) throw new Error(`File Not Found/Wrong File: ${res.status} ${res.statusText}`);
-  return res.json();
-}
 
 //Upload File API
 type UploadStatus = "idle" | 'uploading' | 'success' | 'error'
@@ -103,12 +95,18 @@ export default function FileUploader()
         formData.append('file', file)
 
         try {
-            await axios.post(apiUrl("/upload/transcript"), formData, {
+            const res = await axios.post(apiUrl("/upload/transcript"), formData, {
               headers: { 'Content-Type': 'multipart/form-data' },
               withCredentials: true
-        })
+            })
             setStatus('success')
-            navigate("/transcriptdata")
+            
+            // Store the state and data in the browser session storage
+            sessionStorage.setItem("hasUploadedTranscript", "true");
+            sessionStorage.setItem("auditData", JSON.stringify(res.data));
+            sessionStorage.setItem("transcriptData", JSON.stringify(res.data)); // For any components expecting transcriptData
+            
+            navigate("/audit", { state: { auditData: res.data } })
         } catch {
             setStatus('error')
         }

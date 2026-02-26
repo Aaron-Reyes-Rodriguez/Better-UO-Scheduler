@@ -14,6 +14,7 @@ immutabledict==4.2.2
 numpy==2.4.2
 ortools==9.15.6755
 pandas==3.0.0
+openpyxl==3.1.5
 pdf2image==1.17.0
 pdfminer.six==20251230
 pdfplumber==0.11.9
