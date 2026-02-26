@@ -1,88 +1,81 @@
 {
   "id": "MAJOR_CS_2022-2023",
   "name": "Computer Science Major (2022-2023)",
+
   "sets": {
+    "cs_lower_core": ["CS210", "CS211", "CS212"],
+    "math_discrete": ["MATH231", "MATH232"],
+    "cs_upper_core": ["CS313", "CS314", "CS315", "CS330", "CS415", "CS422", "CS425"],
 
-    "math_seq_251_252": ["MATH251", "MATH252"],
-    "math_seq_261_262": ["MATH261", "MATH262"],
-    "math_seq_246_247": ["MATH246", "MATH247"],
-    
-    "cs_core_lower": ["CS210", "CS211", "CS212"],
+    "calc_seq_251": ["MATH251Z", "MATH252Z"],
+    "calc_seq_261": ["MATH261", "MATH262"],
+    "calc_seq_246": ["MATH246", "MATH247"],
 
-    "cs_core_upper": ["CS313", "CS314", "CS315", "CS330", "CS415", "CS422", "CS425"],
+    "math_elective_group_a": ["MATH347", "MATH352", "MATH391"],
+    "math_elective_group_b": ["MATH253Z", "MATH263"],
+    "math_elective_group_c": ["MATH341"],
+    "math_elective_group_d": ["MATH343", "MATH425", "MATH345M"],
 
-    "cs_math_core": [
-      "MATH231",
-      "MATH232",
-      "MATH251",
-      "MATH252",
-      "MATH341",
-      "MATH343",
-      "MATH345M"
-    ],
+    "writing_options": ["WR320", "WR321"],
 
-    "ethics_options": ["PHIL223", "PHIL123"],
-
-    "writing_options": ["WR320", "WR321", "HC301H"],
-
-    "science_biology_sequence": [
-      "BI221Z",
-      "BI222Z",
-      "BI223Z"
-    ],
-
-    "science_earth_sequence": [
-      "ERTH201",
-      "ERTH202",
-      "ERTH203"
-    ],
-
-    "science_physics_sequence_a": [
-      "PHYS201",
-      "PHYS202",
-      "PHYS203"
-    ],
-
-    "science_physics_sequence_b": [
-      "PHYS251",
-      "PHYS252",
-      "PHYS253"
-    ]
+    "science_bio_seq": ["BI221Z", "BI222Z", "BI223Z"],
+    "science_chem_seq": ["CH221", "CH222", "CH223"],
+    "science_chem_honors_seq": ["CH224H", "CH225H", "CH226H"],
+    "science_erth_seq": ["ERTH201", "ERTH202", "ERTH203"],
+    "science_phys_general_seq": ["PHYS201", "PHYS202", "PHYS203"],
+    "science_phys_foundations_seq": ["PHYS251", "PHYS252", "PHYS253"]
   },
 
   "requirements": [
-    
-    { "id": "seq_calc_251_252", "type": "all_of", "courses": ["MATH251", "MATH252"], "must_be": { "grading_basis": "graded" } },
-    { "id": "seq_calc_261_262", "type": "all_of", "courses": ["MATH261", "MATH262"], "must_be": { "grading_basis": "graded" } },
-    { "id": "seq_calc_246_247", "type": "all_of", "courses": ["MATH246", "MATH247"], "must_be": { "grading_basis": "graded" } },
-
-    { "id": "math_two_course_sequence", "type": "choose_k", "k": 1,
-      "from_requirements": ["seq_calc_251_252", "seq_calc_261_262", "seq_calc_246_247"]
+    {
+      "id": "cs_lower_core",
+      "type": "all_of",
+      "from_set": "cs_lower_core",
+      "must_be": { "min_grade": "B-" }
     },
 
     {
-      "id": "cs_upper_div_elective",
+      "id": "math_discrete",
+      "type": "all_of",
+      "from_set": "math_discrete",
+      "must_be": { "min_grade": "B-" }
+    },
+
+    {
+      "id": "cs_upper_core",
+      "type": "all_of",
+      "from_set": "cs_upper_core",
+      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+    },
+
+    { "id": "calc_seq_251_252", "type": "all_of", "from_set": "calc_seq_251", "must_be": { "grading_basis": "graded" } },
+    { "id": "calc_seq_261_262", "type": "all_of", "from_set": "calc_seq_261", "must_be": { "grading_basis": "graded" } },
+    { "id": "calc_seq_246_247", "type": "all_of", "from_set": "calc_seq_246", "must_be": { "grading_basis": "graded" } },
+
+    {
+      "id": "calculus_sequence",
+      "type": "choose_k",
+      "k": 1,
+      "from_requirements": ["calc_seq_251_252", "calc_seq_261_262", "calc_seq_246_247"]
+    },
+
+    { "id": "math_elective_a", "type": "choose_k", "k": 1, "from_set": "math_elective_group_a" },
+    { "id": "math_elective_b", "type": "choose_k", "k": 1, "from_set": "math_elective_group_b" },
+    { "id": "math_elective_c", "type": "choose_k", "k": 1, "from_set": "math_elective_group_c" },
+    { "id": "math_elective_d", "type": "choose_k", "k": 1, "from_set": "math_elective_group_d" },
+
+    {
+      "id": "math_electives_two_courses",
+      "type": "choose_k",
+      "k": 2,
+      "from_requirements": ["math_elective_a", "math_elective_b", "math_elective_c", "math_elective_d"]
+    },
+
+    {
+      "id": "upper_div_math_elective",
       "type": "credit_pool",
-      "min_credits": 20,
-      "where": { "subject": "CS", "min_number": 300 },
-      "exclude_from_set": "cs_core_upper",
-      "constraints": [
-        { "min_credits": 12, "where": { "subject": "CS", "min_number": 410 }, "where_attempt": { "grading_basis": "graded" } },
-        { "max_credits": 8,  "where": { "subject": "CS", "min_number": 300, "max_number": 409 } },
-        { "max_credits": 8,  "where_attempt": { "grading_basis": "pnp" } }
-      ]
-    },
-
-    {
-      "id": "cs_core_lower",
-      "type": "all_of",
-      "from_set": "cs_core_lower"
-    },
-
-    {
-      "id": "cs_core_upper",
-      "type": "all_of",
-      "from_set": "cs_core_upper"
+      "min_credits": 4,
+      "where": { "subject": "MATH", "min_number": 300 }
     },
 
     {
@@ -92,16 +85,39 @@
       "from_set": "writing_options"
     },
 
-    { "id": "science_bio_seq", "type": "all_of", "from_set": "science_biology_sequence" },
-    { "id": "science_earth_seq", "type": "all_of", "from_set": "science_earth_sequence" },
-    { "id": "science_phys_a_seq", "type": "all_of", "from_set": "science_physics_sequence_a" },
-    { "id": "science_phys_b_seq", "type": "all_of", "from_set": "science_physics_sequence_b" },
+    { "id": "science_bio", "type": "all_of", "from_set": "science_bio_seq" },
+    { "id": "science_chem", "type": "all_of", "from_set": "science_chem_seq" },
+    { "id": "science_chem_honors", "type": "all_of", "from_set": "science_chem_honors_seq" },
+    { "id": "science_erth", "type": "all_of", "from_set": "science_erth_seq" },
+    { "id": "science_phys_general", "type": "all_of", "from_set": "science_phys_general_seq" },
+    { "id": "science_phys_foundations", "type": "all_of", "from_set": "science_phys_foundations_seq" },
 
-    { "id": "science_sequence", "type": "choose_k", "k": 1,
-      "from_requirements": ["science_bio_seq", "science_earth_seq", "science_phys_a_seq", "science_phys_b_seq"]
+    {
+      "id": "science_sequence",
+      "type": "choose_k",
+      "k": 1,
+      "from_requirements": [
+        "science_bio",
+        "science_chem",
+        "science_chem_honors",
+        "science_erth",
+        "science_phys_general",
+        "science_phys_foundations"
+      ]
+    },
+
+    {
+      "id": "cs_upper_electives",
+      "type": "credit_pool",
+      "min_credits": 20,
+      "where": { "subject": "CS", "min_number": 300 },
+      "exclude_from_set": "cs_upper_core",
+      "constraints": [
+        { "min_credits": 12, "where": { "subject": "CS", "min_number": 410 }, "where_attempt": { "grading_basis": "graded" } },
+        { "max_credits": 8, "where": { "subject": "CS", "min_number": 300, "max_number": 409 } },
+        { "max_credits": 4, "where": { "subject": "CS", "min_number": 400, "max_number": 409 } }
+      ]
     }
-
-
   ],
 
   "overlap_rules": [

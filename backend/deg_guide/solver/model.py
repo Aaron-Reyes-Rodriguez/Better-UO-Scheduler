@@ -1,14 +1,17 @@
 import json
+import logging
 from typing import Dict, List, Set, Any
 from ortools.sat.python import cp_model
 
-from .data_types import Course, Requirement, Program
+from .data_types import Course, Requirement, Program, CourseAttempt
 from .compile import build_model
 
+logger = logging.getLogger(__name__)
 
 
 
-def load_courses(path: str) -> Dict[str, Course]:
+
+def load_courses(path: str) -> tuple[Dict[str, Course], Dict[str, str]]:
     """
     Load course catalog data.
 
@@ -95,12 +98,21 @@ def load_courses(path: str) -> Dict[str, Course]:
             level=int(row["level"]),
             tags=list(row.get("tags", [])),
             credits_range=credits_range,
+            equivalents=row.get("equivalents"),
         )
         if c.id in courses:
             raise ValueError(f"Duplicate course id found while loading catalog: {c.id}")
         courses[c.id] = c
 
-    return courses
+    # Build reverse lookup: equivalent_id -> canonical_id
+    equiv_map: Dict[str, str] = {}
+    for cid, course in courses.items():
+        if course.equivalents:
+            for eq in course.equivalents:
+                if eq not in equiv_map and eq not in courses:
+                    equiv_map[eq] = cid
+
+    return courses, equiv_map
 
 def load_program(path: str) -> Program:
     data = json.load(open(path, "r", encoding="utf-8"))
@@ -129,13 +141,37 @@ def load_program(path: str) -> Program:
     )
 
 
-def solve_degree_audit(courses, taken_attempts, programs) -> dict:
+def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, str] = None) -> dict:
+    logger.debug("=== SOLVE DEGREE AUDIT START ===")
+    
+    # Normalize course IDs using equivalents map
+    if equiv_map:
+        normalized_attempts = []
+        for att in taken_attempts:
+            if att.course_id not in courses and att.course_id in equiv_map:
+                canonical_id = equiv_map[att.course_id]
+                logger.debug(f"Equivalent mapping: {att.course_id} -> {canonical_id}")
+                att = CourseAttempt(
+                    attempt_id=att.attempt_id,
+                    course_id=canonical_id,
+                    credits_taken=att.credits_taken,
+                    grading_basis=att.grading_basis,
+                    term=att.term,
+                    subtitle=att.subtitle,
+                )
+            normalized_attempts.append(att)
+        taken_attempts = normalized_attempts
+    
     model, x, slack, slack_bounds = build_model(courses, taken_attempts, programs)
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = 3.0
+    
+    logger.debug("Running solver...")
     status = solver.Solve(model)
+    logger.debug(f"Solver status: {status} (OPTIMAL=4, FEASIBLE=2)")
 
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+        logger.warning("No solution found!")
         return {"status": "infeasible", "message": "No solution found"}
 
     attempt_to_course = {a.attempt_id: a.course_id for a in taken_attempts}
@@ -147,12 +183,28 @@ def solve_degree_audit(courses, taken_attempts, programs) -> dict:
                 "attempt_id": attempt_id,
                 "course_id": attempt_to_course.get(attempt_id, attempt_id),
             })
+    
+    # Debug: show which courses are assigned to which requirements
+    logger.debug("--- Assignment Results ---")
+    for req_key, assigned in assignments.items():
+        courses_assigned = [a["course_id"] for a in assigned]
+        logger.debug(f"  {req_key}: {courses_assigned}")
 
     slack_out = {k: int(solver.Value(v)) for k, v in slack.items()}
+    
+    # Debug: show non-zero slack (unfulfilled requirements)
+    logger.debug("--- Slack (unfulfilled) ---")
+    for k, v in slack_out.items():
+        if v > 0:
+            logger.debug(f"  {k}: {v} (needs {v} more)")
 
     total_slack = sum(slack_out.values())
     total_required = sum(slack_bounds.get(k, 0) for k in slack.keys())
     completion_ratio = 1.0 if total_required == 0 else max(0.0, 1.0 - total_slack / total_required)
+    
+    logger.debug(f"Total slack: {total_slack}, Total required: {total_required}")
+    logger.debug(f"Completion ratio: {completion_ratio:.2%}")
+    logger.debug("=== SOLVE DEGREE AUDIT END ===")
 
     return {
         "status": "ok",

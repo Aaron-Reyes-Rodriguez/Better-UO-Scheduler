@@ -1,0 +1,540 @@
+[
+  {
+    "id": "PHYS101",
+    "subject": "PHYS",
+    "number": 101,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Essentials of Physics"
+  },
+  {
+    "id": "PHYS152",
+    "subject": "PHYS",
+    "number": 152,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Physics of Sound and Music"
+  },
+  {
+    "id": "PHYS153",
+    "subject": "PHYS",
+    "number": 153,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Physics of Light, Color, and Vision"
+  },
+  {
+    "id": "PHYS155",
+    "subject": "PHYS",
+    "number": 155,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Physics Behind the Internet"
+  },
+  {
+    "id": "PHYS156M",
+    "subject": "PHYS",
+    "number": 156,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Scientific Revolutions",
+    "equivalents": ["GEOL156M"]
+  },
+  {
+    "id": "PHYS161",
+    "subject": "PHYS",
+    "number": 161,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Physics of Energy and Environment"
+  },
+  {
+    "id": "PHYS162",
+    "subject": "PHYS",
+    "number": 162,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Solar and Other Renewable Energies"
+  },
+  {
+    "id": "PHYS171",
+    "subject": "PHYS",
+    "number": 171,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "The Physics of Life"
+  },
+  {
+    "id": "PHYS181",
+    "subject": "PHYS",
+    "number": 181,
+    "credits": 4,
+    "level": 100,
+    "tags": ["science_area"],
+    "prereqs": [],
+    "title": "Quantum Mechanics for Everyone"
+  },
+  {
+    "id": "PHYS196",
+    "subject": "PHYS",
+    "number": 196,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Field Studies",
+    "credit_range": {"min": 1, "max": 2, "default": 2}
+  },
+  {
+    "id": "PHYS198",
+    "subject": "PHYS",
+    "number": 198,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Workshop",
+    "credit_range": {"min": 1, "max": 2, "default": 2}
+  },
+  {
+    "id": "PHYS199",
+    "subject": "PHYS",
+    "number": 199,
+    "credits": 4,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHYS201",
+    "subject": "PHYS",
+    "number": 201,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["MATH112Z"],
+    "title": "General Physics",
+    "notes": "Introductory series. Mechanics and fluids."
+  },
+  {
+    "id": "PHYS202",
+    "subject": "PHYS",
+    "number": 202,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["PHYS201"],
+    "title": "General Physics",
+    "notes": "Introductory series. Thermodynamics, waves, optics."
+  },
+  {
+    "id": "PHYS203",
+    "subject": "PHYS",
+    "number": 203,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["PHYS201"],
+    "title": "General Physics",
+    "notes": "Introductory series. Electricity, magnetism, modern physics."
+  },
+  {
+    "id": "PHYS204",
+    "subject": "PHYS",
+    "number": 204,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["PHYS201"],
+    "title": "Introductory Physics Laboratory"
+  },
+  {
+    "id": "PHYS205",
+    "subject": "PHYS",
+    "number": 205,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["PHYS202"],
+    "title": "Introductory Physics Laboratory"
+  },
+  {
+    "id": "PHYS206",
+    "subject": "PHYS",
+    "number": 206,
+    "credits": 2,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["PHYS203"],
+    "title": "Introductory Physics Laboratory"
+  },
+  {
+    "id": "PHYS251",
+    "subject": "PHYS",
+    "number": 251,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["MATH112Z", "MATH251Z"],
+    "title": "Foundations of Physics I",
+    "notes": "Newtonian mechanics; units and vectors; one-dimensional motion; Newton's laws; work and energy; momentum and collisions."
+  },
+  {
+    "id": "PHYS252",
+    "subject": "PHYS",
+    "number": 252,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["PHYS251", "MATH252Z"],
+    "title": "Foundations of Physics I",
+    "notes": "Vibrations and waves; oscillations; wave mechanics; dispersion; modes; introductory optics."
+  },
+  {
+    "id": "PHYS253",
+    "subject": "PHYS",
+    "number": 253,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area"],
+    "prereqs": ["PHYS252", "MATH253Z"],
+    "title": "Foundations of Physics I",
+    "notes": "Electricity and magnetism; charge and electric field; electric potential; circuits; magnetic field; inductance."
+  },
+  {
+    "id": "PHYS290",
+    "subject": "PHYS",
+    "number": 290,
+    "credits": 1,
+    "level": 200,
+    "tags": [],
+    "prereqs": ["PHYS251"],
+    "title": "Foundations of Physics Laboratory"
+  },
+  {
+    "id": "PHYS299",
+    "subject": "PHYS",
+    "number": 299,
+    "credits": 4,
+    "level": 200,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHYS351",
+    "subject": "PHYS",
+    "number": 351,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["MATH253Z"],
+    "title": "Foundations of Physics II"
+  },
+  {
+    "id": "PHYS352",
+    "subject": "PHYS",
+    "number": 352,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PHYS351", "MATH281"],
+    "title": "Thermal Physics and Statistical Mechanics I"
+  },
+  {
+    "id": "PHYS353",
+    "subject": "PHYS",
+    "number": 353,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PHYS352", "MATH282"],
+    "title": "Thermal Physics and Statistical Mechanics II"
+  },
+  {
+    "id": "PHYS389",
+    "subject": "PHYS",
+    "number": 389,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["MATH281"],
+    "title": "Mathematical Methods"
+  },
+  {
+    "id": "PHYS391",
+    "subject": "PHYS",
+    "number": 391,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": ["PHYS253"],
+    "title": "Physics Experimentation Data Analysis Laboratory"
+  },
+  {
+    "id": "PHYS399",
+    "subject": "PHYS",
+    "number": 399,
+    "credits": 4,
+    "level": 300,
+    "tags": [],
+    "prereqs": [],
+    "title": "Special Studies",
+    "credit_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "PHYS401",
+    "subject": "PHYS",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credit_range": {"min": 1, "max": 16, "default": 4}
+  },
+  {
+    "id": "PHYS411",
+    "subject": "PHYS",
+    "number": 411,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH282"],
+    "title": "Mechanics"
+  },
+  {
+    "id": "PHYS412",
+    "subject": "PHYS",
+    "number": 412,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH281"],
+    "title": "Electricity and Magnetism I"
+  },
+  {
+    "id": "PHYS413",
+    "subject": "PHYS",
+    "number": 413,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS412"],
+    "title": "Electricity and Magnetism II"
+  },
+  {
+    "id": "PHYS414",
+    "subject": "PHYS",
+    "number": 414,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS413"],
+    "title": "Quantum Physics"
+  },
+  {
+    "id": "PHYS415",
+    "subject": "PHYS",
+    "number": 415,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS414"],
+    "title": "Quantum Physics"
+  },
+  {
+    "id": "PHYS417",
+    "subject": "PHYS",
+    "number": 417,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS415"],
+    "title": "Topics in Quantum Physics"
+  },
+  {
+    "id": "PHYS421M",
+    "subject": "PHYS",
+    "number": 421,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["MATH253Z", "MATH256", "MATH281"],
+    "title": "Partial Differential Equations: Fourier Analysis I",
+    "equivalents": ["MATH421M"]
+  },
+  {
+    "id": "PHYS422",
+    "subject": "PHYS",
+    "number": 422,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS413"],
+    "title": "Electromagnetism"
+  },
+  {
+    "id": "PHYS423M",
+    "subject": "PHYS",
+    "number": 423,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS253", "MATH282"],
+    "title": "Introduction to Space Physics",
+    "equivalents": ["ERTH423M"]
+  },
+  {
+    "id": "PHYS424",
+    "subject": "PHYS",
+    "number": 424,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS353"],
+    "title": "Classical Optics"
+  },
+  {
+    "id": "PHYS425",
+    "subject": "PHYS",
+    "number": 425,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS424"],
+    "title": "Modern Optics"
+  },
+  {
+    "id": "PHYS431",
+    "subject": "PHYS",
+    "number": 431,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS203", "PHYS253", "MATH256"],
+    "title": "Analog Electronics"
+  },
+  {
+    "id": "PHYS432",
+    "subject": "PHYS",
+    "number": 432,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS203", "PHYS253", "MATH253Z"],
+    "title": "Digital Electronics"
+  },
+  {
+    "id": "PHYS444",
+    "subject": "PHYS",
+    "number": 444,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS353", "MATH281"],
+    "title": "Introduction to Biological Physics"
+  },
+  {
+    "id": "PHYS445",
+    "subject": "PHYS",
+    "number": 445,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS391"],
+    "title": "Computational Physics"
+  },
+  {
+    "id": "PHYS481",
+    "subject": "PHYS",
+    "number": 481,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Design of Experiments"
+  },
+  {
+    "id": "PHYS483",
+    "subject": "PHYS",
+    "number": 483,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS411", "PHYS413"],
+    "title": "General Relativity I"
+  },
+  {
+    "id": "PHYS489",
+    "subject": "PHYS",
+    "number": 489,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS414"],
+    "title": "The Physics Behind Quantum Computers"
+  },
+  {
+    "id": "PHYS491",
+    "subject": "PHYS",
+    "number": 491,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS253"],
+    "title": "Research Project I",
+    "credit_range": {"min": 2, "max": 4, "default": 4}
+  },
+  {
+    "id": "PHYS492",
+    "subject": "PHYS",
+    "number": 492,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS491"],
+    "title": "Research Project II",
+    "credit_range": {"min": 2, "max": 4, "default": 4}
+  },
+  {
+    "id": "PHYS493",
+    "subject": "PHYS",
+    "number": 493,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": ["PHYS492"],
+    "title": "Research Project III",
+    "credit_range": {"min": 2, "max": 4, "default": 4}
+  },
+  {
+    "id": "PHYS495",
+    "subject": "PHYS",
+    "number": 495,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Nanofabrication"
+  }
+]

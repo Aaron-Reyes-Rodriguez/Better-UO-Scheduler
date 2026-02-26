@@ -1,0 +1,14 @@
+[
+  {
+    "id": "STAT243Z",
+    "subject": "STAT",
+    "number": 243,
+    "credits": 4,
+    "level": 200,
+    "tags": ["science_area", "bs_math"],
+    "prereqs": ["MATH101", "MATH111Z"],
+    "title": "Elementary Statistics I",
+    "notes": "A first course in statistics focusing on interpretation and communication of statistical concepts.",
+    "equivalents": ["MATH243", "MATH425"]
+  }
+]
