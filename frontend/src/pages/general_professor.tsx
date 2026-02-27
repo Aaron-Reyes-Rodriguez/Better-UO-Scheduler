@@ -88,13 +88,13 @@ export default function GeneralProfessor() {
     }
   };
 
-  const load = async () => {
-    const trimmed = professorName.trim();
-    if (trimmed) {
-      setSearchParams({ q: trimmed });
-    }
-    await loadByValue(professorName);
-  };
+  // const load = async () => {
+  //   const trimmed = professorName.trim();
+  //   if (trimmed) {
+  //     setSearchParams({ q: trimmed });
+  //   }
+  //   await loadByValue(professorName);
+  // };
 
   useEffect(() => {
     const q = searchParams.get('q');

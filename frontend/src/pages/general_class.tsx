@@ -61,13 +61,13 @@ export default function GeneralClass() {
     }
   };
 
-  const load = async () => {
-    const trimmed = courseKey.trim();
-    if (trimmed) {
-      setSearchParams({ q: trimmed });
-    }
-    await loadByValue(courseKey);
-  };
+  // const load = async () => {
+  //   const trimmed = courseKey.trim();
+  //   if (trimmed) {
+  //     setSearchParams({ q: trimmed });
+  //   }
+  //   await loadByValue(courseKey);
+  // };
 
   useEffect(() => {
     const q = searchParams.get('q');
