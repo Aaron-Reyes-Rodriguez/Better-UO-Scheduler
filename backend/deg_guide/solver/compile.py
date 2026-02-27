@@ -273,43 +273,62 @@ def build_model(
             raise ValueError(f"Unknown requirement type: {req.type}")
 
 
-    # ---- PASS 2: meta requirements (choose_k from_requirements) ----
+    # ---- PASS 2: meta requirements (from_requirements: choose_k or all_of) ----
     for program, req in deferred_meta:
         req_key = f"{program.id}:{req.id}"
+        child_ids = req.from_requirements or []
 
-        if req.type != "choose_k":
-            raise ValueError(f"{req_key}: from_requirements currently supported only for choose_k")
+        if req.type == "all_of":
+            # Parent satisfied (slack 0) iff all children satisfied (all child slacks 0)
+            parent_slack = model.NewIntVar(0, 1, f"slack_{req_key}")
+            slack[req_key] = parent_slack
+            slack_bounds[req_key] = 1
 
-        k = int(req.k or 0)
-        parent_slack = model.NewIntVar(0, k, f"slack_{req_key}")
-        slack[req_key] = parent_slack
-        slack_bounds[req_key] = k
+            for child_id in child_ids:
+                child_key = f"{program.id}:{child_id}"
+                child_slacks = _slacks_for_req_key(slack, child_key)
+                if not child_slacks:
+                    continue
+                child_unsat = model.NewBoolVar(f"unsat_{req_key}_{child_id}")
+                M = 1000
+                sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
+                model.Add(sum_sl == sum(child_slacks))
+                model.Add(sum_sl >= 1).OnlyEnforceIf(child_unsat)
+                model.Add(sum_sl == 0).OnlyEnforceIf(child_unsat.Not())
+                model.Add(parent_slack >= child_unsat)
 
-        sat_vars: List[cp_model.IntVar] = []
+        elif req.type == "choose_k":
+            k = int(req.k or 0)
+            parent_slack = model.NewIntVar(0, k, f"slack_{req_key}")
+            slack[req_key] = parent_slack
+            slack_bounds[req_key] = k
 
-        for child_id in (req.from_requirements or []):
-            child_key = f"{program.id}:{child_id}"
-            child_slacks = _slacks_for_req_key(slack, child_key)
+            sat_vars: List[cp_model.IntVar] = []
 
-            # If child has no slack vars, treat it as always satisfied
-            sat = model.NewBoolVar(f"sat_{req_key}_from_{child_id}")
+            for child_id in child_ids:
+                child_key = f"{program.id}:{child_id}"
+                child_slacks = _slacks_for_req_key(slack, child_key)
 
-            if not child_slacks:
-                model.Add(sat == 1)
+                sat = model.NewBoolVar(f"sat_{req_key}_from_{child_id}")
+
+                if not child_slacks:
+                    model.Add(sat == 1)
+                    sat_vars.append(sat)
+                    continue
+
+                M = 1000
+                sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
+                model.Add(sum_sl == sum(child_slacks))
+
+                model.Add(sum_sl == 0).OnlyEnforceIf(sat)
+                model.Add(sum_sl >= 1).OnlyEnforceIf(sat.Not())
+
                 sat_vars.append(sat)
-                continue
 
-            # sat == 1  <=>  sum(child_slacks) == 0
-            M = 1000  # safe big-M for slack sums in this project
-            sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
-            model.Add(sum_sl == sum(child_slacks))
+            model.Add(sum(sat_vars) + parent_slack >= k)
 
-            model.Add(sum_sl == 0).OnlyEnforceIf(sat)
-            model.Add(sum_sl >= 1).OnlyEnforceIf(sat.Not())
-
-            sat_vars.append(sat)
-
-        model.Add(sum(sat_vars) + parent_slack >= k)
+        else:
+            raise ValueError(f"{req_key}: from_requirements currently supported only for choose_k and all_of")
 
     model.Minimize(sum(slack.values()) if slack else 0)
     
