@@ -13,6 +13,7 @@ from parser import parse_transcript_pdf
 import apiHelperFunctions as apiHelper
 from pathlib import Path
 import tempfile
+import uuid
 
 # Configure logging with more readable format
 logging.basicConfig(
@@ -31,7 +32,7 @@ def log_section(title: str):
 # 1. CRITICAL FOR RENDER: Create the directory if it doesn't exist
 UPLOAD_DIR = Path(tempfile.gettempdir()) / 'uploadTranscript'
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-app = FastAPI()
+app = FastAPI(root_path="/api")
 
 # Allow frontend (e.g. AWS Amplify) to call this API when backend is on Render
 ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173, http://localhost:3000").split(",")
@@ -227,7 +228,8 @@ async def upload_transcript(file: UploadFile):
   logger.info(f"Received file: {file.filename}")
   
   data = await file.read()
-  save_to = UPLOAD_DIR / file.filename
+  unique_filename = f"{uuid.uuid4()}_{file.filename}"
+  save_to = UPLOAD_DIR / unique_filename
   with open(save_to, "wb") as f:
     f.write(data)
   logger.debug(f"File saved to: {save_to}")
@@ -397,10 +399,6 @@ async def upload_transcript(file: UploadFile):
   logger.info(f"Programs audited: {list(programs_loaded_info.keys())}")
   apiHelper.saveTranscriptData(returnData)
   return returnData
-
-@app.get("/transcriptData")
-def get_transcriptData():
-  return apiHelper.getTranscriptData()
 
 @app.get("/catalog-years")
 def get_catalog_years():

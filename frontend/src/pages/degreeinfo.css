@@ -1,0 +1,208 @@
+/* DegreeAudit.css */
+/* All styles for the DegreeAudit page. */
+/* Class names are prefixed with "da-" to avoid collisions with other pages. */
+
+/* ── Page shell ─────────────────────────────────────────────────── */
+
+/* Wraps the entire page */
+.da-root {
+  font-family: system-ui, sans-serif;
+  background: #f5f7fa;
+  min-height: 100vh;
+  padding-bottom: 60px;
+  color: #1a2332;
+}
+
+/* Shown while data is loading or if an error occurs */
+.da-state-msg {
+  text-align: center;
+  padding: 80px 20px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* Error variant of the state message */
+.da-state-msg.error {
+  color: #ef4444;
+}
+
+/* ── Header ─────────────────────────────────────────────────────── */
+
+/* Dark banner at the top containing the degree title and completion % */
+.da-header {
+  background: #1a2332;
+  color: #fff;
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* stacks on narrow screens */
+}
+
+/* "Major in Computer Science" heading */
+.da-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Yellow "In-Progress" badge next to the title */
+.da-pill {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(240, 180, 41, 0.2);
+  color: #f0b429;
+  border: 1px solid rgba(240, 180, 41, 0.4);
+}
+
+/* Degree type / catalog year / minors line below the title */
+.da-meta {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Large completion percentage on the right of the header */
+.da-pct {
+  font-size: 48px;
+  font-weight: 800;
+  color: #4a90e2;
+  line-height: 1;
+}
+
+/* ── Body ───────────────────────────────────────────────────────── */
+
+/* Constrained container that holds all the section cards */
+.da-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ── Section card ───────────────────────────────────────────────── */
+
+/* White card for one requirement bucket */
+.da-section {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+/* Clickable top bar of the card — shows the requirement name and status */
+.da-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none; /* prevents text highlight on click */
+}
+
+.da-section-header:hover {
+  background: #f8fafc;
+}
+
+/* Requirement name — takes up all remaining space */
+.da-section-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a2332;
+}
+
+/* Green check icon when the requirement is satisfied */
+.da-icon-ok {
+  color: #22c55e;
+  font-weight: 700;
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Red X icon when the requirement is not satisfied */
+.da-icon-miss {
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+/* "Satisfied" text in green */
+.da-sat-ok {
+  font-size: 12px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+/* "Not Satisfied" text in red */
+.da-sat-miss {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ef4444;
+}
+
+/* Small arrow showing whether the section is open or closed */
+.da-chevron {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-left: 4px;
+}
+
+/* ── Course table ───────────────────────────────────────────────── */
+
+/* Table listing the courses inside a section */
+.da-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+/* Column header cells */
+.da-th {
+  text-align: left;
+  padding: 6px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Regular data cells */
+.da-td {
+  padding: 8px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+/* Greyed-out row for a course that hasn't been taken yet */
+.da-row-missing {
+  opacity: 0.4;
+}
+
+/* "Completed" status label in green */
+.da-status-ok {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+/* "Not taken" status label in red */
+.da-status-missing {
+  color: #ef4444;
+  font-weight: 600;
+}

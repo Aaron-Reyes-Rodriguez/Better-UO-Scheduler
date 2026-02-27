@@ -1,39 +1,20 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { apiBase, auditCs, fetchHealth, getClass, getTranscriptData} from './api'
-
+import { Link } from 'react-router-dom'
+import { fetchHealth } from './api'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import Paper from '@mui/material/Paper'
+import SearchIcon from '@mui/icons-material/Search'
+import UploadFileIcon from '@mui/icons-material/UploadFile'
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart'
 
 function App() {
   const [health, setHealth] = useState<string | null>(null)
-  const [audit, setAudit] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [classData, setClassData] = useState<unknown>(null)
-  const [classId, setClassId] = useState<string | null>(null)
-  const [transcriptData, setTranscriptData] = useState<string| null>(null)
-
-  async function TranscriptData() {
-    console.log(classId)
-    const data = await getTranscriptData()
-    
-    setTranscriptData(JSON.stringify(data))
-    console.log(transcriptData)
-  }
-
-  
-  async function getClassData(classId: string) {
-    console.log(classId)
-    const data = await getClass(classId)
-    setClassData(JSON.stringify(data))
-    console.log(classData)
-  }
-
-  const handleClassData = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // 2. Update the state with the current text box value
-    setClassId(event.target.value);
-  };
 
   async function checkBackend() {
     setError(null)
@@ -41,7 +22,7 @@ function App() {
     setLoading(true)
     try {
       const data = await fetchHealth()
-      setHealth(JSON.stringify(data))
+      setHealth(JSON.stringify(data, null, 2))
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Request failed')
     } finally {
@@ -49,69 +30,92 @@ function App() {
     }
   }
 
-  async function runAudit() {
-    setError(null)
-    setAudit(null)
-    setLoading(true)
-    try {
-      // Example: empty transcript; replace with real attempts from your UI
-      const result = await auditCs([])
-      setAudit(result)
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Audit failed')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Quackademics</h1>
-      <div className="card">
-      </div>
+    <Container maxWidth="md" sx={{ mt: { xs: 4, md: 10 }, mb: 4, textAlign: 'center' }}>
+      <Box sx={{ mb: 8 }}>
+        <Typography 
+            variant="h2" 
+            component="h1" 
+            gutterBottom
+            sx={{ fontWeight: 800, color: 'text.primary', letterSpacing: '-0.5px' }}
+        >
+          Welcome to <Box component="span" sx={{ color: '#646cff' }}>Quackademics</Box>
+        </Typography>
+        <Typography variant="h6" color="text.secondary" paragraph sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
+          Your ultimate tool for picking classes! Upload your transcript to get personalized degree info, or search for classes and professors.
+        </Typography>
+      </Box>
 
-      <div className="card">
-        <p>Backend: <code>{apiBase}</code></p>
-        <p className="hint">Set VITE_API_URL in Amplify env, then redeploy so the build picks it up.</p>
-        <button onClick={checkBackend} disabled={loading}>
-          Check API health
-        </button>
-        <button onClick={runAudit} disabled={loading}>
-          Run CS audit (empty)
-        </button>
-        {loading && <p>Loading…</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {health != null && <pre>{health}</pre>}
-        {audit != null && <pre>{JSON.stringify(audit, null, 2)}</pre>}
-      </div>
+      <Stack 
+        direction={{ xs: 'column', sm: 'row' }} 
+        spacing={3} 
+        justifyContent="center"
+        sx={{ mb: 10 }}
+      >
+        <Button
+          component={Link}
+          to="/search"
+          variant="contained"
+          size="large"
+          startIcon={<SearchIcon />}
+          sx={{ py: 1.5, px: 4, fontSize: '1.1rem', borderRadius: 2, bgcolor: '#646cff', '&:hover': { bgcolor: '#535bf2' } }}
+        >
+          Search Classes & Professors
+        </Button>
+        <Button
+          component={Link}
+          to="/scheduler"
+          variant="outlined"
+          size="large"
+          startIcon={<UploadFileIcon />}
+          sx={{ py: 1.5, px: 4, fontSize: '1.1rem', borderRadius: 2, borderWidth: 2, '&:hover': { borderWidth: 2 } }}
+        >
+          Upload Transcript
+        </Button>
+      </Stack>
 
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 3, bgcolor: '#1e293b', border: '1px solid #334155' }}>
+        <Typography variant="h5" gutterBottom sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, color: 'white' }}>
+          <MonitorHeartIcon sx={{ color: '#94a3b8' }} /> API Status
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 3, color: '#cbd5e1' }}>
+          Click below to check if the backend service is running and accessible.
+        </Typography>
+        
+        <Button 
+            onClick={checkBackend} 
+            disabled={loading}
+            variant="contained"
+            sx={{ mb: 2, bgcolor: '#475569', '&:hover': { bgcolor: '#334155' } }}
+        >
+          {loading ? 'Checking...' : 'Check API Health'}
+        </Button>
 
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      
-      <div className="card"></div>
-        <input 
-          type="text" 
-          value={classId || ''} // Binds the box to the state
-          onChange={handleClassData} // Fires on every keystroke
-        />
-        <button onClick={() => getClassData(classId || '')} disabled={loading || !classId}>
-          Get Class Data
-        </button>
-
-       <button onClick={()=> TranscriptData()}>
-        Get Transcipt Data
-       </button>
-    </>
+        {error && (
+            <Typography color="error" variant="body2" sx={{ mt: 2 }}>
+                {error}
+            </Typography>
+        )}
+        
+        {health && (
+            <Box 
+                sx={{ 
+                    mt: 3, 
+                    p: 2, 
+                    bgcolor: '#0f172a', 
+                    borderRadius: 2, 
+                    textAlign: 'left',
+                    overflowX: 'auto'
+                }}
+            >
+                <Typography component="pre" variant="body2" sx={{ m: 0, color: '#38bdf8', fontFamily: 'monospace' }}>
+                    {health}
+                </Typography>
+            </Box>
+        )}
+      </Paper>
+    </Container>
   )
 }
+
 export default App

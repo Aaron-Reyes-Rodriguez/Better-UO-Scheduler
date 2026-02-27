@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { getTranscriptData } from "../api"
+import { useLocation } from "react-router-dom"
 
 type TranscriptData = {
   broad_data: {
@@ -25,18 +24,22 @@ type TranscriptData = {
   }>
 }
 
-export default function TranscriptData() {
-  const [data, setData] = useState<TranscriptData | null>(null)
-  const [error, setError] = useState<string | null>(null)
+export default function TranscriptDataView() {
+  const location = useLocation()
+  let data = location.state?.transcriptData as TranscriptData | undefined
 
-  useEffect(() => {
-    getTranscriptData()
-      .then(setData)
-      .catch((e) => setError(e.message))
-  }, [])
+  if (!data) {
+    const storedData = sessionStorage.getItem("transcriptData") || sessionStorage.getItem("auditData");
+    if (storedData) {
+      try {
+        data = JSON.parse(storedData);
+      } catch (e) {
+        console.error("Failed to parse transcriptData from sessionStorage", e);
+      }
+    }
+  }
 
-  if (error) return <p style={{ color: "red" }}>Error: {error}</p>
-  if (!data) return <p>Loading...</p>
+  if (!data) return <p style={{ color: "red" }}>Error: No transcript data found. Please upload a transcript first.</p>
 
   return <pre>{JSON.stringify(data, null, 2)}</pre>
 }

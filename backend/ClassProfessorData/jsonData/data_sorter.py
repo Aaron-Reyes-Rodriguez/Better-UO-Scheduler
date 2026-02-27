@@ -117,12 +117,12 @@ def classCsvToJson(csvFile):
         "totalStudents": row["total_students"]
       }
     }
-  with open("deg_guide/data/jsonData/classes.json", "w") as f:
+  with open("ClassProfessorData/jsonData/classes.json", "w") as f:
     json.dump(class_data, f)
-  print("Classes data saved to deg_guide/data/jsonData/classes.json")
+  print("Classes data saved to ClassProfessorData/jsonData/classes.json")
   return class_data
 
-def professorToJson(csvFile):
+def professorToJson(csvFile, course_professor_csv):
   professor_data = {}
   df = pd.read_csv(csvFile)
   for index, row in df.iterrows():
@@ -157,15 +157,15 @@ def professorToJson(csvFile):
         "totalStudents": row["total_students"]
       }
     }
-  with open("deg_guide/data/jsonData/professors.json", "w") as f:
+  with open("ClassProfessorData/jsonData/professors.json", "w") as f:
     json.dump(professor_data, f)
-  print("Professors data saved to deg_guide/data/jsonData/professors.json")
+  print("Professors data saved to ClassProfessorData/jsonData/professors.json")
   return professor_data
 
 
 if __name__ == "__main__":
-  class_data = classCsvToJson("deg_guide/data/records/cs_courses.csv") #change this to the csv file you want to convert
-  professor_data = professorToJson("deg_guide/data/records/cs_professors.csv") #change this to the csv file you want to convert
+  class_data = classCsvToJson("ClassProfessorData/courses.csv") #change this to the csv file you want to convert
+  professor_data = professorToJson("ClassProfessorData/professors.csv", "ClassProfessorData/course_professor.csv") #change this to the csv file you want to convert
   
 
 
