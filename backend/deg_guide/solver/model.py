@@ -206,9 +206,24 @@ def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, s
     logger.debug(f"Completion ratio: {completion_ratio:.2%}")
     logger.debug("=== SOLVE DEGREE AUDIT END ===")
 
+    # Build set of "child" requirements (used by from_requirements in choose_k)
+    # These are internal/helper requirements that shouldn't clutter the output
+    child_req_ids: Set[str] = set()
+    for program in programs:
+        for req in program.requirements:
+            if req.from_requirements:
+                for child_id in req.from_requirements:
+                    child_req_ids.add(f"{program.id}:{child_id}")
+    
+    # Filter output to hide child requirements (but keep for internal tracking)
+    filtered_assignments = {k: v for k, v in assignments.items() 
+                           if not any(k.startswith(child) for child in child_req_ids)}
+    filtered_slack = {k: v for k, v in slack_out.items() 
+                      if not any(k.startswith(child + ":") or k == child for child in child_req_ids)}
+
     return {
         "status": "ok",
         "completion_percentage": round(completion_ratio * 100, 1),
-        "assignments": assignments,
-        "slack": slack_out,
+        "assignments": filtered_assignments,
+        "slack": filtered_slack,
     }
