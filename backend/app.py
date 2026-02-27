@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi import FastAPI, UploadFile, HTTPException, Query
 import asyncio
 from concurrent.futures import ProcessPoolExecutor
 from fastapi.middleware.cors import CORSMiddleware
@@ -63,6 +63,16 @@ def get_professor(professor_id: str):
     return apiHelper.professorFinder(professor_id)
   except KeyError:
     raise HTTPException(status_code=404, detail=f"Professor not found: {professor_id}")
+
+
+@app.get("/suggest/classes")
+def suggest_classes(q: str = Query(default="", min_length=1), limit: int = Query(default=8, ge=1, le=20)):
+    return {"results": apiHelper.classSuggestions(q, limit)}
+
+
+@app.get("/suggest/professors")
+def suggest_professors(q: str = Query(default="", min_length=1), limit: int = Query(default=8, ge=1, le=20)):
+    return {"results": apiHelper.professorSuggestions(q, limit)}
 
 # Choose ONE of these options:
 # Option 1: Load only CS courses (faster startup, limited matching)
