@@ -277,40 +277,59 @@ def build_model(
     for program, req in deferred_meta:
         req_key = f"{program.id}:{req.id}"
 
-        if req.type != "choose_k":
-            raise ValueError(f"{req_key}: from_requirements currently supported only for choose_k")
+        if req.type == "choose_k":
+            k = int(req.k or 0)
+            parent_slack = model.NewIntVar(0, k, f"slack_{req_key}")
+            slack[req_key] = parent_slack
+            slack_bounds[req_key] = k
 
-        k = int(req.k or 0)
-        parent_slack = model.NewIntVar(0, k, f"slack_{req_key}")
-        slack[req_key] = parent_slack
-        slack_bounds[req_key] = k
+            sat_vars: List[cp_model.IntVar] = []
 
-        sat_vars: List[cp_model.IntVar] = []
+            for child_id in (req.from_requirements or []):
+                child_key = f"{program.id}:{child_id}"
+                child_slacks = _slacks_for_req_key(slack, child_key)
 
-        for child_id in (req.from_requirements or []):
-            child_key = f"{program.id}:{child_id}"
-            child_slacks = _slacks_for_req_key(slack, child_key)
+                sat = model.NewBoolVar(f"sat_{req_key}_from_{child_id}")
 
-            # If child has no slack vars, treat it as always satisfied
-            sat = model.NewBoolVar(f"sat_{req_key}_from_{child_id}")
+                if not child_slacks:
+                    model.Add(sat == 1)
+                    sat_vars.append(sat)
+                    continue
 
-            if not child_slacks:
-                model.Add(sat == 1)
+                M = 1000
+                sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
+                model.Add(sum_sl == sum(child_slacks))
+                model.Add(sum_sl == 0).OnlyEnforceIf(sat)
+                model.Add(sum_sl >= 1).OnlyEnforceIf(sat.Not())
                 sat_vars.append(sat)
-                continue
 
-            # sat == 1  <=>  sum(child_slacks) == 0
-            M = 1000  # safe big-M for slack sums in this project
-            sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
-            model.Add(sum_sl == sum(child_slacks))
+            model.Add(sum(sat_vars) + parent_slack >= k)
 
-            model.Add(sum_sl == 0).OnlyEnforceIf(sat)
-            model.Add(sum_sl >= 1).OnlyEnforceIf(sat.Not())
+        #added type logic handler that was throwing an error with transcript upload. (2022-2023 json had type all_types which was throwing hands.)
+        elif req.type == "all_of":
+            # Every child requirement must be satisfied
+            all_child_slacks: List[cp_model.IntVar] = []
+            total_bound = 0
 
-            sat_vars.append(sat)
+            for child_id in (req.from_requirements or []):
+                child_key = f"{program.id}:{child_id}"
+                child_slacks = _slacks_for_req_key(slack, child_key)
+                all_child_slacks.extend(child_slacks)
+                total_bound += sum(
+                    slack_bounds.get(k, 1)
+                    for k in slack
+                    if k == child_key or k.startswith(child_key + ":")
+                )
 
-        model.Add(sum(sat_vars) + parent_slack >= k)
+            bound = max(total_bound, 1)
+            parent_slack = model.NewIntVar(0, bound, f"slack_{req_key}")
+            slack[req_key] = parent_slack
+            slack_bounds[req_key] = bound
+            model.Add(parent_slack == sum(all_child_slacks) if all_child_slacks else 0)
 
+        else:
+            raise ValueError(f"{req_key}: from_requirements supported for choose_k and all_of only, got '{req.type}'")
+        
     model.Minimize(sum(slack.values()) if slack else 0)
     
     logger.debug(f"Model built with {len(x)} assignment variables and {len(slack)} slack variables")
