@@ -117,7 +117,7 @@ def parse_course_lines(text: str) -> List[ParsedLine]:
       "COLT 212 ... IP (4) Winter 2026"
     """
 
-    # Course number: allow trailing letter (110T), and also allow 3 digits + letter.
+    # Course number: allow trailing letter(s) (110T, 345M, 372M) so "372M" is not parsed as "372".
     # Credits: allow decimals (4.5) and parentheses (IP (4))
 
     text = strip_disallowed_sections(text)
@@ -125,7 +125,7 @@ def parse_course_lines(text: str) -> List[ParsedLine]:
     course_anywhere_re = re.compile(
         rf"(?m)"
         rf"(?P<subj>[A-Z]{{2,5}})\s+"
-        rf"(?P<num>\d{{2,3}}[A-Z]?)\s+"
+        rf"(?P<num>\d{{2,3}}[A-Z]*)\s+"
         rf"(?P<title>[^\n]+?)\s+"
         rf"(?P<grade>{GRADE_RE}(?:\s*\([\d.]+\))?)\s+"
         rf"(?P<credits>\(?[\d.]+\)?)\s+"
@@ -275,17 +275,21 @@ def parse_broad_data(text: str) -> Dict[str, Any]:
     broad["catalog_year"] = norm_catalog(degree_block.group("catalog")) if degree_block else None
 
     # -------------------------
-    # Major (Major in <name> ... Catalog year: <...>)
-    # Capture major name ONLY to end-of-line to avoid giant multiline grabs
+    # Major(s) – support double (or more) majors (Major in <name> ... Catalog year: <...>)
+    # Capture name only to end-of-line; use finditer to get every block.
     # -------------------------
-    major_block = re.search(
+    majors_list: List[Dict[str, Optional[str]]] = []
+    for mb in re.finditer(
         rf"(?is)\bMajor in\s+(?P<name>[^\n]+).*?\bCatalog year:\s*(?P<catalog>{CATALOG_RE})",
         text,
-    )
-    #major_name = major_block.group("name").strip() if major_block else None
-    major_name = clean_name(major_block.group("name")) if major_block else None
-    major_catalog = norm_catalog(major_block.group("catalog")) if major_block else None
-    broad["declared_major"] = {"name": major_name, "catalog_year": major_catalog} if major_name else None
+    ):
+        nm = clean_name(mb.group("name"))
+        if not nm:
+            continue
+        cy = norm_catalog(mb.group("catalog"))
+        majors_list.append({"name": nm, "catalog_year": cy})
+    broad["declared_majors"] = majors_list
+    broad["declared_major"] = majors_list[0] if majors_list else None
 
     # -------------------------
     # Minors (Minor in <name> ... Catalog year: <...>)

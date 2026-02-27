@@ -258,11 +258,14 @@ async def upload_transcript(file: UploadFile):
   logger.info(f"  Program: {broad_data.get('program', 'N/A')}")
   logger.info(f"  Catalog Year: {broad_data.get('catalog_year', 'N/A')}")
   
-  # Display declared major
-  declared_major = broad_data.get("declared_major", {})
-  logger.info("DECLARED MAJOR:")
-  logger.info(f"  Name: {declared_major.get('name', 'N/A')}")
-  logger.info(f"  Catalog Year: {declared_major.get('catalog_year', 'N/A')}")
+  # Display declared major(s)
+  declared_majors = broad_data.get("declared_majors") or (
+      [broad_data.get("declared_major")] if broad_data.get("declared_major") else []
+  )
+  declared_majors = [m for m in declared_majors if m and m.get("name")]
+  logger.info(f"DECLARED MAJOR(S): {len(declared_majors)}")
+  for i, m in enumerate(declared_majors, 1):
+      logger.info(f"  {i}. {m.get('name', 'N/A')} (Catalog: {m.get('catalog_year', 'N/A')})")
   
   # Display minors
   minors = broad_data.get("minors", [])
@@ -310,34 +313,39 @@ async def upload_transcript(file: UploadFile):
   else:
       logger.warning(f"  ✗ No code mapping for: '{program_name}'")
   
-  # 2. Load major with its catalog year
-  logger.info("Step 2: Loading MAJOR")
-  declared_major = broad_data.get("declared_major", {})
-  major_name = declared_major.get("name", "")
-  major_catalog_year = normalize_catalog_year(declared_major.get("catalog_year", ""))
-  logger.info(f"  Major from transcript: '{major_name}'")
-  logger.info(f"  Catalog year (normalized): '{major_catalog_year}'")
-  
-  major_code = MAJOR_CODE_MAP.get(major_name)
-  logger.info(f"  Code mapping: '{major_name}' -> '{major_code}'")
-  
-  if major_code:
-      major_json_path = f"deg_guide/data/programs/majors/{major_code}/{major_code}_{major_catalog_year}.json"
-      logger.info(f"  Loading JSON: {major_json_path}")
-      major_program = load_program_by_type("majors", major_code, major_catalog_year)
-      if major_program:
-          programs_to_audit.append(major_program)
-          programs_loaded_info["major"] = {
-              "code": major_code,
-              "name": declared_major.get("name"),
-              "catalog_year": major_catalog_year,
-              "json_file": major_json_path
-          }
-          logger.info(f"  ✓ Loaded: {major_program.id}")
+  # 2. Load major(s) – support double (or more) majors
+  majors_to_load = broad_data.get("declared_majors") or (
+      [broad_data.get("declared_major")] if broad_data.get("declared_major") else []
+  )
+  majors_to_load = [m for m in majors_to_load if m and m.get("name")]
+  logger.info(f"Step 2: Loading MAJOR(S) ({len(majors_to_load)} declared)")
+  loaded_majors = []
+  for i, major_info in enumerate(majors_to_load, 1):
+      major_name = major_info.get("name", "")
+      major_catalog_year = normalize_catalog_year(major_info.get("catalog_year", ""))
+      logger.info(f"  Major {i}: '{major_name}' (Catalog: {major_catalog_year})")
+      major_code = MAJOR_CODE_MAP.get(major_name)
+      logger.info(f"    Code mapping: '{major_name}' -> '{major_code}'")
+      if major_code:
+          major_json_path = f"deg_guide/data/programs/majors/{major_code}/{major_code}_{major_catalog_year}.json"
+          logger.info(f"    Loading JSON: {major_json_path}")
+          major_program = load_program_by_type("majors", major_code, major_catalog_year)
+          if major_program:
+              programs_to_audit.append(major_program)
+              loaded_majors.append({
+                  "code": major_code,
+                  "name": major_info.get("name"),
+                  "catalog_year": major_catalog_year,
+                  "json_file": major_json_path
+              })
+              logger.info(f"    ✓ Loaded: {major_program.id}")
+          else:
+              logger.warning(f"    ✗ Failed to load: {major_json_path}")
       else:
-          logger.warning(f"  ✗ Failed to load: {major_json_path}")
-  else:
-      logger.warning(f"  ✗ No code mapping for: '{major_name}'")
+          logger.warning(f"    ✗ No code mapping for: '{major_name}'")
+  if loaded_majors:
+      programs_loaded_info["major"] = loaded_majors[0]
+      programs_loaded_info["majors"] = loaded_majors
   
   # 3. Load minors with their respective catalog years
   logger.info(f"Step 3: Loading MINORS ({len(minors)} declared)")

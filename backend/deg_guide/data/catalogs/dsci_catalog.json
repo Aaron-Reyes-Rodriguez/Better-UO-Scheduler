@@ -107,7 +107,7 @@
     "tags": [],
     "prereqs": ["CS212", "DSCI345M", "MATH345M", "MATH342"],
     "title": "Machine Learning for Data Science",
-    "equivalents": ["CS372M"]
+    "equivalents": ["CS372M", "DSCI372"]
   },
   {
     "id": "DSCI399",
