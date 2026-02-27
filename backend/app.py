@@ -393,11 +393,11 @@ async def upload_transcript(file: UploadFile):
   returnData = solve_degree_audit(COURSES, attempts, programs_to_audit, EQUIV_MAP)
   returnData["programs_loaded"] = programs_loaded_info
   
-  log_section("AUDIT RESULTS")
-  logger.info(f"Status: {returnData.get('status')}")
-  logger.info(f"Completion: {returnData.get('completion_percentage', 'N/A')}%")
-  logger.info(f"Programs audited: {list(programs_loaded_info.keys())}")
-  apiHelper.saveTranscriptData(returnData)
+#   log_section("AUDIT RESULTS")
+#   logger.info(f"Status: {returnData.get('status')}")
+#   logger.info(f"Completion: {returnData.get('completion_percentage', 'N/A')}%")
+#   logger.info(f"Programs audited: {list(programs_loaded_info.keys())}")
+#   apiHelper.saveTranscriptData(returnData)
   return returnData
 
 @app.get("/catalog-years")

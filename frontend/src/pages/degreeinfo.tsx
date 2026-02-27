@@ -258,7 +258,7 @@ export default function DegreeAudit() {
           <p className="da-meta">
             {programs_loaded.degree_type.code} &nbsp;·&nbsp;
             Catalog {programs_loaded.major.catalog_year}
-            {programs_loaded.minors.map((m) => (
+            {programs_loaded.minors?.map((m) => (
               <span key={m.code}> &nbsp;·&nbsp; Minor: {m.name}</span>
             ))}
           </p>

@@ -1,6 +1,4 @@
-import { type ChangeEvent, useState } from "react"
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 
 /**
  * API base URL for the backend.
@@ -30,7 +28,7 @@ export async function auditCs(takenAttempts: Array<{
   const url = apiUrl("/audit/cs");
   const res = await fetch(url, {
     method: "POST",
-    credentials: "include", //added wwwwwww
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ taken_attempts: takenAttempts }),
   });
@@ -68,66 +66,13 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
-
-//Upload File API
-type UploadStatus = "idle" | 'uploading' | 'success' | 'error'
-
-export default function FileUploader()
-{
-    const [file, setFile] = useState<File | null>(null)
-    const [status, setStatus] = useState<UploadStatus>("idle")
-    const navigate = useNavigate()
-
-    function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
-    {
-        setStatus('idle')
-        if (e.target.files) {
-            setFile(e.target.files[0])
-        }
-    }
-
-    async function handleFileUpload()
-    {
-        if (!file) return
-        setStatus("uploading")
-
-        const formData = new FormData()
-        formData.append('file', file)
-
-        try {
-            const res = await axios.post(apiUrl("/upload/transcript"), formData, {
-              headers: { 'Content-Type': 'multipart/form-data' },
-              withCredentials: true
-            })
-            setStatus('success')
-            
-            // Store the state and data in the browser session storage
-            sessionStorage.setItem("hasUploadedTranscript", "true");
-            sessionStorage.setItem("auditData", JSON.stringify(res.data));
-            sessionStorage.setItem("transcriptData", JSON.stringify(res.data)); // For any components expecting transcriptData
-            
-            navigate("/audit", { state: { auditData: res.data } })
-        } catch {
-            setStatus('error')
-        }
-    }
-    
-    return (
-        <div>
-            <input type="file" accept=".pdf" onChange={handleFileChange}/>
-            {file && (
-                <div>
-                    <p>File Name: {file.name}</p>
-                    <p>Size: {(file.size/1024).toFixed(2)} KB</p>
-                    <p>Type: {file.type}</p>
-                </div>
-            )}
-            {file && status !== "uploading" && status !== "success" && (
-                <button onClick={handleFileUpload}>Upload</button>
-            )}
-            {status === 'uploading' && <p>Uploading...</p>}
-            {status === 'success' && <p className="text-green-600">Upload Successful!</p>}
-            {status === 'error' && <p className="text-red-600">Upload Failed. Please try again.</p>}
-        </div>
-    )
+/** Upload a transcript PDF and return the parsed audit data. */
+export async function uploadTranscript(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const res = await axios.post(apiUrl("/upload/transcript"), formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    withCredentials: true
+  });
+  return res.data;
 }
