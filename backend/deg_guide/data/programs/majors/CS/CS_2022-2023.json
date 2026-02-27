@@ -16,14 +16,22 @@
     "math_elective_group_c": ["MATH341"],
     "math_elective_group_d": ["MATH343", "MATH425", "MATH345M"],
 
-    "writing_options": ["WR320", "WR321"],
+    "writing_options": ["WR320", "WR321", "HC301H"],
 
-    "science_bio_seq": ["BI221Z", "BI222Z", "BI223Z"],
+    "science_bio_chem_intro": ["CH111", "CH113", "CH221Z", "CH224H"],
+    "science_bio_seq_221_222": ["BI221Z", "BI222Z"],
+    "science_bio_seq_221_223": ["BI221Z", "BI223Z"],
     "science_chem_seq": ["CH221", "CH222", "CH223"],
     "science_chem_honors_seq": ["CH224H", "CH225H", "CH226H"],
     "science_erth_seq": ["ERTH201", "ERTH202", "ERTH203"],
     "science_phys_general_seq": ["PHYS201", "PHYS202", "PHYS203"],
-    "science_phys_foundations_seq": ["PHYS251", "PHYS252", "PHYS253"]
+    "science_phys_foundations_seq": ["PHYS251", "PHYS252", "PHYS253"],
+    "science_geog_base": ["GEOG141"],
+    "science_geog_electives": ["GEOG321", "GEOG322", "GEOG323"],
+    "science_psy_base": ["PSY201Z"],
+    "science_psy_electives": ["PSY301", "PSY304", "PSY305", "PSY348"],
+
+    "theoretical_cs_for_math": ["CS413", "CS420", "CS427", "CS473"]
   },
 
   "requirements": [
@@ -72,10 +80,22 @@
     },
 
     {
-      "id": "upper_div_math_elective",
+      "id": "upper_math_from_math",
       "type": "credit_pool",
       "min_credits": 4,
       "where": { "subject": "MATH", "min_number": 300 }
+    },
+    {
+      "id": "upper_math_from_cs",
+      "type": "credit_pool",
+      "min_credits": 4,
+      "from_set": "theoretical_cs_for_math"
+    },
+    {
+      "id": "upper_div_math_elective",
+      "type": "choose_k",
+      "k": 1,
+      "from_requirements": ["upper_math_from_math", "upper_math_from_cs"]
     },
 
     {
@@ -85,12 +105,39 @@
       "from_set": "writing_options"
     },
 
-    { "id": "science_bio", "type": "all_of", "from_set": "science_bio_seq" },
+    { "id": "science_bio_chem_intro", "type": "choose_k", "k": 1, "from_set": "science_bio_chem_intro" },
+    { "id": "science_bio_seq_221_222", "type": "all_of", "from_set": "science_bio_seq_221_222" },
+    { "id": "science_bio_seq_221_223", "type": "all_of", "from_set": "science_bio_seq_221_223" },
+    {
+      "id": "science_bio_seq",
+      "type": "choose_k",
+      "k": 1,
+      "from_requirements": ["science_bio_seq_221_222", "science_bio_seq_221_223"]
+    },
+    {
+      "id": "science_bio",
+      "type": "all_of",
+      "from_requirements": ["science_bio_chem_intro", "science_bio_seq"]
+    },
     { "id": "science_chem", "type": "all_of", "from_set": "science_chem_seq" },
     { "id": "science_chem_honors", "type": "all_of", "from_set": "science_chem_honors_seq" },
     { "id": "science_erth", "type": "all_of", "from_set": "science_erth_seq" },
     { "id": "science_phys_general", "type": "all_of", "from_set": "science_phys_general_seq" },
     { "id": "science_phys_foundations", "type": "all_of", "from_set": "science_phys_foundations_seq" },
+    { "id": "science_geog_base", "type": "all_of", "from_set": "science_geog_base" },
+    { "id": "science_geog_electives", "type": "choose_k", "k": 2, "from_set": "science_geog_electives" },
+    {
+      "id": "science_geog",
+      "type": "all_of",
+      "from_requirements": ["science_geog_base", "science_geog_electives"]
+    },
+    { "id": "science_psy_base", "type": "all_of", "from_set": "science_psy_base" },
+    { "id": "science_psy_electives", "type": "choose_k", "k": 2, "from_set": "science_psy_electives" },
+    {
+      "id": "science_psy",
+      "type": "all_of",
+      "from_requirements": ["science_psy_base", "science_psy_electives"]
+    },
 
     {
       "id": "science_sequence",
@@ -102,7 +149,9 @@
         "science_chem_honors",
         "science_erth",
         "science_phys_general",
-        "science_phys_foundations"
+        "science_phys_foundations",
+        "science_geog",
+        "science_psy"
       ]
     },
 
