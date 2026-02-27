@@ -96,7 +96,7 @@ export default function GeneralClass() {
         >
           Back to Search
         </button>
-        <input
+        {/* <input
           value={courseKey}
           onChange={(e) => setCourseKey(e.target.value)}
           onKeyDown={(e) => {
@@ -107,7 +107,7 @@ export default function GeneralClass() {
         />
         <button onClick={load} style={{ padding: '8px 14px', borderRadius: 8 }} disabled={loading}>
           {loading ? 'Loading...' : 'Load'}
-        </button>
+        </button> */}
       </div>
 
       {loading && <div style={{ marginTop: 12 }}>Loading...</div>}
