@@ -88,6 +88,43 @@
   padding: 24px;
 }
 
+/* Program group: degree type, major, or minor */
+.da-program-group {
+  margin-bottom: 36px;
+}
+
+.da-program-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Section header for each program type (e.g. "BS Degree Requirements", "Major: Computer Science") */
+.da-group-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a2332;
+  margin: 0 0 4px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.da-group-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 16px 0;
+}
+
+/* Empty state when a minor has no requirement sections defined */
+.da-minor-empty {
+  font-size: 13px;
+  color: #94a3b8;
+  font-style: italic;
+  margin: 0 0 8px 0;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 6px;
+  border: 1px dashed #e2e8f0;
+}
+
 /* ── Section card ───────────────────────────────────────────────── */
 
 /* White card for one requirement bucket */

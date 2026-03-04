@@ -402,7 +402,9 @@ async def upload_transcript(file: UploadFile):
   logger.info("Running solver...")
   returnData = solve_degree_audit(COURSES, attempts, programs_to_audit, EQUIV_MAP)
   returnData["programs_loaded"] = programs_loaded_info
-  
+  returnData["student_name"] = broad_data.get("student_name")
+  returnData["broad_data"] = broad_data  # Include parsed transcript info for frontend
+
 #   log_section("AUDIT RESULTS")
 #   logger.info(f"Status: {returnData.get('status')}")
 #   logger.info(f"Completion: {returnData.get('completion_percentage', 'N/A')}%")

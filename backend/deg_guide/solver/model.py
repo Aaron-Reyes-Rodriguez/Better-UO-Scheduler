@@ -209,16 +209,32 @@ def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, s
     # Build set of "child" requirements (used by from_requirements in choose_k)
     # These are internal/helper requirements that shouldn't clutter the output
     child_req_ids: Set[str] = set()
+    parent_to_children: Dict[str, List[str]] = {}  # parent_key -> [child_key, ...]
     for program in programs:
         for req in program.requirements:
             if req.from_requirements:
+                parent_key = f"{program.id}:{req.id}"
+                child_keys = [f"{program.id}:{cid}" for cid in req.from_requirements]
+                parent_to_children[parent_key] = child_keys
                 for child_id in req.from_requirements:
                     child_req_ids.add(f"{program.id}:{child_id}")
-    
+
+    # Promote satisfied child assignments to parent (so e.g. science_sequence shows in output)
+    for parent_key, child_keys in parent_to_children.items():
+        for child_key in child_keys:
+            # Child is satisfied if its slack is 0 (or all slot slacks for that child are 0)
+            child_slack_keys = [k for k in slack_out if k == child_key or k.startswith(child_key + ":")]
+            if not child_slack_keys:
+                continue
+            if all(slack_out[k] == 0 for k in child_slack_keys):
+                child_assigns = assignments.get(child_key, [])
+                if child_assigns:
+                    assignments.setdefault(parent_key, []).extend(child_assigns)
+
     # Filter output to hide child requirements (but keep for internal tracking)
-    filtered_assignments = {k: v for k, v in assignments.items() 
+    filtered_assignments = {k: v for k, v in assignments.items()
                            if not any(k.startswith(child) for child in child_req_ids)}
-    filtered_slack = {k: v for k, v in slack_out.items() 
+    filtered_slack = {k: v for k, v in slack_out.items()
                       if not any(k.startswith(child + ":") or k == child for child in child_req_ids)}
 
     return {

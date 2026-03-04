@@ -1,0 +1,46 @@
+{
+  "id": "MINOR_CS_2024-2025",
+  "name": "Computer Science Minor (2024-2025)",
+
+  "sets": {
+    "cs_lower_core": ["CS210", "CS211", "CS212"],
+    "math_discrete": ["MATH231", "MATH232"],
+    "cs_upper_core_required": ["CS313"]
+  },
+
+  "requirements": [
+    {
+      "id": "cs_lower_core",
+      "type": "all_of",
+      "from_set": "cs_lower_core",
+      "must_be": { "grading_basis": "graded", "min_grade": "B-" }
+    },
+
+    {
+      "id": "math_discrete",
+      "type": "all_of",
+      "from_set": "math_discrete",
+      "must_be": { "grading_basis": "graded", "min_grade": "B-" }
+    },
+
+    {
+      "id": "cs313_required",
+      "type": "all_of",
+      "from_set": "cs_upper_core_required",
+      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+    },
+
+    {
+      "id": "cs_upper_electives",
+      "type": "credit_pool",
+      "min_credits": 8,
+      "where": { "subject": "CS", "min_number": 300 },
+      "exclude_from_set": "cs_upper_core_required",
+      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+    }
+  ],
+
+  "overlap_rules": [
+    { "type": "no_double_counting_default" }
+  ]
+}

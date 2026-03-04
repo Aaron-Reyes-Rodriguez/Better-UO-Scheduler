@@ -2,6 +2,43 @@
   "id": "MINOR_MATH_2023-2024",
   "name": "Mathematics Minor (2023-2024)",
   "sets": {},
-  "requirements": [],
-  "overlap_rules": []
+  "requirements": [
+    {
+      "id": "math_200plus_total",
+      "type": "credit_pool",
+      "min_credits": 30,
+      "where": {
+        "subject": "MATH",
+        "min_number": 200
+      }
+    },
+    {
+      "id": "math_upper_15",
+      "type": "credit_pool",
+      "min_credits": 15,
+      "where": {
+        "subject": "MATH",
+        "min_number": 300
+      },
+      "exclude_courses": [
+        "MATH425"
+      ],
+      "must_be": {
+        "grading_basis": "graded"
+      }
+    },
+    {
+      "id": "math_minor",
+      "type": "all_of",
+      "from_requirements": [
+        "math_200plus_total",
+        "math_upper_15"
+      ]
+    }
+  ],
+  "overlap_rules": [
+    {
+      "type": "no_double_counting_default"
+    }
+  ]
 }
