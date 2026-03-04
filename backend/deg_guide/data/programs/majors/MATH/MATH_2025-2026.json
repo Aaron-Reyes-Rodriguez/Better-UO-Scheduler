@@ -1,0 +1,94 @@
+{
+  "id": "MAJOR_MATH_2025-2026",
+  "name": "Mathematics Major (2025-2026)",
+
+  "sets": {
+    "math_calc3": ["MATH253Z"],
+    "math_sv_calc": ["MATH281", "MATH282"],
+    "math_lin_alg": ["MATH341", "MATH342"],
+    "cs_prog": ["CS122"],
+
+    "bridgeA_core": ["MATH231", "MATH232"],
+    "bridgeB_core": ["MATH261", "MATH262"],
+    "bridgeC_core": ["MATH307"],
+    "math_labs_201_206": ["MATH201", "MATH202", "MATH203", "MATH204", "MATH205", "MATH206"],
+
+    "fund_analysis": ["MATH316", "MATH317"],
+    "fund_numtheory": ["MATH347", "MATH348"],
+    "fund_absalg": ["MATH391", "MATH392"],
+
+    "math_electives_menu": [
+      "MATH316", "MATH317", "MATH320", "MATH343", "MATH345M", "DSCI345M",
+      "MATH347", "MATH348", "MATH351", "MATH352", "MATH391", "MATH392",
+      "MATH394", "MATH395", "MATH397", "MATH411", "MATH412", "MATH413",
+      "MATH414", "MATH415", "MATH421M", "MATH422", "MATH431", "MATH432",
+      "MATH433", "MATH441", "MATH444", "MATH445", "MATH446", "MATH456",
+      "MATH458", "MATH461", "MATH462", "MATH463", "MATH467"
+    ]
+  },
+
+  "requirements": [
+    { "id": "calc3", "type": "all_of", "from_set": "math_calc3" },
+    { "id": "sv_calc", "type": "all_of", "from_set": "math_sv_calc" },
+    { "id": "lin_alg", "type": "all_of", "from_set": "math_lin_alg" },
+    { "id": "cs122", "type": "all_of", "from_set": "cs_prog" },
+
+    { "id": "bridgeA_core", "type": "all_of", "from_set": "bridgeA_core" },
+    { "id": "bridgeA_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 2 },
+    { "id": "bridgeA_total", "type": "all_of", "from_requirements": ["bridgeA_core", "bridgeA_labs"] },
+
+    { "id": "bridgeB_core", "type": "all_of", "from_set": "bridgeB_core" },
+    { "id": "bridgeB_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 2 },
+    { "id": "bridgeB_total", "type": "all_of", "from_requirements": ["bridgeB_core", "bridgeB_labs"] },
+
+    { "id": "bridgeC_core", "type": "all_of", "from_set": "bridgeC_core" },
+    { "id": "bridgeC_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 4 },
+    { "id": "bridgeC_total", "type": "all_of", "from_requirements": ["bridgeC_core", "bridgeC_labs"] },
+
+    { "id": "bridge_requirement", "type": "choose_k", "k": 1, "from_requirements": ["bridgeA_total", "bridgeB_total", "bridgeC_total"] },
+
+    { "id": "fund_analysis", "type": "all_of", "from_set": "fund_analysis" },
+    { "id": "fund_numtheory", "type": "all_of", "from_set": "fund_numtheory" },
+    { "id": "fund_absalg", "type": "all_of", "from_set": "fund_absalg" },
+    { "id": "fundamentals_requirement", "type": "choose_k", "k": 1, "from_requirements": ["fund_analysis", "fund_numtheory", "fund_absalg"] },
+
+    {
+      "id": "upper_electives",
+      "type": "credit_pool",
+      "min_credits": 16,
+      "from_set": "math_electives_menu",
+      "constraints": [
+        {
+          "type": "min_complete_sequences",
+          "min_sequences": 1,
+          "sequences": [
+            ["MATH316", "MATH317"], ["MATH347", "MATH348"], ["MATH351", "MATH352"],
+            ["MATH391", "MATH392"], ["MATH421M", "MATH422"], ["MATH431", "MATH432"],
+            ["MATH444", "MATH445"], ["MATH461", "MATH462"]
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "math_track_standard",
+      "type": "all_of",
+      "from_requirements": ["cs122", "bridge_requirement", "fundamentals_requirement", "upper_electives"]
+    },
+
+    {
+      "id": "math_track",
+      "type": "choose_k",
+      "k": 1,
+      "from_requirements": ["math_track_standard"]
+    },
+
+    {
+      "id": "math_major",
+      "type": "all_of",
+      "from_requirements": ["calc3", "sv_calc", "lin_alg", "math_track"]
+    }
+  ],
+
+  "overlap_rules": [{ "type": "no_double_counting_default" }]
+}

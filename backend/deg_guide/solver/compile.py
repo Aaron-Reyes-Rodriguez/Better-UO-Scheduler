@@ -81,6 +81,45 @@ def matches_attempt_where(att: CourseAttempt, where: dict | None) -> bool:
         return False
     return True
 
+def _bool_and(model: cp_model.CpModel, bools: List[cp_model.IntVar], name: str) -> cp_model.IntVar:
+    """
+    Returns a BoolVar that is 1 iff all bools are 1.
+    Linearization: out <= each bi; out >= sum(bi) - (n-1)
+    """
+    out = model.NewBoolVar(name)
+    if not bools:
+        model.Add(out == 1)
+        return out
+    for b in bools:
+        model.Add(out <= b)
+    model.Add(out >= sum(bools) - (len(bools) - 1))
+    return out
+
+
+def _course_selected_bool(
+    model: cp_model.CpModel,
+    taken_attempt_objs: List[Tuple[CourseAttempt, Course]],
+    x: Dict[Tuple[str, str], cp_model.IntVar],
+    req_key: str,
+    course_id: str,
+    name: str,
+) -> cp_model.IntVar:
+    """
+    Returns a BoolVar = 1 if any attempt for this course_id is assigned to req_key.
+    """
+    vars_for_course = [
+        x[(att.attempt_id, req_key)]
+        for att, course in taken_attempt_objs
+        if course.id == course_id and (att.attempt_id, req_key) in x
+    ]
+    b = model.NewBoolVar(name)
+    if not vars_for_course:
+        model.Add(b == 0)
+    else:
+        model.AddMaxEquality(b, vars_for_course)
+    return b
+
+
 def _slacks_for_req_key(slack: Dict[str, cp_model.IntVar], req_key: str) -> List[cp_model.IntVar]:
     # child slack vars can be stored as:
     # - slack[req_key] for choose_k / credits_at_least / credit_pool
@@ -246,6 +285,26 @@ def build_model(
             model.Add(pool_credit_sum + s >= pool_min)
 
             for j, rule in enumerate(req.constraints or []):
+                if rule.get("type") == "min_complete_sequences":
+                    min_sequences = int(rule.get("min_sequences", 1))
+                    sequences = rule.get("sequences") or []
+                    if not sequences:
+                        raise ValueError(f"{req_key}: min_complete_sequences constraint has no sequences")
+                    seq_complete_bools = []
+                    for si, seq in enumerate(sequences):
+                        course_bools = []
+                        for cid in seq:
+                            course_bools.append(
+                                _course_selected_bool(
+                                    model, taken_attempt_objs, x, req_key, cid,
+                                    name=f"{req_key}_seq{si}_has_{cid}"
+                                )
+                            )
+                        seq_ok = _bool_and(model, course_bools, name=f"{req_key}_seq{si}_complete")
+                        seq_complete_bools.append(seq_ok)
+                    model.Add(sum(seq_complete_bools) >= min_sequences)
+                    continue
+
                 sub_where_course = rule.get("where") or {}
                 sub_where_attempt = rule.get("where_attempt") or None
 
