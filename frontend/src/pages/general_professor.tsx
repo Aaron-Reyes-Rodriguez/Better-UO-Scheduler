@@ -88,13 +88,13 @@ export default function GeneralProfessor() {
     }
   };
 
-  // const load = async () => {
-  //   const trimmed = professorName.trim();
-  //   if (trimmed) {
-  //     setSearchParams({ q: trimmed });
-  //   }
-  //   await loadByValue(professorName);
-  // };
+  const load = async () => {
+    const trimmed = professorName.trim();
+    if (trimmed) {
+      setSearchParams({ q: trimmed });
+    }
+    await loadByValue(professorName);
+  };
 
   useEffect(() => {
     const q = searchParams.get('q');
@@ -170,7 +170,7 @@ export default function GeneralProfessor() {
         >
           Back to Search
         </button>
-        {/* <input
+        <input
           value={professorName}
           onChange={(e) => setProfessorName(e.target.value)}
           onKeyDown={(e) => {
@@ -181,7 +181,7 @@ export default function GeneralProfessor() {
         />
         <button onClick={load} style={{ padding: '8px 14px', borderRadius: 8 }} disabled={loading}>
           {loading ? 'Loading...' : 'Load'}
-        </button> */}
+        </button>
       </div>
 
       {loading && <div style={{ marginTop: 12 }}>Loading...</div>}
