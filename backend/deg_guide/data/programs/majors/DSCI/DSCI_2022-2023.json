@@ -1,385 +1,671 @@
 {
   "id": "MAJOR_DSCI_2022-2023",
   "name": "Data Science Major (2022-2023)",
-
   "sets": {
-    "ds_core": ["DSCI101", "DSCI102", "DSCI311"],
-    "cs_lower_core": ["CS210", "CS211", "CS212"],
-
-    "calc_seq_251": ["MATH251Z", "MATH252Z"],
-    "lin_alg_seq": ["MATH341", "MATH342"],
-
-    "probability_course": ["DSCI345M"],
-    "ml_course": ["DSCI372M"],
-
-    "ethics_options": ["PHIL223"],
-
-    "ds_domain_acc_core_required": ["BA101Z", "EC201Z", "BA169Z", "ACTG350"],
-    "ds_domain_acc_electives": ["ACTG410", "ACTG480", "OBA455"],
-
-    "ds_domain_bio_core_seq": ["BI221Z", "BI222Z", "BI223Z"],
-    "ds_domain_bio_core_alt": ["BI214"],
-    "ds_domain_bio_electives": ["BI320", "BI360", "BI370", "BI430", "BI471", "BI497M", "DSCI411"],
-
-    "ds_domain_cult_core_lower": ["COLT301", "COLT305", "HUM300", "ENG250", "ENVS203", "FLR250"],
-    "ds_domain_cult_core_upper_alt": ["DSCI350M", "LIB350M"],
-    "ds_domain_cult_electives": ["ENG470", "ENG486M", "FLR495", "J429", "PHIL123", "PHIL423"],
-
-    "ds_domain_earth_core_required": ["ERTH202", "ERTH315"],
-    "ds_domain_earth_core_phys_alt": ["PHYS201", "PHYS251"],
-    "ds_domain_earth_electives": ["ERTH353", "ERTH441", "ERTH453", "ERTH454", "ERTH455", "ERTH456", "ERTH467"],
-
-    "ds_domain_econ_core": ["EC201Z", "EC311", "EC320", "EC421"],
-    "ds_domain_econ_electives": ["EC422", "EC428", "EC434", "EC443", "EC451", "EC460", "EC482", "EC490"],
-
-    "ds_domain_geo_core": ["GEOG181", "GEOG481", "GEOG482"],
-    "ds_domain_geo_electives": ["GEOG485", "GEOG486", "GEOG490", "GEOG491", "GEOG492", "GEOG493", "GEOG495", "DSCI411"],
-
-    "ds_domain_ling_core_base": ["LING301"],
-    "ds_domain_ling_core_two_of": ["LING302", "LING311", "LING312"],
-    "ds_domain_ling_electives": ["LING411", "LING415", "LING430", "LING431", "LING435", "LING451", "LING493"],
-
-    "ds_domain_mark_core_required": ["BA101Z", "BA215", "EC201Z", "BA169Z", "MKTG390"],
-    "ds_domain_mark_core_mktgman": ["BA317", "MKTG311"],
-    "ds_domain_mark_choice_one": ["MKTG415", "OBA455", "OBA465"],
-
-    "ds_domain_music_core": ["MUS227", "MUS447", "MUS470", "MUS448", "MUS479"],
-    "ds_domain_music_electives": ["MUS360", "MUS445", "MUS476", "MUS483"],
-
-    "ds_domain_phys_core": ["PHYS251", "PHYS253", "PHYS290", "PHYS391"],
-    "ds_domain_phys_electives": ["PHYS432", "PHYS481", "PHYS491"],
-
-    "ds_domain_soc_core_intro_alt": ["SOC204Z", "SOC207"],
-    "ds_domain_soc_core_required": ["SOC310", "SOC311", "SOC412", "SOC413"],
-    "ds_domain_soc_electives": ["SOC370", "SOC380", "SOC416", "SOC442", "SOC445", "SOC451", "SOC465", "SOC467"]
+    "ds_core": [
+      "DSCI101",
+      "DSCI102",
+      "DSCI311"
+    ],
+    "ds_capstone": [
+      "DSCI411"
+    ],
+    "cs_lower_core": [
+      "CS210",
+      "CS211",
+      "CS212"
+    ],
+    "calc_seq_251": [
+      "MATH251Z",
+      "MATH252Z"
+    ],
+    "lin_alg_seq": [
+      "MATH341",
+      "MATH342"
+    ],
+    "probability_course": [
+      "DSCI345M"
+    ],
+    "ml_course": [
+      "DSCI372M"
+    ],
+    "ethics_options": [
+      "PHIL223"
+    ],
+    "ds_domain_acc_core_required": [
+      "BA101Z",
+      "EC201Z",
+      "BA169Z",
+      "ACTG350",
+      "BA215"
+    ],
+    "ds_domain_acc_electives": [
+      "ACTG410",
+      "ACTG480",
+      "OBA455"
+    ],
+    "ds_domain_bio_core_seq": [
+      "BI221Z",
+      "BI222Z",
+      "BI223Z"
+    ],
+    "ds_domain_bio_core_alt": [
+      "BI214"
+    ],
+    "ds_domain_bio_electives": [
+      "BI320",
+      "BI360",
+      "BI370",
+      "BI430",
+      "BI471",
+      "BI497M"
+    ],
+    "ds_domain_cult_core_lower": [
+      "COLT301",
+      "COLT305",
+      "HUM300",
+      "ENG250",
+      "ENVS203",
+      "FLR250"
+    ],
+    "ds_domain_cult_core_upper_alt": [
+      "DSCI350M",
+      "LIB350M"
+    ],
+    "ds_domain_cult_electives": [
+      "ENG470",
+      "ENG486M",
+      "FLR495",
+      "J429",
+      "PHIL123",
+      "PHIL423"
+    ],
+    "ds_domain_earth_core_required": [
+      "ERTH202",
+      "ERTH315"
+    ],
+    "ds_domain_earth_core_phys_alt": [
+      "PHYS201",
+      "PHYS251"
+    ],
+    "ds_domain_earth_electives": [
+      "ERTH353",
+      "ERTH441",
+      "ERTH453",
+      "ERTH454",
+      "ERTH455",
+      "ERTH456",
+      "ERTH467"
+    ],
+    "ds_domain_econ_core": [
+      "EC201Z",
+      "EC311",
+      "EC320",
+      "EC421"
+    ],
+    "ds_domain_econ_electives": [
+      "EC422",
+      "EC428",
+      "EC434",
+      "EC443",
+      "EC451",
+      "EC460",
+      "EC482",
+      "EC490"
+    ],
+    "ds_domain_geo_core": [
+      "GEOG181",
+      "GEOG481",
+      "GEOG482"
+    ],
+    "ds_domain_geo_electives": [
+      "GEOG485",
+      "GEOG486",
+      "GEOG490",
+      "GEOG491",
+      "GEOG492",
+      "GEOG493",
+      "GEOG495"
+    ],
+    "ds_domain_ling_core_base": [
+      "LING301"
+    ],
+    "ds_domain_ling_core_two_of": [
+      "LING302",
+      "LING311",
+      "LING312"
+    ],
+    "ds_domain_ling_electives": [
+      "LING411",
+      "LING415",
+      "LING430",
+      "LING431",
+      "LING435",
+      "LING451",
+      "LING493"
+    ],
+    "ds_domain_mark_core_required": [
+      "BA101Z",
+      "BA215",
+      "EC201Z",
+      "BA169Z",
+      "MKTG390"
+    ],
+    "ds_domain_mark_core_mktgman": [
+      "BA317",
+      "MKTG311"
+    ],
+    "ds_domain_mark_choice_one": [
+      "MKTG415",
+      "OBA455",
+      "OBA465"
+    ],
+    "ds_domain_music_core": [
+      "MUS227",
+      "MUS447",
+      "MUS470",
+      "MUS448",
+      "MUS479"
+    ],
+    "ds_domain_music_electives": [
+      "MUS360",
+      "MUS445",
+      "MUS476",
+      "MUS483"
+    ],
+    "ds_domain_phys_core": [
+      "PHYS251",
+      "PHYS253",
+      "PHYS290",
+      "PHYS391"
+    ],
+    "ds_domain_phys_electives": [
+      "PHYS432",
+      "PHYS481",
+      "PHYS491"
+    ],
+    "ds_domain_soc_core_intro": [
+      "SOC204Z"
+    ],
+    "dsci_depth_curated": [
+      "CS314",
+      "CS322",
+      "CS330",
+      "CS333",
+      "CS415",
+      "CS432",
+      "MATH253Z",
+      "MATH307",
+      "MATH458",
+      "MATH461",
+      "MATH462",
+      "MATH463",
+      "DSCI401",
+      "DSCI404",
+      "DSCI431",
+      "DSCI435"
+    ],
+    "ds_domain_soc_core_required": [
+      "SOC310",
+      "SOC311",
+      "SOC412",
+      "SOC413"
+    ],
+    "ds_domain_soc_electives": [
+      "SOC370",
+      "SOC380",
+      "SOC416",
+      "SOC442",
+      "SOC445",
+      "SOC451",
+      "SOC465",
+      "SOC467"
+    ]
   },
-
   "requirements": [
     {
       "id": "ds_core",
       "type": "all_of",
       "from_set": "ds_core",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
-
+    {
+      "id": "ds_capstone",
+      "type": "all_of",
+      "from_set": "ds_capstone",
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
+    },
     {
       "id": "cs_lower_core",
       "type": "all_of",
       "from_set": "cs_lower_core",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
-
     {
       "id": "calc_sequence",
       "type": "all_of",
       "from_set": "calc_seq_251",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
-
     {
       "id": "lin_alg_sequence",
       "type": "all_of",
       "from_set": "lin_alg_seq",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
-
     {
       "id": "probability",
       "type": "all_of",
       "from_set": "probability_course",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
-
     {
       "id": "machine_learning",
       "type": "all_of",
       "from_set": "ml_course",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
-
     {
       "id": "ethics",
       "type": "choose_k",
       "k": 1,
       "from_set": "ethics_options",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
-
     {
       "id": "ds_domain_acc_core_required",
       "type": "all_of",
       "from_set": "ds_domain_acc_core_required",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
-    },
-    {
-      "id": "ds_domain_acc_core_alt",
-      "type": "choose_k",
-      "k": 1,
-      "courses": ["BA215", "BA211Z"],
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_acc_electives",
       "type": "choose_k",
       "k": 2,
       "from_set": "ds_domain_acc_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_acc",
-      "type": "choose_k",
-      "k": 3,
-      "from_requirements": ["ds_domain_acc_core_required", "ds_domain_acc_core_alt", "ds_domain_acc_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_acc_core_required",
+        "ds_domain_acc_electives"
+      ]
     },
-
     {
       "id": "ds_domain_bio_core_seq",
       "type": "all_of",
       "from_set": "ds_domain_bio_core_seq",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_bio_core_alt",
       "type": "all_of",
       "from_set": "ds_domain_bio_core_alt",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_bio_core",
       "type": "choose_k",
       "k": 1,
-      "from_requirements": ["ds_domain_bio_core_seq", "ds_domain_bio_core_alt"]
+      "from_requirements": [
+        "ds_domain_bio_core_seq",
+        "ds_domain_bio_core_alt"
+      ]
     },
     {
       "id": "ds_domain_bio_electives",
       "type": "choose_k",
       "k": 4,
       "from_set": "ds_domain_bio_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_bio",
-      "type": "choose_k",
-      "k": 2,
-      "from_requirements": ["ds_domain_bio_core", "ds_domain_bio_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_bio_core",
+        "ds_domain_bio_electives"
+      ]
     },
-
     {
       "id": "ds_domain_cult_core_lower",
       "type": "choose_k",
       "k": 3,
       "from_set": "ds_domain_cult_core_lower",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_cult_core_upper",
       "type": "choose_k",
       "k": 1,
       "from_set": "ds_domain_cult_core_upper_alt",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_cult_electives",
       "type": "choose_k",
       "k": 3,
       "from_set": "ds_domain_cult_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_cult",
-      "type": "choose_k",
-      "k": 3,
-      "from_requirements": ["ds_domain_cult_core_lower", "ds_domain_cult_core_upper", "ds_domain_cult_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_cult_core_lower",
+        "ds_domain_cult_core_upper",
+        "ds_domain_cult_electives"
+      ]
     },
-
     {
       "id": "ds_domain_earth_core_required",
       "type": "all_of",
       "from_set": "ds_domain_earth_core_required",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_earth_core_phys",
       "type": "choose_k",
       "k": 1,
       "from_set": "ds_domain_earth_core_phys_alt",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_earth_electives",
       "type": "choose_k",
       "k": 4,
       "from_set": "ds_domain_earth_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_earth",
-      "type": "choose_k",
-      "k": 3,
-      "from_requirements": ["ds_domain_earth_core_required", "ds_domain_earth_core_phys", "ds_domain_earth_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_earth_core_required",
+        "ds_domain_earth_core_phys",
+        "ds_domain_earth_electives"
+      ]
     },
-
     {
       "id": "ds_domain_econ_core",
       "type": "all_of",
       "from_set": "ds_domain_econ_core",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_econ_electives",
       "type": "choose_k",
       "k": 3,
       "from_set": "ds_domain_econ_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_econ",
-      "type": "choose_k",
-      "k": 2,
-      "from_requirements": ["ds_domain_econ_core", "ds_domain_econ_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_econ_core",
+        "ds_domain_econ_electives"
+      ]
     },
-
     {
       "id": "ds_domain_geo_core",
       "type": "all_of",
       "from_set": "ds_domain_geo_core",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_geo_electives",
       "type": "choose_k",
       "k": 4,
       "from_set": "ds_domain_geo_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_geo",
-      "type": "choose_k",
-      "k": 2,
-      "from_requirements": ["ds_domain_geo_core", "ds_domain_geo_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_geo_core",
+        "ds_domain_geo_electives"
+      ]
     },
-
     {
       "id": "ds_domain_ling_core_base",
       "type": "all_of",
       "from_set": "ds_domain_ling_core_base",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_ling_core_two_of",
       "type": "choose_k",
       "k": 2,
       "from_set": "ds_domain_ling_core_two_of",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_ling_electives",
       "type": "choose_k",
       "k": 4,
       "from_set": "ds_domain_ling_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_ling",
-      "type": "choose_k",
-      "k": 3,
-      "from_requirements": ["ds_domain_ling_core_base", "ds_domain_ling_core_two_of", "ds_domain_ling_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_ling_core_base",
+        "ds_domain_ling_core_two_of",
+        "ds_domain_ling_electives"
+      ]
     },
-
     {
       "id": "ds_domain_mark_core_required",
       "type": "all_of",
       "from_set": "ds_domain_mark_core_required",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_mark_core_mktgman",
       "type": "choose_k",
       "k": 1,
       "from_set": "ds_domain_mark_core_mktgman",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_mark_choice_one",
       "type": "choose_k",
       "k": 1,
       "from_set": "ds_domain_mark_choice_one",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_mark",
-      "type": "choose_k",
-      "k": 3,
-      "from_requirements": ["ds_domain_mark_core_required", "ds_domain_mark_core_mktgman", "ds_domain_mark_choice_one"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_mark_core_required",
+        "ds_domain_mark_core_mktgman",
+        "ds_domain_mark_choice_one"
+      ]
     },
-
     {
       "id": "ds_domain_music_core",
       "type": "all_of",
       "from_set": "ds_domain_music_core",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_music_electives",
       "type": "choose_k",
       "k": 2,
       "from_set": "ds_domain_music_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_music",
-      "type": "choose_k",
-      "k": 2,
-      "from_requirements": ["ds_domain_music_core", "ds_domain_music_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_music_core",
+        "ds_domain_music_electives"
+      ]
     },
-
     {
       "id": "ds_domain_phys_core",
       "type": "all_of",
       "from_set": "ds_domain_phys_core",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_phys_electives",
       "type": "choose_k",
       "k": 3,
       "from_set": "ds_domain_phys_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_phys",
-      "type": "choose_k",
-      "k": 2,
-      "from_requirements": ["ds_domain_phys_core", "ds_domain_phys_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_phys_core",
+        "ds_domain_phys_electives"
+      ]
     },
-
     {
       "id": "ds_domain_soc_core_intro",
-      "type": "choose_k",
-      "k": 1,
-      "from_set": "ds_domain_soc_core_intro_alt",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "type": "all_of",
+      "from_set": "ds_domain_soc_core_intro",
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_soc_core_required",
       "type": "all_of",
       "from_set": "ds_domain_soc_core_required",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_soc_electives",
       "type": "choose_k",
       "k": 2,
       "from_set": "ds_domain_soc_electives",
-      "must_be": { "grading_basis": "graded", "min_grade": "C-" }
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     },
     {
       "id": "ds_domain_soc",
-      "type": "choose_k",
-      "k": 3,
-      "from_requirements": ["ds_domain_soc_core_intro", "ds_domain_soc_core_required", "ds_domain_soc_electives"]
+      "type": "all_of",
+      "from_requirements": [
+        "ds_domain_soc_core_intro",
+        "ds_domain_soc_core_required",
+        "ds_domain_soc_electives"
+      ]
     },
-
     {
       "id": "dsci_domain",
       "type": "choose_k",
@@ -398,19 +684,20 @@
         "ds_domain_soc"
       ]
     },
-
     {
       "id": "dsci_depth",
-      "type": "credit_pool",
-      "min_credits": 12,
-      "where": { "subject_in": ["CS", "MATH", "DSCI"], "min_number": 300 },
-      "exclude_courses": ["DSCI101", "DSCI102", "DSCI311", "DSCI345M", "DSCI372M"],
-      "must_be": { "grading_basis": "graded" }
+      "type": "choose_k",
+      "k": 3,
+      "from_set": "dsci_depth_curated",
+      "must_be": {
+        "grading_basis": "graded",
+        "min_grade": "C-"
+      }
     }
   ],
-
   "overlap_rules": [
-    { "type": "no_double_counting_default" }
+    {
+      "type": "no_double_counting_default"
+    }
   ]
 }
-

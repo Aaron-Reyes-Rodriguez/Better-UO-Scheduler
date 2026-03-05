@@ -1,0 +1,1332 @@
+
+============================================================
+PAGE 257
+============================================================
+256 Mathematics (BA/BS)
+mathematics and statistics. Each student’s major programis individually MATH 394 Geometries from an Advanced Viewpoint I
+constructed in consultation with an advisor. MATH 395 Geometries from an Advanced Viewpoint II
+MATH 397 History and Applications of Calculus
+Upper-division courses used to satisfy major requirements must be
+taken for letter grades, and only one D grade (D+ or D or D–) may be MATH 411 Functions of a Complex Variable I
+counted toward the upper-division requirement. At least 12 credits in MATH 412 Functions of a Complex Variable II
+upper-division mathematics courses must be taken in residence at the MATH 413 Introduction to Analysis I
+university.
+MATH 414 Introduction to Analysis II
+Statistical Methods I (MATH 425) cannot be used to satisfy requirements MATH 415 Introduction to Analysis III
+for a mathematics major or minor. MATH 421M Partial Differential Equations: Fourier
+Analysis I
+To qualify for a bachelor’s degree with a major in mathematics, a student
+MATH 422 Partial Differential Equations: Fourier
+must satisfy the requirements for one of three options: the standard
+Analysis II
+track, pure mathematics, or secondary teaching. In eachoption, most
+MATH 431 Introduction to Topology I
+courses require calculus as a prerequisite, and in each option some of
+the courses require satisfying the bridge requirement. MATH 432 Introduction to Topology II
+MATH 433 Introduction to Differential Geometry
+• Standard Track (p. 256)
+MATH 441 Linear Algebra
+• Pure Mathematics (p. 257)
+MATH 444 Introduction to Abstract Algebra I
+• Secondary Teaching (p. 257)
+MATH 445 Introduction to Abstract Algebra II
+MATH 446 Introduction to Abstract Algebra III
+Mathematics Major - Standard Track
+MATH 456 Networks and Combinatorics
+Code Title Credits MATH 458 Introduction to Mathematical Cryptography
+MATH 253 Calculus III 4 MATH 461 Introduction to Mathematical Methods of
+MATH 281–282 Several-Variable Calculus I-II 8 Statistics I
+MATH 341–342 Elementary Linear Algebra 8 MATH 462 Introduction to Mathematical Methods of
+Statistics II 3, 4
+CS 122 Introduction to Programming and Problem 4
+MATH 463 Mathematical Methods of Regression
+Solving
+Analysis and Analysis of Variance
+Select one of the following sets of Bridge courses: 12
+MATH 467 Stochastic Processes
+MATH 231–232 and two of MATH 201–206
+Total Credits 60
+MATH 261–262 and two of MATH 201–206
+MATH 307 andfour of MATH 201–206 1
+For students who have completed Calculus with Theory I-III
+Select one of the following Fundamentals sequences: 8 (MATH 261–263) with a grade of mid-C or better, the department will
+MATH 316– Fundamentals of Analysis I-II waive the requirement for Fundamentals of Analysis I-II (MATH 316–
+317 317).
+2
+MATH 347– Fundamentals of Number Theory I-II Sequences include Fundamentals of Analysis I-II (MATH 316–317),
+348 Fundamentals of Number Theory I-II (MATH 347–348), Elementary
+MATH 391– Fundamentals of Abstract Algebra I-II Numerical Analysis I-II (MATH 351–352), Fundamentals of Abstract
+392 Algebra I-II (MATH 391–392), Geometries from an Advanced
+Viewpoint I-II (MATH 394–395), Functions of a Complex Variable I-
+Select four of the following, including at least one two-term 16
+sequence: 2 II (MATH 411–412), Partial Differential Equations: Fourier Analysis
+I (MATH 421M) - Partial Differential Equations: Fourier Analysis
+MATH 316 Fundamentals of Analysis I
+II (MATH 422), Introduction to Analysis I-III (MATH 413–415),
+MATH 317 Fundamentals of Analysis II
+Introduction to Topology (MATH 431–432), Introduction to Abstract
+MATH 320 Theory of Differential Equations Algebra I-III (MATH 444–446), Introduction to Mathematical Methods
+MATH 343 Statistical Models and Methods 3, 4 of Statistics I-II (MATH 461–462), Introduction to Mathematical
+MATH 345M Probability and Statistics for Data Science Methods of Statistics I (MATH 461) - Stochastic Processes
+3, 4 (MATH 467); credit for these courses cannot count for both the two-
+term Fundamentals sequence and the four upper-division electives.
+DSCI 345M Probability and Statistics for Data Science
+3
+3, 4 After completing Introduction to Mathematical Methods of Statistics
+II (MATH 462), students cannot receive credit for: Statistical Models
+MATH 347 Fundamentals of Number Theory I
+and Methods (MATH 343), Probability and Statistics for Data Science
+MATH 348 Fundamentals of Number Theory II
+(MATH 345M), nor Probability and Statistics for Data Science
+MATH 351 Elementary Numerical Analysis I (DSCI 345M).
+MATH 352 Elementary Numerical Analysis II
+MATH 391 Fundamentals of Abstract Algebra I
+MATH 392 Fundamentals of Abstract Algebra II
+
+============================================================
+PAGE 258
+============================================================
+2023-2024 257
+4
+Students can only use one of the following toward the two- MATH 433 Introduction to Differential Geometry
+course upper-division requirement: Statistical Models and MATH 441 Linear Algebra
+Methods (MATH 343), Probability and Statistics for Data Science
+MATH 444 Introduction to Abstract Algebra I
+(MATH 345M), Probability and Statistics for Data Science
+MATH 445 Introduction to Abstract Algebra II
+(DSCI 345M), and Introduction to Mathematical Methods of Statistics
+MATH 446 Introduction to Abstract Algebra III
+II (MATH 462).
+MATH 461 Introduction to Mathematical Methods of
+Statistics I
+Mathematics Major - Pure Mathematics
+MATH 462 Introduction to Mathematical Methods of
+Code Title Credits Statistics II 3
+MATH 253 Calculus III 4 MATH 463 Mathematical Methods of Regression
+Analysis and Analysis of Variance
+MATH 281–282 Several-Variable Calculus I-II 8
+MATH 316–317 Fundamentals of Analysis I-II 1 8 MATH 467 Stochastic Processes
+MATH 341–342 Elementary Linear Algebra 8 Total Credits 60
+CS 122 Introduction to Programming and Problem 4 1
+For students who have completed Calculus with Theory I-III
+Solving
+(MATH 261–263) with grades of mid-C or better, the department will
+Select one of the following sets of Bridge courses: 12
+waive the requirement for Fundamentals of Analysis I-II (MATH 316–
+MATH 231– Elements of Discrete Mathematics I-II (and 317).
+232 two from MATH 201–206) 2
+The two-term abstract algebra sequence—Introduction to
+MATH 261– Calculus with Theory I-II (and two from Abstract Algebra I (MATH 444), Introduction to Abstract Algebra
+262 MATH 201–206) II (MATH 445)—cannot also count toward the two upper-division
+MATH 307 Introduction to Proof (and four from electives.
+MATH 201–206) 3 Students can only use one of the following toward the two-
+Select one of the following Abstract Algebra sequences: 8 course upper-division requirement: Statistical Models and
+MATH 391– Fundamentals of Abstract Algebra I-II Methods (MATH 343), Probability and Statistics for Data Science
+392 (MATH 345M), Probability and Statistics for Data Science
+(DSCI 345M), and Introduction to Mathematical Methods of Statistics
+MATH 444– Introduction to Abstract Algebra I-II
+II (MATH 462).
+445
+4
+Select two of the following: 2 8 After completing Introduction to Mathematical Methods of Statistics
+II (MATH 462), students cannot receive credit for: Statistical Models
+MATH 320 Theory of Differential Equations
+and Methods (MATH 343), Probability and Statistics for Data Science
+MATH 343 Statistical Models and Methods 3 (MATH 345M), nor Probability and Statistics for Data Science
+MATH 345M Probability and Statistics for Data Science (DSCI 345M).
+3, 4
+DSCI 345M Probability and Statistics for Data Science
+Mathematics Major - Secondary Teaching
+3, 4
+MATH 347 Fundamentals of Number Theory I Code Title Credits
+MATH 348 Fundamentals of Number Theory II MATH 253 Calculus III 4
+MATH 351 Elementary Numerical Analysis I MATH 281 Several-Variable Calculus I 4
+MATH 352 Elementary Numerical Analysis II MATH 341 Elementary Linear Algebra 4
+MATH 391 Fundamentals of Abstract Algebra I MATH 343 Statistical Models and Methods 4
+MATH 392 Fundamentals of Abstract Algebra II CS 122 Introduction to Programming and Problem 4
+MATH 394 Geometries from an Advanced Viewpoint I Solving
+MATH 395 Geometries from an Advanced Viewpoint II Select one of the following sets of Bridge courses: 12
+MATH 397 History and Applications of Calculus MATH 231– Elements of Discrete Mathematics I-II (and
+232 two from MATH 201–206)
+MATH 411 Functions of a Complex Variable I
+MATH 261– Calculus with Theory I-II (and two from
+MATH 412 Functions of a Complex Variable II
+262 MATH 201–206)
+MATH 413 Introduction to Analysis I
+MATH 307 Introduction to Proof (and from from
+MATH 414 Introduction to Analysis II
+MATH 201–206)
+MATH 415 Introduction to Analysis III Select two of the following Fundamentals sequences: 1 16
+MATH 421M Partial Differential Equations: Fourier
+MATH 316– Fundamentals of Analysis I-II
+Analysis I
+317
+MATH 422 Partial Differential Equations: Fourier
+MATH 347– Fundamentals of Number Theory I-II
+Analysis II
+348
+MATH 431 Introduction to Topology I
+MATH 391– Fundamentals of Abstract Algebra I-II
+MATH 432 Introduction to Topology II 392
+
+============================================================
+PAGE 259
+============================================================
+258 Mathematics (BA/BS)
+MATH 394–395 Geometries from an Advanced Viewpoint I- 8 Winter
+II MATH 282 Several-Variable Calculus II 4
+MATH 397 History and Applications of Calculus 4 MATH 342 Elementary Linear Algebra 4
+Total Credits 60 Second term of second-year second-language 4
+sequence
+1
+For students who have completed Calculus with Theory I-III
+Social science area-satisfying course 4
+(MATH 261–263) with grades of mid-C or better, the department will
+Credits 16
+waive the requirement for Fundamentals of Analysis I-II (MATH 316–
+Spring
+317).
+MATH 202 Geometry Math Lab 2
+Four-Year Degree Plan
+MATH 205 Foundations Math Lab 2
+MATH 307 Introduction to Proof Mathematics 4
+The degree plan shown is only a sample of how students may complete
+major
+their degrees in four years. There are alternative ways. Students should
+bridge
+consult their advisor to determine the best path for them.
+requirement
+To enroll with courses that have prerequisites, students must complete completed
+the prerequisite course with grades of C– or better or P. All upper-division Third term of second-year second-language sequence BA 4
+mathematics courses must be taken for letter grades to count toward a language
+mathematics major or minor, and only one D grade (D+ or D or D–) may requirement
+be counted toward the upper-division requirements for the major or minor. completed
+Science area-satisfying course 4
+• Standard Track
+Credits 16
+• Pure Mathematics (p. 260)
+ThirdYear
+• Secondary Teaching (p. 262)
+Fall
+Bachelor of Arts in Mathematics: Standard
+MATH 316 Fundamentals of Analysis I 4
+Track Arts and letters group satisfying course 4
+Science group-satisfying course Science 4
+Course Title CreditsMilestones
+group
+First Year
+requirement
+Fall completed
+MATH 203 Analysis and Number Theory Math Lab 2 Upper-division Elective 4
+MATH 251 Calculus I 4 Credits 16
+WR 121Z Composition I 4 Winter
+First term of first-year second-language sequence 5 MATH 317 Fundamentals of Analysis II Mathematics 4
+Credits 15 major
+Winter fundamentals
+requirement
+MATH 252 Calculus II 4
+completed
+WR 122Z Composition II 4
+Social science group satisfying course 4
+or WR 123 or College Composition III
+Arts and letters group satisfying course 4
+MATH 201 Algebra Math Lab 2
+Upper-division elective 4
+Second term of first-year second-language sequence 5
+Credits 16
+Credits 15
+Spring
+Spring
+MATH 458 Introduction to Mathematical 4
+MATH 253 Calculus III 4
+Cryptography
+Third term of first-yearsecond-language sequence 5
+CS 122 Introduction to Programming and 4
+Social science area-satisfying course 4
+Problem Solving
+Science group area-satisfying course 4
+Social science area satisfying course Social 4
+Credits 17 science
+Second Year area
+Fall requirement
+completed
+MATH 281 Several-Variable Calculus I 4
+MATH 341 Elementary Linear Algebra 4
+Arts and letters area-satisfying course 4
+First term of second-year second-language sequence 4
+Credits 16
+
+============================================================
+PAGE 260
+============================================================
+2023-2024 259
+Arts and letters area satisfying course Arts and 4 Science group-satisfying course 4
+letters Credits 16
+area
+Winter
+requirement
+WR 122Z Composition II 4
+completed
+or WR 123 or College Composition III
+Credits 16
+Arts and letters group-satisfying course 4
+Fourth Year
+MATH 201 Algebra Math Lab 2
+Fall
+MATH 206 Combinatorics Math Lab 2
+MATH 461 Introduction to Mathematical Methods 4
+MATH 252 Calculus II 4
+of Statistics I
+Credits 16
+Upper-division elective 4
+Spring
+Upper-division elective Completed 4
+the MATH 253 Calculus III 4
+multicultural Arts and letters group-satisfying course 4
+requirement Social science group-satisfying course 4
+Credits 12 Elective 4
+Winter Credits 16
+MATH 462 Introduction to Mathematical Methods Upper- 4 Second Year
+of Statistics II division
+Fall
+mathematics
+MATH 202 Geometry Math Lab 2
+sequence
+MATH 205 Foundations Math Lab 2
+completed
+MATH 281 Several-Variable Calculus I 4
+Upper-division elective 4
+Arts and letters group-satisfying course 4
+Upper-division elective Need 26 4
+upper- Science group-satisfying course 4
+division Credits 16
+credits Winter
+beyond
+MATH 282 Several-Variable Calculus II 4
+the
+MATH 341 Elementary Linear Algebra 4
+mathematics
+major Elective 4
+Credits 12 Social science group-satisfying course 4
+Spring Credits 16
+MATH 397 History and Applications of Calculus Mathematics 4 Spring
+major MATH 307 Introduction to Proof Mathematics 4
+requirements major
+completed bridge
+Upper-division elective 4 requirement
+completed
+Elective 4
+MATH 342 Elementary Linear Algebra 4
+Elective 180 4
+credits Arts and letters group-satisfying course Arts and 4
+completed letters
+group
+Credits 16
+requirement
+Total Credits 183 completed
+Science group-satisfying course 4
+Bachelor of Science in Mathematics:
+Credits 16
+Standard Track
+ThirdYear
+Course Title CreditsMilestonesFall
+First Year CS 210 Computer Science I 4
+Fall MATH 391 Fundamentals of Abstract Algebra I 4
+MATH 251 Calculus I BS 4 Social science group-satisfying course Social 4
+mathematics science
+requirement group
+completed; requirement
+WR 121Z Composition I 4 completed
+Social science group-satisfying course 4
+
+============================================================
+PAGE 261
+============================================================
+260 Mathematics (BA/BS)
+Upper-division Elective 4 MATH 251 Calculus I 4
+Credits 16 WR 121Z Composition I 4
+Winter First term of first-year second-language sequence 5
+MATH 392 Fundamentals of Abstract Algebra II Mathematics 4 Credits 15
+major Winter
+fundamentals
+WR 122Z Composition II 4
+requirement
+or WR 123 or College Composition III
+completed
+MATH 201 Algebra Math Lab 2
+Upper-division elective 4
+MATH 252 Calculus II 4
+Elective 4
+Second term of first-year second-language sequence 5
+Elective 4
+Credits 15
+Credits 16
+Spring
+Spring
+MATH 253 Calculus III 4
+MATH 397 History and Applications of Calculus 4
+Third term of first-year second-language sequence 5
+Upper-division elective 4
+Social science group-satisfying course 4
+Upper-division elective 4
+Science group group-satisfying course 4
+Elective 4
+Credits 17
+Credits 16
+Second Year
+Fourth Year
+Fall
+Fall
+MATH 281 Several-Variable Calculus I 4
+MATH 444 Introduction to Abstract Algebra I 4
+MATH 341 Elementary Linear Algebra 4
+Upper-division elective 4
+Arts and letters group-satisfying course 4
+Elective Completed 4
+First term of second-year second-language sequence 4
+multicultural
+requirement Credits 16
+Credits 12 Winter
+Winter MATH 282 Several-Variable Calculus II 4
+MATH 445 Introduction to Abstract Algebra II Mathematics 4 MATH 342 Elementary Linear Algebra 4
+major Second term of second-year second-language 4
+upper- sequence
+division Social science group-satisfying course 4
+sequence
+Credits 16
+requirement
+Spring
+completed
+MATH 202 Geometry Math Lab 2
+Upper-division elective 4
+MATH 205 Foundations Math Lab 2
+Upper-division elective 4
+MATH 307 Introduction to Proof MATH 4
+Credits 12
+major
+Spring Bridge
+MATH 458 Introduction to Mathematical Mathematics 4 requirement
+Cryptography major completed
+completed Third term of second-year second-language sequence BA 4
+Elective 4 language
+Elective 180 4 requirement
+credits completed
+completed Science group-satisfying course 4
+Credits 12 Credits 16
+Total Credits 180 ThirdYear
+Fall
+Bachelor of Arts in Mathematics: Pure
+MATH 316 Fundamentals of Analysis I 4
+Mathematics
+Arts and letters group satisfying course 4
+Course Title CreditsMilestonesScience group-satisfying course Science 4
+group
+First Year
+requirement
+Fall
+completed
+MATH 203 Analysis and Number Theory Math Lab 2
+
+============================================================
+PAGE 262
+============================================================
+2023-2024 261
+Upper-division Elective 4 Elective 180 4
+Credits 16 credits
+completed
+Winter
+Credits 16
+MATH 317 Fundamentals of Analysis II MATH 4
+major Total Credits 183
+Analysis
+Bachelor of Science in Mathematics: Pure
+requirement
+completed Mathematics
+Social science group satisfying course 4
+Course Title CreditsMilestones
+Arts and letters group satisfying course 4
+First Year
+Upper-division elective 4
+Fall
+Credits 16
+WR 121Z Composition I 4
+Spring
+MATH 251 Calculus I (Only one MATH course BS MATH 4
+CS 122 Introduction to Programming and 4
+can be counted toward science group requirement
+Problem Solving
+requirement) completed
+MATH 433 Introduction to Differential Geometry 4
+Social science group-satisfying course 4
+Social science group satisfying course Social 4
+Science group-satisfying course 4
+science
+Credits 16
+group
+requirement Winter
+completed WR 122Z Composition II 4
+Arts and letters group satisfying course Arts and 4 or WR 123 or College Composition III
+letters MATH 201 Algebra Math Lab 2
+group MATH 206 Combinatorics Math Lab 2
+requirement
+MATH 252 Calculus II 4
+completed
+Arts and letters group-satisfying course 4
+Credits 16
+Credits 16
+Fourth Year
+Spring
+Fall
+MATH 253 Calculus III 4
+MATH 444 Introduction to Abstract Algebra I 4
+Arts and letters group-satisfying course 4
+Upper-division elective 4
+Social science group-satisfying course 4
+Upper-division elective Complete 4
+Elective 4
+the multi-
+cultural Credits 16
+requirement Second Year
+by now Fall
+Credits 12 MATH 202 Geometry Math Lab 2
+Winter MATH 205 Foundations Math Lab 2
+MATH 445 Introduction to Abstract Algebra II MATH 4 MATH 281 Several-Variable Calculus I 4
+major Arts and letters group-satisfying course 4
+Abstract
+Science group-satisfying course 4
+Algebra
+Credits 16
+requirement
+completed Winter
+Upper-division elective 4 MATH 282 Several-Variable Calculus II 4
+Upper-division elective 4 MATH 341 Elementary Linear Algebra 4
+Credits 12 Elective 4
+Spring Social science group-satisfying course 4
+MATH 320 Theory of Differential Equations (MATH 4 Credits 16
+major requirements completed) Spring
+Upper-division elective 4 MATH 307 Introduction to Proof MATH 4
+Elective 4 major
+Bridge
+requirement
+completed
+MATH 342 Elementary Linear Algebra 4
+
+============================================================
+PAGE 263
+============================================================
+262 Mathematics (BA/BS)
+Arts and letters group-satisfying course Arts and 4 Spring
+letters MATH 458 Introduction to Mathematical MATH 4
+group Cryptography major
+requirement completed
+completed
+Elective 4
+Science group-satisfying course 4
+Elective 180 4
+Credits 16 credits
+Third Year completed
+Fall Credits 12
+CS 210 ComputerScience I 4 Total Credits 180
+MATH 391 Fundamentals of Abstract Algebra I 4
+Bachelor of Arts in Mathematics: Secondary
+Social science group-satisfying course Social 4
+science Teaching
+group
+Course Title CreditsMilestones
+requirement
+completed First Year
+Upper-division Elective 4 Fall
+WR 121Z Composition I 4
+Credits 16
+MATH 203 Analysis and Number Theory Math Lab 2
+Winter
+MATH 392 Fundamentals of Abstract Algebra II MATH 4 MATH 251 Calculus I (Only one MATH course 4
+major can be counted toward science group
+Abstract requirement)
+Algebra First term of first-year second-language sequence 5
+requirement Credits 15
+completed
+Winter
+Upper-division elective 4
+WR 122Z Composition II 4
+Elective 4 or WR 123 or College Composition III
+Elective 4 MATH 201 Algebra Math Lab 2
+Credits 16 MATH 252 Calculus II 4
+Spring Second term of first-year second-language sequence 5
+MATH 320 Theory of Differential Equations 4 Credits 15
+Upper-division elective 4 Spring
+Upper-division elective 4 MATH 253 Calculus III 4
+Elective 4 Third term of first-year second-language sequence 5
+Credits 16 Social science group-satisfying course 4
+Fourth Year Science group-satisfying course 4
+Fall Credits 17
+MATH 316 Fundamentals of Analysis I 4 Second Year
+Upper-division elective 4 Fall
+Elective Complete 4 MATH 281 Several-Variable Calculus I 4
+the multi-
+MATH 341 Elementary Linear Algebra 4
+cultural
+Arts and letters group-satisfying course 4
+requirement
+First term of second-year second-language sequence 4
+by now
+Credits 16
+Credits 12
+Winter
+Winter
+CS 122 Introduction to Programming and 4
+MATH 317 Fundamentals of Analysis II MATH 4
+Problem Solving
+major
+Analysis MATH 307 Introduction to Proof 4
+requirement Second term of second-year second-language 4
+complete sequence
+Upper-division elective 4 Social science group-satisfying course 4
+Upper-division elective 4 Credits 16
+Credits 12 Spring
+MATH 202 Geometry Math Lab 2
+
+============================================================
+PAGE 264
+============================================================
+2023-2024 263
+MATH 205 Foundations Math Lab MATH 2 Winter
+major MATH 347 Fundamentals of Number Theory I 4
+Bridge
+MATH 395 Geometries from an Advanced 4
+requirement
+Viewpoint II
+completed
+Upper-division elective 4
+MATH 343 Statistical Models and Methods 4
+Upper-division elective 4
+Third term of second-year second-language sequence BA 4
+Credits 16
+language
+requirement Spring
+completed MATH 348 Fundamentals of Number Theory II MATH 4
+Science group-satisfying course Science 4 major
+group completed
+requirement Upper-division elective 4
+completed Elective 180 4
+Credits 16 credits
+Third Year completed
+Fall Credits 12
+MATH 391 Fundamentals of Abstract Algebra I 4 Total Credits 183
+Science group-satisfying course Science 4
+Bachelor of Science in Mathematics:
+group
+requirement Secondary Teaching
+completed
+Course Title CreditsMilestones
+Arts and letters group satisfying course 4
+First Year
+Upper-division Elective 4
+Fall
+Credits 16
+WR 121Z Composition I 4
+Winter
+MATH 251 Calculus I (Only one MATH course BS MATH 4
+MATH 392 Fundamentals of Abstract Algebra II 4
+can be counted toward science group requirement
+Upper-division elective 4 requirement) completed
+Social science group satisfying course 4 Social science group-satisfying course 4
+Arts and letters group satisfying course 4 Science group-satisfying course 4
+Credits 16 Credits 16
+Spring Winter
+MATH 397 History and Applications of Calculus 4 WR 122Z Composition II 4
+Social science group satisfying course Social 4 or WR 123 or College Composition III
+science MATH 201 Algebra Math Lab 2
+group
+MATH 206 Combinatorics Math Lab 2
+requirement
+MATH 252 Calculus II 4
+completed
+Arts and letters group-satisfying course 4
+Arts and letters group satisfying course Arts and 4
+Credits 16
+letters
+group Spring
+requirement MATH 253 Calculus III 4
+completed
+Arts and letters group-satisfying course 4
+Elective 4 Social science group-satisfying course 4
+Credits 16 Elective 4
+Fourth Year Credits 16
+Fall Second Year
+MATH 394 Geometries from an Advanced 4 Fall
+Viewpoint I
+MATH 202 Geometry Math Lab 2
+Upper-division elective 4
+MATH 205 Foundations Math Lab 2
+Upper-division elective Complete 4
+MATH 281 Several-Variable Calculus I 4
+the multi-
+Arts and letters group-satisfying course 4
+cultural
+requirement Science group-satisfying course 4
+by now Credits 16
+Credits 12
+
+============================================================
+PAGE 265
+============================================================
+264 Mathematics andComputer Science (BA/BS)
+Winter Elective Complete 4
+MATH 307 Introduction to Proof MATH 4 the multi-
+major cultural
+Bridge requirement
+requirement by now
+completed Credits 12
+MATH 341 Elementary Linear Algebra 4 Winter
+Elective 4 MATH 395 Geometries from an Advanced 4
+Social science group-satisfying course 4 Viewpoint II
+Credits 16 Upper-division elective 4
+Spring Upper-division elective 4
+CS 122 Introduction to Programming and 4 Credits 12
+Problem Solving Spring
+MATH 343 Statistical Models and Methods 4 MATH 397 History and Applications of Calculus 4
+Arts and letters group-satisfying course Arts and 4 (MATH major requirements completed)
+letters Elective 4
+group Elective 180 4
+requirement credits
+completed completed
+Science group-satisfying course 4 Credits 12
+Credits 16
+Total Credits 180
+Third Year
+Fall Mathematics and Computer
+MATH 391 Fundamentals of Abstract Algebra I 4 Science (BA/BS)
+Social science group-satisfying course Social 4
+science
+Arkady Vaintrob and Christopher B. Wilson, Advisors
+group
+requirement Students who want training in both mathematics and computer science
+completed can declare a joint mathematics and computer science major. This
+Elective 4 allows them to develop skills and knowledge in both fields. The program
+Upper-division elective 4 develops team players prepared for information-based jobs. MACS
+students graduate with the tools to analyze complex problems and to
+Credits 16
+compute the answers to them.
+Winter
+MATH 347 Fundamentals of Number Theory I 4 Program Learning Outcomes
+MATH 392 Fundamentals of Abstract Algebra II MATH 4
+Upon successful completion of this program, students will be able to:
+major
+Abstract
+• Demonstrate proficiency in the main areas of computer science,
+Algebra
+including data structures and algorithms, computer systems,
+requirement
+programming languages, and software development.
+completed
+• Draw on broad knowledge of computer science to design, implement,
+Upper-division elective 4
+and test software solutions to problems in a variety of areas.
+Elective 4
+• Demonstrate in-depth understanding of some area of computer
+Credits 16 science (theoretical foundations, computer systems, software
+Spring development).
+MATH 348 Fundamentals of Number Theory II 4 • Demonstrate proficiency with the calculational techniques and
+Upper-division elective 4 applications of calculus and linear algebra.
+Upper-division elective 4 • Read and write mathematical proofs, producing argumentsthat are
+logically and syntactically correct.
+Elective 4
+• Demonstrate an in-depth understanding of somearea of
+Credits 16
+mathematics.
+Fourth Year
+• Communicate and collaborate with others and express ideas orally
+Fall
+and in writing.
+MATH 394 Geometries from an Advanced 4
+Viewpoint I
+Upper-division elective 4
+
+============================================================
+PAGE 266
+============================================================
+2023-2024 265
+Mathematics and Computer Science Major CH 111 Introduction to Chemical Principles
+Requirements or CH 113 The Chemistry of Sustainability
+or CH 221 General Chemistry I
+The requirements for the mathematics and computer science (MACS)
+major fall into four categories: mathematics, computer science, writing, or CH 224H Advanced General Chemistry I
+and science, with 44credits taken in mathematics, 40 credits in computer CH 221–223 General Chemistry
+science, and 16 credits (science and writing) in other departments. or CH 224H–Honors General Chemistry
+226H
+Computer Science I (CS 210), Computer Science II (CS 211), Computer
+Geography
+Science III (CS 212), Elements of Discrete Mathematics I (MATH 231),
+GEOG 141 The Natural Environment
+and Elements of Discrete Mathematics II (MATH 232) must be passed
+with grades of B– or better before students can take the upper-division Select two of the following:
+core courses. Courses required for the major must be taken for a letter GEOG 321 Climatology
+grade. Upper-division courses must be passed with a grade of C– or GEOG 322 Geomorphology
+better.
+GEOG 323 Biogeography
+Code Title Credits Earth Sciences
+Core Courses ERTH 201 Dynamic Planet Earth
+CS 210–212 Computer Science I-III 12 ERTH 202 Earth's Surface and Environment
+MATH 231–232 Elements of Discrete Mathematics I-II 8 ERTH 203 History of Life
+MATH 251–253 Calculus I-III 12 Physics 3
+or MATH 261– Calculus with Theory I-III PHYS 201– General Physics
+263 203
+Mathematics Requirements or PHYS 251F–oundations of Physics I
+253
+Select one of the following:
+Psychology
+MATH 316 Fundamentals of Analysis I
+PSY 201 Mind and Brain
+MATH 347 Fundamentals of Number Theory I
+Select two of the following:
+MATH 391 Fundamentals of Abstract Algebra I
+PSY 301 Scientific Thinking in Psychology
+MATH 341–342 Elementary Linear Algebra 8
+PSY 304 Biopsychology
+MATH 351–352 Elementary Numerical Analysis I-II 8
+PSY 305 Cognition
+or MATH 461– Introduction to Mathematical Methods of Statistics I-II
+462 PSY 348 Music and the Brain
+Upper-level mathematics course 1 4 Total Credits 96
+Computer Science
+1
+Excludes Statistical Methods I (MATH 425)
+CS 313 Intermediate Data Structures 4
+2
+Special Studies: [Topic] (CS 399) and Experimental Course: [Topic]
+CS 314 Computer Organization 4
+(CS 410) courses used as electives must have a prerequisite of
+CS 315 Intermediate Algorithms 4
+Intermediate Data Structures (CS 313) and have regular class
+CS 425 Principles of Programming Languages 4 meetings and homework assignments. At least one course must be
+Select one of the following: 4 numbered 410 or above.
+3
+CS 322 Introduction to Software Engineering Students are encouraged to complete the accompanying lab courses.
+CS 330 C/C++ and Unix
+Additional Requirements
+CS 420 Automata Theory
+Students must earn no grade below a B– in required lower-division
+CS 422 Software Methodology I
+Two other upper-division CS courses 2 8 mathematics and computer science courses—Computer Science I
+(CS 210), Computer Science II (CS 211), Computer Science III (CS 212),
+Writing Requirements
+Elements of DiscreteMathematics I (MATH 231), Elements of Discrete
+WR 320 Scientific and Technical Writing 4 Mathematics II (MATH 232)—for automaticadvancement to upper-
+or WR 321 Business Communications division computer science courses. At least 12 of the mathematics upper-
+Science Requirements division credits applied to the degree must be taken in residence at the
+university. The science courses may be taken pass/no pass (P/N) or for
+Select 12 credits from the following: 12
+letter grades.
+Biology 3
+BI 211 General Biology I: Cells Major Progress Review and Major in Good
+& BI 213 and General Biology III: Ecology and Standing
+Evolution
+Each major must meet with a CS advisor to file a Major Progress Review
+or BI 211– General Biology I-II
+form after completing 12 credits of theupper-division core, including at
+212
+least one course from each department. Mathematics and computer
+Chemistry 3 science courses and at least 8 credits of upper-division CS courses
+
+============================================================
+PAGE 267
+============================================================
+266 Mathematics andComputer Science (BA/BS)
+used to satisfy upper-division major requirements must betaken for Core-education course in arts and letters 4
+letter grades and passed with grades of C– or better. At least 12 ofthe Third term of second-year second-language sequence 4
+upper-division mathematics credits and 12 of the upper-division computer
+Credits 16
+science credits applied to the degree must be taken in residence at the
+university. A student who receives two grades below C– in the upper- Total Credits 48
+division core or three grades below C– in any upper-division courses may
+Course Title CreditsMilestones
+be removedfrom the major.
+Second Year
+Code Title Credits Fall
+MATH 316 Fundamentals of Analysis I 4 CS 212 Computer Science III 4
+MATH 341 Elementary Linear Algebra 4 MATH 251 Calculus I 4
+MATH 342 Elementary Linear Algebra 4 or or Calculus for the Biological
+CS 313 Intermediate Data Structures 4 MATH 246 Sciences I
+CS 314 Computer Organization 4 or or Calculus with Theory I
+MATH 261
+CS 315 Intermediate Algorithms 4
+First course of additional science sequence 4
+CS 425 Principles of Programming Languages 4
+Core-education course in social science 4
+One of the following:
+Credits 16
+CS 330 C/C++ and Unix 4
+Winter
+CS 420 Automata Theory 4
+CS 313 Intermediate Data Structures 4
+CS 422 Software Methodology I 4
+MATH 252 Calculus II 4
+Honors Program or or Calculus for the Biological
+MATH 247 Sciences II
+Both of the cooperating departments offer departmental honors programs
+or or Calculus with Theory II
+to their undergraduate majors. After obtaining advance approval from
+MATH 262
+both of their advisors, students in the joint degree program are eligible
+Second course of additionalscience sequence 4
+to attain honors in mathematics and computer science by meeting the
+Core-education arts and letters 4
+honors requirements of either department, including writing a thesis.
+Credits 16
+Four-Year Degree Plan
+Spring
+CS 315 Intermediate Algorithms 4
+The degree plan shown is only a sample of how students may complete
+their degrees in four years. There are alternative ways. Students should MATH 253 Calculus III 4
+consult their advisor to determine the best path for them. or or Calculus with Theory III
+MATH 263
+Bachelor of Arts in Mathematics and
+Third course of additional science sequence 4
+Computer Science
+Core-education social science 4
+Course Title CreditsMilestones Credits 16
+First Year Total Credits 48
+Fall
+Course Title CreditsMilestones
+CS 122 Introduction to Programming and 4
+ThirdYear
+Problem Solving
+Fall
+MATH 112Z Precalculus II: Trigonometry 4
+CS 314 Computer Organization 4
+WR 121Z Composition I 4
+MATH 316 Fundamentals of Analysis I 4
+First term of second-year second-language sequence 4
+or or Fundamentals of Number Theory I
+Credits 16
+MATH 347 or Fundamentals of Abstract Algebra
+Winter or I
+CS 210 ComputerScience I 4 MATH 391
+MATH 231 Elements of Discrete Mathematics I 4 CS 322 Introduction to Software Engineering 4
+WR 122Z Composition II 4 Core-education course in arts and letters 4
+or WR 123 or College Composition III Credits 16
+Second term of second-year second-language 4 Winter
+sequence
+CS 322 Introduction to Software Engineering 4
+Credits 16
+MATH 341 Elementary Linear Algebra 4
+Spring
+Core-education course in social science 4
+CS 211 ComputerScience II 4
+MATH 232 Elements of Discrete Mathematics II 4
+
+============================================================
+PAGE 268
+============================================================
+2023-2024 267
+Core-education course in arts and letters that also 4 Core-education course in social science 4
+satisfies cultural literacy requirement Credits 16
+Credits 16 Spring
+Spring MATH 232 Elements of Discrete Mathematics II 4
+CS 425 Principles of Programming Languages 4 CS 211 Computer Science II 4
+MATH 342 Elementary Linear Algebra 4 Core-education course in arts and letters 4
+Core-education course in social science that also 4 Core-education course in social science 4
+satisfies cultural literacy requirement
+Credits 16
+Elective course 4
+Total Credits 48
+Credits 16
+Total Credits 48 Course Title CreditsMilestones
+Second Year
+Course Title CreditsMilestones
+Fall
+Fourth Year
+MATH 251 Calculus I 4
+Fall
+CS 212 Computer Science III 4
+MATH 351 Elementary Numerical Analysis I 4
+Core-education course in arts and letters also satisfies 4
+or or Introduction to Mathematical
+a cultural literacy requirement
+MATH 461 Methods of Statistics I
+First course of additional science sequence 4
+Upper-division elective course with CS subject code 4
+Credits 16
+Elective course 4
+Winter
+Credits 12
+CS 313 Intermediate Data Structures 4
+Winter
+MATH 247 Calculus for the Biological Sciences II 4
+MATH 352 Elementary Numerical Analysis II 4
+or or Calculus II
+or or Introduction to Mathematical
+MATH 252 or Calculus with Theory II
+MATH 462 Methods of Statistics II
+or
+Upper-division elective course with CS subject code 4 MATH 262
+Elective course 4 Second course of additionalscience sequence 4
+Credits 12 Core-education course in social science also satisfies 4
+Spring a cultural literacy requirement
+WR 320 Scientific and Technical Writing 4 Credits 16
+or WR 321 or Business Communications Spring
+Upper-division elective course with MATH subject 4 CS 315 Intermediate Algorithms 4
+code
+MATH 253 Calculus III 4
+Elective course 4 or or Calculus with Theory III
+Credits 12 MATH 263
+Total Credits 36 Third course of additional science sequence 4
+Core-education course in social science 4
+Bachelor of Science in Mathematics and
+Credits 16
+Computer Science
+Total Credits 48
+Course Title CreditsMilestones
+Course Title CreditsMilestones
+First Year
+ThirdYear
+Fall
+Fall
+MATH 112Z Precalculus II: Trigonometry 4
+CS 314 Computer Organization 4
+CS 122 Introduction to Programming and 4
+MATH 316 Fundamentals of Analysis I 4
+Problem Solving
+or or Fundamentals of Number Theory I
+WR 121Z Composition I 4
+MATH 347 or Fundamentals of Abstract Algebra
+Core-education course in arts and letters 4 or I
+Credits 16 MATH 391
+Winter CS 322 Introduction to Software Engineering 4
+MATH 231 Elements of Discrete Mathematics I 4 Core-education course in arts and letters 4
+CS 210 ComputerScience I 4 Credits 16
+WR 122Z Composition II 4 Winter
+or WR 123 or College Composition III CS 322 Introduction to Software Engineering 4
+
+============================================================
+PAGE 269
+============================================================
+268 Mathematics Minor
+MATH 341 Elementary Linear Algebra 4 Code Title Credits
+Elective courses 8 MATH courses at or above the 200-level 1 30
+Credits 16 15 upper-division MATH credits 2, 3
+Spring
+1
+Students cannot receive credit for Statistical Models and
+CS 425 Principles of Programming Languages 4
+Methods (MATH 343), Probability and Statistics for Data Science
+MATH 342 Elementary Linear Algebra 4
+(MATH 345M), or Probability and Statistics for Data Science
+Elective courses 8 (DSCI 345M) after completing Introduction to Mathematical Methods
+Credits 16 of Statistics II (MATH 462).
+2
+Total Credits 48 Students may one count one of: Statistical Models and Methods
+(MATH 343), Probability and Statistics for Data Science
+Course Title CreditsMilestones (MATH 345M), Introduction to Mathematical Methods of Statistics II
+(MATH 462) toward the upper-division requirement for the minor.
+Fourth Year
+3
+Students may not use Statistical Methods I (MATH 425) toward the
+Fall
+upper-division requirement for the minor.
+Elective course with a CS subject code 4
+MATH 351 Elementary Numerical Analysis I 4 To earn a minor in mathematics, a student must complete at least 30
+or or Introduction to Mathematical credits in mathematics at the 200 level or higher, withat least 15 upper-
+MATH 461 Methods of Statistics I division mathematics credits; Statistical Methods I (MATH 425) cannot
+Elective course 4 be used toward theupper-division requirement. A minimum of 15 credits
+Credits 12 must be taken at the University of Oregon.
+Winter
+Only one D grade (D+ or D or D–) may be counted toward fulfilling the
+Elective course with a CS subject code 4 upper-division requirement. All upper-division courses must be taken for
+MATH 352 Elementary Numerical Analysis II 4 letter grades.
+or or Introduction to Mathematical
+Mathematics (MS)
+MATH 462 Methods of Statistics II
+Elective course 4
+Master’s degree programs are available to suit the needs of students with
+Credits 12
+various objectives. There are programs for students who intend to enter a
+Spring
+doctoral program and for those who plan toconclude their formal study of
+Elective course with MATH subject code 4 pure or applied mathematics at the master’s level.
+WR 320 Scientific and Technical Writing 4
+or WR 321 or Business Communications In addition to general Division of Graduate Studies requirements,
+the specific graduate program courses and conditions listed below
+Elective course 4
+must be fulfilled. More details can be found in the Department of
+Credits 12
+Mathematics Graduate Student Handbook, available in the department
+Total Credits 36 office and online (https://math.uoregon.edu/wp-content/uploads/2022/11/
+Handbook-22-23.pdf). All mathematics courses applied to degree
+Mathematics Minor
+requirements, including associated reading courses, must be taken for
+letter grades. A final written or oral examination or both is required for
+The department offers undergraduatepreparation for positions master’s degrees except under the pre-PhD option. This examination
+in government, business, and industry and for graduate work in is waived under circumstances outlined in the departmental Graduate
+mathematics and statistics. Each student’s minor programis individually Student Handbook.
+constructed in consultation with an advisor.
+Program Learning Outcomes
+Mathematics and Computer Science majors cannot minor in
+Upon successful completion of this program, students will be able to:
+Mathematics.
+Minor Requirements • Demonstrate mastery of subject knowledge in three core areas.
+• Demonstrate ability to learn from non-expository sources.
+The minor is intended for any student, regardless of major, with a strong
+• Conduct original and substantive research.
+interest in mathematics. While students in such closely allied fields as
+computer science or physics often complete double majors, students with Explanation:
+more distantly related majors such as psychology or history may find the
+minor useful. Demonstrate mastery of subject knowledge in three core areas.
+Explanation: The three core subject areas taught in our department are
+The flexibility of the mathematics minor program allows each student, in algebra, topology/geometry, and analysis/probability. Graduate students
+consultation with a mathematics advisor, to tailor the program to his or are expected to attain a mastery of this material at an advanced level
+her needs. for two of the three core areas, and at an intermediate level for the third
+area.
+Demonstrate ability to learn from non-expositorysources.
+
+============================================================
+PAGE 270
+============================================================
+2023-2024 269
+Explanation: Learning material from research papers is different from 1 At least 9 credits of 600-level mathematics courses. Excluding
+learning from courses and textbooks. Graduate students are expected Reading and Conference: [Topic] (MATH 605).
+to demonstrate the ability to learn material from non-expository sources, 2 Only MATH 607 courses in the "applied math" sequence count
+including at least one source that is written in French, German, or
+toward this requirement.
+Russian. 3
+Up to 15 credits can be taken outside of mathematics.
+Conduct original and substantive research.
+Students should also have taken a three-term upper-division or graduate
+Explanation: The most important requirement completing a Ph.D.
+sequence in statistics, numerical analysis, computing, or other applied
+in mathematics is producing a dissertation containing original and
+mathematics.
+substantive mathematical work.
+Mathematics (PhD)
+The learning outcomes and assessments for students who earn a
+master's degree consist ofa modified version of Learning Outcome #1 for
+Ph.D. students. To earn a master'sdegree, a student must complete full- The Mathematics Department at the University of Oregon offers a PhD in
+year course sequences in each of thethree core areas, one at the 600- a variety of areas of mathematics. The American Mathematical Society
+level and two at the 500-level, with an average grade of B+ or better and has ranked us in the top group of U.S. research departments. The
+a minimum grade of B or better in each sequence. In addition, the student department has distinguished research groupsin algebra, analysis,
+is required to complete at least 45 graduate credit hours, at least 30 of topology, geometry, probability, number theory, and mathematical
+which are completed in the Department of Mathematics. biology. We are large enough to provide the quality and breadth required
+for a major research department, yet small enough so that graduate
+Mathematics Major students have close interactions with the faculty. There are about 30
+faculty members and 65 graduate students.
+Code Title Credits
+Three of the following sequences below with at least one 30 Program Learning Outcomes
+at 600-level 1
+Upon successful completion of this program, students will be able to:
+500-Level Sequences
+MATH 513 Introduction to Analysis I • Demonstrate mastery of subject knowledge in three core areas.
+& MATH 514 and Introduction to Analysis II
+• Demonstrate ability to learn from non-expository sources.
+& MATH 515 and Introduction to Analysis III
+• Conduct original and substantive research.
+MATH 531 Introduction to Topology I
+& MATH 532 and Introduction to Topology II Explanation:
+& MATH 533 and Introduction to Differential Geometry
+Demonstrate mastery of subject knowledge in three core areas.
+or MATH 531Introduction to Topology I
+& MATH 532and Introduction to Topology II
+Explanation: The three core subject areas taught in our department are
+& MATH 534and Introduction to Topology III
+algebra, topology/geometry, and analysis/probability. Graduate students
+MATH 544 Introduction to Abstract Algebra I are expected to attain a mastery of this material at an advanced level
+& MATH 545 and Introduction to Abstract Algebra II for two of the three core areas, and at an intermediate level for the third
+& MATH 546 and Introduction to Abstract Algebra III area.
+600-Level Sequences
+Demonstrate ability to learn from non-expositorysources.
+MATH 647 Abstract Algebra
+& MATH 648 and Abstract Algebra
+Explanation: Learning material from research papers is different from
+& MATH 649 and Abstract Algebra
+learning from courses and text books. Graduate students are expected
+MATH 634 Algebraic Topology to demonstrate the ability to learn material from non-expository sources,
+& MATH 635 and Algebraic Topology including at least one source that is written in French, German, or
+& MATH 636 and Algebraic Topology Russian. \
+MATH 637 Differential Geometry
+Conduct original and substantive research
+& MATH 638 and Differential Geometry
+& MATH 639 and Differential Geometry
+Explanation: The most important requirement completing a Ph.D.
+MATH 616 Real Analysis in mathematics is producing a dissertation containing original and
+& MATH 617 and Real Analysis substantive mathematical work.
+& MATH 618 and Real Analysis
+Doctor of Philosophy
+MATH 616 Real Analysis
+& MATH 672 and Theory of Probability
+The PhD is a degree of distinction not to be conferred in routine fashion
+& MATH 673 and Theory of Probability
+after completion of a specific number of courses or after attendance in
+MATH 607 Seminar: [Topic] Graduate School for a given number of years.
+& 607 and Seminar: [Topic]
+& 607 and Seminar: [Topic] 2 The department offers a PhD degree in mathematics. Advanced graduate
+Electives 3 9-15 courses in each area of mathematics are typically offered in topics
+courses (numbered MATH 607). A student in the pre-PhD program may
+Total Credit Requirement: 45
+also be a candidate for the master’s degree.
+
+============================================================
+PAGE 271
+============================================================
+270 Multidisciplinary Science
+Pre-PhD Program Multidisciplinary Science
+Students entering the pre-PhD program will have completed a course
+of study equivalent to the graduate preparatory bachelor’s degree Jana Prikryl, Program Director
+program described in the department's Undergraduate program. Students 65C Klamath Hall
+in the pre-PhD program must take the qualifying examination by the jprikryl@uoregon.edu
+beginning of their third year, during the week before classes begin fall
+A multidisciplinary science major allows students to design their own
+term. It consists of examinations on two basic 600-level graduate course
+program of study in the natural sciences. Students choose their areas of
+sequences, one each from two of the following three categories:
+specialization from a broad range of sciences, tailoring their studies to
+1. algebra their specific interests and career goals.
+2. analysis and probability
+The multidisciplinary science major is useful to students whose interests
+3. topology and geometry
+do not fit well within a single scientific field, as well as students who wish
+4. applied math to pursue advanced degrees in health-related fields.
+PhD Program Multidisciplinary Science is different from traditional majors in that it pulls
+coursework from multiple STEM departments to provide students with
+Admission to the PhD program is based on the following criteria:
+a self-guided interdisciplinary education. Unlike many STEM majors,
+• satisfactory performance on the qualifying examination most MSCI students add the major during their junior or senior year.
+• completion of three courses at a level commensurate with study Assessment models that rely on learning outcomes based on the
+toward a PhD content of specific coursework and subdivided into yearly educational
+benchmarks are therefore not appropriate for the Multidisciplinary
+• satisfactory performance in seminars or other courses taken as a part
+Science Program. Instead, the MSCI program outcomes are tied to its
+of the pre-PhD orPhD program.
+structure, which is designed to:
+Students who are not admitted to the PhD program because of
+• Provide students with interdisciplinary curricular choices thatdevelop
+unsatisfactory performanceon the fall-term qualifying examination may
+competencies important for all STEM fields.
+retake the examination at the beginning of winter term.
+• Emphasize and develop skillsets commonly sought by employers.
+A student in the PhD program is advanced to candidacy after passing a • Address expectations of students entering the General Science
+language examination and the comprehensive examination. To complete Program, for example timely degree completion.
+the requirements for the PhD, candidates must submit a dissertation,
+have it read and approved by a dissertation committee, and defend it Program Learning Outcomes
+orally in a formal public meeting.
+Upon successful completion of this program, students will be able to:
+Language Requirement
+• Develop a personalized plan for timely degree completion in the
+The department expects PhD candidatesto be able to read mathematical
+MSCI program bythoughtfully selecting coursework from multiple
+material in a second language selected fromFrench, German, and
+STEM departments, taking into account the unique structure of the
+Russian. Other languages are acceptable in certain fields. To fulfill the
+program and individualacademic goals.
+language requirement, the student must meet with a faculty member—a
+• Analyze and articulate connections between chosen STEM
+doctoral advisor or a member of the PhD committee—to obtain advice for
+disciplines and their applications to career objectives.
+a suitable paper or book. The paper or book should be written in French,
+• Explain the steps and limitations of the scientific methodology and
+German, or Russian and have mathematical material beneficial to the
+apply this knowledge to critically evaluate scientific information as
+student’s area of study. After reading,translating, and understanding the
+presented by popular and professional sources.
+material, the studentmeets with the faculty member again. The faculty
+member determines whether the student understands the material. • Articulate how the MSCI coursework develops skills that are highly
+If satisfied, the faculty member deems the requirement met and the valued by employers, such as critical thinking, problem solving,
+decision is added in writing to the student’s record. work ethic, collaboration, effective communication, and analysis and
+interpretation of quantitative information.
+Comprehensive Examination
+Multidisciplinary Science Major
+This oral examination emphasizes the basic material in the student’s
+Requirements
+general area of interest. A student is expectedto take this examination by
+the end of the second academic year in the PhD program. To be eligible
+Code Title Credits
+to take this examination, a student must have completed the language
+Lower Division MATH/CS Requirement 1 8
+examination and nearly all the course work needed for the PhD.
+MATH 251 Calculus I
+Dissertation or MATH 246Calculus for the Biological Sciences I
+PhD candidates in mathematics must submit a dissertation containing Select one of the following
+substantial original work in mathematics. Requirements for final defense CS 122 Introduction to Programming and Problem
+of the dissertation are those of theGraduate School. Solving
+MATH 231 Elements of Discrete Mathematics I
+STAT 243Z Elementary Statistics I
+
+============================================================
+PAGE 272
+============================================================
+2023-2024 271
+MATH 247 Calculus for the Biological Sciences II Select one of the following:
+MATH 252 Calculus II PHYS 201– General Physics
+MATH 425 Statistical Methods I (Students who 203 and Introductory Physics Laboratory
+complete MATH 425 as part of the & PHYS 204–
+math requirement, cannot also use this 206
+same class towards the 32 credits of PHYS 251– Foundations of Physics I
+upper-division General Science major 253 and Foundations of Physics Laboratory
+requirements.) & PHYS 290 (must take all 3 terms of PHYS 290 for this
+Select three sequences or three-course combinations 36-48 to count as a lab sequence)
+from the following; two sequences must include labs: 2 Upper Division 32 credits of approved upper-division 32
+Anthropology: Applies as a non-lab course combination courses from the below departments 3
+ANTH 270 Introduction to Biological Anthropology BI, CH, CS, Upper-division courses from these
+(Required for ANTH course combination) ERTH, HPHY, departments are approved for the major.
+MATH, PHYS,
+Select two of the following:
+and PSY
+ANTH 145 Principles of Archaeology
+ANTH Upper-division ANTH courses from the list
+ANTH 170 Introduction to Human Origins
+below. Experimental courses (410) require
+ANTH 171 Introduction to Monkeys and Apes
+program approval.
+ANTH 173 Evolution of Human Sexuality GEOG Upper-division GEOG courses from the list
+ANTH 175 Evolutionary Medicine below. Experimental courses (410) require
+ANTH 176 Introduction to Forensic Anthropology program approval.
+ANTH 361 Human Evolution Emphasis At least twelve graded credits (not P/NP)
+ANTH 362 Human Biological Variation areas must be in one department and at least
+twelve graded credits must be in a second
+Biology: Applies as a lab sequence
+department. We strongly encourage
+BI 211–214 General Biology I-IV (choose three: BI 211,
+students to take all majors classes for a
+BI 212, and either BI 213 or BI 214)
+grade.
+or BI 281H–Honors Biology I-III
+401-409 4 of the 32 credits may be research
+283H
+(401), thesis (403), or supervised college
+Chemistry: Can apply as either a lab sequence or a non-lab teaching (402) credits. Seminar, Readings
+sequence & Conference, Practicum, Internship, and
+Select one of thefollowing: Tutorial credits (404-409) may not be used
+CH 221–223 General Chemistry for the Multidisciplinary Science major.
+& CH 227–229and General Chemistry Laboratory Residency 24 credits must be taken at UO.
+CH 224H– Honors General Chemistry requirement
+226H and Advanced General Chemistry Double Majors upper division credits used for another
+& CH 237–239Laboratory major may not be used to satisfy MSCI
+Computer Science: Applies as a lab sequence requirements.
+CS 210–212 Computer Science I-III Minors in There is no MSCI imposed restriction on
+related fields course overlap between the MSCI major
+Earth Sciences: Applies as a lab sequence
+and any minor (though the department
+ERTH 201 Dynamic Planet Earth (OR ERTH 101 with
+offering the minor might have restrictions).
+a mid-B or better grade)
+We encourage you to look into minors in
+ERTH 202 Earth's Surface and Environment (OR your emphasis areas.
+ERTH 102 with a mid-B or better grade)
+Prerequisites All students are subject to all prerequisites,
+ERTH 203 History of Life (OR ERTH 103 with a mid-B minimum grade requirements, and
+or better grade) registration restrictions set by each
+Geography: Applies as a non-lab course combination department for its own courses. These
+GEOG 141 The Natural Environment (Required for things cannot be circumvented because
+GEOG course combination) one is a MSCI major. Please investigate
+the prerequisites and restrictions for the
+Select two of the following:
+courses you are interested in taking early
+GEOG 181 Our Digital Earth
+on.
+GEOG 321 Climatology
+Total Credits 76-88
+GEOG 322 Geomorphology
+GEOG 323 Biogeography 1
+All students must demonstrate a proficiency in mathematics by
+GEOG 360 Watershed Science and Policy passing calculus I and one additional math or computer science class
+GEOG 361 Global Environmental Change from the provided list. All courses must be completed with grades of
+Physics: Can apply as a lab sequence or a non-lab sequence C– or P (pass) or better
