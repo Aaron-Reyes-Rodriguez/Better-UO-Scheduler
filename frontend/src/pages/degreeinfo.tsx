@@ -16,7 +16,9 @@ type Section = {
 };
 
 type AuditData = {
-  completion_percentage: number;
+  completion_percentage?: number;
+  student_name?: string | null;
+  broad_data?: { student_name?: string | null };
   assignments: Record<string, Array<{ attempt_id: string; course_id: string }>>;
   slack: Record<string, number>;
   programs_loaded: {
@@ -30,7 +32,8 @@ const LABEL_OVERRIDES: Record<string, string> = {
   "cs_core_lower": "Lower-Division Core",
   "cs_core_upper": "Upper-Division Core",
   "cs_upper_div_elective": "Upper-Division Electives",
-  "bs_math_or_cis_year": "Math / CIS Requirement",
+  "bs_math_or_cis_year":   "Math / CIS Requirement",
+  "science_sequence":      "Science Sequence",
 };
 
 function formatLabel(bucketKey: string): string {
@@ -89,6 +92,46 @@ function buildSections(
   );
 }
 
+// ---------------------------------------------------------------------------
+// GROUP SECTIONS BY PROGRAM TYPE
+// Bucket keys are "program_id:req_id". Program IDs: UO_BS_*, UO_BA_*, MAJOR_*, MINOR_*
+// ---------------------------------------------------------------------------
+type GroupedSections = {
+  degreeType: Section[];
+  major: Section[];
+  minors: { programId: string; sections: Section[] }[];
+};
+
+function groupSectionsByProgram(sections: Section[]): GroupedSections {
+  const degreeType: Section[] = [];
+  const major: Section[] = [];
+  const minorGroups = new Map<string, Section[]>();
+
+  for (const s of sections) {
+    const programId = s.id.split(":")[0];
+    if (programId.startsWith("UO_BS_") || programId.startsWith("UO_BA_")) {
+      degreeType.push(s);
+    } else if (programId.startsWith("MAJOR_")) {
+      major.push(s);
+    } else if (programId.startsWith("MINOR_")) {
+      const arr = minorGroups.get(programId) ?? [];
+      arr.push(s);
+      minorGroups.set(programId, arr);
+    }
+  }
+
+  return {
+    degreeType,
+    major,
+    minors: Array.from(minorGroups.entries()).map(([programId, secs]) => ({ programId, sections: secs })),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// COMPONENTS
+// ---------------------------------------------------------------------------
+
+// One collapsible requirement section
 function Section({ section }: { section: Section }) {
   const [open, setOpen] = useState(true);
 
@@ -156,31 +199,93 @@ export default function DegreeAudit() {
 
   if (!auditData) return <p className="i-state-msg error">Error: No transcript or audit data found. Please upload a transcript first.</p>;
 
-  const { programs_loaded, completion_percentage, assignments, slack } = auditData;
+  const { programs_loaded, student_name, broad_data, assignments, slack } = auditData;
+  const displayName = student_name ?? broad_data?.student_name ?? null;
+
+  // Build the section list and group by program type
   const sections = buildSections(assignments, slack);
+  const grouped = groupSectionsByProgram(sections);
+  const minors = programs_loaded.minors ?? [];
 
   return (
     <div className="i-root">
       <div className="i-header">
         <div>
-          <h1 className="i-title">
-            Major in {programs_loaded.major.name}
-            <span className="i-pill">In-Progress</span>
+          {/* Student name + in-progress pill */}
+          <h1 className="da-title">
+            {displayName || "Degree Audit"}
+            <span className="da-pill">In-Progress</span>
           </h1>
-          <p className="i-meta">
-            {programs_loaded.degree_type.code} &nbsp;·&nbsp;
-            Catalog {programs_loaded.major.catalog_year}
-            {programs_loaded.minors?.map((m) => (
-              <span key={m.code}> &nbsp;·&nbsp; Minor: {m.name}</span>
+
+          {/* Program: BS/BA, Major, Minors with catalog years */}
+          <p className="da-meta">
+            {programs_loaded.degree_type.code} in {programs_loaded.major.name}
+            {programs_loaded.degree_type.catalog_year && (
+              <> &nbsp;·&nbsp; Catalog {programs_loaded.degree_type.catalog_year}</>
+            )}
+            {minors.length > 0 && minors.map((m) => (
+              <span key={m.code}>
+                &nbsp;·&nbsp; Minor: {m.name}
+                {m.catalog_year && ` (Catalog ${m.catalog_year})`}
+              </span>
             ))}
           </p>
         </div>
-        <div className="i-pct">{completion_percentage}%</div>
       </div>
-      <div className="i-body">
-        {sections.map((s) => (
-          <Section key={s.id} section={s} />
-        ))}
+
+      {/* ── Requirement sections, grouped by program type ── */}
+      <div className="da-body">
+        {/* Degree type (BS/BA) requirements */}
+        {grouped.degreeType.length > 0 && (
+          <div className="da-program-group">
+            <h2 className="da-group-title">
+              {programs_loaded.degree_type.code} Degree Requirements
+            </h2>
+            <p className="da-group-subtitle">
+              General requirements for the {programs_loaded.degree_type.code} degree
+            </p>
+            {grouped.degreeType.map((s) => (
+              <Section key={s.id} section={s} />
+            ))}
+          </div>
+        )}
+
+        {/* Major requirements */}
+        {grouped.major.length > 0 && (
+          <div className="da-program-group">
+            <h2 className="da-group-title">
+              Major: {programs_loaded.major.name}
+            </h2>
+            <p className="da-group-subtitle">
+              Catalog {programs_loaded.major.catalog_year}
+            </p>
+            {grouped.major.map((s) => (
+              <Section key={s.id} section={s} />
+            ))}
+          </div>
+        )}
+
+        {/* Minor requirements — show all declared minors, even if no requirement sections */}
+        {minors.map((minor) => {
+          const minorSections = grouped.minors.find((g) => g.programId.includes(minor.code))?.sections ?? [];
+          return (
+            <div key={minor.code} className="da-program-group">
+              <h2 className="da-group-title">
+                Minor: {minor.name}
+              </h2>
+              <p className="da-group-subtitle">
+                {minor.catalog_year ? `Catalog ${minor.catalog_year}` : ""}
+              </p>
+              {minorSections.length > 0 ? (
+                minorSections.map((s) => (
+                  <Section key={s.id} section={s} />
+                ))
+              ) : (
+                <p className="da-minor-empty">No requirement sections defined for this minor.</p>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

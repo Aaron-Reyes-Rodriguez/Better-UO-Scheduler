@@ -81,6 +81,45 @@ def matches_attempt_where(att: CourseAttempt, where: dict | None) -> bool:
         return False
     return True
 
+def _bool_and(model: cp_model.CpModel, bools: List[cp_model.IntVar], name: str) -> cp_model.IntVar:
+    """
+    Returns a BoolVar that is 1 iff all bools are 1.
+    Linearization: out <= each bi; out >= sum(bi) - (n-1)
+    """
+    out = model.NewBoolVar(name)
+    if not bools:
+        model.Add(out == 1)
+        return out
+    for b in bools:
+        model.Add(out <= b)
+    model.Add(out >= sum(bools) - (len(bools) - 1))
+    return out
+
+
+def _course_selected_bool(
+    model: cp_model.CpModel,
+    taken_attempt_objs: List[Tuple[CourseAttempt, Course]],
+    x: Dict[Tuple[str, str], cp_model.IntVar],
+    req_key: str,
+    course_id: str,
+    name: str,
+) -> cp_model.IntVar:
+    """
+    Returns a BoolVar = 1 if any attempt for this course_id is assigned to req_key.
+    """
+    vars_for_course = [
+        x[(att.attempt_id, req_key)]
+        for att, course in taken_attempt_objs
+        if course.id == course_id and (att.attempt_id, req_key) in x
+    ]
+    b = model.NewBoolVar(name)
+    if not vars_for_course:
+        model.Add(b == 0)
+    else:
+        model.AddMaxEquality(b, vars_for_course)
+    return b
+
+
 def _slacks_for_req_key(slack: Dict[str, cp_model.IntVar], req_key: str) -> List[cp_model.IntVar]:
     # child slack vars can be stored as:
     # - slack[req_key] for choose_k / credits_at_least / credit_pool
@@ -246,6 +285,26 @@ def build_model(
             model.Add(pool_credit_sum + s >= pool_min)
 
             for j, rule in enumerate(req.constraints or []):
+                if rule.get("type") == "min_complete_sequences":
+                    min_sequences = int(rule.get("min_sequences", 1))
+                    sequences = rule.get("sequences") or []
+                    if not sequences:
+                        raise ValueError(f"{req_key}: min_complete_sequences constraint has no sequences")
+                    seq_complete_bools = []
+                    for si, seq in enumerate(sequences):
+                        course_bools = []
+                        for cid in seq:
+                            course_bools.append(
+                                _course_selected_bool(
+                                    model, taken_attempt_objs, x, req_key, cid,
+                                    name=f"{req_key}_seq{si}_has_{cid}"
+                                )
+                            )
+                        seq_ok = _bool_and(model, course_bools, name=f"{req_key}_seq{si}_complete")
+                        seq_complete_bools.append(seq_ok)
+                    model.Add(sum(seq_complete_bools) >= min_sequences)
+                    continue
+
                 sub_where_course = rule.get("where") or {}
                 sub_where_attempt = rule.get("where_attempt") or None
 
@@ -278,26 +337,7 @@ def build_model(
         req_key = f"{program.id}:{req.id}"
         child_ids = req.from_requirements or []
 
-        if req.type == "all_of":
-            # Parent satisfied (slack 0) iff all children satisfied (all child slacks 0)
-            parent_slack = model.NewIntVar(0, 1, f"slack_{req_key}")
-            slack[req_key] = parent_slack
-            slack_bounds[req_key] = 1
-
-            for child_id in child_ids:
-                child_key = f"{program.id}:{child_id}"
-                child_slacks = _slacks_for_req_key(slack, child_key)
-                if not child_slacks:
-                    continue
-                child_unsat = model.NewBoolVar(f"unsat_{req_key}_{child_id}")
-                M = 1000
-                sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
-                model.Add(sum_sl == sum(child_slacks))
-                model.Add(sum_sl >= 1).OnlyEnforceIf(child_unsat)
-                model.Add(sum_sl == 0).OnlyEnforceIf(child_unsat.Not())
-                model.Add(parent_slack >= child_unsat)
-
-        elif req.type == "choose_k":
+        if req.type == "choose_k":
             k = int(req.k or 0)
             parent_slack = model.NewIntVar(0, k, f"slack_{req_key}")
             slack[req_key] = parent_slack
@@ -305,7 +345,7 @@ def build_model(
 
             sat_vars: List[cp_model.IntVar] = []
 
-            for child_id in child_ids:
+            for child_id in (req.from_requirements or []):
                 child_key = f"{program.id}:{child_id}"
                 child_slacks = _slacks_for_req_key(slack, child_key)
 
@@ -319,17 +359,37 @@ def build_model(
                 M = 1000
                 sum_sl = model.NewIntVar(0, M, f"sumslack_{req_key}_{child_id}")
                 model.Add(sum_sl == sum(child_slacks))
-
                 model.Add(sum_sl == 0).OnlyEnforceIf(sat)
                 model.Add(sum_sl >= 1).OnlyEnforceIf(sat.Not())
-
                 sat_vars.append(sat)
 
             model.Add(sum(sat_vars) + parent_slack >= k)
 
-        else:
-            raise ValueError(f"{req_key}: from_requirements currently supported only for choose_k and all_of")
+        #added type logic handler that was throwing an error with transcript upload. (2022-2023 json had type all_types which was throwing hands.)
+        elif req.type == "all_of":
+            # Every child requirement must be satisfied
+            all_child_slacks: List[cp_model.IntVar] = []
+            total_bound = 0
 
+            for child_id in (req.from_requirements or []):
+                child_key = f"{program.id}:{child_id}"
+                child_slacks = _slacks_for_req_key(slack, child_key)
+                all_child_slacks.extend(child_slacks)
+                total_bound += sum(
+                    slack_bounds.get(k, 1)
+                    for k in slack
+                    if k == child_key or k.startswith(child_key + ":")
+                )
+
+            bound = max(total_bound, 1)
+            parent_slack = model.NewIntVar(0, bound, f"slack_{req_key}")
+            slack[req_key] = parent_slack
+            slack_bounds[req_key] = bound
+            model.Add(parent_slack == sum(all_child_slacks) if all_child_slacks else 0)
+
+        else:
+            raise ValueError(f"{req_key}: from_requirements supported for choose_k and all_of only, got '{req.type}'")
+        
     model.Minimize(sum(slack.values()) if slack else 0)
     
     logger.debug(f"Model built with {len(x)} assignment variables and {len(slack)} slack variables")
