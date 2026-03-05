@@ -5,9 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 import os
-from dotenv import load_dotenv
-
-load_dotenv()  # Load .env file (DATABASE_URL, CORS_ORIGINS, etc.)
 import re
 import logging
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
