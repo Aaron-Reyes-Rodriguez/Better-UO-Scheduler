@@ -14,6 +14,7 @@ import apiHelperFunctions as apiHelper
 from pathlib import Path
 import tempfile
 import uuid
+import psycopg2
 
 # Configure logging with more readable format
 logging.basicConfig(
@@ -53,7 +54,6 @@ def health():
 @app.get("/db-health")
 def db_health():
     """Check database connectivity."""
-    import psycopg2
     db_url = os.environ.get("DATABASE_URL")
     if not db_url:
         raise HTTPException(status_code=500, detail="DATABASE_URL is not set")
