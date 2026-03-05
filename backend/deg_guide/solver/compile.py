@@ -332,9 +332,10 @@ def build_model(
             raise ValueError(f"Unknown requirement type: {req.type}")
 
 
-    # ---- PASS 2: meta requirements (choose_k from_requirements) ----
+    # ---- PASS 2: meta requirements (from_requirements: choose_k or all_of) ----
     for program, req in deferred_meta:
         req_key = f"{program.id}:{req.id}"
+        child_ids = req.from_requirements or []
 
         if req.type == "choose_k":
             k = int(req.k or 0)

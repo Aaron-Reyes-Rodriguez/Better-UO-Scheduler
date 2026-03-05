@@ -9,6 +9,8 @@ type TranscriptData = {
     level: string | null
     catalog_year: string | null
     declared_major: { name: string; catalog_year: string } | null
+    /** Present when transcript has multiple majors (double major); first major also in declared_major */
+    declared_majors?: { name: string; catalog_year: string }[]
     minors: { name: string; catalog_year: string }[]
   }
   taken_attempts: {
