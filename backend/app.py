@@ -5,6 +5,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Load .env file (DATABASE_URL, CORS_ORIGINS, etc.)
 import re
 import logging
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
@@ -49,6 +52,20 @@ app.add_middleware(
 def health():
     """Simple ping to check the API is up (e.g. for Render)."""
     return {"status": "ok"}
+
+@app.get("/db-health")
+def db_health():
+    """Check database connectivity."""
+    import psycopg2
+    db_url = os.environ.get("DATABASE_URL")
+    if not db_url:
+        raise HTTPException(status_code=500, detail="DATABASE_URL is not set")
+    try:
+        conn = psycopg2.connect(db_url, connect_timeout=5)
+        conn.close()
+        return {"status": "ok", "database": "connected"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"DB connection failed: {str(e)}")
 
 @app.get("/class/{class_id}")
 def get_class(class_id: str):
