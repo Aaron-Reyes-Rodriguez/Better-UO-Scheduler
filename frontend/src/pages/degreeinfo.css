@@ -137,3 +137,33 @@
 .di-course-link { color: #4a90e2; text-decoration: none; font-weight: 600; }
 .di-course-link:hover { text-decoration: underline; color: #2563eb; }
 .di-row-missing .di-course-link { color: #94a3b8; }
+
+/* Program groups: degree type, major, minor */
+.di-program-group { margin-bottom: 36px; }
+.di-program-group:last-child { margin-bottom: 0; }
+
+.di-group-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a2332;
+  margin: 0 0 4px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.di-group-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 16px 0;
+}
+
+.di-minor-empty {
+  font-size: 13px;
+  color: #94a3b8;
+  font-style: italic;
+  margin: 0 0 8px 0;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 6px;
+  border: 1px dashed #e2e8f0;
+}
