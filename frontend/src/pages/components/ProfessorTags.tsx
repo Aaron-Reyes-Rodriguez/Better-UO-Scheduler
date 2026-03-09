@@ -36,6 +36,7 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
   const [pendingTags, setPendingTags] = useState<string[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const hasTranscript = sessionStorage.getItem('hasUploadedTranscript') === 'true';
 
   const handleOpenModal = () => {
     setPendingTags([]);
@@ -70,22 +71,30 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
         <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 600 }}>Student Tags</h3>
         <button
           onClick={handleOpenModal}
+          disabled={!hasTranscript}
+          title={!hasTranscript ? 'Upload a transcript first to vote on tags' : undefined}
           style={{
             padding: '4px 12px',
-            backgroundColor: '#f1f5f9',
+            backgroundColor: hasTranscript ? '#f1f5f9' : '#f1f5f9',
             border: '1px solid #cbd5e1',
             borderRadius: '999px',
             fontSize: '0.85rem',
-            cursor: 'pointer',
+            cursor: hasTranscript ? 'pointer' : 'not-allowed',
             fontWeight: 500,
-            color: '#334155',
+            color: hasTranscript ? '#334155' : '#94a3b8',
             transition: 'background-color 0.2s',
+            opacity: hasTranscript ? 1 : 0.6,
           }}
-          onMouseOver={e => e.currentTarget.style.backgroundColor = '#e2e8f0'}
-          onMouseOut={e => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+          onMouseOver={e => { if (hasTranscript) e.currentTarget.style.backgroundColor = '#e2e8f0'; }}
+          onMouseOut={e => { if (hasTranscript) e.currentTarget.style.backgroundColor = '#f1f5f9'; }}
         >
           {tags.length > 0 ? 'Vote Tags' : 'Add Tags'}
         </button>
+        {!hasTranscript && (
+          <span style={{ fontSize: '0.8rem', color: '#94a3b8', fontStyle: 'italic' }}>
+            Upload a transcript to vote
+          </span>
+        )}
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
