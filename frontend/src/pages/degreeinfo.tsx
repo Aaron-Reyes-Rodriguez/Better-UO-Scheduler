@@ -211,7 +211,7 @@ export default function DegreeInfo() {
 
   const auditData = useState<AuditData | null>(() => {
     if (location.state?.auditData) return location.state.auditData as AuditData
-    const stored = sessionStorage.getItem("auditData")
+    const stored = localStorage.getItem("auditData")
     if (stored) {
       try { return JSON.parse(stored) as AuditData } catch { return null }
     }

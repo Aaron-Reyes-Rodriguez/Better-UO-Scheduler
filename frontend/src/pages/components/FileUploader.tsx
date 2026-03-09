@@ -8,6 +8,7 @@ export default function FileUploader()
 {
     const [file, setFile] = useState<File | null>(null)
     const [status, setStatus] = useState<UploadStatus>("idle")
+    const [showUploader, setShowUploader] = useState(!localStorage.getItem("hasUploadedTranscript"))
     const navigate = useNavigate()
 
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
@@ -25,19 +26,75 @@ export default function FileUploader()
 
         try {
             const data = await uploadTranscript(file)
-            console.log(data) // add this line
+            console.log(data)
 
             setStatus('success')
             
-            // Store the state and data in the browser session storage
-            sessionStorage.setItem("hasUploadedTranscript", "true");
-            sessionStorage.setItem("auditData", JSON.stringify(data));
-            sessionStorage.setItem("transcriptData", JSON.stringify(data));
+            // Persist data in localStorage so it survives across sessions
+            localStorage.setItem("hasUploadedTranscript", "true");
+            localStorage.setItem("auditData", JSON.stringify(data));
+            localStorage.setItem("transcriptData", JSON.stringify(data));
             
             navigate("/audit", { state: { auditData: data } })
         } catch {
             setStatus('error')
         }
+    }
+
+    // If user already has transcript data, show a summary with re-upload option
+    if (!showUploader) {
+        return (
+            <div style={{ textAlign: 'center', width: '100%' }}>
+                <div style={{
+                    padding: '16px',
+                    backgroundColor: '#0f172a',
+                    borderRadius: '8px',
+                    border: '1px solid #334155',
+                    marginBottom: '16px',
+                }}>
+                    <p style={{ margin: '0 0 4px 0', color: '#10b981', fontWeight: 'bold', fontSize: '0.95rem' }}>
+                        ✓ Transcript already uploaded
+                    </p>
+                    <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.85rem' }}>
+                        Your transcript data is saved. You can view your audit or upload a new one.
+                    </p>
+                </div>
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={() => navigate("/audit")}
+                        style={{
+                            backgroundColor: '#2563eb',
+                            color: 'white',
+                            padding: '10px 24px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            fontSize: '0.95rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            transition: 'background-color 0.2s',
+                        }}
+                    >
+                        View Saved Audit
+                    </button>
+                    <button
+                        onClick={() => setShowUploader(true)}
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: '#94a3b8',
+                            padding: '10px 24px',
+                            borderRadius: '8px',
+                            border: '1px solid #475569',
+                            fontSize: '0.95rem',
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                        }}
+                    >
+                        Upload New Transcript
+                    </button>
+                </div>
+            </div>
+        );
     }
     
     return (

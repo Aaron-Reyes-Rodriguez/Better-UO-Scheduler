@@ -36,7 +36,7 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
   const [pendingTags, setPendingTags] = useState<string[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const hasTranscript = sessionStorage.getItem('hasUploadedTranscript') === 'true';
+  const hasTranscript = localStorage.getItem('hasUploadedTranscript') === 'true';
 
   const handleOpenModal = () => {
     setPendingTags([]);
