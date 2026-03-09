@@ -79,6 +79,18 @@ def get_professor(professor_id: str):
     raise HTTPException(status_code=404, detail=f"Professor not found: {professor_id}")
 
 
+class ProfessorTagsRequest(BaseModel):
+    tags: List[str]
+
+@app.post("/professor/{professor_id}/tags")
+def update_professor_tags(professor_id: str, req: ProfessorTagsRequest):
+    try:
+        updated_tags = apiHelper.updateProfessorTags(professor_id, req.tags)
+        return {"status": "success", "tags": updated_tags}
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"Professor not found: {professor_id}")
+
+
 @app.get("/suggest/classes")
 def suggest_classes(q: str = Query(default="", min_length=1), limit: int = Query(default=8, ge=1, le=20)):
     return {"results": apiHelper.classSuggestions(q, limit)}
@@ -126,6 +138,13 @@ logger.info("Backend ready to accept requests")
 
 VALID_CATALOG_YEARS = ["2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025-2026"]
 DEFAULT_CATALOG_YEAR = "2025-2026"
+
+# Init Professor Tags Database
+try:
+    apiHelper.init_db()
+    logger.info("Professor tags database table initialized successfully.")
+except Exception as e:
+    logger.error(f"Failed to initialize professor tags database: {e}")
 
 # Mapping from program name to code (also tracks what we've implemented)
 DEGREE_TYPE_MAP = {

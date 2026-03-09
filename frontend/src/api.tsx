@@ -66,6 +66,17 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
+export async function updateProfessorTags(professor_id: string, tags: string[]) {
+  const url = apiUrl(`/professor/${professor_id}/tags`);
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tags }),
+  });
+  if (!res.ok) throw new Error(`Failed to update tags: ${res.status} ${res.statusText}`);
+  return res.json();
+}
+
 export async function suggestClasses(query: string, limit = 8): Promise<string[]> {
   const q = query.trim();
   if (!q) return [];
