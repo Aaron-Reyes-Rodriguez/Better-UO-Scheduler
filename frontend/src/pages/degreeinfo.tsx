@@ -18,6 +18,7 @@ type Section = {
 type AuditData = {
   status: string;
   completion_percentage: number;
+  student_name?: string | null;
   assignments: Record<string, Array<{ attempt_id: string; course_id: string }>>;
   slack:       Record<string, number>;
   broad_data: {
@@ -119,6 +120,39 @@ function getSections(
   );
 }
 
+// ---- Grouping ---------------------------------------------------------------
+
+type GroupedSections = {
+  degreeType: Section[];
+  major: Section[];
+  minors: { code: string; sections: Section[] }[];
+};
+
+function groupByProgram(sections: Section[]): GroupedSections {
+  const degreeType: Section[] = [];
+  const major: Section[] = [];
+  const minorMap = new Map<string, Section[]>();
+
+  for (const s of sections) {
+    const programId = s.id.split(":")[0];
+    if (programId.startsWith("UO_BS") || programId.startsWith("UO_BA")) {
+      degreeType.push(s);
+    } else if (programId.startsWith("MAJOR_")) {
+      major.push(s);
+    } else if (programId.startsWith("MINOR_")) {
+      const arr = minorMap.get(programId) ?? [];
+      arr.push(s);
+      minorMap.set(programId, arr);
+    }
+  }
+
+  return {
+    degreeType,
+    major,
+    minors: Array.from(minorMap.entries()).map(([code, secs]) => ({ code, sections: secs })),
+  };
+}
+
 // ---- Components -------------------------------------------------------------
 
 function RequirementSection({ section }: { section: Section }) {
@@ -188,31 +222,75 @@ export default function DegreeInfo() {
     return <p className="di-state-msg error">No transcript data found. Please upload your transcript first.</p>
   }
 
-  const { broad_data: bd, programs_loaded: prog, completion_percentage: pct, assignments, slack } = auditData
+  const { broad_data: bd, programs_loaded: prog, student_name, assignments, slack } = auditData
   const sections  = getSections(assignments, slack)
+  const grouped   = groupByProgram(sections)
+  const displayName = student_name ?? bd.student_name ?? null
   const majorName = prog.major?.name ?? bd.declared_majors?.[0]?.name ?? bd.declared_major?.name ?? "Unknown Major"
-  const catalog   = prog.major?.catalog_year ?? bd.catalog_year ?? ""
-  const minors    = bd.minors ?? []
+  const loadedMinors = prog.minors ?? []
+  const declaredMinors = bd.minors ?? []
 
   return (
     <div className="di-root">
       <div className="di-header">
         <div>
           <h1 className="di-title">
-            Major in {majorName}
+            {displayName || "Degree Audit"}
             <span className="di-pill">In-Progress</span>
           </h1>
           <p className="di-meta">
-            {prog.degree_type.code} &nbsp;·&nbsp; Catalog {catalog}
-            {bd.gpa != null && <> &nbsp;·&nbsp; GPA {bd.gpa}</>}
-            {minors.map((m) => <span key={m.name}> &nbsp;·&nbsp; Minor: {m.name}</span>)}
+            {prog.degree_type.code} in {majorName}
+            {prog.degree_type.catalog_year && (
+              <> &nbsp;·&nbsp; Catalog {prog.degree_type.catalog_year}</>
+            )}
+            {declaredMinors.map((m) => (
+              <span key={m.name}>
+                &nbsp;·&nbsp; Minor: {m.name}
+                {m.catalog_year && ` (${m.catalog_year})`}
+              </span>
+            ))}
           </p>
         </div>
-        <div className="di-pct">{pct.toFixed(1)}%</div>
       </div>
 
       <div className="di-body">
-        {sections.map((s) => <RequirementSection key={s.id} section={s} />)}
+        {/* Degree type (BS/BA) requirements */}
+        {grouped.degreeType.length > 0 && (
+          <div className="di-program-group">
+            <h2 className="di-group-title">{prog.degree_type.code} Degree Requirements</h2>
+            <p className="di-group-subtitle">General requirements for the {prog.degree_type.code} degree</p>
+            {grouped.degreeType.map((s) => <RequirementSection key={s.id} section={s} />)}
+          </div>
+        )}
+
+        {/* Major requirements */}
+        {grouped.major.length > 0 && (
+          <div className="di-program-group">
+            <h2 className="di-group-title">Major: {majorName}</h2>
+            <p className="di-group-subtitle">Catalog {prog.major?.catalog_year ?? bd.catalog_year ?? ""}</p>
+            {grouped.major.map((s) => <RequirementSection key={s.id} section={s} />)}
+          </div>
+        )}
+
+        {/* Minor requirements — show all declared minors */}
+        {(loadedMinors.length > 0 ? loadedMinors : declaredMinors).map((minor) => {
+          const minorCode = "code" in minor ? (minor as { code: string }).code : "";
+          const minorName = minor.name;
+          const minorSections = grouped.minors.find((g) => g.code.includes(minorCode))?.sections ?? [];
+          return (
+            <div key={minorName} className="di-program-group">
+              <h2 className="di-group-title">Minor: {minorName}</h2>
+              <p className="di-group-subtitle">
+                {minor.catalog_year ? `Catalog ${minor.catalog_year}` : ""}
+              </p>
+              {minorSections.length > 0 ? (
+                minorSections.map((s) => <RequirementSection key={s.id} section={s} />)
+              ) : (
+                <p className="di-minor-empty">No requirement data available for this minor.</p>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
