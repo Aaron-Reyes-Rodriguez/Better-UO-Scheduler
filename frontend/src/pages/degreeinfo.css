@@ -1,20 +1,25 @@
-.i-root {
+/* di- prefixes and whatnot were recommended via AI */
+
+.di-root {
   font-family: system-ui, sans-serif;
   background: #f5f7fa;
   min-height: 100vh;
   padding-bottom: 60px;
   color: #1a2332;
 }
-.i-state-msg {
+
+.di-state-msg {
   text-align: center;
   padding: 80px 20px;
   color: #94a3b8;
   font-size: 14px;
 }
-.i-state-msg.error {
+
+.di-state-msg.error {
   color: #ef4444;
 }
-.i-header {
+
+.di-header {
   background: #1a2332;
   color: #fff;
   padding: 28px 40px;
@@ -24,7 +29,8 @@
   gap: 20px;
   flex-wrap: wrap;
 }
-.i-title {
+
+.di-title {
   font-size: 22px;
   font-weight: 700;
   margin: 0;
@@ -33,7 +39,8 @@
   gap: 12px;
   flex-wrap: wrap;
 }
-.i-pill {
+
+.di-pill {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -44,71 +51,35 @@
   color: #f0b429;
   border: 1px solid rgba(240, 180, 41, 0.4);
 }
-.i-meta {
+
+.di-meta {
   margin: 8px 0 0;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.55);
 }
-.i-pct {
+
+.di-pct {
   font-size: 48px;
   font-weight: 800;
   color: #4a90e2;
   line-height: 1;
 }
-.i-body {
+
+.di-body {
   max-width: 900px;
   margin: 0 auto;
   padding: 24px;
 }
 
-/* Program group: degree type, major, or minor */
-.da-program-group {
-  margin-bottom: 36px;
-}
-
-.da-program-group:last-child {
-  margin-bottom: 0;
-}
-
-/* Section header for each program type (e.g. "BS Degree Requirements", "Major: Computer Science") */
-.da-group-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1a2332;
-  margin: 0 0 4px 0;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.da-group-subtitle {
-  font-size: 13px;
-  color: #64748b;
-  margin: 0 0 16px 0;
-}
-
-/* Empty state when a minor has no requirement sections defined */
-.da-minor-empty {
-  font-size: 13px;
-  color: #94a3b8;
-  font-style: italic;
-  margin: 0 0 8px 0;
-  padding: 12px 16px;
-  background: #f8fafc;
-  border-radius: 6px;
-  border: 1px dashed #e2e8f0;
-}
-
-/* ── Section card ───────────────────────────────────────────────── */
-
-/* White card for one requirement bucket */
-.da-section {
+.di-section {
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   margin-bottom: 10px;
   overflow: hidden;
 }
-.i-section-header {
+
+.di-section-header {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -116,50 +87,31 @@
   cursor: pointer;
   user-select: none;
 }
-.i-section-header:hover {
+
+.di-section-header:hover {
   background: #f8fafc;
 }
-.i-section-title {
+
+.di-section-title {
   flex: 1;
   font-size: 14px;
   font-weight: 600;
   color: #1a2332;
 }
-.i-icon-ok {
-  color: #22c55e;
-  font-weight: 700;
-  font-size: 14px;
-  width: 20px;
-  text-align: center;
-}
-.i-icon-miss {
-  color: #ef4444;
-  font-weight: 700;
-  font-size: 14px;
-  width: 20px;
-  text-align: center;
-}
-.i-sat-ok {
-  font-size: 12px;
-  font-weight: 600;
-  color: #22c55e;
-}
-.i-sat-miss {
-  font-size: 12px;
-  font-weight: 600;
-  color: #ef4444;
-}
-.i-chevron {
-  font-size: 10px;
-  color: #94a3b8;
-  margin-left: 4px;
-}
-.i-table {
+
+.di-icon-ok { color: #22c55e; font-weight: 700; font-size: 14px; width: 20px; text-align: center; }
+.di-icon-miss { color: #ef4444; font-weight: 700; font-size: 14px; width: 20px; text-align: center; }
+.di-sat-ok { font-size: 12px; font-weight: 600; color: #22c55e; }
+.di-sat-miss { font-size: 12px; font-weight: 600; color: #ef4444; }
+.di-chevron { font-size: 10px; color: #94a3b8; margin-left: 4px; }
+
+.di-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
 }
-.i-th {
+
+.di-th {
   text-align: left;
   padding: 6px 16px;
   font-size: 11px;
@@ -171,19 +123,17 @@
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
 }
-.i-td {
+
+.di-td {
   padding: 8px 16px;
   border-bottom: 1px solid #f1f5f9;
   color: #334155;
 }
-.i-row-missing {
-  opacity: 0.4;
-}
-.i-status-ok {
-  color: #22c55e;
-  font-weight: 600;
-}
-.i-status-missing {
-  color: #ef4444;
-  font-weight: 600;
-}
+
+.di-row-missing { opacity: 0.4; }
+.di-status-ok { color: #22c55e; font-weight: 600; }
+.di-status-missing { color: #ef4444; font-weight: 600; }
+
+.di-course-link { color: #4a90e2; text-decoration: none; font-weight: 600; }
+.di-course-link:hover { text-decoration: underline; color: #2563eb; }
+.di-row-missing .di-course-link { color: #94a3b8; }

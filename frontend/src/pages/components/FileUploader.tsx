@@ -25,6 +25,8 @@ export default function FileUploader()
 
         try {
             const data = await uploadTranscript(file)
+            console.log(data) // add this line
+
             setStatus('success')
             
             // Store the state and data in the browser session storage
