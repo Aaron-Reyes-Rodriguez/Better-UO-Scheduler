@@ -7,6 +7,28 @@ import os
 
 PROF_TAGS_FILE = "ClassProfessorData/jsonData/professor_tags.json"
 
+# Mapping from display tag name -> database column name
+TAG_COLUMNS = {
+    "Tough Grader": "tough_grader",
+    "Get Ready To Read": "get_ready_to_read",
+    "Participation Matters": "participation_matters",
+    "Skip Class? You Won't Pass.": "skip_class_you_wont_pass",
+    "Accessible Outside Class": "accessible_outside_class",
+    "Caring": "caring",
+    "Respected": "respected",
+    "Lecture Heavy": "lecture_heavy",
+    "Test Heavy": "test_heavy",
+    "Graded by few things": "graded_by_few_things",
+    "Amazing lectures": "amazing_lectures",
+    "Clear grading criteria": "clear_grading_criteria",
+    "Hilarious": "hilarious",
+    "Inspirational": "inspirational",
+    "Lots of homework": "lots_of_homework",
+}
+
+# Reverse mapping: column name -> display tag name
+COLUMN_TO_TAG = {v: k for k, v in TAG_COLUMNS.items()}
+
 
 def _normalize_class_key(class_id: str) -> str:
     return ''.join((class_id or '').upper().split())
@@ -77,16 +99,19 @@ def get_db_connection():
     return psycopg2.connect(db_url)
 
 def init_db():
+    """Create the professor_tags table with one column per tag."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
-            cur.execute("""
+            # Build column definitions for each tag
+            tag_col_defs = ",\n                    ".join(
+                f"{col} INTEGER DEFAULT 0" for col in TAG_COLUMNS.values()
+            )
+            cur.execute(f"""
                 CREATE TABLE IF NOT EXISTS professor_tags (
                     id SERIAL PRIMARY KEY,
-                    professor_id VARCHAR NOT NULL,
-                    tag_name VARCHAR NOT NULL,
-                    tag_count INTEGER DEFAULT 1,
-                    UNIQUE(professor_id, tag_name)
+                    professor_id VARCHAR NOT NULL UNIQUE,
+                    {tag_col_defs}
                 )
             """)
         conn.commit()
@@ -94,21 +119,28 @@ def init_db():
         conn.close()
 
 def _load_prof_tags(professor_id: str) -> list[str]:
+    """Load tags for a professor from the pivot table. Returns tags with count > 1."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
-            cur.execute("""
-                SELECT tag_name, tag_count
+            tag_cols = ", ".join(TAG_COLUMNS.values())
+            cur.execute(f"""
+                SELECT {tag_cols}
                 FROM professor_tags 
-                WHERE professor_id = %s AND tag_count > 1
-                ORDER BY tag_count DESC
+                WHERE professor_id = %s
             """, (professor_id,))
-            rows = cur.fetchall()
-            # Return strings formatted like "Tag Name (3)" if we want to show counts
-            # But the UI currently handles exact string matches to highlight buttons
-            # Let's just return the raw strings so the UI selection works exactly as before.
-            # Next iterations could expand the UI to accept counts.
-            return [row[0] for row in rows]
+            row = cur.fetchone()
+            if not row:
+                return []
+            # Return tag display names where count > 1
+            col_names = list(TAG_COLUMNS.values())
+            tags = []
+            for i, count in enumerate(row):
+                if count and count > 1:
+                    tags.append((COLUMN_TO_TAG[col_names[i]], count))
+            # Sort by count descending
+            tags.sort(key=lambda x: -x[1])
+            return [tag_name for tag_name, _ in tags]
     except Exception as e:
         print(f"Error loading tags for {professor_id}: {e}")
         return []
@@ -254,17 +286,35 @@ def updateProfessorTags(professor_id: str, tags: list[str]) -> list[str]:
     unique_tags = list(dict.fromkeys(tags))
     if not unique_tags:
         return _load_prof_tags(clean_prof_id)
+    
+    # Filter to only valid tags that have column mappings
+    valid_tags = [t for t in unique_tags if t in TAG_COLUMNS]
+    if not valid_tags:
+        return _load_prof_tags(clean_prof_id)
         
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
-            for tag in unique_tags:
-                cur.execute("""
-                    INSERT INTO professor_tags (professor_id, tag_name, tag_count)
-                    VALUES (%s, %s, 1)
-                    ON CONFLICT (professor_id, tag_name) 
-                    DO UPDATE SET tag_count = professor_tags.tag_count + 1
-                """, (clean_prof_id, tag))
+            # Build the INSERT with ON CONFLICT to increment tag columns
+            tag_col_names = [TAG_COLUMNS[t] for t in valid_tags]
+            
+            # Insert a new row with count=1 for selected tags, or increment on conflict
+            all_cols = list(TAG_COLUMNS.values())
+            insert_values = []
+            for col in all_cols:
+                if col in tag_col_names:
+                    insert_values.append("1")
+                else:
+                    insert_values.append("0")
+            
+            update_parts = [f"{col} = professor_tags.{col} + 1" for col in tag_col_names]
+            
+            cur.execute(f"""
+                INSERT INTO professor_tags (professor_id, {", ".join(all_cols)})
+                VALUES (%s, {", ".join(insert_values)})
+                ON CONFLICT (professor_id) 
+                DO UPDATE SET {", ".join(update_parts)}
+            """, (clean_prof_id,))
         conn.commit()
     except Exception as e:
         print(f"Error updating tags for {clean_prof_id}: {e}")
