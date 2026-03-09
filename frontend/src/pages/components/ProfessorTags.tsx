@@ -38,7 +38,7 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
   const [error, setError] = useState<string | null>(null);
 
   const handleOpenModal = () => {
-    setPendingTags(tags.map(t => t.name));
+    setPendingTags([]);
     setIsModalOpen(true);
     setError(null);
   };
