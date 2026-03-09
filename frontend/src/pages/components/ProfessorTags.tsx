@@ -20,20 +20,25 @@ const AVAILABLE_TAGS = [
   "Lots of homework"
 ];
 
+type TagWithCount = {
+  name: string;
+  count: number;
+};
+
 interface ProfessorTagsProps {
   professorId: string;
-  initialTags?: string[];
+  initialTags?: TagWithCount[];
 }
 
 export default function ProfessorTags({ professorId, initialTags = [] }: ProfessorTagsProps) {
-  const [tags, setTags] = useState<string[]>(initialTags || []);
+  const [tags, setTags] = useState<TagWithCount[]>(initialTags || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingTags, setPendingTags] = useState<string[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleOpenModal = () => {
-    setPendingTags([...tags]);
+    setPendingTags(tags.map(t => t.name));
     setIsModalOpen(true);
     setError(null);
   };
@@ -49,7 +54,7 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
     setError(null);
     try {
       const response = await updateProfessorTags(professorId, pendingTags);
-      setTags(response.tags || pendingTags);
+      setTags(response.tags || pendingTags.map(t => ({ name: t, count: 1 })));
       setIsModalOpen(false);
     } catch (err) {
       setError("Failed to save tags. Please try again.");
@@ -79,7 +84,7 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
           onMouseOver={e => e.currentTarget.style.backgroundColor = '#e2e8f0'}
           onMouseOut={e => e.currentTarget.style.backgroundColor = '#f1f5f9'}
         >
-          {tags.length > 0 ? 'Edit Tags' : 'Add Tags'}
+          {tags.length > 0 ? 'Vote Tags' : 'Add Tags'}
         </button>
       </div>
 
@@ -87,7 +92,7 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
         {tags.length > 0 ? (
           tags.map(tag => (
             <span
-              key={tag}
+              key={tag.name}
               style={{
                 backgroundColor: '#e0f2fe',
                 color: '#0369a1',
@@ -95,10 +100,25 @@ export default function ProfessorTags({ professorId, initialTags = [] }: Profess
                 borderRadius: '999px',
                 fontSize: '0.85rem',
                 fontWeight: 500,
-                border: '1px solid #bae6fd'
+                border: '1px solid #bae6fd',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              {tag}
+              {tag.name}
+              <span style={{
+                backgroundColor: '#0284c7',
+                color: 'white',
+                borderRadius: '999px',
+                padding: '1px 7px',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                minWidth: '20px',
+                textAlign: 'center'
+              }}>
+                {tag.count}
+              </span>
             </span>
           ))
         ) : (

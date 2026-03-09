@@ -118,8 +118,8 @@ def init_db():
     finally:
         conn.close()
 
-def _load_prof_tags(professor_id: str) -> list[str]:
-    """Load tags for a professor from the pivot table. Returns tags with count > 1."""
+def _load_prof_tags(professor_id: str) -> list[dict]:
+    """Load tags for a professor from the pivot table. Returns tags with count >= 1 as dicts."""
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
@@ -132,15 +132,15 @@ def _load_prof_tags(professor_id: str) -> list[str]:
             row = cur.fetchone()
             if not row:
                 return []
-            # Return tag display names where count > 1
+            # Return tag dicts with name and count where count >= 1
             col_names = list(TAG_COLUMNS.values())
             tags = []
             for i, count in enumerate(row):
-                if count and count > 1:
-                    tags.append((COLUMN_TO_TAG[col_names[i]], count))
+                if count and count >= 1:
+                    tags.append({"name": COLUMN_TO_TAG[col_names[i]], "count": count})
             # Sort by count descending
-            tags.sort(key=lambda x: -x[1])
-            return [tag_name for tag_name, _ in tags]
+            tags.sort(key=lambda x: -x["count"])
+            return tags
     except Exception as e:
         print(f"Error loading tags for {professor_id}: {e}")
         return []

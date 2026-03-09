@@ -16,7 +16,7 @@ type ProfessorData = {
   courses_taught?: string;
   avg_gpa?: number;
   gradeDistribution?: GradeDist;
-  tags?: string[];
+  tags?: { name: string; count: number }[];
   stats?: {
     averageGrade?: number;
     totalStudents?: number;
