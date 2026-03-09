@@ -206,36 +206,37 @@ def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, s
     logger.debug(f"Completion ratio: {completion_ratio:.2%}")
     logger.debug("=== SOLVE DEGREE AUDIT END ===")
 
-    # Build set of "child" requirements (used by from_requirements in choose_k)
-    # These are internal/helper requirements that shouldn't clutter the output
+    # Categorize meta-requirements (those with from_requirements):
+    #   "all_of" parents are structural groupings -> expand: show children, hide parent
+    #   "choose_k" parents are selection reqs -> collapse: promote children to parent, hide children
     child_req_ids: Set[str] = set()
-    parent_to_children: Dict[str, List[str]] = {}  # parent_key -> [child_key, ...]
+    expand_parent_ids: Set[str] = set()
+
     for program in programs:
         for req in program.requirements:
-            if req.from_requirements:
-                parent_key = f"{program.id}:{req.id}"
-                child_keys = [f"{program.id}:{cid}" for cid in req.from_requirements]
-                parent_to_children[parent_key] = child_keys
-                for child_id in req.from_requirements:
-                    child_req_ids.add(f"{program.id}:{child_id}")
-
-    # Promote satisfied child assignments to parent (so e.g. science_sequence shows in output)
-    for parent_key, child_keys in parent_to_children.items():
-        for child_key in child_keys:
-            # Child is satisfied if its slack is 0 (or all slot slacks for that child are 0)
-            child_slack_keys = [k for k in slack_out if k == child_key or k.startswith(child_key + ":")]
-            if not child_slack_keys:
+            if not req.from_requirements:
                 continue
-            if all(slack_out[k] == 0 for k in child_slack_keys):
-                child_assigns = assignments.get(child_key, [])
-                if child_assigns:
-                    assignments.setdefault(parent_key, []).extend(child_assigns)
+            parent_key = f"{program.id}:{req.id}"
 
-    # Filter output to hide child requirements (but keep for internal tracking)
+            if req.type == "all_of":
+                expand_parent_ids.add(parent_key)
+            else:
+                for child_key_suffix in req.from_requirements:
+                    child_key = f"{program.id}:{child_key_suffix}"
+                    child_req_ids.add(child_key)
+                    child_assigns = assignments.get(child_key, [])
+                    if child_assigns:
+                        assignments.setdefault(parent_key, []).extend(child_assigns)
+
+    # Hide: choose_k children (promoted to parent) + all_of parents (children shown instead)
+    hide_assign = child_req_ids | expand_parent_ids
     filtered_assignments = {k: v for k, v in assignments.items()
-                           if not any(k.startswith(child) for child in child_req_ids)}
+                           if k not in hide_assign and not any(k.startswith(h) for h in child_req_ids)}
     filtered_slack = {k: v for k, v in slack_out.items()
-                      if not any(k.startswith(child + ":") or k == child for child in child_req_ids)}
+                      if k not in hide_assign
+                      and k not in expand_parent_ids
+                      and not any(k == c or k.startswith(c + ":") for c in child_req_ids)
+                      and not any(k.startswith(p + ":") for p in expand_parent_ids)}
 
     return {
         "status": "ok",

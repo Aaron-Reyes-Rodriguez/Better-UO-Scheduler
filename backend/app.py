@@ -131,10 +131,13 @@ DEFAULT_CATALOG_YEAR = "2025-2026"
 DEGREE_TYPE_MAP = {
     "Bachelor of Science": "BS",
     "Bachelor of Arts": "BA",
+    
 }
 
 MAJOR_CODE_MAP = {
     "Computer Science": "CS",
+    "Mathematics": "MATH",
+    "Data Science": "DSCI",
 }
 
 MINOR_CODE_MAP = {
