@@ -3,7 +3,7 @@ import asyncio
 from concurrent.futures import ProcessPoolExecutor
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import os
 import re
 import logging
@@ -447,14 +447,102 @@ async def upload_transcript(file: UploadFile):
   returnData = solve_degree_audit(COURSES, attempts, programs_to_audit, EQUIV_MAP)
   returnData["programs_loaded"] = programs_loaded_info
   returnData["student_name"] = broad_data.get("student_name")
-  returnData["broad_data"] = broad_data  # Include parsed transcript info for frontend
+  returnData["broad_data"] = broad_data
+  returnData["parsedData"] = parsedData  # frontend stores this for re-audit calls
 
-#   log_section("AUDIT RESULTS")
-#   logger.info(f"Status: {returnData.get('status')}")
-#   logger.info(f"Completion: {returnData.get('completion_percentage', 'N/A')}%")
-#   logger.info(f"Programs audited: {list(programs_loaded_info.keys())}")
-#   apiHelper.saveTranscriptData(returnData)
   return returnData
+
+
+class ReAuditRequest(BaseModel):
+    parsedData: Dict[str, Any]
+    selections: Dict[str, str]
+
+
+@app.post("/re-audit")
+def re_audit(req: ReAuditRequest):
+  """Re-run the degree audit with user-selected tracks/domains/concentrations."""
+  parsedData = req.parsedData
+  selections = req.selections
+  broad_data = parsedData.get("broad_data", {})
+
+  programs_to_audit = []
+  programs_loaded_info: Dict[str, Any] = {}
+
+  # Load degree type
+  degree_catalog_year = normalize_catalog_year(broad_data.get("catalog_year", ""))
+  degree_code = DEGREE_TYPE_MAP.get(broad_data.get("program", ""))
+  if degree_code:
+      degree_program = load_program_by_type("degree_types", degree_code, degree_catalog_year)
+      if degree_program:
+          programs_to_audit.append(degree_program)
+          programs_loaded_info["degree_type"] = {
+              "code": degree_code,
+              "catalog_year": degree_catalog_year,
+          }
+
+  # Load majors
+  majors_to_load = broad_data.get("declared_majors") or (
+      [broad_data.get("declared_major")] if broad_data.get("declared_major") else []
+  )
+  majors_to_load = [m for m in majors_to_load if m and m.get("name")]
+  loaded_majors = []
+  for major_info in majors_to_load:
+      major_code = MAJOR_CODE_MAP.get(major_info.get("name", ""))
+      if not major_code:
+          continue
+      major_catalog_year = normalize_catalog_year(major_info.get("catalog_year", ""))
+      major_program = load_program_by_type("majors", major_code, major_catalog_year)
+      if major_program:
+          programs_to_audit.append(major_program)
+          loaded_majors.append({
+              "code": major_code,
+              "name": major_info.get("name"),
+              "catalog_year": major_catalog_year,
+          })
+  if loaded_majors:
+      programs_loaded_info["major"] = loaded_majors[0]
+      programs_loaded_info["majors"] = loaded_majors
+
+  # Load minors
+  loaded_minors = []
+  for minor in broad_data.get("minors", []):
+      minor_code = MINOR_CODE_MAP.get(minor.get("name", ""))
+      if not minor_code:
+          continue
+      minor_catalog_year = normalize_catalog_year(minor.get("catalog_year", ""))
+      minor_program = load_program_by_type("minors", minor_code, minor_catalog_year)
+      if minor_program:
+          programs_to_audit.append(minor_program)
+          loaded_minors.append({
+              "code": minor_code,
+              "name": minor.get("name"),
+              "catalog_year": minor_catalog_year,
+          })
+  if loaded_minors:
+      programs_loaded_info["minors"] = loaded_minors
+
+  # Build course attempts
+  attempts = [
+      CourseAttempt(
+          attempt_id=a["attempt_id"],
+          course_id=a["course_id"],
+          credits_taken=a["credits_taken"],
+          grading_basis=a["grading_basis"],
+          term=a.get("term"),
+          subtitle=a.get("subtitle"),
+      )
+      for a in parsedData.get("taken_attempts", [])
+  ]
+
+  # Run solver with selections
+  returnData = solve_degree_audit(COURSES, attempts, programs_to_audit, EQUIV_MAP, selections=selections)
+  returnData["programs_loaded"] = programs_loaded_info
+  returnData["student_name"] = broad_data.get("student_name")
+  returnData["broad_data"] = broad_data
+  returnData["parsedData"] = parsedData
+
+  return returnData
+
 
 @app.get("/catalog-years")
 def get_catalog_years():

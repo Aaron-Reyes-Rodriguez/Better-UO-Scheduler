@@ -16,6 +16,8 @@ class Course:
 class Requirement:
     id: str
     type: str  # "all_of" | "choose_k" | "credits_at_least" | "credit_pool"
+    label: Optional[str] = None                        # human-readable name for frontend display
+    user_choice: Optional[bool] = None                   # if True, frontend shows a dropdown for this choose_k
     courses: Optional[List[str]] = None
     from_set: Optional[str] = None
     from_requirements: Optional[List[str]] = None   
@@ -24,8 +26,8 @@ class Requirement:
     where: Optional[Dict[str, Any]] = None
     constraints: Optional[List[Dict[str, Any]]] = None
     must_be: Optional[Dict[str, Any]] = None
-    exclude_courses: Optional[List[str]] = None      # explicit course ids to exclude
-    exclude_from_set: Optional[str] = None           # name of a program.sets[] list to exclude
+    exclude_courses: Optional[List[str]] = None        # explicit course ids to exclude
+    exclude_from_set: Optional[str] = None             # name of a program.sets[] list to exclude
 
 @dataclass(frozen=True)
 class Program:

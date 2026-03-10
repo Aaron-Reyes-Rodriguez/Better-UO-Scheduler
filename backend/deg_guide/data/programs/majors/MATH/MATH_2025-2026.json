@@ -4,12 +4,13 @@
 
   "sets": {
     "math_calc3": ["MATH253Z"],
-    "math_sv_calc": ["MATH281", "MATH282"],
-    "math_lin_alg": ["MATH341", "MATH342"],
-    "cs_prog": ["CS122"],
+    "cs_prog": ["CS122", "CS210"],
+    "math_sv_calc_full": ["MATH281", "MATH282"],
+    "math_sv_calc_sec": ["MATH281"],
+    "math_lin_alg_full": ["MATH341", "MATH342"],
+    "math_lin_alg_sec": ["MATH341"],
 
     "bridgeA_core": ["MATH231", "MATH232"],
-    "bridgeB_core": ["MATH261", "MATH262"],
     "bridgeC_core": ["MATH307"],
     "math_labs_201_206": ["MATH201", "MATH202", "MATH203", "MATH204", "MATH205", "MATH206"],
 
@@ -17,44 +18,60 @@
     "fund_numtheory": ["MATH347", "MATH348"],
     "fund_absalg": ["MATH391", "MATH392"],
 
+    "pure_absalg_391": ["MATH391", "MATH392"],
+    "pure_absalg_444": ["MATH444", "MATH445"],
+
     "math_electives_menu": [
-      "MATH316", "MATH317", "MATH320", "MATH343", "MATH345M", "DSCI345M",
+      "MATH316", "MATH317", "MATH343", "MATH345M", "DSCI345M",
       "MATH347", "MATH348", "MATH351", "MATH352", "MATH391", "MATH392",
-      "MATH394", "MATH395", "MATH397", "MATH411", "MATH412", "MATH413",
-      "MATH414", "MATH415", "MATH421M", "MATH422", "MATH431", "MATH432",
-      "MATH433", "MATH441", "MATH444", "MATH445", "MATH446", "MATH456",
+      "MATH394", "MATH395", "MATH397", "MATH411",
+      "MATH413", "MATH414", "MATH415", "MATH421M", "MATH422",
+      "MATH431", "MATH432", "MATH433", "MATH441",
+      "MATH444", "MATH445", "MATH446",
       "MATH458", "MATH461", "MATH462", "MATH463", "MATH467"
-    ]
+    ],
+
+    "sec_math343": ["MATH343"],
+    "sec_geo": ["MATH394", "MATH395"],
+    "sec_math397": ["MATH397"]
   },
 
   "requirements": [
-    { "id": "calc3", "type": "all_of", "from_set": "math_calc3" },
-    { "id": "sv_calc", "type": "all_of", "from_set": "math_sv_calc" },
-    { "id": "lin_alg", "type": "all_of", "from_set": "math_lin_alg" },
-    { "id": "cs122", "type": "all_of", "from_set": "cs_prog" },
+    { "id": "calc3", "type": "all_of", "label": "Calculus III", "from_set": "math_calc3" },
 
-    { "id": "bridgeA_core", "type": "all_of", "from_set": "bridgeA_core" },
-    { "id": "bridgeA_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 2 },
-    { "id": "bridgeA_total", "type": "all_of", "from_requirements": ["bridgeA_core", "bridgeA_labs"] },
+    { "id": "bridgeA_core", "type": "all_of", "label": "Bridge A - Core", "from_set": "bridgeA_core" },
+    { "id": "bridgeA_labs", "type": "choose_k", "label": "Bridge A - Labs", "from_set": "math_labs_201_206", "k": 2 },
+    { "id": "bridgeA_total", "type": "all_of", "label": "Bridge A (231-232 + 2 Labs)", "from_requirements": ["bridgeA_core", "bridgeA_labs"] },
 
-    { "id": "bridgeB_core", "type": "all_of", "from_set": "bridgeB_core" },
-    { "id": "bridgeB_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 2 },
-    { "id": "bridgeB_total", "type": "all_of", "from_requirements": ["bridgeB_core", "bridgeB_labs"] },
+    { "id": "bridgeC_core", "type": "all_of", "label": "Bridge C - Core", "from_set": "bridgeC_core" },
+    { "id": "bridgeC_labs", "type": "choose_k", "label": "Bridge C - Labs", "from_set": "math_labs_201_206", "k": 4 },
+    { "id": "bridgeC_total", "type": "all_of", "label": "Bridge C (307 + 4 Labs)", "from_requirements": ["bridgeC_core", "bridgeC_labs"] },
 
-    { "id": "bridgeC_core", "type": "all_of", "from_set": "bridgeC_core" },
-    { "id": "bridgeC_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 4 },
-    { "id": "bridgeC_total", "type": "all_of", "from_requirements": ["bridgeC_core", "bridgeC_labs"] },
+    { "id": "bridge_requirement", "type": "choose_k", "label": "Bridge Requirement", "user_choice": true, "k": 1, "from_requirements": ["bridgeA_total", "bridgeC_total"] },
 
-    { "id": "bridge_requirement", "type": "choose_k", "k": 1, "from_requirements": ["bridgeA_total", "bridgeB_total", "bridgeC_total"] },
+    { "id": "cs_prog", "type": "choose_k", "label": "Programming (CS 122 or CS 210)", "from_set": "cs_prog", "k": 1 },
 
-    { "id": "fund_analysis", "type": "all_of", "from_set": "fund_analysis" },
-    { "id": "fund_numtheory", "type": "all_of", "from_set": "fund_numtheory" },
-    { "id": "fund_absalg", "type": "all_of", "from_set": "fund_absalg" },
-    { "id": "fundamentals_requirement", "type": "choose_k", "k": 1, "from_requirements": ["fund_analysis", "fund_numtheory", "fund_absalg"] },
+    { "id": "fund_analysis", "type": "all_of", "label": "Fundamentals of Analysis", "from_set": "fund_analysis" },
+    { "id": "fund_numtheory", "type": "all_of", "label": "Fundamentals of Number Theory", "from_set": "fund_numtheory" },
+    { "id": "fund_absalg", "type": "all_of", "label": "Fundamentals of Abstract Algebra", "from_set": "fund_absalg" },
 
     {
-      "id": "upper_electives",
+      "id": "std_sv_calc", "type": "all_of", "label": "Several-Variable Calculus I-II",
+      "from_set": "math_sv_calc_full"
+    },
+    {
+      "id": "std_lin_alg", "type": "all_of", "label": "Linear Algebra I-II",
+      "from_set": "math_lin_alg_full"
+    },
+    {
+      "id": "std_fundamentals", "type": "choose_k", "label": "Fundamentals Sequence",
+      "user_choice": true, "k": 1,
+      "from_requirements": ["fund_analysis", "fund_numtheory", "fund_absalg"]
+    },
+    {
+      "id": "std_upper_electives",
       "type": "credit_pool",
+      "label": "Upper-Division Electives (16 cr, incl. sequence)",
       "min_credits": 16,
       "from_set": "math_electives_menu",
       "constraints": [
@@ -69,24 +86,81 @@
         }
       ]
     },
-
     {
-      "id": "math_track_standard",
-      "type": "all_of",
-      "from_requirements": ["cs122", "bridge_requirement", "fundamentals_requirement", "upper_electives"]
+      "id": "math_track_standard", "type": "all_of", "label": "Standard Track",
+      "from_requirements": ["std_sv_calc", "std_lin_alg", "cs_prog", "bridge_requirement", "std_fundamentals", "std_upper_electives"]
     },
 
     {
-      "id": "math_track",
+      "id": "pure_sv_calc", "type": "all_of", "label": "Several-Variable Calculus I-II",
+      "from_set": "math_sv_calc_full"
+    },
+    {
+      "id": "pure_lin_alg", "type": "all_of", "label": "Linear Algebra I-II",
+      "from_set": "math_lin_alg_full"
+    },
+    {
+      "id": "pure_analysis", "type": "all_of", "label": "Fundamentals of Analysis I-II (Required)",
+      "from_set": "fund_analysis"
+    },
+    { "id": "pure_absalg_391", "type": "all_of", "label": "Abstract Algebra (391-392)", "from_set": "pure_absalg_391" },
+    { "id": "pure_absalg_444", "type": "all_of", "label": "Abstract Algebra (444-445)", "from_set": "pure_absalg_444" },
+    {
+      "id": "pure_absalg_choice", "type": "choose_k", "label": "Abstract Algebra Sequence",
+      "user_choice": true, "k": 1,
+      "from_requirements": ["pure_absalg_391", "pure_absalg_444"]
+    },
+    {
+      "id": "pure_upper_electives",
       "type": "choose_k",
-      "k": 1,
-      "from_requirements": ["math_track_standard"]
+      "label": "Upper-Division Electives (2 courses)",
+      "k": 2,
+      "from_set": "math_electives_menu"
+    },
+    {
+      "id": "math_track_pure", "type": "all_of", "label": "Pure Mathematics Track",
+      "from_requirements": ["pure_sv_calc", "pure_lin_alg", "cs_prog", "bridge_requirement", "pure_analysis", "pure_absalg_choice", "pure_upper_electives"]
     },
 
     {
-      "id": "math_major",
-      "type": "all_of",
-      "from_requirements": ["calc3", "sv_calc", "lin_alg", "math_track"]
+      "id": "sec_sv_calc", "type": "all_of", "label": "Several-Variable Calculus I",
+      "from_set": "math_sv_calc_sec"
+    },
+    {
+      "id": "sec_lin_alg", "type": "all_of", "label": "Linear Algebra I",
+      "from_set": "math_lin_alg_sec"
+    },
+    {
+      "id": "sec_math343", "type": "all_of", "label": "Statistical Models and Methods",
+      "from_set": "sec_math343"
+    },
+    {
+      "id": "sec_fundamentals", "type": "choose_k", "label": "Fundamentals Sequences (choose 2)",
+      "user_choice": true, "k": 2,
+      "from_requirements": ["fund_analysis", "fund_numtheory", "fund_absalg"]
+    },
+    {
+      "id": "sec_geo", "type": "all_of", "label": "Geometries (394-395)",
+      "from_set": "sec_geo"
+    },
+    {
+      "id": "sec_math397", "type": "all_of", "label": "History and Applications of Calculus",
+      "from_set": "sec_math397"
+    },
+    {
+      "id": "math_track_secondary", "type": "all_of", "label": "Secondary Teaching Track",
+      "from_requirements": ["sec_sv_calc", "sec_lin_alg", "sec_math343", "cs_prog", "bridge_requirement", "sec_fundamentals", "sec_geo", "sec_math397"]
+    },
+
+    {
+      "id": "math_track", "type": "choose_k", "label": "Track Selection",
+      "user_choice": true, "k": 1,
+      "from_requirements": ["math_track_standard", "math_track_pure", "math_track_secondary"]
+    },
+
+    {
+      "id": "math_major", "type": "all_of", "label": "Math Major",
+      "from_requirements": ["calc3", "math_track"]
     }
   ],
 

@@ -30,6 +30,28 @@
     "title": "Structure of English Words"
   },
   {
+    "id": "LING196",
+    "subject": "LING",
+    "number": 196,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Field Studies",
+    "credits_range": {"min": 1, "max": 2, "default": 2}
+  },
+  {
+    "id": "LING198",
+    "subject": "LING",
+    "number": 198,
+    "credits": 2,
+    "level": 100,
+    "tags": [],
+    "prereqs": [],
+    "title": "Workshop",
+    "credits_range": {"min": 1, "max": 2, "default": 2}
+  },
+  {
     "id": "LING199",
     "subject": "LING",
     "number": 199,
@@ -38,7 +60,7 @@
     "tags": [],
     "prereqs": [],
     "title": "Special Studies",
-    "credit_range": {"min": 1, "max": 5, "default": 4}
+    "credits_range": {"min": 1, "max": 5, "default": 4}
   },
   {
     "id": "LING201",
@@ -152,6 +174,105 @@
     "credit_range": {"min": 1, "max": 5, "default": 4}
   },
   {
+    "id": "LING401",
+    "subject": "LING",
+    "number": 401,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Research",
+    "credits_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "LING403",
+    "subject": "LING",
+    "number": 403,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Thesis",
+    "credits_range": {"min": 1, "max": 12, "default": 4}
+  },
+  {
+    "id": "LING404",
+    "subject": "LING",
+    "number": 404,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Internship",
+    "credits_range": {"min": 1, "max": 12, "default": 4}
+  },
+  {
+    "id": "LING405",
+    "subject": "LING",
+    "number": 405,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Reading and Conference",
+    "credits_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "LING406",
+    "subject": "LING",
+    "number": 406,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Field Studies",
+    "credits_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "LING407",
+    "subject": "LING",
+    "number": 407,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Seminar",
+    "credits_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
+    "id": "LING408",
+    "subject": "LING",
+    "number": 408,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Workshop",
+    "credits_range": {"min": 1, "max": 21, "default": 4}
+  },
+  {
+    "id": "LING409",
+    "subject": "LING",
+    "number": 409,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Terminal Project",
+    "credits_range": {"min": 1, "max": 12, "default": 4}
+  },
+  {
+    "id": "LING410",
+    "subject": "LING",
+    "number": 410,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Experimental Course",
+    "credits_range": {"min": 1, "max": 5, "default": 4}
+  },
+  {
     "id": "LING411",
     "subject": "LING",
     "number": 411,
@@ -260,6 +381,16 @@
     "tags": [],
     "prereqs": ["LING312"],
     "title": "Advanced Syntax"
+  },
+  {
+    "id": "LING455",
+    "subject": "LING",
+    "number": 455,
+    "credits": 4,
+    "level": 400,
+    "tags": [],
+    "prereqs": [],
+    "title": "Linguistic Research"
   },
   {
     "id": "LING460",
