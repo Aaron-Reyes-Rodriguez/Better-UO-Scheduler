@@ -79,8 +79,8 @@ export default function FileUploader()
                     <button
                         onClick={() => setShowUploader(true)}
                         style={{
-                            backgroundColor: 'transparent',
-                            color: '#94a3b8',
+                            backgroundColor: '#f9f9f9ff',
+                            color: '#00060dff',
                             padding: '10px 24px',
                             borderRadius: '8px',
                             border: '1px solid #475569',
