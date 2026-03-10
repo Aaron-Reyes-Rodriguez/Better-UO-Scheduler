@@ -51,6 +51,7 @@ const LABELS: Record<string, string> = {
   math_200plus_total:    "200+ Level Math Credits",
   math_upper_15:         "Upper-Division Math Credits",
   math_minor:            "Math Minor Total Credits",
+  math_minor_credits:    "Math Minor - requires 30 credits (200 lvl+), 15 of 30 must be 300 lvl+",
   science_bio:           "Science - Biology",
   science_chem:          "Science - Chemistry",
   science_erth:          "Science - Earth Sciences",
