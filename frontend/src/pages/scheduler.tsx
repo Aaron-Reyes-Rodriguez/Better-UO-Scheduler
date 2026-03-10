@@ -4,6 +4,7 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
+import HowToVideo from '../assets/HowToVideo.mp4'
 
 export default function Scheduler() {
     return (
@@ -18,8 +19,11 @@ export default function Scheduler() {
                     Upload Your Transcript
                 </Typography>
                 <Typography variant="h6" color="text.secondary" paragraph sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-                    Get started by uploading your recent ducks on track transcript.
+                    Get started by uploading your recent Ducks On Track transcript.
                 </Typography>
+                <video src={HowToVideo} controls style={{ width: '100%', maxWidth: '600px', borderRadius: '8px' }}>
+                    Your browser does not support the video tag.
+                </video>
             </Box>
 
             <Paper 
@@ -52,7 +56,7 @@ export default function Scheduler() {
                 </Box>
                 
                 <Typography variant="h5" sx={{ color: 'white', fontWeight: 600 }}>
-                    Select a PDF File
+                    Select your Ducks On Track PDF File
                 </Typography>
                 
                 <Box sx={{ width: '100%', maxWidth: '400px', mt: 2 }}>
@@ -60,7 +64,7 @@ export default function Scheduler() {
                 </Box>
                 
                 <Typography variant="body2" sx={{ color: '#94a3b8', mt: 3, textAlign: 'center' }}>
-                    Supported formats: PDF only. Max file size: 10MB.
+                    Supported formats: PDF only
                 </Typography>
             </Paper>
         </Container>
