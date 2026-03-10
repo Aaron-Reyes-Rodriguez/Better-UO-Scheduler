@@ -226,6 +226,7 @@
     {
       "id": "ds_core",
       "type": "all_of",
+      "label": "Data Science Core",
       "from_set": "ds_core",
       "must_be": {
         "grading_basis": "graded",
@@ -235,6 +236,7 @@
     {
       "id": "ds_capstone",
       "type": "all_of",
+      "label": "Capstone",
       "from_set": "ds_capstone",
       "must_be": {
         "grading_basis": "graded",
@@ -244,6 +246,7 @@
     {
       "id": "cs_lower_core",
       "type": "all_of",
+      "label": "CS Lower-Division Core",
       "from_set": "cs_lower_core",
       "must_be": {
         "grading_basis": "graded",
@@ -253,6 +256,7 @@
     {
       "id": "calc_sequence",
       "type": "all_of",
+      "label": "Calculus Sequence",
       "from_set": "calc_seq_251",
       "must_be": {
         "grading_basis": "graded",
@@ -262,6 +266,7 @@
     {
       "id": "lin_alg_sequence",
       "type": "all_of",
+      "label": "Linear Algebra Sequence",
       "from_set": "lin_alg_seq",
       "must_be": {
         "grading_basis": "graded",
@@ -271,6 +276,7 @@
     {
       "id": "probability",
       "type": "all_of",
+      "label": "Probability",
       "from_set": "probability_course",
       "must_be": {
         "grading_basis": "graded",
@@ -280,6 +286,7 @@
     {
       "id": "machine_learning",
       "type": "all_of",
+      "label": "Machine Learning",
       "from_set": "ml_course",
       "must_be": {
         "grading_basis": "graded",
@@ -289,6 +296,7 @@
     {
       "id": "ethics",
       "type": "choose_k",
+      "label": "Ethics",
       "k": 1,
       "from_set": "ethics_options",
       "must_be": {
@@ -299,6 +307,7 @@
     {
       "id": "ds_domain_acc_core_required",
       "type": "all_of",
+      "label": "Accounting Domain - Required Core",
       "from_set": "ds_domain_acc_core_required",
       "must_be": {
         "grading_basis": "graded",
@@ -308,6 +317,7 @@
     {
       "id": "ds_domain_acc_electives",
       "type": "choose_k",
+      "label": "Accounting Domain - Electives",
       "k": 2,
       "from_set": "ds_domain_acc_electives",
       "must_be": {
@@ -318,6 +328,7 @@
     {
       "id": "ds_domain_acc",
       "type": "all_of",
+      "label": "Domain: Accounting",
       "from_requirements": [
         "ds_domain_acc_core_required",
         "ds_domain_acc_electives"
@@ -326,6 +337,7 @@
     {
       "id": "ds_domain_bio_core_seq",
       "type": "all_of",
+      "label": "Biology Domain - Core Sequence",
       "from_set": "ds_domain_bio_core_seq",
       "must_be": {
         "grading_basis": "graded",
@@ -335,6 +347,7 @@
     {
       "id": "ds_domain_bio_core_alt",
       "type": "all_of",
+      "label": "Biology Domain - Core Alternative",
       "from_set": "ds_domain_bio_core_alt",
       "must_be": {
         "grading_basis": "graded",
@@ -344,6 +357,7 @@
     {
       "id": "ds_domain_bio_core",
       "type": "choose_k",
+      "label": "Biology Domain - Core",
       "k": 1,
       "from_requirements": [
         "ds_domain_bio_core_seq",
@@ -353,6 +367,7 @@
     {
       "id": "ds_domain_bio_electives",
       "type": "choose_k",
+      "label": "Biology Domain - Electives",
       "k": 4,
       "from_set": "ds_domain_bio_electives",
       "must_be": {
@@ -363,6 +378,7 @@
     {
       "id": "ds_domain_bio",
       "type": "all_of",
+      "label": "Domain: Biology",
       "from_requirements": [
         "ds_domain_bio_core",
         "ds_domain_bio_electives"
@@ -371,6 +387,7 @@
     {
       "id": "ds_domain_cult_core_lower",
       "type": "choose_k",
+      "label": "Cultural Analytics Domain - Lower Core",
       "k": 3,
       "from_set": "ds_domain_cult_core_lower",
       "must_be": {
@@ -381,6 +398,7 @@
     {
       "id": "ds_domain_cult_core_upper",
       "type": "choose_k",
+      "label": "Cultural Analytics Domain - Upper Core",
       "k": 1,
       "from_set": "ds_domain_cult_core_upper_alt",
       "must_be": {
@@ -391,6 +409,7 @@
     {
       "id": "ds_domain_cult_electives",
       "type": "choose_k",
+      "label": "Cultural Analytics Domain - Electives",
       "k": 3,
       "from_set": "ds_domain_cult_electives",
       "must_be": {
@@ -401,6 +420,7 @@
     {
       "id": "ds_domain_cult",
       "type": "all_of",
+      "label": "Domain: Cultural Analytics",
       "from_requirements": [
         "ds_domain_cult_core_lower",
         "ds_domain_cult_core_upper",
@@ -410,6 +430,7 @@
     {
       "id": "ds_domain_earth_core_required",
       "type": "all_of",
+      "label": "Earth Sciences Domain - Required Core",
       "from_set": "ds_domain_earth_core_required",
       "must_be": {
         "grading_basis": "graded",
@@ -419,6 +440,7 @@
     {
       "id": "ds_domain_earth_core_phys",
       "type": "choose_k",
+      "label": "Earth Sciences Domain - Physics Core",
       "k": 1,
       "from_set": "ds_domain_earth_core_phys_alt",
       "must_be": {
@@ -429,6 +451,7 @@
     {
       "id": "ds_domain_earth_electives",
       "type": "choose_k",
+      "label": "Earth Sciences Domain - Electives",
       "k": 4,
       "from_set": "ds_domain_earth_electives",
       "must_be": {
@@ -439,6 +462,7 @@
     {
       "id": "ds_domain_earth",
       "type": "all_of",
+      "label": "Domain: Earth Sciences",
       "from_requirements": [
         "ds_domain_earth_core_required",
         "ds_domain_earth_core_phys",
@@ -448,6 +472,7 @@
     {
       "id": "ds_domain_econ_core",
       "type": "all_of",
+      "label": "Economics Domain - Core",
       "from_set": "ds_domain_econ_core",
       "must_be": {
         "grading_basis": "graded",
@@ -457,6 +482,7 @@
     {
       "id": "ds_domain_econ_electives",
       "type": "choose_k",
+      "label": "Economics Domain - Electives",
       "k": 3,
       "from_set": "ds_domain_econ_electives",
       "must_be": {
@@ -467,6 +493,7 @@
     {
       "id": "ds_domain_econ",
       "type": "all_of",
+      "label": "Domain: Economics",
       "from_requirements": [
         "ds_domain_econ_core",
         "ds_domain_econ_electives"
@@ -475,6 +502,7 @@
     {
       "id": "ds_domain_geo_core",
       "type": "all_of",
+      "label": "Geography Domain - Core",
       "from_set": "ds_domain_geo_core",
       "must_be": {
         "grading_basis": "graded",
@@ -484,6 +512,7 @@
     {
       "id": "ds_domain_geo_electives",
       "type": "choose_k",
+      "label": "Geography Domain - Electives",
       "k": 4,
       "from_set": "ds_domain_geo_electives",
       "must_be": {
@@ -494,6 +523,7 @@
     {
       "id": "ds_domain_geo",
       "type": "all_of",
+      "label": "Domain: Geography",
       "from_requirements": [
         "ds_domain_geo_core",
         "ds_domain_geo_electives"
@@ -502,6 +532,7 @@
     {
       "id": "ds_domain_ling_core_base",
       "type": "all_of",
+      "label": "Linguistics Domain - Base Core",
       "from_set": "ds_domain_ling_core_base",
       "must_be": {
         "grading_basis": "graded",
@@ -511,6 +542,7 @@
     {
       "id": "ds_domain_ling_core_two_of",
       "type": "choose_k",
+      "label": "Linguistics Domain - Core Electives",
       "k": 2,
       "from_set": "ds_domain_ling_core_two_of",
       "must_be": {
@@ -521,6 +553,7 @@
     {
       "id": "ds_domain_ling_electives",
       "type": "choose_k",
+      "label": "Linguistics Domain - Electives",
       "k": 4,
       "from_set": "ds_domain_ling_electives",
       "must_be": {
@@ -531,6 +564,7 @@
     {
       "id": "ds_domain_ling",
       "type": "all_of",
+      "label": "Domain: Linguistics",
       "from_requirements": [
         "ds_domain_ling_core_base",
         "ds_domain_ling_core_two_of",
@@ -540,6 +574,7 @@
     {
       "id": "ds_domain_mark_core_required",
       "type": "all_of",
+      "label": "Marketing Domain - Required Core",
       "from_set": "ds_domain_mark_core_required",
       "must_be": {
         "grading_basis": "graded",
@@ -549,6 +584,7 @@
     {
       "id": "ds_domain_mark_core_mktgman",
       "type": "choose_k",
+      "label": "Marketing Domain - Marketing Management",
       "k": 1,
       "from_set": "ds_domain_mark_core_mktgman",
       "must_be": {
@@ -559,6 +595,7 @@
     {
       "id": "ds_domain_mark_choice_one",
       "type": "choose_k",
+      "label": "Marketing Domain - Choice",
       "k": 1,
       "from_set": "ds_domain_mark_choice_one",
       "must_be": {
@@ -569,6 +606,7 @@
     {
       "id": "ds_domain_mark",
       "type": "all_of",
+      "label": "Domain: Marketing",
       "from_requirements": [
         "ds_domain_mark_core_required",
         "ds_domain_mark_core_mktgman",
@@ -578,6 +616,7 @@
     {
       "id": "ds_domain_music_core",
       "type": "all_of",
+      "label": "Music Domain - Core",
       "from_set": "ds_domain_music_core",
       "must_be": {
         "grading_basis": "graded",
@@ -587,6 +626,7 @@
     {
       "id": "ds_domain_music_electives",
       "type": "choose_k",
+      "label": "Music Domain - Electives",
       "k": 2,
       "from_set": "ds_domain_music_electives",
       "must_be": {
@@ -597,6 +637,7 @@
     {
       "id": "ds_domain_music",
       "type": "all_of",
+      "label": "Domain: Music",
       "from_requirements": [
         "ds_domain_music_core",
         "ds_domain_music_electives"
@@ -605,6 +646,7 @@
     {
       "id": "ds_domain_phys_core",
       "type": "all_of",
+      "label": "Physics Domain - Core",
       "from_set": "ds_domain_phys_core",
       "must_be": {
         "grading_basis": "graded",
@@ -614,6 +656,7 @@
     {
       "id": "ds_domain_phys_electives",
       "type": "choose_k",
+      "label": "Physics Domain - Electives",
       "k": 3,
       "from_set": "ds_domain_phys_electives",
       "must_be": {
@@ -624,6 +667,7 @@
     {
       "id": "ds_domain_phys",
       "type": "all_of",
+      "label": "Domain: Physics",
       "from_requirements": [
         "ds_domain_phys_core",
         "ds_domain_phys_electives"
@@ -632,6 +676,7 @@
     {
       "id": "ds_domain_soc_core_intro",
       "type": "all_of",
+      "label": "Sociology Domain - Intro",
       "from_set": "ds_domain_soc_core_intro",
       "must_be": {
         "grading_basis": "graded",
@@ -641,6 +686,7 @@
     {
       "id": "ds_domain_soc_core_required",
       "type": "all_of",
+      "label": "Sociology Domain - Required Core",
       "from_set": "ds_domain_soc_core_required",
       "must_be": {
         "grading_basis": "graded",
@@ -650,6 +696,7 @@
     {
       "id": "ds_domain_soc_electives",
       "type": "choose_k",
+      "label": "Sociology Domain - Electives",
       "k": 2,
       "from_set": "ds_domain_soc_electives",
       "must_be": {
@@ -660,6 +707,7 @@
     {
       "id": "ds_domain_soc",
       "type": "all_of",
+      "label": "Domain: Sociology",
       "from_requirements": [
         "ds_domain_soc_core_intro",
         "ds_domain_soc_core_required",
@@ -669,6 +717,8 @@
     {
       "id": "dsci_domain",
       "type": "choose_k",
+      "label": "Domain Selection",
+      "user_choice": true,
       "k": 1,
       "from_requirements": [
         "ds_domain_acc",
@@ -687,6 +737,7 @@
     {
       "id": "dsci_depth",
       "type": "choose_k",
+      "label": "Depth Requirement",
       "k": 3,
       "from_set": "dsci_depth_curated",
       "must_be": {

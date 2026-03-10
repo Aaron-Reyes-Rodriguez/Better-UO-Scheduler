@@ -8,6 +8,7 @@
     {
       "id": "bs_math_or_cis_year",
       "type": "credits_at_least",
+      "label": "Math / CIS Requirement",
       "min_credits": 12,
       "from_set": "bs_math_cis_allowed"
     }

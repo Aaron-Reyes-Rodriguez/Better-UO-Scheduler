@@ -164,6 +164,7 @@
     {
       "id": "cs_lower_core",
       "type": "all_of",
+      "label": "Lower-Division Core",
       "from_set": "cs_lower_core",
       "must_be": {
         "min_grade": "B-"
@@ -172,6 +173,7 @@
     {
       "id": "math_discrete",
       "type": "all_of",
+      "label": "Discrete Math",
       "from_set": "math_discrete",
       "must_be": {
         "min_grade": "B-"
@@ -180,6 +182,7 @@
     {
       "id": "cs_upper_core",
       "type": "all_of",
+      "label": "Upper-Division Core",
       "from_set": "cs_upper_core",
       "must_be": {
         "grading_basis": "graded",
@@ -189,6 +192,7 @@
     {
       "id": "calc_seq_251_252",
       "type": "all_of",
+      "label": "Calculus Sequence (251-252)",
       "from_set": "calc_seq_251",
       "must_be": {
         "grading_basis": "graded"
@@ -197,6 +201,7 @@
     {
       "id": "calc_seq_261_262",
       "type": "all_of",
+      "label": "Calculus Sequence (261-262)",
       "from_set": "calc_seq_261",
       "must_be": {
         "grading_basis": "graded"
@@ -205,6 +210,7 @@
     {
       "id": "calc_seq_246_247",
       "type": "all_of",
+      "label": "Calculus Sequence (246-247)",
       "from_set": "calc_seq_246",
       "must_be": {
         "grading_basis": "graded"
@@ -213,6 +219,7 @@
     {
       "id": "calculus_sequence",
       "type": "choose_k",
+      "label": "Calculus Sequence",
       "k": 1,
       "from_requirements": [
         "calc_seq_251_252",
@@ -223,30 +230,35 @@
     {
       "id": "math_elective_a",
       "type": "choose_k",
+      "label": "Math Elective A",
       "k": 1,
       "from_set": "math_elective_group_a"
     },
     {
       "id": "math_elective_b",
       "type": "choose_k",
+      "label": "Math Elective B",
       "k": 1,
       "from_set": "math_elective_group_b"
     },
     {
       "id": "math_elective_c",
       "type": "choose_k",
+      "label": "Math Elective C",
       "k": 1,
       "from_set": "math_elective_group_c"
     },
     {
       "id": "math_elective_d",
       "type": "choose_k",
+      "label": "Math Elective D",
       "k": 1,
       "from_set": "math_elective_group_d"
     },
     {
       "id": "math_electives_two_courses",
       "type": "choose_k",
+      "label": "Math Electives Two Courses",
       "k": 2,
       "from_requirements": [
         "math_elective_a",
@@ -258,6 +270,7 @@
     {
       "id": "upper_math_from_math",
       "type": "credit_pool",
+      "label": "Upper-Division Math (MATH)",
       "min_credits": 4,
       "where": {
         "subject": "MATH",
@@ -267,12 +280,14 @@
     {
       "id": "upper_math_from_cs",
       "type": "credit_pool",
+      "label": "Upper-Division Math (CS)",
       "min_credits": 4,
       "from_set": "theoretical_cs_for_math"
     },
     {
       "id": "upper_div_math_elective",
       "type": "choose_k",
+      "label": "Upper-Division Math Elective",
       "k": 1,
       "from_requirements": [
         "upper_math_from_math",
@@ -282,12 +297,14 @@
     {
       "id": "writing",
       "type": "choose_k",
+      "label": "Writing Requirement",
       "k": 1,
       "from_set": "writing_options"
     },
     {
       "id": "cs_upper_electives",
       "type": "credit_pool",
+      "label": "Upper-Division Electives",
       "min_credits": 20,
       "where": {
         "subject": "CS",
@@ -326,42 +343,49 @@
     {
       "id": "science_bio",
       "type": "choose_k",
+      "label": "Science - Biology",
       "k": 3,
       "from_set": "science_bio_any"
     },
     {
       "id": "science_chem",
       "type": "choose_k",
+      "label": "Science - Chemistry",
       "k": 3,
       "from_set": "science_chem_any"
     },
     {
       "id": "science_erth",
       "type": "choose_k",
+      "label": "Science - Earth Sciences",
       "k": 3,
       "from_set": "science_erth_any"
     },
     {
       "id": "science_geog",
       "type": "choose_k",
+      "label": "Science - Geography",
       "k": 3,
       "from_set": "science_geog_any"
     },
     {
       "id": "science_phys",
       "type": "choose_k",
+      "label": "Science - Physics",
       "k": 3,
       "from_set": "science_phys_any"
     },
     {
       "id": "science_psy",
       "type": "choose_k",
+      "label": "Science - Psychology",
       "k": 3,
       "from_set": "science_psy_any"
     },
     {
       "id": "science_sequence",
       "type": "choose_k",
+      "label": "Science Sequence",
       "k": 1,
       "from_requirements": [
         "science_bio",
