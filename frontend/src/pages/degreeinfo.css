@@ -167,3 +167,13 @@
   border-radius: 6px;
   border: 1px dashed #e2e8f0;
 }
+
+.di-row-hint td {
+  font-style: italic;
+  color: #64748b;
+  background: #f8fafc;
+}
+
+.di-td-hint {
+  border-top: 1px dashed #e2e8f0; 
+}
