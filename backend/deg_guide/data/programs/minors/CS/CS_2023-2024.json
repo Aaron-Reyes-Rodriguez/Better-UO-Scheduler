@@ -1,8 +1,7 @@
 {
   "id": "MINOR_CS_2023-2024",
   "name": "Computer Science Minor (2023-2024)",
-  "id": "MINOR_CS_2022-2023",
-  "name": "Computer Science Minor (2022-2023)",
+  
 
   "sets": {
     "cs_lower_core": ["CS210", "CS211", "CS212"],
@@ -14,6 +13,7 @@
     {
       "id": "cs_lower_core",
       "type": "all_of",
+      "label": "Lower-Division Core",
       "from_set": "cs_lower_core",
       "must_be": { "grading_basis": "graded", "min_grade": "B-" }
     },
@@ -21,6 +21,7 @@
     {
       "id": "math_discrete",
       "type": "all_of",
+      "label": "Discrete Math",
       "from_set": "math_discrete",
       "must_be": { "grading_basis": "graded", "min_grade": "B-" }
     },
@@ -28,6 +29,7 @@
     {
       "id": "cs313_required",
       "type": "all_of",
+      "label": "CS 313 Requirement",
       "from_set": "cs_upper_core_required",
       "must_be": { "grading_basis": "graded", "min_grade": "C-" }
     },
@@ -35,6 +37,7 @@
     {
       "id": "cs_upper_electives",
       "type": "credit_pool",
+      "label": "Upper-Division Electives",
       "min_credits": 8,
       "where": { "subject": "CS", "min_number": 300 },
       "exclude_from_set": "cs_upper_core_required",

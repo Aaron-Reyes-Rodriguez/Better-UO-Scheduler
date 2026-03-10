@@ -28,33 +28,34 @@
   },
 
   "requirements": [
-    { "id": "calc3", "type": "all_of", "from_set": "math_calc3" },
-    { "id": "sv_calc", "type": "all_of", "from_set": "math_sv_calc" },
-    { "id": "lin_alg", "type": "all_of", "from_set": "math_lin_alg" },
-    { "id": "cs122", "type": "all_of", "from_set": "cs_prog" },
+    { "id": "calc3", "type": "all_of", "label": "Calculus III", "from_set": "math_calc3" },
+    { "id": "sv_calc", "type": "all_of", "label": "Several-Variable Calculus", "from_set": "math_sv_calc" },
+    { "id": "lin_alg", "type": "all_of", "label": "Linear Algebra", "from_set": "math_lin_alg" },
+    { "id": "cs122", "type": "all_of", "label": "CS 122 (Programming)", "from_set": "cs_prog" },
 
-    { "id": "bridgeA_core", "type": "all_of", "from_set": "bridgeA_core" },
-    { "id": "bridgeA_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 2 },
-    { "id": "bridgeA_total", "type": "all_of", "from_requirements": ["bridgeA_core", "bridgeA_labs"] },
+    { "id": "bridgeA_core", "type": "all_of", "label": "Bridge A - Core", "from_set": "bridgeA_core" },
+    { "id": "bridgeA_labs", "type": "choose_k", "label": "Bridge A - Labs", "from_set": "math_labs_201_206", "k": 2 },
+    { "id": "bridgeA_total", "type": "all_of", "label": "Bridge A", "from_requirements": ["bridgeA_core", "bridgeA_labs"] },
 
-    { "id": "bridgeB_core", "type": "all_of", "from_set": "bridgeB_core" },
-    { "id": "bridgeB_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 2 },
-    { "id": "bridgeB_total", "type": "all_of", "from_requirements": ["bridgeB_core", "bridgeB_labs"] },
+    { "id": "bridgeB_core", "type": "all_of", "label": "Bridge B - Core", "from_set": "bridgeB_core" },
+    { "id": "bridgeB_labs", "type": "choose_k", "label": "Bridge B - Labs", "from_set": "math_labs_201_206", "k": 2 },
+    { "id": "bridgeB_total", "type": "all_of", "label": "Bridge B", "from_requirements": ["bridgeB_core", "bridgeB_labs"] },
 
-    { "id": "bridgeC_core", "type": "all_of", "from_set": "bridgeC_core" },
-    { "id": "bridgeC_labs", "type": "choose_k", "from_set": "math_labs_201_206", "k": 4 },
-    { "id": "bridgeC_total", "type": "all_of", "from_requirements": ["bridgeC_core", "bridgeC_labs"] },
+    { "id": "bridgeC_core", "type": "all_of", "label": "Bridge C - Core", "from_set": "bridgeC_core" },
+    { "id": "bridgeC_labs", "type": "choose_k", "label": "Bridge C - Labs", "from_set": "math_labs_201_206", "k": 4 },
+    { "id": "bridgeC_total", "type": "all_of", "label": "Bridge C", "from_requirements": ["bridgeC_core", "bridgeC_labs"] },
 
-    { "id": "bridge_requirement", "type": "choose_k", "k": 1, "from_requirements": ["bridgeA_total", "bridgeB_total", "bridgeC_total"] },
+    { "id": "bridge_requirement", "type": "choose_k", "label": "Bridge Requirement", "user_choice": true, "k": 1, "from_requirements": ["bridgeA_total", "bridgeB_total", "bridgeC_total"] },
 
-    { "id": "fund_analysis", "type": "all_of", "from_set": "fund_analysis" },
-    { "id": "fund_numtheory", "type": "all_of", "from_set": "fund_numtheory" },
-    { "id": "fund_absalg", "type": "all_of", "from_set": "fund_absalg" },
-    { "id": "fundamentals_requirement", "type": "choose_k", "k": 1, "from_requirements": ["fund_analysis", "fund_numtheory", "fund_absalg"] },
+    { "id": "fund_analysis", "type": "all_of", "label": "Fundamentals of Analysis", "from_set": "fund_analysis" },
+    { "id": "fund_numtheory", "type": "all_of", "label": "Fundamentals of Number Theory", "from_set": "fund_numtheory" },
+    { "id": "fund_absalg", "type": "all_of", "label": "Fundamentals of Abstract Algebra", "from_set": "fund_absalg" },
+    { "id": "fundamentals_requirement", "type": "choose_k", "label": "Fundamentals Requirement", "user_choice": true, "k": 1, "from_requirements": ["fund_analysis", "fund_numtheory", "fund_absalg"] },
 
     {
       "id": "upper_electives",
       "type": "credit_pool",
+      "label": "Upper-Division Electives",
       "min_credits": 16,
       "from_set": "math_electives_menu",
       "constraints": [
@@ -73,12 +74,14 @@
     {
       "id": "math_track_standard",
       "type": "all_of",
+      "label": "Standard Track",
       "from_requirements": ["cs122", "bridge_requirement", "fundamentals_requirement", "upper_electives"]
     },
 
     {
       "id": "math_track",
       "type": "choose_k",
+      "label": "Track Selection",
       "k": 1,
       "from_requirements": ["math_track_standard"]
     },
@@ -86,6 +89,7 @@
     {
       "id": "math_major",
       "type": "all_of",
+      "label": "Math Major",
       "from_requirements": ["calc3", "sv_calc", "lin_alg", "math_track"]
     }
   ],

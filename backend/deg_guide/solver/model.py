@@ -121,6 +121,8 @@ def load_program(path: str) -> Program:
         reqs.append(Requirement(
             id=r["id"],
             type=r["type"],
+            label=r.get("label"),
+            user_choice=r.get("user_choice"),
             courses=r.get("courses"),
             from_set=r.get("from_set"),
             from_requirements=r.get("from_requirements"),
@@ -141,9 +143,67 @@ def load_program(path: str) -> Program:
     )
 
 
-def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, str] = None) -> dict:
+def _collect_descendants(req_id: str, req_by_id: Dict[str, "Requirement"], out: Set[str]):
+    """Recursively collect all transitive descendant requirement IDs."""
+    req = req_by_id.get(req_id)
+    if req and req.from_requirements:
+        for child_id in req.from_requirements:
+            out.add(child_id)
+            _collect_descendants(child_id, req_by_id, out)
+
+
+def _prune_programs(programs: List[Program], selections: Dict[str, str]) -> List[Program]:
+    """Remove non-selected branches from user_choice requirements."""
+    pruned = []
+    for program in programs:
+        req_by_id = {r.id: r for r in program.requirements}
+        remove_ids: Set[str] = set()
+
+        for req in program.requirements:
+            if not req.user_choice or not req.from_requirements:
+                continue
+            if req.id not in selections:
+                continue
+            selected_child = selections[req.id]
+            for child_id in req.from_requirements:
+                if child_id != selected_child:
+                    remove_ids.add(child_id)
+                    _collect_descendants(child_id, req_by_id, remove_ids)
+
+        if remove_ids:
+            filtered_reqs = [r for r in program.requirements if r.id not in remove_ids]
+            pruned.append(Program(
+                id=program.id,
+                name=program.name,
+                requirements=filtered_reqs,
+                overlap_rules=program.overlap_rules,
+                sets=program.sets,
+            ))
+        else:
+            pruned.append(program)
+    return pruned
+
+
+def _has_descendant_assignments(req_id: str, program: Program, assignments: dict) -> bool:
+    """Check if a requirement or any of its descendants have solver assignments."""
+    key = f"{program.id}:{req_id}"
+    if assignments.get(key):
+        return True
+    req = next((r for r in program.requirements if r.id == req_id), None)
+    if req and req.from_requirements:
+        return any(_has_descendant_assignments(c, program, assignments) for c in req.from_requirements)
+    return False
+
+
+def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, str] = None,
+                       selections: Dict[str, str] = None) -> dict:
     logger.debug("=== SOLVE DEGREE AUDIT START ===")
-    
+
+    original_programs = programs
+    if selections:
+        programs = _prune_programs(programs, selections)
+        logger.debug(f"Pruned programs with selections: {selections}")
+
     # Normalize course IDs using equivalents map
     if equiv_map:
         normalized_attempts = []
@@ -231,16 +291,50 @@ def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, s
     # Hide: choose_k children (promoted to parent) + all_of parents (children shown instead)
     hide_assign = child_req_ids | expand_parent_ids
     filtered_assignments = {k: v for k, v in assignments.items()
-                           if k not in hide_assign and not any(k.startswith(h) for h in child_req_ids)}
+                           if k not in hide_assign and not any(k == h or k.startswith(h + ":") for h in child_req_ids)}
     filtered_slack = {k: v for k, v in slack_out.items()
                       if k not in hide_assign
                       and k not in expand_parent_ids
                       and not any(k == c or k.startswith(c + ":") for c in child_req_ids)
                       and not any(k.startswith(p + ":") for p in expand_parent_ids)}
 
+    # Build labels map from requirement definitions (req_key -> label)
+    labels: Dict[str, str] = {}
+    for program in programs:
+        for req in program.requirements:
+            if req.label:
+                labels[f"{program.id}:{req.id}"] = req.label
+
+    # Build choices metadata from user_choice requirements (use original programs)
+    choices: List[Dict[str, Any]] = []
+    for program in original_programs:
+        for req in program.requirements:
+            if not req.user_choice or not req.from_requirements:
+                continue
+            solver_pick = None
+            for child_id in req.from_requirements:
+                if _has_descendant_assignments(child_id, program, assignments):
+                    solver_pick = child_id
+                    break
+            options = []
+            for child_id in req.from_requirements:
+                child_req = next((r for r in program.requirements if r.id == child_id), None)
+                child_label = (child_req.label if child_req and child_req.label
+                               else child_id.replace("_", " ").title())
+                options.append({"id": child_id, "label": child_label})
+            choices.append({
+                "program_id": program.id,
+                "requirement_id": req.id,
+                "label": req.label or req.id,
+                "options": options,
+                "solver_pick": solver_pick,
+            })
+
     return {
         "status": "ok",
         "completion_percentage": round(completion_ratio * 100, 1),
         "assignments": filtered_assignments,
         "slack": filtered_slack,
+        "labels": labels,
+        "choices": choices,
     }

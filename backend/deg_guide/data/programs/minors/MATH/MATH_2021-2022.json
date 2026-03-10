@@ -6,6 +6,7 @@
     {
       "id": "math_minor_credits",
       "type": "credit_pool",
+      "label": "Math Minor - requires 30 credits (200 lvl+), 15 of 30 must be 300 lvl+",
       "min_credits": 30,
       "where": {
         "subject": "MATH",
