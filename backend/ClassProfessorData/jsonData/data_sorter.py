@@ -5,7 +5,7 @@ Purpose: Data transformation utilities for the Better-UO-Scheduler (Quackademics
          the JSON files (classes.json and professors.json) that the backend API
          reads at startup, and also generates the frontend auto-complete lists.
 Created: 2024
-Authors: Aaron Reyes-Rodriguez and contributors
+Authors: Aaron Reyes-Rodriguez and Will Kelley
 
 System: Better-UO-Scheduler (Quackademics)
   Run this script after running extract_cs.py to regenerate the JSON data files

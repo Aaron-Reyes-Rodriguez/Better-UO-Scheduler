@@ -5,7 +5,7 @@ Purpose: Main FastAPI application server for the Quackademics / Better-UO-Schedu
          parsing, runs the degree-audit solver, manages professor tags via a
          PostgreSQL database, and provides class/professor lookup endpoints.
 Created: 2024
-Authors: Aaron Reyes-Rodriguez and contributors
+Authors: Aaron Reyes-Rodriguez, Daniel Asiamah
 
 System: Better-UO-Scheduler (Quackademics)
   This file is the entry point for the Python backend service (run with uvicorn).
