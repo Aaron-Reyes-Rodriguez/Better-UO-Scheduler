@@ -1,10 +1,37 @@
+/**
+ * @file scheduler.tsx
+ * @description Transcript upload page for Quackademics (Better-UO-Scheduler).
+ *   Displays instructions, a how-to video, and the FileUploader component that
+ *   lets students upload their Ducks-On-Track PDF transcript for degree auditing.
+ * @authors Aaron Reyes-Rodriguez
+ *
+ * System: Better-UO-Scheduler (Quackademics)
+ *   Mounted by the React Router at path "/scheduler". It delegates all upload
+ *   logic to the FileUploader component and then navigates to "/audit" on
+ *   successful upload.
+ */
+
+// FileUploader: child component that handles file selection, upload POST request,
+// and status feedback (uploading / success / error).
 import FileUploader from './components/FileUploader'
+// Material UI layout and typography components.
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
+// HowToVideo: instructional video asset shown above the upload card.
+import HowToVideo from '../assets/HowToVideo.mp4'
 
+/**
+ * Scheduler – transcript upload page component.
+ *
+ * Renders a full-page upload card containing a how-to video, descriptive
+ * copy, and the FileUploader component. Users are redirected to the audit
+ * results page automatically after a successful upload.
+ *
+ * @returns JSX element representing the transcript upload page.
+ */
 export default function Scheduler() {
     return (
         <Container maxWidth="md" sx={{ mt: { xs: 4, md: 8 }, mb: 4 }}>
@@ -18,8 +45,11 @@ export default function Scheduler() {
                     Upload Your Transcript
                 </Typography>
                 <Typography variant="h6" color="text.secondary" paragraph sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-                    Get started by uploading your recent ducks on track transcript.
+                    Get started by uploading your recent Ducks On Track transcript.
                 </Typography>
+                <video src={HowToVideo} controls style={{ width: '100%', maxWidth: '600px', borderRadius: '8px' }}>
+                    Your browser does not support the video tag.
+                </video>
             </Box>
 
             <Paper 
@@ -52,7 +82,7 @@ export default function Scheduler() {
                 </Box>
                 
                 <Typography variant="h5" sx={{ color: 'white', fontWeight: 600 }}>
-                    Select a PDF File
+                    Select your Ducks On Track PDF File
                 </Typography>
                 
                 <Box sx={{ width: '100%', maxWidth: '400px', mt: 2 }}>
@@ -60,7 +90,7 @@ export default function Scheduler() {
                 </Box>
                 
                 <Typography variant="body2" sx={{ color: '#94a3b8', mt: 3, textAlign: 'center' }}>
-                    Supported formats: PDF only. Max file size: 10MB.
+                    Supported formats: PDF only
                 </Typography>
             </Paper>
         </Container>

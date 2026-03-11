@@ -1,15 +1,52 @@
+/**
+ * @file FileUploader.tsx
+ * @description PDF transcript file-selector and upload component for
+ *   Quackademics (Better-UO-Scheduler). Handles the full file-selection to
+ *   upload flow, persists audit results in localStorage, and navigates to the
+ *   /audit page on success. If a transcript has already been uploaded it shows
+ *   a summary state with options to view the saved audit or re-upload.
+ * @authors Aaron Reyes-Rodriguez
+ *
+ * System: Better-UO-Scheduler (Quackademics)
+ *   Rendered by scheduler.tsx inside the transcript upload page. After a
+ *   successful upload it stores auditData and transcriptData in localStorage
+ *   so that the audit results survive page refreshes.
+ */
+
+// React hooks and types for state management and change events.
 import { type ChangeEvent, useState } from "react"
+// useNavigate: React Router hook used to redirect to the audit page after upload.
 import { useNavigate } from "react-router-dom"
+// uploadTranscript: API helper that POSTs the PDF file to the backend.
 import { uploadTranscript } from "../../api"
 
+/** Union type for the current state of the file upload operation. */
 type UploadStatus = "idle" | 'uploading' | 'success' | 'error'
 
+/**
+ * FileUploader – PDF transcript upload component.
+ *
+ * Renders either:
+ *   a) An upload card (file picker + submit button + status feedback) when no
+ *      transcript has been uploaded yet, or
+ *   b) A "already uploaded" summary with links to view the saved audit or
+ *      re-upload a new transcript.
+ *
+ * @returns JSX element representing the file uploader or the saved-state view.
+ */
 export default function FileUploader()
 {
     const [file, setFile] = useState<File | null>(null)
     const [status, setStatus] = useState<UploadStatus>("idle")
+    const [showUploader, setShowUploader] = useState(!localStorage.getItem("hasUploadedTranscript"))
     const navigate = useNavigate()
 
+    /**
+     * Update the selected file in state whenever the user picks a new file.
+     * Also resets the upload status to "idle" to clear any previous error.
+     *
+     * @param e - The change event from the hidden file input element.
+     */
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
     {
         setStatus('idle')
@@ -18,6 +55,14 @@ export default function FileUploader()
         }
     }
 
+    /**
+     * Upload the selected PDF file to the backend, persist the returned audit
+     * data in localStorage, and navigate to the /audit page on success.
+     * Sets status to "uploading" during the request and to "error" on failure.
+     *
+     * @returns Promise<void> - this function is async but its return value is
+     *   not used by the parent component.
+     */
     async function handleFileUpload()
     {
         if (!file) return
@@ -25,19 +70,75 @@ export default function FileUploader()
 
         try {
             const data = await uploadTranscript(file)
-            console.log(data) // add this line
+            console.log(data)
 
             setStatus('success')
             
-            // Store the state and data in the browser session storage
-            sessionStorage.setItem("hasUploadedTranscript", "true");
-            sessionStorage.setItem("auditData", JSON.stringify(data));
-            sessionStorage.setItem("transcriptData", JSON.stringify(data));
+            // Persist data in localStorage so it survives across sessions
+            localStorage.setItem("hasUploadedTranscript", "true");
+            localStorage.setItem("auditData", JSON.stringify(data));
+            localStorage.setItem("transcriptData", JSON.stringify(data));
             
             navigate("/audit", { state: { auditData: data } })
         } catch {
             setStatus('error')
         }
+    }
+
+    // If user already has transcript data, show a summary with re-upload option
+    if (!showUploader) {
+        return (
+            <div style={{ textAlign: 'center', width: '100%' }}>
+                <div style={{
+                    padding: '16px',
+                    backgroundColor: '#0f172a',
+                    borderRadius: '8px',
+                    border: '1px solid #334155',
+                    marginBottom: '16px',
+                }}>
+                    <p style={{ margin: '0 0 4px 0', color: '#10b981', fontWeight: 'bold', fontSize: '0.95rem' }}>
+                        ✓ Transcript already uploaded
+                    </p>
+                    <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.85rem' }}>
+                        Your transcript data is saved. You can view your audit or upload a new one.
+                    </p>
+                </div>
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <button
+                        onClick={() => navigate("/audit")}
+                        style={{
+                            backgroundColor: '#2563eb',
+                            color: 'white',
+                            padding: '10px 24px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            fontSize: '0.95rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            transition: 'background-color 0.2s',
+                        }}
+                    >
+                        View Saved Audit
+                    </button>
+                    <button
+                        onClick={() => setShowUploader(true)}
+                        style={{
+                            backgroundColor: '#f9f9f9ff',
+                            color: '#00060dff',
+                            padding: '10px 24px',
+                            borderRadius: '8px',
+                            border: '1px solid #475569',
+                            fontSize: '0.95rem',
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                        }}
+                    >
+                        Upload New Transcript
+                    </button>
+                </div>
+            </div>
+        );
     }
     
     return (

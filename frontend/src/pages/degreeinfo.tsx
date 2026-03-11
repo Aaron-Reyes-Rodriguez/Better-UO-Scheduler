@@ -3,17 +3,17 @@ import { useLocation } from "react-router-dom";
 import { reAudit } from "../api";
 import "./degreeinfo.css";
 
-type CourseRow = {
+type courseRows = {
   course_id:  string;
   attempt_id: string | null;
   term:       string | null;
 };
 
-type Section = {
+type section = {
   id:        string;
   label:     string;
   satisfied: boolean;
-  rows:      CourseRow[];
+  rows:      courseRows[];
 };
 
 type ChoiceOption = { id: string; label: string };
@@ -35,14 +35,14 @@ type AuditData = {
   assignments: Record<string, Array<{ attempt_id: string; course_id: string }>>;
   slack:       Record<string, number>;
   broad_data: {
-    student_name:    string | null;
-    gpa:             number | null;
-    earned_credits:  number | null;
-    program:         string | null;
-    catalog_year:    string | null;
-    declared_major:  { name: string; catalog_year: string } | null;
+    student_name:     string | null;
+    gpa:              number | null;
+    earned_credits:   number | null;
+    program:          string | null;
+    catalog_year:     string | null;
+    declared_major:   { name: string; catalog_year: string } | null;
     declared_majors?: { name: string; catalog_year: string }[];
-    minors:          { name: string; catalog_year: string }[];
+    minors:           { name: string; catalog_year: string }[];
   };
   programs_loaded: {
     degree_type: { code: string; catalog_year: string };
@@ -59,20 +59,19 @@ function bucketLabel(key: string, apiLabels?: Record<string, string>): string {
   return tail.replace(/_/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase());
 }
 
-function parseTerm(attemptId: string): string {
+function parsedTerm(attemptId: string): string {
   const m = attemptId.match(/^(\d{4})([FWSU])-/);
   if (!m) return attemptId;
   const season = { F: "Fall", W: "Winter", S: "Spring", U: "Summer" }[m[2]] ?? m[2];
   return `${season} ${m[1]}`;
 }
 
-function classUrl(courseId: string): string {
+// makes the URL needed to access a given course (following a specific format)
+function classURL(courseId: string): string {
   const m = courseId.match(/^([A-Z]{2,5})(\d+[A-Z]?)$/);
   if (!m) return `/class?q=${encodeURIComponent(courseId)}`;
   return `/class?q=${encodeURIComponent(m[1])}+${encodeURIComponent(m[2])}`;
 }
-
-// ---- Data -------------------------------------------------------------------
 
 function getSections(
   assignments: AuditData["assignments"],
@@ -94,7 +93,7 @@ function getSections(
           const courseId = slotKey.split(":").pop()!;
           const attempt  = taken.get(courseId);
           return attempt
-            ? { course_id: courseId, attempt_id: attempt.attempt_id, term: parseTerm(attempt.attempt_id) }
+            ? { course_id: courseId, attempt_id: attempt.attempt_id, term: parsedTerm(attempt.attempt_id) }
             : { course_id: courseId, attempt_id: null, term: null };
         });
         return { id: bucketKey, label: bucketLabel(bucketKey, apiLabels), satisfied: slots.every(([, v]) => v === 0), rows };
@@ -106,18 +105,10 @@ function getSections(
   );
 }
 
-// ---- Grouping ---------------------------------------------------------------
-
-type GroupedSections = {
-  degreeType: Section[];
-  major: Section[];
-  minors: { code: string; sections: Section[] }[];
-};
-
-function groupByProgram(sections: Section[]): GroupedSections {
-  const degreeType: Section[] = [];
-  const major: Section[] = [];
-  const minorMap = new Map<string, Section[]>();
+function programGrouping(sections: section[]): groupedSections {
+  const degreeType: section[] = [];
+  const major: section[]      = [];
+  const minorMap = new Map<string, section[]>();
 
   for (const s of sections) {
     const programId = s.id.split(":")[0];
@@ -139,20 +130,22 @@ function groupByProgram(sections: Section[]): GroupedSections {
   };
 }
 
-// ---- Components -------------------------------------------------------------
 
-function RequirementSection({ section }: { section: Section }) {
+function RequirementSection({ section: s, slack }: { section: section; slack: number }) {
   const [open, setOpen] = useState(true);
+  const tail    = s.id.split(":").pop() ?? "";
+  const hint    = BUCKET_LEFTOVERS[tail];
+  const showhint = !s.satisfied && hint && slack > 0;
 
   return (
     <div className="di-section">
       <div className="di-section-header" onClick={() => setOpen((o) => !o)}>
-        <span className={section.satisfied ? "di-icon-ok" : "di-icon-miss"}>
-          {section.satisfied ? "✓" : "✕"}
+        <span className={s.satisfied ? "di-icon-ok" : "di-icon-miss"}>
+          {s.satisfied ? "✓" : "✕"}
         </span>
-        <span className="di-section-title">{section.label}</span>
-        <span className={section.satisfied ? "di-sat-ok" : "di-sat-miss"}>
-          {section.satisfied ? "Satisfied" : "Not Satisfied"}
+        <span className="di-section-title">{s.label}</span>
+        <span className={s.satisfied ? "di-sat-ok" : "di-sat-miss"}>
+          {s.satisfied ? "Satisfied" : "Not Satisfied"}
         </span>
         <span className="di-chevron">{open ? "▲" : "▼"}</span>
       </div>
@@ -167,10 +160,10 @@ function RequirementSection({ section }: { section: Section }) {
             </tr>
           </thead>
           <tbody>
-            {section.rows.map((row, i) => (
+            {s.rows.map((row, i) => (
               <tr key={row.attempt_id ?? `missing-${i}`} className={!row.attempt_id ? "di-row-missing" : ""}>
                 <td className="di-td">
-                  <a href={classUrl(row.course_id)} className="di-course-link" target="_blank" rel="noreferrer">
+                  <a href={classURL(row.course_id)} className="di-course-link" target="_blank" rel="noreferrer">
                     {row.course_id}
                   </a>
                 </td>
@@ -183,6 +176,13 @@ function RequirementSection({ section }: { section: Section }) {
                 </td>
               </tr>
             ))}
+            {showhint && (
+              <tr className="di-row-hint">
+                <td className="di-td di-td-hint" colSpan={3}>
+                  {slack} more {hint}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       )}
@@ -237,7 +237,7 @@ export default function DegreeInfo() {
     if (location.state?.auditData) return location.state.auditData as AuditData
     const stored = sessionStorage.getItem("auditData")
     if (stored) {
-      try { return JSON.parse(stored) as AuditData } catch { return null }
+      try { return JSON.parse(stored) as parsedData } catch { return null }
     }
     return null
   })
@@ -265,7 +265,7 @@ export default function DegreeInfo() {
     }
   }, [auditData, selections])
 
-  if (!auditData) {
+  if (!auditedData) {
     return <p className="di-state-msg error">No transcript data found. Please upload your transcript first.</p>
   }
 
@@ -283,13 +283,13 @@ export default function DegreeInfo() {
       <div className="di-header">
         <div>
           <h1 className="di-title">
-            {displayName || "Degree Audit"}
+            {studentName || "Degree Audit"}
             <span className="di-pill">In-Progress</span>
           </h1>
           <p className="di-meta">
-            {prog.degree_type.code} in {majorName}
-            {prog.degree_type.catalog_year && (
-              <> &nbsp;·&nbsp; Catalog {prog.degree_type.catalog_year}</>
+            {programs.degree_type.code} in {majorName}
+            {programs.degree_type.catalog_year && (
+              <> &nbsp;·&nbsp; Catalog {programs.degree_type.catalog_year}</>
             )}
             {declaredMinors.map((m) => (
               <span key={m.name}>
@@ -302,12 +302,15 @@ export default function DegreeInfo() {
       </div>
 
       <div className="di-body">
-        {/* Degree type (BS/BA) requirements */}
+
+        {/* BS/BA degree type requirements */}
         {grouped.degreeType.length > 0 && (
           <div className="di-program-group">
-            <h2 className="di-group-title">{prog.degree_type.code} Degree Requirements</h2>
-            <p className="di-group-subtitle">General requirements for the {prog.degree_type.code} degree</p>
-            {grouped.degreeType.map((s) => <RequirementSection key={s.id} section={s} />)}
+            <h2 className="di-group-title">{programs.degree_type.code} Degree Requirements</h2>
+            <p className="di-group-subtitle">General requirements for the {programs.degree_type.code} degree</p>
+            {grouped.degreeType.map((s) => (
+              <RequirementSection key={s.id} section={s} slack={auditedData.slack[s.id] ?? 0} />
+            ))}
           </div>
         )}
 
@@ -336,10 +339,10 @@ export default function DegreeInfo() {
           </div>
         )}
 
-        {/* Minor requirements — show all declared minors */}
+        {/* Minor requirements — iterates all declared minors, shows placeholder if no data loaded */}
         {(loadedMinors.length > 0 ? loadedMinors : declaredMinors).map((minor) => {
-          const minorCode = "code" in minor ? (minor as { code: string }).code : "";
-          const minorName = minor.name;
+          const minorCode     = "code" in minor ? (minor as { code: string }).code : "";
+          const minorName     = minor.name;
           const minorSections = grouped.minors.find((g) => g.code.includes(minorCode))?.sections ?? [];
           return (
             <div key={minorName} className="di-program-group">
@@ -348,13 +351,16 @@ export default function DegreeInfo() {
                 {minor.catalog_year ? `Catalog ${minor.catalog_year}` : ""}
               </p>
               {minorSections.length > 0 ? (
-                minorSections.map((s) => <RequirementSection key={s.id} section={s} />)
+                minorSections.map((s) => (
+                  <RequirementSection key={s.id} section={s} slack={auditedData.slack[s.id] ?? 0} />
+                ))
               ) : (
                 <p className="di-minor-empty">No requirement data available for this minor.</p>
               )}
             </div>
           );
         })}
+
       </div>
     </div>
   );
