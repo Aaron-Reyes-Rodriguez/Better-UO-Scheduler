@@ -7,6 +7,22 @@ type GradeDist = Record<string, number>;
 
 const DETAILED_GRADES = ['AP', 'A', 'AM', 'BP', 'B', 'BM', 'CP', 'C', 'CM', 'DP', 'D', 'DM', 'F'] as const;
 const CLEAN_GRADES = ['A', 'B', 'C', 'D', 'F'] as const;
+// Map backend grade keys to user-facing +/- labels.
+const GRADE_LABELS: Record<string, string> = {
+  AP: 'A+',
+  A: 'A',
+  AM: 'A-',
+  BP: 'B+',
+  B: 'B',
+  BM: 'B-',
+  CP: 'C+',
+  C: 'C',
+  CM: 'C-',
+  DP: 'D+',
+  D: 'D',
+  DM: 'D-',
+  F: 'F',
+};
 
 type ProfessorData = {
   professor?: string;
@@ -37,6 +53,7 @@ type CourseStat = {
   totalStudents: number;
 };
 
+// Combine +/- buckets into letter buckets for the "clean" view.
 function collapseDistribution(dist: GradeDist): GradeDist {
   return {
     A: (dist.AP ?? 0) + (dist.A ?? 0) + (dist.AM ?? 0),
@@ -47,6 +64,7 @@ function collapseDistribution(dist: GradeDist): GradeDist {
   };
 }
 
+// Split the backend course list ("CS 110; CS 111; ...") into tokens.
 function parseCourses(raw?: string): string[] {
   if (!raw) return [];
   return raw
@@ -98,6 +116,7 @@ export default function GeneralProfessor() {
     await loadByValue(professorName);
   };
 
+  // Load per-course stats to build the department baseline and comparison bars.
   useEffect(() => {
     const q = searchParams.get('q');
     if (q) {
@@ -153,6 +172,7 @@ export default function GeneralProfessor() {
   const gradeOrder = showDetailedGrades ? [...DETAILED_GRADES] : [...CLEAN_GRADES];
   const distTotal = dist ? gradeOrder.reduce((sum, grade) => sum + (dist[grade] ?? 0), 0) : 0;
 
+  // Weighted average across courses taught (uses total_students when available).
   const departmentAvg = useMemo(() => {
     if (courseStats.length === 0) return null;
     const weightedSum = courseStats.reduce((sum, c) => sum + c.avg * Math.max(1, c.totalStudents), 0);
@@ -321,9 +341,12 @@ export default function GeneralProfessor() {
                     {gradeOrder.map((grade, idx) => {
                       const count = dist[grade] ?? 0;
                       const width = distTotal > 0 ? (count / distTotal) * 100 : 0;
-                      const colors = ['#1d4ed8', '#2563eb', '#3b82f6', '#0ea5e9', '#06b6d4', '#14b8a6', '#10b981', '#22c55e', '#84cc16', '#eab308', '#f59e0b', '#f97316', '#ef4444'];
+                      const total = gradeOrder.length;
+                      const hue = 120 - (120 * idx) / Math.max(1, total - 1); // green -> red
+                      const color = `hsl(${hue} 70% 45%)`;
+                      const label = GRADE_LABELS[grade] ?? grade;
                       return (
-                        <div key={grade} title={`${grade}: ${count}`} style={{ width: `${width}%`, background: colors[idx % colors.length] }} />
+                        <div key={grade} title={`${label}: ${count}`} style={{ width: `${width}%`, background: color }} />
                       );
                     })}
                   </div>
@@ -331,9 +354,10 @@ export default function GeneralProfessor() {
                     {gradeOrder.map((grade) => {
                       const count = dist[grade] ?? 0;
                       const pct = distTotal > 0 ? (count / distTotal) * 100 : 0;
+                      const label = GRADE_LABELS[grade] ?? grade;
                       return (
                         <div key={grade} style={{ textAlign: 'center', fontSize: 12 }}>
-                          <div style={{ fontWeight: 600 }}>{grade}</div>
+                          <div style={{ fontWeight: 600 }}>{label}</div>
                           <div>{Math.round(pct)}%</div>
                         </div>
                       );

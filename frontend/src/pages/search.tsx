@@ -69,6 +69,7 @@ export default function Search() {
     goToResult(trimmed);
   };
 
+  // Debounced typeahead query against the backend suggestion endpoints.
   useEffect(() => {
     let cancelled = false;
     const q = query.trim();
