@@ -111,6 +111,15 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
+// Fetch a list of professors who taught the given class.
+export async function getClassProfessors(class_id: string, limit = 50): Promise<string[]> {
+  const url = apiUrl(`/class/${encodeURIComponent(class_id)}/professors?limit=${limit}`);
+  const res = await fetch(url, { method: "GET" });
+  if (!res.ok) return [];
+  const data = (await res.json()) as { results?: string[] };
+  return Array.isArray(data.results) ? data.results : [];
+}
+
 /**
  * POST tag votes for a professor to the backend, incrementing their counts.
  *
