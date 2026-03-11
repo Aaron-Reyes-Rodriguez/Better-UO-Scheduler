@@ -167,3 +167,70 @@
   border-radius: 6px;
   border: 1px dashed #e2e8f0;
 }
+
+/* Track / domain / concentration choice dropdowns */
+.di-choices-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #f0f4f8;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.di-choice-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.di-choice-name {
+  white-space: nowrap;
+}
+
+.di-choice-select {
+  font-size: 13px;
+  padding: 5px 28px 5px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #1a2332;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.di-choice-select:hover {
+  border-color: #4a90e2;
+}
+
+.di-choice-select:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.di-reaudit-spinner {
+  font-size: 12px;
+  color: #4a90e2;
+  font-weight: 600;
+  animation: di-pulse 1s ease-in-out infinite;
+}
+
+@keyframes di-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.di-reauditing .di-body {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}

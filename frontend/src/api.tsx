@@ -96,3 +96,16 @@ export async function uploadTranscript(file: File) {
   });
   return res.data;
 }
+
+/** Re-run the degree audit with user-selected tracks/domains. */
+export async function reAudit(
+  parsedData: Record<string, unknown>,
+  selections: Record<string, string>,
+) {
+  const res = await axios.post(
+    apiUrl("/re-audit"),
+    { parsedData, selections },
+    { withCredentials: true },
+  );
+  return res.data;
+}

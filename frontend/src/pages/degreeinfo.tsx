@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
+import { reAudit } from "../api";
 import "./degreeinfo.css";
 
 type CourseRow = {
@@ -15,10 +16,22 @@ type Section = {
   rows:      CourseRow[];
 };
 
+type ChoiceOption = { id: string; label: string };
+type Choice = {
+  program_id:     string;
+  requirement_id: string;
+  label:          string;
+  options:        ChoiceOption[];
+  solver_pick:    string | null;
+};
+
 type AuditData = {
   status: string;
   completion_percentage: number;
   student_name?: string | null;
+  labels?: Record<string, string>;
+  choices?: Choice[];
+  parsedData?: Record<string, unknown>;
   assignments: Record<string, Array<{ attempt_id: string; course_id: string }>>;
   slack:       Record<string, number>;
   broad_data: {
@@ -38,41 +51,12 @@ type AuditData = {
   };
 };
 
-const LABELS: Record<string, string> = {
-  cs_core_lower:         "Lower-Division Core",
-  cs_core_upper:         "Upper-Division Core",
-  cs_upper_div_elective: "Upper-Division Electives",
-  cs_lower_core:         "Lower-Division Core",
-  cs_upper_core:         "Upper-Division Core",
-  cs_upper_electives:    "Upper-Division Electives",
-  cs313_required:        "CS 313 Requirement",
-  math_discrete:         "Discrete Math",
-  bs_math_or_cis_year:   "Math / CIS Requirement",
-  math_200plus_total:    "200+ Level Math Credits",
-  math_upper_15:         "Upper-Division Math Credits",
-  math_minor:            "Math Minor Total Credits",
-  math_minor_credits:    "Math Minor - requires 30 credits (200 lvl+), 15 of 30 must be 300 lvl+",
-  science_bio:           "Science - Biology",
-  science_chem:          "Science - Chemistry",
-  science_erth:          "Science - Earth Sciences",
-  science_geog:          "Science - Geography",
-  science_phys:          "Science - Physics",
-  science_psy:           "Science - Psychology",
-  calc_seq_251_252:      "Calculus Sequence (251-252)",
-  calc_seq_261_262:      "Calculus Sequence (261-262)",
-  calc_seq_246_247:      "Calculus Sequence (246-247)",
-  math_elective_a:       "Math Elective A",
-  math_elective_b:       "Math Elective B",
-  math_elective_c:       "Math Elective C",
-  math_elective_d:       "Math Elective D",
-  upper_math_from_math:  "Upper-Division Math (MATH)",
-  upper_math_from_cs:    "Upper-Division Math (CS)",
-  writing:               "Writing Requirement",
-};
-
-function bucketLabel(key: string): string {
+// Resolves a bucket key to a human-readable label.
+// Priority: 1) labels from API (defined in JSON), 2) auto-format the key
+function bucketLabel(key: string, apiLabels?: Record<string, string>): string {
+  if (apiLabels?.[key]) return apiLabels[key];
   const tail = key.split(":").pop() ?? key;
-  return LABELS[tail] ?? tail.replace(/_/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase());
+  return tail.replace(/_/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase());
 }
 
 function parseTerm(attemptId: string): string {
@@ -92,7 +76,8 @@ function classUrl(courseId: string): string {
 
 function getSections(
   assignments: AuditData["assignments"],
-  slack: AuditData["slack"]
+  slack: AuditData["slack"],
+  apiLabels?: Record<string, string>
 ): Section[] {
   return Object.entries(assignments).map(
     ([bucketKey, courses]: [string, Array<{ attempt_id: string; course_id: string }>]) => {
@@ -112,10 +97,10 @@ function getSections(
             ? { course_id: courseId, attempt_id: attempt.attempt_id, term: parseTerm(attempt.attempt_id) }
             : { course_id: courseId, attempt_id: null, term: null };
         });
-        return { id: bucketKey, label: bucketLabel(bucketKey), satisfied: slots.every(([, v]) => v === 0), rows };
+        return { id: bucketKey, label: bucketLabel(bucketKey, apiLabels), satisfied: slots.every(([, v]) => v === 0), rows };
       } else {
         const rows = courses.map((c) => ({ course_id: c.course_id, attempt_id: c.attempt_id, term: parseTerm(c.attempt_id) }));
-        return { id: bucketKey, label: bucketLabel(bucketKey), satisfied: slack[bucketKey] === 0, rows };
+        return { id: bucketKey, label: bucketLabel(bucketKey, apiLabels), satisfied: slack[bucketKey] === 0, rows };
       }
     }
   );
@@ -205,34 +190,96 @@ function RequirementSection({ section }: { section: Section }) {
   );
 }
 
+// ---- Choice selector --------------------------------------------------------
+
+function ChoiceDropdown({
+  choice,
+  value,
+  onChange,
+  disabled,
+}: {
+  choice: Choice;
+  value: string;
+  onChange: (reqId: string, selected: string) => void;
+  disabled: boolean;
+}) {
+  return (
+    <label className="di-choice-label">
+      <span className="di-choice-name">{choice.label}:</span>
+      <select
+        className="di-choice-select"
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(choice.requirement_id, e.target.value)}
+      >
+        {choice.options.map((opt) => (
+          <option key={opt.id} value={opt.id}>{opt.label}</option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 // ---- Page -------------------------------------------------------------------
+
+function initSelections(choices: Choice[]): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const c of choices) {
+    out[c.requirement_id] = c.solver_pick ?? c.options[0]?.id ?? "";
+  }
+  return out;
+}
 
 export default function DegreeInfo() {
   const location = useLocation()
 
-  const auditData = useState<AuditData | null>(() => {
+  const [auditData, setAuditData] = useState<AuditData | null>(() => {
     if (location.state?.auditData) return location.state.auditData as AuditData
     const stored = sessionStorage.getItem("auditData")
     if (stored) {
       try { return JSON.parse(stored) as AuditData } catch { return null }
     }
     return null
-  })[0]
+  })
+
+  const [selections, setSelections] = useState<Record<string, string>>(() => {
+    const data = (location.state?.auditData as AuditData | undefined)
+      ?? (() => { try { return JSON.parse(sessionStorage.getItem("auditData") ?? "") as AuditData } catch { return null } })()
+    return initSelections(data?.choices ?? [])
+  })
+  const [reAuditing, setReAuditing] = useState(false)
+
+  const handleChoiceChange = useCallback(async (reqId: string, selected: string) => {
+    if (!auditData?.parsedData) return
+    const next = { ...selections, [reqId]: selected }
+    setSelections(next)
+    setReAuditing(true)
+    try {
+      const data = await reAudit(auditData.parsedData, next) as AuditData
+      setAuditData(data)
+      sessionStorage.setItem("auditData", JSON.stringify(data))
+    } catch (err) {
+      console.error("Re-audit failed:", err)
+    } finally {
+      setReAuditing(false)
+    }
+  }, [auditData, selections])
 
   if (!auditData) {
     return <p className="di-state-msg error">No transcript data found. Please upload your transcript first.</p>
   }
 
-  const { broad_data: bd, programs_loaded: prog, student_name, assignments, slack } = auditData
-  const sections  = getSections(assignments, slack)
+  const { broad_data: bd, programs_loaded: prog, student_name, labels: apiLabels, assignments, slack, choices } = auditData
+  const sections  = getSections(assignments, slack, apiLabels)
   const grouped   = groupByProgram(sections)
   const displayName = student_name ?? bd.student_name ?? null
   const majorName = prog.major?.name ?? bd.declared_majors?.[0]?.name ?? bd.declared_major?.name ?? "Unknown Major"
   const loadedMinors = prog.minors ?? []
   const declaredMinors = bd.minors ?? []
+  const majorChoices = (choices ?? []).filter((c) => c.program_id.startsWith("MAJOR_"))
 
   return (
-    <div className="di-root">
+    <div className={`di-root ${reAuditing ? "di-reauditing" : ""}`}>
       <div className="di-header">
         <div>
           <h1 className="di-title">
@@ -269,6 +316,22 @@ export default function DegreeInfo() {
           <div className="di-program-group">
             <h2 className="di-group-title">Major: {majorName}</h2>
             <p className="di-group-subtitle">Catalog {prog.major?.catalog_year ?? bd.catalog_year ?? ""}</p>
+
+            {majorChoices.length > 0 && (
+              <div className="di-choices-bar">
+                {majorChoices.map((c) => (
+                  <ChoiceDropdown
+                    key={c.requirement_id}
+                    choice={c}
+                    value={selections[c.requirement_id] ?? c.solver_pick ?? ""}
+                    onChange={handleChoiceChange}
+                    disabled={reAuditing}
+                  />
+                ))}
+                {reAuditing && <span className="di-reaudit-spinner">Updating...</span>}
+              </div>
+            )}
+
             {grouped.major.map((s) => <RequirementSection key={s.id} section={s} />)}
           </div>
         )}
