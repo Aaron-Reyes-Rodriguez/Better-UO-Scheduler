@@ -368,6 +368,74 @@ class AuditRequest(BaseModel):
 def audit_cs(req: AuditRequest):
     return solve_degree_audit(COURSES, set(req.taken_courses), [BS, MAJOR_CS])
 '''
+def build_bucket_hints(programs_to_audit: list) -> dict:
+    """
+    Derive hint strings for open/credit-pool buckets directly from the program
+    JSON structure — no hard-coded lookup tables needed on the frontend.
+
+    Reads each requirement's type, min_credits, where, constraints, k, and
+    from_set to produce strings like:
+      "30 credits of 200+ level MATH courses required (15 must be 300+)"
+
+    Args:
+        programs_to_audit: list of loaded program objects (from load_program)
+
+    Returns:
+        dict keyed by "{program.id}:{requirement.id}" -> hint string
+    """
+    hints = {}
+
+    for program in programs_to_audit:
+        for req in program.requirements:
+            req_id   = getattr(req, "id",   None)
+            req_type = getattr(req, "type", None)
+            if not req_id or not req_type:
+                continue
+
+            bucket_key = f"{program.id}:{req_id}"
+            hint       = None
+
+            if req_type == "credit_pool":
+                min_credits = getattr(req, "min_credits", None)
+                where       = getattr(req, "where", None) or {}
+                subject     = where.get("subject", "")
+                min_num     = where.get("min_number", None)
+                from_set    = getattr(req, "from_set", None)
+                constraints = getattr(req, "constraints", None) or []
+
+                # Build extra clause from sub-constraints (e.g. "15 must be 300+")
+                constraint_parts = []
+                for c in constraints:
+                    c_min_credits = c.get("min_credits") if isinstance(c, dict) else getattr(c, "min_credits", None)
+                    c_where       = (c.get("where", {}) if isinstance(c, dict) else getattr(c, "where", None)) or {}
+                    c_min_num     = c_where.get("min_number")
+                    if c_min_credits and c_min_num:
+                        constraint_parts.append(f"{c_min_credits} must be {c_min_num}+")
+                extra = f" ({', '.join(constraint_parts)})" if constraint_parts else ""
+
+                if subject and min_num:
+                    hint = f"{min_credits} credits of {min_num}+ level {subject} courses required{extra}"
+                elif from_set:
+                    hint = f"{min_credits} credits from {from_set.replace('_', ' ')} required{extra}"
+                elif min_credits:
+                    hint = f"{min_credits} credits required{extra}"
+
+            elif req_type == "choose_k":
+                k        = getattr(req, "k",                None)
+                from_set = getattr(req, "from_set",          None)
+                from_req = getattr(req, "from_requirements", None)
+
+                if from_set and k:
+                    hint = f"{k} course(s) from {from_set.replace('_', ' ')} required"
+                elif from_req and k:
+                    hint = f"{k} option(s) required"
+
+            if hint:
+                hints[bucket_key] = hint
+
+    return hints
+
+
 class AttemptIn(BaseModel):
     """
     A single course-attempt record used in manual audit requests.
@@ -597,6 +665,7 @@ async def upload_transcript(file: UploadFile):
   returnData["student_name"] = broad_data.get("student_name")
   returnData["broad_data"] = broad_data
   returnData["parsedData"] = parsedData  # frontend stores this for re-audit calls
+  returnData["bucket_hints"] = build_bucket_hints(programs_to_audit)
 
   return returnData
 
@@ -697,6 +766,7 @@ def re_audit(req: ReAuditRequest):
   returnData["student_name"] = broad_data.get("student_name")
   returnData["broad_data"] = broad_data
   returnData["parsedData"] = parsedData
+  returnData["bucket_hints"] = build_bucket_hints(programs_to_audit)
 
   return returnData
 
