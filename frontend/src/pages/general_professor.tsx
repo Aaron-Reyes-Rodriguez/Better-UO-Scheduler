@@ -212,7 +212,7 @@ export default function GeneralProfessor() {
       {data && (
         <div style={{ marginTop: 20, display: 'grid', gridTemplateColumns: '260px 1fr', gap: 16 }}>
           <aside style={{ border: '1px solid #ddd', borderRadius: 12, padding: 12, height: 'fit-content' }}>
-            <div style={{ fontWeight: 700, marginBottom: 8 }}>Courses Taught (Click to view)</div>
+            <div style={{ fontWeight: 700, marginBottom: 8 }}>Courses Taught <br/>(Click to view)</div>
             <div style={{ maxHeight: 460, overflowY: 'auto', display: 'grid', gap: 8, paddingRight: 4 }}>
               {courses.length === 0 && <div style={{ color: '#666', fontSize: 13 }}>No course list available.</div>}
               {courses.map((course) => (
