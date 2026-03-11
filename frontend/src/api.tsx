@@ -111,26 +111,6 @@ export async function getProfessor(professor_id: string) {
   return res.json();
 }
 
-export async function suggestClasses(query: string, limit = 8): Promise<string[]> {
-  const q = query.trim();
-  if (!q) return [];
-  const url = apiUrl(`/suggest/classes?q=${encodeURIComponent(q)}&limit=${limit}`);
-  const res = await fetch(url, { method: "GET" });
-  if (!res.ok) return [];
-  const data = (await res.json()) as { results?: string[] };
-  return Array.isArray(data.results) ? data.results : [];
-}
-
-export async function suggestProfessors(query: string, limit = 8): Promise<string[]> {
-  const q = query.trim();
-  if (!q) return [];
-  const url = apiUrl(`/suggest/professors?q=${encodeURIComponent(q)}&limit=${limit}`);
-  const res = await fetch(url, { method: "GET" });
-  if (!res.ok) return [];
-  const data = (await res.json()) as { results?: string[] };
-  return Array.isArray(data.results) ? data.results : [];
-}
-
 /**
  * POST tag votes for a professor to the backend, incrementing their counts.
  *

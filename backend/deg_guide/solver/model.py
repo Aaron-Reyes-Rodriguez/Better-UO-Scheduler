@@ -298,6 +298,17 @@ def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, s
                       and not any(k == c or k.startswith(c + ":") for c in child_req_ids)
                       and not any(k.startswith(p + ":") for p in expand_parent_ids)}
 
+    # Ensure every visible requirement has an entry in filtered_assignments,
+    # even if the solver assigned no courses to it. Without this, requirements
+    # with zero matching courses (e.g. Economics domain when no EC courses were
+    # taken) are silently missing from the frontend display.
+    for program in programs:
+        for req in program.requirements:
+            req_key = f"{program.id}:{req.id}"
+            if (req_key not in filtered_assignments
+                    and req_key in filtered_slack):
+                filtered_assignments[req_key] = []
+
     # Build labels map from requirement definitions (req_key -> label)
     labels: Dict[str, str] = {}
     for program in programs:
