@@ -1,9 +1,39 @@
+/**
+ * @file FileUploader.tsx
+ * @description PDF transcript file-selector and upload component for
+ *   Quackademics (Better-UO-Scheduler). Handles the full file-selection to
+ *   upload flow, persists audit results in localStorage, and navigates to the
+ *   /audit page on success. If a transcript has already been uploaded it shows
+ *   a summary state with options to view the saved audit or re-upload.
+ * @authors Aaron Reyes-Rodriguez
+ *
+ * System: Better-UO-Scheduler (Quackademics)
+ *   Rendered by scheduler.tsx inside the transcript upload page. After a
+ *   successful upload it stores auditData and transcriptData in localStorage
+ *   so that the audit results survive page refreshes.
+ */
+
+// React hooks and types for state management and change events.
 import { type ChangeEvent, useState } from "react"
+// useNavigate: React Router hook used to redirect to the audit page after upload.
 import { useNavigate } from "react-router-dom"
+// uploadTranscript: API helper that POSTs the PDF file to the backend.
 import { uploadTranscript } from "../../api"
 
+/** Union type for the current state of the file upload operation. */
 type UploadStatus = "idle" | 'uploading' | 'success' | 'error'
 
+/**
+ * FileUploader – PDF transcript upload component.
+ *
+ * Renders either:
+ *   a) An upload card (file picker + submit button + status feedback) when no
+ *      transcript has been uploaded yet, or
+ *   b) A "already uploaded" summary with links to view the saved audit or
+ *      re-upload a new transcript.
+ *
+ * @returns JSX element representing the file uploader or the saved-state view.
+ */
 export default function FileUploader()
 {
     const [file, setFile] = useState<File | null>(null)
@@ -11,6 +41,12 @@ export default function FileUploader()
     const [showUploader, setShowUploader] = useState(!localStorage.getItem("hasUploadedTranscript"))
     const navigate = useNavigate()
 
+    /**
+     * Update the selected file in state whenever the user picks a new file.
+     * Also resets the upload status to "idle" to clear any previous error.
+     *
+     * @param e - The change event from the hidden file input element.
+     */
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) 
     {
         setStatus('idle')
@@ -19,6 +55,14 @@ export default function FileUploader()
         }
     }
 
+    /**
+     * Upload the selected PDF file to the backend, persist the returned audit
+     * data in localStorage, and navigate to the /audit page on success.
+     * Sets status to "uploading" during the request and to "error" on failure.
+     *
+     * @returns Promise<void> - this function is async but its return value is
+     *   not used by the parent component.
+     */
     async function handleFileUpload()
     {
         if (!file) return

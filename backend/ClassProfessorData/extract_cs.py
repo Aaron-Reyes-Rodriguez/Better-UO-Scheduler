@@ -1,4 +1,23 @@
+"""
+File: extract_cs.py
+Purpose: Data-processing script for the Better-UO-Scheduler (Quackademics)
+         project. Reads raw grade-distribution data from the UO public records
+         Excel file and produces four aggregated CSV files used by the backend
+         API: per-term course+professor data, all-time course data, all-time
+         professor data, and course+professor (all-time) data.
+Created: 2024
+Authors: Aaron Reyes-Rodriguez and contributors
+
+System: Better-UO-Scheduler (Quackademics)
+  Run this script once (or whenever the source data is updated) to regenerate
+  the CSV files in ClassProfessorData/. Those CSVs are then processed by
+  data_sorter.py to build the JSON files consumed by the backend API.
+"""
+
+# pathlib.Path: used for portable file-path construction.
 from pathlib import Path
+# pandas: data-analysis library used for all CSV aggregation and groupby
+# operations throughout this script.
 import pandas as pd
 
 
@@ -9,6 +28,17 @@ SUBJECTS = {"CS", "CIS"}
 
 
 def weighted_gpa(df: pd.DataFrame) -> pd.Series:
+    """
+    Calculate the weighted average GPA for each row in a DataFrame using the
+    standard 4.0 scale grade distribution columns.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing grade-count columns (AP, A, AM,
+            BP, B, BM, CP, C, CM, DP, D, DM, F) and a total_students column.
+
+    Returns:
+        pd.Series: Weighted GPA values (one per row), not yet rounded.
+    """
     return (
         df["AP"] * 4.0
         + df["A"] * 4.0
@@ -25,6 +55,19 @@ def weighted_gpa(df: pd.DataFrame) -> pd.Series:
     ) / df["total_students"]
 
 def get_course_professor_term_data(df: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    """
+    Aggregate grade data by term, course, and professor and write the result to
+    a CSV file. This is the primary aggregation used as input for all other
+    aggregation functions.
+
+    Args:
+        df (pd.DataFrame): Cleaned source DataFrame from clean_up_data.
+        output_path (Path): Destination path for the output CSV file.
+
+    Returns:
+        pd.DataFrame: Aggregated DataFrame sorted by term_code, course_id,
+            and professor.
+    """
     # 1) TERM + COURSE + PROF
     course_prof = (
         df.groupby(["term_code", "term", "course_id", "course_number", "professor"], as_index=False)[
@@ -56,6 +99,18 @@ def get_course_professor_term_data(df: pd.DataFrame, output_path: Path) -> pd.Da
     return course_prof
 
 def get_class_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    """
+    Aggregate grade data across all terms for each unique course and write the
+    result to a CSV file.
+
+    Args:
+        course_prof (pd.DataFrame): Output DataFrame from
+            get_course_professor_term_data.
+        output_path (Path): Destination path for the output CSV file.
+
+    Returns:
+        pd.DataFrame: Course-level aggregated DataFrame sorted by course_id.
+    """
     # 2) COURSE (ALL TERMS)
     courses = (
         course_prof.groupby(["course_id", "course_number"], as_index=False)[
@@ -84,6 +139,19 @@ def get_class_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataFrame
     return courses
 
 def get_professor_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    """
+    Aggregate grade data across all terms for each professor, append a list of
+    courses they have taught, and write the result to a CSV file.
+
+    Args:
+        course_prof (pd.DataFrame): Output DataFrame from
+            get_course_professor_term_data.
+        output_path (Path): Destination path for the output CSV file.
+
+    Returns:
+        pd.DataFrame: Professor-level aggregated DataFrame sorted by professor
+            name, including courses_taught and courses_taught_count columns.
+    """
     # 3) PROFESSOR (ALL TERMS)
     professors = (
         course_prof.groupby(["professor"], as_index=False)[
@@ -125,6 +193,19 @@ def get_professor_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataF
     return professors
 
 def get_class_professor_data(course_prof: pd.DataFrame, output_path: Path) -> pd.DataFrame:
+    """
+    Aggregate grade data across all terms for each unique course+professor
+    pairing and write the result to a CSV file.
+
+    Args:
+        course_prof (pd.DataFrame): Output DataFrame from
+            get_course_professor_term_data.
+        output_path (Path): Destination path for the output CSV file.
+
+    Returns:
+        pd.DataFrame: Course+professor aggregated DataFrame sorted by course_id
+            and professor.
+    """
     # 4) CLASS + PROFESSOR (ALL TERMS)
     class_prof = (
         course_prof.groupby(["course_id", "course_number", "professor"], as_index=False)[
@@ -155,6 +236,24 @@ def get_class_professor_data(course_prof: pd.DataFrame, output_path: Path) -> pd
 
 
 def clean_up_data(file_path: Path) -> pd.DataFrame:
+    """
+    Load and clean the raw UO public-records Excel file. Normalises column
+    names, filters to relevant subjects, maps CIS -> CS, converts grade columns
+    to integers, computes aggregate letter-grade buckets and total_students, and
+    drops rows with no recorded letter grade.
+
+    Args:
+        file_path (Path): Path to the raw Excel (.xlsx) grade-distribution file.
+
+    Returns:
+        pd.DataFrame: Cleaned DataFrame ready for aggregation, with columns:
+            course_number, course_id, term_code, term, professor, and all
+            GRADE_COLS plus A_count/B_count/C_count/D_count/F_count/total_students.
+
+    Raises:
+        FileNotFoundError: If the Excel file does not exist at file_path.
+        KeyError: If required columns are missing from the Excel file.
+    """
     if not file_path.exists():
         raise FileNotFoundError(f"file not found: {file_path}")
 
@@ -217,6 +316,13 @@ def clean_up_data(file_path: Path) -> pd.DataFrame:
 
 
 def main() -> None:
+    """
+    CLI entry point. Reads the source Excel file and generates all four
+    aggregated CSV output files in the ClassProfessorData directory.
+
+    Returns:
+        None
+    """
     base_dir = Path(__file__).parent
     xlsx_path = base_dir / "../deg_guide/data/records/pub_rec_master_f2015-u2025.xlsx" 
     df = clean_up_data(xlsx_path)

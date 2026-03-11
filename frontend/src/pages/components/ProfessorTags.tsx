@@ -1,4 +1,23 @@
+/**
+ * @file ProfessorTags.tsx
+ * @description Student-voting tags component for professor detail pages in
+ *   Quackademics (Better-UO-Scheduler). Displays current tag vote counts and
+ *   provides a modal for eligible users (those who have uploaded a transcript)
+ *   to vote on Rate-My-Professor-style descriptive tags for a professor.
+ * @created March 9 2026
+ * @authors Aaron Reyes-Rodriguez
+ *
+ * System: Better-UO-Scheduler (Quackademics)
+ *   Rendered inside the professor detail page (general_professor.tsx). Tag
+ *   votes are persisted in the PostgreSQL professor_tags table via the
+ *   updateProfessorTags API call. Only users who have uploaded a transcript
+ *   (flagged in localStorage) are allowed to add or vote on tags.
+ */
+
+// useState: React hook for managing modal open/close, pending selections,
+// saving state, and error messages.
 import { useState } from 'react';
+// updateProfessorTags: API helper that POSTs tag votes to the backend.
 import { updateProfessorTags } from '../../api';
 
 // Example tags adapted from Rate My Professor
@@ -20,36 +39,76 @@ const AVAILABLE_TAGS = [
   "Lots of homework"
 ];
 
+/**
+ * Shape of a tag with its current vote count, as returned by the backend.
+ */
 type TagWithCount = {
   name: string;
   count: number;
 };
 
+/**
+ * Props accepted by the ProfessorTags component.
+ *
+ * @property professorId - The professor's canonical identifier used to POST
+ *   tag votes to the correct backend endpoint.
+ * @property initialTags - Pre-fetched list of tags with their vote counts,
+ *   returned as part of the professor data from the GET /professor endpoint.
+ */
 interface ProfessorTagsProps {
   professorId: string;
   initialTags?: TagWithCount[];
 }
 
+/**
+ * ProfessorTags – student-voting tags component.
+ *
+ * Displays the current set of tags (with vote counts) for a professor and,
+ * for users who have uploaded a transcript, provides a modal dialog to select
+ * and submit additional tag votes.
+ *
+ * @param professorId - The professor's identifier for the tags API endpoint.
+ * @param initialTags - Initial tag list fetched alongside professor data.
+ * @returns JSX element rendering the tag list and optional voting modal.
+ */
 export default function ProfessorTags({ professorId, initialTags = [] }: ProfessorTagsProps) {
   const [tags, setTags] = useState<TagWithCount[]>(initialTags || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingTags, setPendingTags] = useState<string[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Check localStorage to determine if the current user is eligible to vote.
   const hasTranscript = localStorage.getItem('hasUploadedTranscript') === 'true';
 
+  /**
+   * Open the tag-selection modal, clearing any previously pending selections
+   * and any error message from a prior save attempt.
+   */
   const handleOpenModal = () => {
     setPendingTags([]);
     setIsModalOpen(true);
     setError(null);
   };
 
+  /**
+   * Toggle a tag in the pendingTags selection list. Selecting an already-
+   * selected tag deselects it, and vice versa.
+   *
+   * @param tag - The display name of the tag to toggle.
+   */
   const handleToggleTag = (tag: string) => {
     setPendingTags(prev => 
       prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
     );
   };
 
+  /**
+   * Submit the pending tag votes to the backend and update the displayed tag
+   * list with the server response. Closes the modal on success; shows an error
+   * message on failure.
+   *
+   * @returns Promise<void>
+   */
   const handleSave = async () => {
     setIsSaving(true);
     setError(null);

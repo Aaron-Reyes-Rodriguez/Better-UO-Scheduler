@@ -1,19 +1,54 @@
+"""
+File: app.py
+Purpose: Main FastAPI application server for the Quackademics / Better-UO-Scheduler
+         backend. Defines all REST API routes, handles transcript upload and PDF
+         parsing, runs the degree-audit solver, manages professor tags via a
+         PostgreSQL database, and provides class/professor lookup endpoints.
+Created: 2024
+Authors: Aaron Reyes-Rodriguez and contributors
+
+System: Better-UO-Scheduler (Quackademics)
+  This file is the entry point for the Python backend service (run with uvicorn).
+  It imports the degree-audit solver from the deg_guide package, the transcript
+  PDF parser from parser.py, and the data-access helpers from
+  apiHelperFunctions.py.  The frontend React application (frontend/) communicates
+  exclusively with the endpoints defined here.
+"""
+
+# ── Standard-library imports ────────────────────────────────────────────────
 from fastapi import FastAPI, UploadFile, HTTPException, Query
+# asyncio: provides event-loop utilities used when running the PDF parser in a
+# separate process so it does not block the async server.
 import asyncio
+# ProcessPoolExecutor: spawns a child process for CPU-bound PDF parsing so that
+# the async event loop remains unblocked during heavy computation.
 from concurrent.futures import ProcessPoolExecutor
+# CORSMiddleware: allows the browser-based React frontend (on a different origin)
+# to call this API without being blocked by the browser's same-origin policy.
 from fastapi.middleware.cors import CORSMiddleware
+# BaseModel: Pydantic base class used to define strongly-typed request bodies
+# that FastAPI automatically validates and parses from incoming JSON.
 from pydantic import BaseModel
+# typing helpers used for type annotations throughout the module.
 from typing import List, Optional, Dict, Any
 import os
 import re
 import logging
+# deg_guide solver: internal library that evaluates which degree requirements a
+# student has satisfied given their course history.
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
+# CourseAttempt: data-class representing a single course attempt (grade, term …)
 from deg_guide.solver.data_types import CourseAttempt
+# parse_transcript_pdf: OCR/regex-based parser that extracts course data from a
+# Ducks-On-Track PDF transcript.
 from parser import parse_transcript_pdf
+# apiHelper: helper module providing class/professor lookup and database access.
 import apiHelperFunctions as apiHelper
 from pathlib import Path
 import tempfile
 import uuid
+# psycopg2: PostgreSQL adapter used for direct database operations (health-check,
+# professor-tags table management via apiHelperFunctions).
 import psycopg2
 
 # Configure logging with more readable format
@@ -25,7 +60,15 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def log_section(title: str):
-    """Helper to log a section header for better readability."""
+    """
+    Log a prominent section header to make the server output easier to read.
+
+    Args:
+        title (str): The section title to display inside the header box.
+
+    Returns:
+        None
+    """
     logger.info("=" * 60)
     logger.info(f"  {title}")
     logger.info("=" * 60)
@@ -66,6 +109,18 @@ def db_health():
 
 @app.get("/class/{class_id}")
 def get_class(class_id: str):
+  """
+  Retrieve grade-distribution and statistics for a single class.
+
+  Args:
+      class_id (str): The course identifier (e.g. "CS210" or "CS 210").
+
+  Returns:
+      dict: Class data including grade distribution and stats.
+
+  Raises:
+      HTTPException 404: If the class is not found in the data.
+  """
   try:
     return apiHelper.classFinder(class_id)
   except KeyError:
@@ -73,6 +128,19 @@ def get_class(class_id: str):
 
 @app.get("/professor/{professor_id}")
 def get_professor(professor_id: str):
+  """
+  Retrieve data for a single professor, including grade distribution, stats,
+  and student-voted tags from the database.
+
+  Args:
+      professor_id (str): The professor's identifier or display name.
+
+  Returns:
+      dict: Professor record with grade data and tags list.
+
+  Raises:
+      HTTPException 404: If the professor is not found.
+  """
   try:
     return apiHelper.professorFinder(professor_id)
   except KeyError:
@@ -80,10 +148,30 @@ def get_professor(professor_id: str):
 
 
 class ProfessorTagsRequest(BaseModel):
+    """
+    Request body for the POST /professor/{professor_id}/tags endpoint.
+
+    Attributes:
+        tags (List[str]): List of tag display-names the student is voting for
+            (e.g. ["Tough Grader", "Caring"]).
+    """
     tags: List[str]
 
 @app.post("/professor/{professor_id}/tags")
 def update_professor_tags(professor_id: str, req: ProfessorTagsRequest):
+    """
+    Increment tag vote counts for a professor in the PostgreSQL database.
+
+    Args:
+        professor_id (str): The professor's identifier or display name.
+        req (ProfessorTagsRequest): JSON body containing a list of tag names.
+
+    Returns:
+        dict: {"status": "success", "tags": <updated list of TagWithCount dicts>}
+
+    Raises:
+        HTTPException 404: If the professor is not found.
+    """
     try:
         updated_tags = apiHelper.updateProfessorTags(professor_id, req.tags)
         return {"status": "success", "tags": updated_tags}
@@ -93,11 +181,31 @@ def update_professor_tags(professor_id: str, req: ProfessorTagsRequest):
 
 @app.get("/suggest/classes")
 def suggest_classes(q: str = Query(default="", min_length=1), limit: int = Query(default=8, ge=1, le=20)):
+    """
+    Return typeahead suggestions for course names matching a partial query.
+
+    Args:
+        q (str): Partial course name or ID to search for (minimum 1 character).
+        limit (int): Maximum number of results to return (1–20, default 8).
+
+    Returns:
+        dict: {"results": [<course name>, ...]}
+    """
     return {"results": apiHelper.classSuggestions(q, limit)}
 
 
 @app.get("/suggest/professors")
 def suggest_professors(q: str = Query(default="", min_length=1), limit: int = Query(default=8, ge=1, le=20)):
+    """
+    Return typeahead suggestions for professor names matching a partial query.
+
+    Args:
+        q (str): Partial professor name to search for (minimum 1 character).
+        limit (int): Maximum number of results to return (1–20, default 8).
+
+    Returns:
+        dict: {"results": [<professor name>, ...]}
+    """
     return {"results": apiHelper.professorSuggestions(q, limit)}
 
 # Choose ONE of these options:
@@ -256,6 +364,17 @@ def audit_cs(req: AuditRequest):
     return solve_degree_audit(COURSES, set(req.taken_courses), [BS, MAJOR_CS])
 '''
 class AttemptIn(BaseModel):
+    """
+    A single course-attempt record used in manual audit requests.
+
+    Attributes:
+        attempt_id (str): Unique identifier for this attempt (e.g. "2026W-CS210-01").
+        course_id (str): The canonical course identifier (e.g. "CS210").
+        credits_taken (int): Number of credit hours attempted.
+        grading_basis (str): "graded" | "pass_fail" | "unknown".
+        term (Optional[str]): Term string (e.g. "Winter 2026").
+        subtitle (Optional[str]): Section subtitle for variable-title courses.
+    """
     attempt_id: str
     course_id: str
     credits_taken: int
@@ -265,11 +384,35 @@ class AttemptIn(BaseModel):
 
 
 class AuditRequest(BaseModel):
+    """
+    Request body for manual degree-audit endpoints.
+
+    Attributes:
+        taken_attempts (List[AttemptIn]): List of all course attempts to evaluate
+            against the degree requirements.
+    """
     taken_attempts: List[AttemptIn]
 
 
 @app.post("/upload/transcript")
 async def upload_transcript(file: UploadFile):
+  """
+  Accept a Ducks-On-Track PDF transcript, parse it with the PDF parser,
+  run the degree-audit solver against the student's declared programs, and
+  return the full audit result.
+
+  The PDF is saved to a temporary directory, parsed in a separate process
+  (via ProcessPoolExecutor) to avoid blocking the async event loop, and
+  then deleted after use.
+
+  Args:
+      file (UploadFile): The uploaded PDF file from the multipart form request.
+
+  Returns:
+      dict: Audit result including completion percentages, requirement groups,
+            parsed student info (name, GPA, majors, minors), and the raw
+            parsedData for use in subsequent re-audit calls.
+  """
   log_section("TRANSCRIPT UPLOAD")
   logger.info(f"Received file: {file.filename}")
   
@@ -454,6 +597,15 @@ async def upload_transcript(file: UploadFile):
 
 
 class ReAuditRequest(BaseModel):
+    """
+    Request body for the /re-audit endpoint.
+
+    Attributes:
+        parsedData (Dict[str, Any]): The parsedData dict returned by the initial
+            /upload/transcript call, containing taken_attempts and broad_data.
+        selections (Dict[str, str]): User's track/domain/concentration choices
+            keyed by requirement group ID.
+    """
     parsedData: Dict[str, Any]
     selections: Dict[str, str]
 
@@ -570,11 +722,18 @@ def get_backend_info():
 @app.post("/audit/cs")
 def audit_cs(req: AuditRequest, year: str = DEFAULT_CATALOG_YEAR, degree_type: str = "BS"):
     """
-    Audit CS major requirements.
-    
+    Run a degree audit specifically for the CS major without a transcript upload.
+    Useful for manual testing or integrations that supply course attempts directly.
+
     Args:
-        year: Catalog year (e.g., "2022-2023")
-        degree_type: "BS" or "BA"
+        req (AuditRequest): JSON body with a list of course attempts.
+        year (str): Catalog year string (e.g. "2022-2023"). Defaults to the
+            current default catalog year.
+        degree_type (str): "BS" or "BA". Defaults to "BS".
+
+    Returns:
+        dict: Solver audit result with status, completion percentage, and
+              a breakdown of each requirement group.
     """
     log_section("CS AUDIT REQUEST")
     logger.info(f"Request params: year={year}, degree_type={degree_type}")

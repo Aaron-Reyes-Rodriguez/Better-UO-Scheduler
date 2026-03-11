@@ -1,6 +1,24 @@
+"""
+File: data_sorter.py
+Purpose: Data transformation utilities for the Better-UO-Scheduler (Quackademics)
+         project. Converts aggregated CSV files (produced by extract_cs.py) into
+         the JSON files (classes.json and professors.json) that the backend API
+         reads at startup, and also generates the frontend auto-complete lists.
+Created: 2024
+Authors: Aaron Reyes-Rodriguez and contributors
+
+System: Better-UO-Scheduler (Quackademics)
+  Run this script after running extract_cs.py to regenerate the JSON data files
+  consumed by apiHelperFunctions.py in the backend server.
+"""
+
+# pandas: data-analysis library for reading CSV files.
 import pandas as pd
+# math/statistics: standard library modules included for potential numeric
+# calculations (not currently used directly but available for future use).
 import math
 import statistics
+# json: standard library module for serialising Python dicts to JSON files.
 import json
 
 """
@@ -123,6 +141,18 @@ def classCsvToJson(csvFile):
   return class_data
 
 def professorToJson(csvFile, course_professor_csv):
+  """
+  Read the professors aggregated CSV and convert it to a dict keyed by
+  professor ID, then serialise to professors.json.
+
+  Args:
+      csvFile (str): Path to the professors.csv aggregated file.
+      course_professor_csv (str): Path to the course_professor.csv file
+          (currently not used but reserved for future enrichment).
+
+  Returns:
+      dict: Professor data dict keyed by whitespace-stripped professor ID.
+  """
   professor_data = {}
   df = pd.read_csv(csvFile)
   for index, row in df.iterrows():
