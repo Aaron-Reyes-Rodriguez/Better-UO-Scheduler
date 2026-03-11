@@ -73,11 +73,36 @@ def eligible_courses_for_req(req: Requirement, program: Program, courses: Dict[s
 
     return candidates
 
+# Letter-grade order for min_grade comparison (index = rank; higher is better)
+_GRADE_ORDER = (
+    "F", "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+"
+)
+
+
+def _grade_meets_min(grade: str | None, min_grade: str) -> bool:
+    """True if grade meets or exceeds min_grade. Non-letter grades (P, P*, NP, W, IP) do not satisfy."""
+    if not grade:
+        return False
+    grade = grade.strip().replace(" ", "")
+    if grade.upper() in ("P", "P*", "NP", "W", "IP"):
+        return False
+    min_grade = min_grade.strip().replace(" ", "")
+    try:
+        idx = _GRADE_ORDER.index(grade)
+        min_idx = _GRADE_ORDER.index(min_grade)
+        return idx >= min_idx
+    except ValueError:
+        return False
+
+
 def matches_attempt_where(att: CourseAttempt, where: dict | None) -> bool:
     if not where:
         return True
     gb = where.get("grading_basis")
     if gb and getattr(att, "grading_basis", None) != gb:
+        return False
+    min_grade = where.get("min_grade")
+    if min_grade and not _grade_meets_min(getattr(att, "grade", None), min_grade):
         return False
     return True
 
@@ -194,18 +219,25 @@ def build_model(
 
 
     # No double counting WITHIN each program (but allow sharing across programs)
-    # This allows BS courses to also count toward Major/Minor requirements
+    # Exception: programs with allow_sharing_with_major_minor can overlap WITHIN the program
+    # (e.g. BACH: a 300-level science course counts toward both Upper-Division AND Science AOI)
     logger.debug("--- Setting up no-double-counting constraints (per-program) ---")
     for program in programs:
+        overlap_types = [r.get("type") for r in (program.overlap_rules or []) if isinstance(r, dict)]
+        allow_within_overlap = "allow_sharing_with_major_minor" in overlap_types
+        if allow_within_overlap:
+            logger.debug(f"  {program.id}: Skipping per-program constraint (allow overlap within)")
+            continue
+
         program_prefix = f"{program.id}:"
         for att, _course in taken_attempt_objs:
             vars_for_att_in_program = [
-                var for (aid, req_key), var in x.items() 
+                var for (aid, req_key), var in x.items()
                 if aid == att.attempt_id and req_key.startswith(program_prefix)
             ]
             if vars_for_att_in_program:
                 model.Add(sum(vars_for_att_in_program) <= 1)
-    logger.debug(f"Created per-program no-double-counting constraints for {len(programs)} programs")
+    logger.debug(f"Created per-program no-double-counting constraints")
 
 
     # Add constraints per requirement

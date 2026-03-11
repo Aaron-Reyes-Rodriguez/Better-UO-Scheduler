@@ -307,7 +307,7 @@
       "label": "Upper-Division Electives",
       "min_credits": 20,
       "where": {
-        "subject": "CS",
+        "subject_in": ["CS", "OGWI"],
         "min_number": 300
       },
       "exclude_from_set": "cs_upper_core",

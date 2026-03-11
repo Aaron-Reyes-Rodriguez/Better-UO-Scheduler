@@ -7,7 +7,8 @@
     "level": 100,
     "tags": ["arts_letters_area"],
     "prereqs": [],
-    "title": "Composition I"
+    "title": "Composition I",
+    "equivalents": ["WR121", "WRI121"]
   },
   {
     "id": "WR122Z",
@@ -17,7 +18,8 @@
     "level": 100,
     "tags": ["arts_letters_area"],
     "prereqs": ["WR121Z"],
-    "title": "Composition II"
+    "title": "Composition II",
+    "equivalents": ["WR122", "WRI122"]
   },
   {
     "id": "WR199",

@@ -1,7 +1,95 @@
 {
   "id": "UO_BA_2025-2026",
   "name": "UO Bachelor of Arts (2025-2026)",
-  "sets": {},
-  "requirements": [],
-  "overlap_rules": []
+  "sets": {
+    "ba_second_language_subjects": [
+      "ARB",
+      "ASL",
+      "CHN",
+      "FR",
+      "GER",
+      "HBRW",
+      "ICH",
+      "ITAL",
+      "JPN",
+      "KRN",
+      "LANG",
+      "PORT",
+      "RUSS",
+      "SPAN",
+      "SWAH",
+      "SWED"
+    ],
+    "old_english_prep": [
+      "ENG428",
+      "ENG429"
+    ],
+    "old_english_terminal": [
+      "ENG430"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "ba_second_language_terminal_course",
+      "type": "choose_k",
+      "k": 1,
+      "where": {
+        "subject_in": [
+          "ARB",
+          "ASL",
+          "CHN",
+          "FR",
+          "GER",
+          "HBRW",
+          "ICH",
+          "ITAL",
+          "JPN",
+          "KRN",
+          "LANG",
+          "PORT",
+          "RUSS",
+          "SPAN",
+          "SWAH",
+          "SWED"
+        ],
+        "min_number": 203
+      }
+    },
+    {
+      "id": "old_english_prep_requirement",
+      "type": "all_of",
+      "from_set": "old_english_prep"
+    },
+    {
+      "id": "old_english_terminal_requirement",
+      "type": "all_of",
+      "from_set": "old_english_terminal",
+      "must_be": {
+        "min_grade": "B-"
+      }
+    },
+    {
+      "id": "ba_old_english_sequence",
+      "type": "all_of",
+      "from_requirements": [
+        "old_english_prep_requirement",
+        "old_english_terminal_requirement"
+      ]
+    },
+    {
+      "id": "ba_language_requirement",
+      "type": "choose_k",
+      "from_requirements": [
+        "ba_second_language_terminal_course",
+        "ba_old_english_sequence"
+      ],
+      "k": 1
+    }
+  ],
+  "overlap_rules": [
+    {
+      "type": "allow_sharing_with_major_minor",
+      "description": "Courses may count toward degree type, bachelor, major, and minor requirements (not exclusive)"
+    }
+  ]
 }

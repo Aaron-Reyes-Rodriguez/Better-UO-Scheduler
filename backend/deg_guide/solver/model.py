@@ -218,6 +218,7 @@ def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, s
                     grading_basis=att.grading_basis,
                     term=att.term,
                     subtitle=att.subtitle,
+                    grade=getattr(att, "grade", None),
                 )
             normalized_attempts.append(att)
         taken_attempts = normalized_attempts
