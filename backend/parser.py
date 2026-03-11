@@ -72,10 +72,15 @@ def extract_pdf_text(path: str) -> str:
     return "\n".join(chunks)
 
 
+# WRI (Oregon Institute of Technology, etc.) -> WR equivalents for writing requirements
+_WRI_TO_WR = {"WRI121": "WR121Z", "WRI122": "WR122Z"}
+
+
 def canonical_course_id(subj: str, num: str) -> str:
     """
     Combine a subject abbreviation and course number into a canonical ID.
     Preserves trailing letters in the course number (e.g. "110T" -> "PS110T").
+    Normalizes WRI (transfer) to WR equivalents (e.g. WRI121 -> WR121Z).
 
     Args:
         subj (str): Subject abbreviation (e.g. "CS", "WR").
@@ -85,7 +90,8 @@ def canonical_course_id(subj: str, num: str) -> str:
         str: Canonical course ID (e.g. "CS210", "PS110T").
     """
     # Preserve things like "110T" -> "PS110T" (can't int() those)
-    return f"{subj.strip().upper()}{num.strip().upper()}"
+    raw = f"{subj.strip().upper()}{num.strip().upper()}"
+    return _WRI_TO_WR.get(raw, raw)
 
 
 def parse_float_maybe(s: str) -> Optional[float]:
@@ -287,6 +293,7 @@ def build_attempts_and_grades(lines: List[ParsedLine]) -> Tuple[List[Dict[str, A
                 "course_id": ln.course_id,
                 "credits_taken": int(ln.credits) if ln.credits is not None else 0,
                 "grading_basis": ln.grading_basis,
+                "grade": ln.grade,
             }
         )
 

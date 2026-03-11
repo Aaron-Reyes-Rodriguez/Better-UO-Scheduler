@@ -2,16 +2,98 @@
   "id": "UO_BS_2025-2026",
   "name": "UO Bachelor of Science (2025-2026)",
   "sets": {
-    "bs_math_cis_allowed": ["MATH251", "MATH252", "CIS210", "CIS211"]
+    "bs_option1_courses": [
+      "MATH105Z",
+      "MATH106",
+      "MATH107",
+      "MATH211",
+      "MATH212",
+      "MATH213"
+    ],
+    "bs_option2_bridge": [
+      "MATH112Z",
+      "MATH241"
+    ],
+    "bs_option2_electives": [
+      "MATH105Z",
+      "MATH106",
+      "MATH107",
+      "STAT243Z",
+      "CS111",
+      "CS122"
+    ],
+    "bs_option3_courses": [
+      "MATH242",
+      "MATH246",
+      "MATH251Z",
+      "CS210"
+    ]
   },
   "requirements": [
     {
-      "id": "bs_math_or_cis_year",
-      "type": "credits_at_least",
-      "label": "Math / CIS Requirement",
-      "min_credits": 12,
-      "from_set": "bs_math_cis_allowed"
+      "id": "bs_option1_any_three",
+      "type": "choose_k",
+      "from_set": "bs_option1_courses",
+      "k": 3
+    },
+    {
+      "id": "bs_option2_bridge_course",
+      "type": "choose_k",
+      "from_set": "bs_option2_bridge",
+      "k": 1
+    },
+    {
+      "id": "bs_option2_extra_course",
+      "type": "choose_k",
+      "from_set": "bs_option2_electives",
+      "k": 1
+    },
+    {
+      "id": "bs_option2_standard_path",
+      "type": "all_of",
+      "from_requirements": [
+        "bs_option2_bridge_course",
+        "bs_option2_extra_course"
+      ]
+    },
+    {
+      "id": "bs_option2_both_bridge_courses",
+      "type": "all_of",
+      "courses": [
+        "MATH112Z",
+        "MATH241"
+      ]
+    },
+    {
+      "id": "bs_option2_complete",
+      "type": "choose_k",
+      "from_requirements": [
+        "bs_option2_standard_path",
+        "bs_option2_both_bridge_courses"
+      ],
+      "k": 1
+    },
+    {
+      "id": "bs_option3_any_one",
+      "type": "choose_k",
+      "from_set": "bs_option3_courses",
+      "k": 1
+    },
+    {
+      "id": "bs_math_or_cs_requirement",
+      "type": "choose_k",
+      "from_requirements": [
+        "bs_option1_any_three",
+        "bs_option2_complete",
+        "bs_option3_any_one"
+      ],
+      "k": 1
     }
   ],
-  "overlap_rules": []
+  "overlap_rules": [
+    {
+      "type": "allow_sharing_with_major_minor",
+      "description": "Courses may count toward degree type, bachelor, major, and minor requirements (not exclusive)"
+    }
+  ]
 }

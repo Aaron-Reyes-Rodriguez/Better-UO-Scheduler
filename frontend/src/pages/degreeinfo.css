@@ -130,9 +130,18 @@
   color: #334155;
 }
 
+/* Fixed column widths so all sections align */
+.di-th:nth-child(1), .di-td:nth-child(1) { width: 50%; }
+.di-th:nth-child(2), .di-td:nth-child(2) { width: 25%; }
+.di-th:nth-child(3), .di-td:nth-child(3) { width: 25%; }
+
 .di-row-missing { opacity: 0.4; }
 .di-status-ok { color: #22c55e; font-weight: 600; }
 .di-status-missing { color: #ef4444; font-weight: 600; }
+
+/* Hint / missing-count rows at the bottom of a section */
+.di-row-hint td { font-style: italic; color: #64748b; background: #f8fafc; }
+.di-td-hint { border-top: 1px dashed #e2e8f0; }
 
 .di-course-link { color: #4a90e2; text-decoration: none; font-weight: 600; }
 .di-course-link:hover { text-decoration: underline; color: #2563eb; }

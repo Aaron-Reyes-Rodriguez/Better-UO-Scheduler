@@ -1,0 +1,83 @@
+{
+  "id": "UO_BACH_2025-2026",
+  "name": "UO Bachelor's Degree (2025-2026)",
+  "sets": {
+    "written_comp2": [
+      "WR122Z",
+      "WR123"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "written_english",
+      "type": "all_of",
+      "label": "Written English",
+      "from_requirements": [
+        "written_comp1",
+        "written_comp2_choice"
+      ]
+    },
+    {
+      "id": "written_comp1",
+      "type": "all_of",
+      "label": "Composition I (WR 121Z or equivalent)",
+      "courses": ["WR121Z"]
+    },
+    {
+      "id": "written_comp2_choice",
+      "type": "choose_k",
+      "label": "Composition II (WR 122Z) or College Composition III (WR 123)",
+      "k": 1,
+      "from_set": "written_comp2"
+    },
+    {
+      "id": "upper_division",
+      "type": "credit_pool",
+      "label": "Upper-Division Work (62 credits at 300 level or higher)",
+      "min_credits": 62,
+      "where": {
+        "min_number": 300
+      }
+    },
+    {
+      "id": "total_credits",
+      "type": "credit_pool",
+      "label": "Total Credits (180 required for bachelor's degree)",
+      "min_credits": 180,
+      "where": {}
+    },
+    {
+      "id": "aoi_arts_letters",
+      "type": "credit_pool",
+      "label": "Areas of Inquiry: Arts and Letters (4 courses, 3+ credits each)",
+      "min_credits": 12,
+      "where": {
+        "tags_any": ["arts_letters_area"]
+      }
+    },
+    {
+      "id": "aoi_social_science",
+      "type": "credit_pool",
+      "label": "Areas of Inquiry: Social Science (4 courses, 3+ credits each)",
+      "min_credits": 12,
+      "where": {
+        "tags_any": ["social_science_area"]
+      }
+    },
+    {
+      "id": "aoi_science",
+      "type": "credit_pool",
+      "label": "Areas of Inquiry: Science (4 courses, 3+ credits each)",
+      "min_credits": 12,
+      "where": {
+        "tags_any": ["science_area"]
+      }
+    }
+  ],
+  "overlap_rules": [
+    {
+      "type": "allow_sharing_with_major_minor",
+      "description": "Courses may count toward bachelor, degree type, major, and minor requirements (not exclusive)"
+    }
+  ]
+}
