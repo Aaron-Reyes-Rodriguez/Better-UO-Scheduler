@@ -1,7 +1,29 @@
+"""
+File: parser.py
+Purpose: PDF transcript parser for the Better-UO-Scheduler (Quackademics) backend.
+         Extracts course attempt records, grade information, and broad student
+         metadata (name, GPA, declared majors/minors, catalog years) from
+         Ducks-On-Track PDF transcripts exported from the UO DegreeWorks system.
+Created: 2024
+Authors: Daniel Asiamah
+
+System: Better-UO-Scheduler (Quackademics)
+  This module is called from app.py (/upload/transcript endpoint) after the PDF
+  is saved to a temporary directory. It uses pdfplumber to extract raw text and
+  then applies a series of regex patterns to identify course rows, grades,
+  credits, and terms. The parsed output is consumed by the degree-audit solver.
+"""
+
+# re: standard library regex engine used extensively throughout parsing.
 import re
+# dataclass: decorator that auto-generates __init__, __repr__, etc. for
+# ParsedLine, providing a lightweight typed container for a single course row.
 from dataclasses import dataclass
+# typing helpers for annotating function signatures throughout the module.
 from typing import Any, Dict, List, Optional, Tuple
 
+# pdfplumber: third-party PDF text-extraction library. Converts each PDF page
+# to plain text using positional analysis of the PDF content stream.
 import pdfplumber
 
 # -------- patterns --------
@@ -13,6 +35,18 @@ TERM_TO_CODE = {"Fall": "F", "Winter": "W", "Spring": "S", "Summer": "U"}  # U=s
 
 @dataclass
 class ParsedLine:
+    """
+    Represents a single parsed course row extracted from a transcript PDF.
+
+    Attributes:
+        course_id (str): Canonical course identifier, e.g. "MATH251".
+        term_text (str): Human-readable term string, e.g. "Winter 2026".
+        credits (Optional[float]): Credit hours for this attempt, or None if
+            the value could not be parsed.
+        grade (str): Letter grade or status code ("A-", "IP", "P*", etc.).
+        status (str): Completion status: "completed" | "in_progress" | "unknown".
+        grading_basis (str): Grading schema: "graded" | "pass_fail" | "unknown".
+    """
     course_id: str      # "MATH251"
     term_text: str      # "Winter 2026"
     credits: Optional[float]
@@ -22,6 +56,15 @@ class ParsedLine:
 
 
 def extract_pdf_text(path: str) -> str:
+    """
+    Extract all text from every page of a PDF file and join it with newlines.
+
+    Args:
+        path (str): Filesystem path to the PDF file.
+
+    Returns:
+        str: Full concatenated text content of the PDF.
+    """
     chunks: List[str] = []
     with pdfplumber.open(path) as pdf:
         for page in pdf.pages:
@@ -30,11 +73,32 @@ def extract_pdf_text(path: str) -> str:
 
 
 def canonical_course_id(subj: str, num: str) -> str:
+    """
+    Combine a subject abbreviation and course number into a canonical ID.
+    Preserves trailing letters in the course number (e.g. "110T" -> "PS110T").
+
+    Args:
+        subj (str): Subject abbreviation (e.g. "CS", "WR").
+        num  (str): Course number string (e.g. "210", "110T").
+
+    Returns:
+        str: Canonical course ID (e.g. "CS210", "PS110T").
+    """
     # Preserve things like "110T" -> "PS110T" (can't int() those)
     return f"{subj.strip().upper()}{num.strip().upper()}"
 
 
 def parse_float_maybe(s: str) -> Optional[float]:
+    """
+    Attempt to parse a string as a float, returning None on failure.
+    Leading/trailing whitespace and surrounding parentheses are stripped first.
+
+    Args:
+        s (str): String that may contain a numeric credit value.
+
+    Returns:
+        Optional[float]: Parsed float value, or None if parsing fails.
+    """
     s = s.strip().strip("()")
     try:
         return float(s)
@@ -43,12 +107,31 @@ def parse_float_maybe(s: str) -> Optional[float]:
 
 
 def term_to_attempt_prefix(term_text: str) -> str:
+    """
+    Convert a human-readable term string to the attempt-ID prefix format.
+    Example: "Winter 2026" -> "2026W".
+
+    Args:
+        term_text (str): Term string in "Season YYYY" format.
+
+    Returns:
+        str: Attempt prefix (e.g. "2026W", "2025F").
+    """
     # "Winter 2026" -> "2026W"
     season, year = term_text.split()
     return f"{int(year)}{TERM_TO_CODE.get(season, 'X')}"
 
 
 def grade_to_grading_basis(grade: str) -> str:
+    """
+    Map a single grade token to its grading basis category.
+
+    Args:
+        grade (str): Single grade token (e.g. "A-", "P", "W", "IP").
+
+    Returns:
+        str: "pass_fail" for P/P*/NP grades; "graded" otherwise.
+    """
     # Adjust if your school uses different tokens
     if grade in {"P", "P*", "NP"}:
         return "pass_fail"
@@ -60,6 +143,19 @@ def grade_to_grading_basis(grade: str) -> str:
 
 
 def normalize_grade_and_credits(raw_grade: str, raw_credits: str) -> Tuple[str, Optional[float], str]:
+    """
+    Normalise a raw grade string (which may embed credit info) and a raw credit
+    string, returning a clean grade, credit count, and completion status.
+
+    Args:
+        raw_grade (str): Grade token as extracted from the PDF,
+            possibly in the form "IP (4)".
+        raw_credits (str): Credit hours string as extracted from the PDF.
+
+    Returns:
+        Tuple[str, Optional[float], str]: (grade, credits, status) where status
+            is "completed" or "in_progress".
+    """
     raw_grade = raw_grade.strip()
 
     # handle "IP (4)" if merged
@@ -209,6 +305,17 @@ CATALOG_RE = rf"(?:{YEAR_RANGE_RE}|{TERM_RE})"
 
 
 def parse_broad_data(text: str) -> Dict[str, Any]:
+    """
+    Parse broad student-level metadata from the raw PDF text, including name,
+    program, GPA, earned credits, catalog year, declared majors, and minors.
+
+    Args:
+        text (str): Full concatenated PDF text as returned by extract_pdf_text.
+
+    Returns:
+        Dict[str, Any]: Dictionary with keys: student_name, program, level, gpa,
+            earned_credits, catalog_year, declared_majors, declared_major, minors.
+    """
     def grab(pattern: str) -> Optional[str]:
         m = re.search(pattern, text, flags=re.IGNORECASE)
         return m.group(1).strip() if m else None
@@ -314,6 +421,19 @@ def parse_broad_data(text: str) -> Dict[str, Any]:
     return broad
 
 def parse_transcript_pdf(path: str) -> Dict[str, Any]:
+    """
+    Top-level entry point: parse an entire Ducks-On-Track PDF transcript and
+    return structured course attempt data plus broad student metadata.
+
+    Args:
+        path (str): Filesystem path to the PDF file.
+
+    Returns:
+        Dict[str, Any]: Dictionary with three keys:
+            - "broad_data": student metadata (name, GPA, majors, minors …)
+            - "taken_attempts": list of course-attempt dicts ready for the solver
+            - "class_grades": dict of attempt_id -> {course_id, grade, status}
+    """
     text = extract_pdf_text(path)
     
     broad_data = parse_broad_data(text)

@@ -1,6 +1,24 @@
+/**
+ * @file search.tsx
+ * @description Search page for Quackademics (Better-UO-Scheduler). Provides
+ *   an autocomplete search bar that lets users look up classes or professors.
+ *   Debounced typeahead suggestions are fetched from the backend API.
+ * @created 2024
+ * @authors Will Kelly
+ *
+ * System: Better-UO-Scheduler (Quackademics)
+ *   Mounted by React Router at path "/search". After the user selects a result
+ *   or submits the form it navigates to "/class?q=..." or "/professor?q=..."
+ *   depending on the active search-type toggle.
+ */
+
+// React hooks used for local state and debounced suggestion fetching.
 import { useEffect, useState, type FormEvent } from 'react';
+// useNavigate: React Router hook for programmatic navigation after a search.
 import { useNavigate } from 'react-router-dom';
+// Backend suggestion API calls.
 import { suggestClasses, suggestProfessors } from '../api';
+// Material UI components for layout, inputs, and the class/professor toggle.
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -10,8 +28,18 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 
+/** Union type representing the two available search modes on the search page. */
 type SearchType = 'class' | 'professor';
 
+/**
+ * Search – class and professor search page component.
+ *
+ * Manages a debounced search input with autocomplete. As the user types, it
+ * fetches ranked suggestions from the backend and renders a dropdown list.
+ * Arrow-key navigation and Enter submission are supported.
+ *
+ * @returns JSX element representing the search page.
+ */
 export default function Search() {
   const navigate = useNavigate();
   const [searchType, setSearchType] = useState<SearchType>('class');
@@ -19,11 +47,21 @@ export default function Search() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
 
+  /**
+   * Navigate to the class or professor detail page for a given search value.
+   *
+   * @param value - The selected class name or professor name to navigate to.
+   */
   const goToResult = (value: string) => {
     const path = searchType === 'class' ? '/class' : '/professor';
     navigate(`${path}?q=${encodeURIComponent(value)}`);
   };
 
+  /**
+   * Handle form submission by trimming the query and navigating to the result.
+   *
+   * @param e - The form submit event (prevented to avoid page reload).
+   */
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     const trimmed = query.trim();

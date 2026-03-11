@@ -31,12 +31,12 @@ export default function TranscriptDataView() {
   let data = location.state?.transcriptData as TranscriptData | undefined
 
   if (!data) {
-    const storedData = sessionStorage.getItem("transcriptData") || sessionStorage.getItem("auditData");
+    const storedData = localStorage.getItem("transcriptData") || localStorage.getItem("auditData");
     if (storedData) {
       try {
         data = JSON.parse(storedData);
       } catch (e) {
-        console.error("Failed to parse transcriptData from sessionStorage", e);
+        console.error("Failed to parse transcriptData from localStorage", e);
       }
     }
   }

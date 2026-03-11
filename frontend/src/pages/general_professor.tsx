@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getClass, getProfessor } from '../api';
+import ProfessorTags from './components/ProfessorTags';
 
 type GradeDist = Record<string, number>;
 
@@ -15,6 +16,7 @@ type ProfessorData = {
   courses_taught?: string;
   avg_gpa?: number;
   gradeDistribution?: GradeDist;
+  tags?: { name: string; count: number }[];
   stats?: {
     averageGrade?: number;
     totalStudents?: number;
@@ -227,6 +229,12 @@ export default function GeneralProfessor() {
                 {showDetailedGrades ? 'Clean view (hide +/-)' : 'Detailed view (show +/-)'}
               </button>
             </div>
+
+            {/* Tags Component */}
+            <ProfessorTags 
+               professorId={data.professor || professorName} 
+               initialTags={data.tags} 
+            />
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(220px, 1fr))', gap: 12 }}>
               <div style={{ border: '1px solid #ddd', borderRadius: 12, padding: 14 }}>
