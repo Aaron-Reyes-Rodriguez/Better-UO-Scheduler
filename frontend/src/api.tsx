@@ -104,14 +104,6 @@ export async function getClass(class_id: string) {
   return res.json();
 }
 
-/**
- * Fetch grade-distribution, statistics, and tag votes for a single professor.
- *
- * @param professor_id - Professor identifier or display name
- *   (e.g. "Pat Holleran" or "HolleranP").
- * @returns Promise resolving to the professor data JSON object, including tags.
- * @throws Error if the professor is not found or the request fails.
- */
 export async function getProfessor(professor_id: string) {
   const url = apiUrl(`/professor/${professor_id}`);
   const res = await fetch(url, { method: "GET" });
@@ -186,5 +178,18 @@ export async function uploadTranscript(file: File) {
     headers: { 'Content-Type': 'multipart/form-data' },
     withCredentials: true
   });
+  return res.data;
+}
+
+/** Re-run the degree audit with user-selected tracks/domains. */
+export async function reAudit(
+  parsedData: Record<string, unknown>,
+  selections: Record<string, string>,
+) {
+  const res = await axios.post(
+    apiUrl("/re-audit"),
+    { parsedData, selections },
+    { withCredentials: true },
+  );
   return res.data;
 }
