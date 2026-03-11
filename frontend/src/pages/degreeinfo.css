@@ -178,6 +178,8 @@
   border-top: 1px dashed #e2e8f0; 
 }
 
+/*AI Assistance with formatting the columns to be spaced evenly*/
+
 .di-th:nth-child(1), .di-td:nth-child(1) { width: 50%; }
 .di-th:nth-child(2), .di-td:nth-child(2) { width: 25%; }
 .di-th:nth-child(3), .di-td:nth-child(3) { width: 25%; }

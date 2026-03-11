@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./degreeinfo.css";
 
-// ---- Types ------------------------------------------------------------------
-
 type courseRows = {
   course_id:  string;
   attempt_id: string | null;
@@ -46,9 +44,7 @@ type groupedSections = {
   minors:     { code: string; sections: section[] }[];
 };
 
-// ---- Label lookups ----------------------------------------------------------
-
-// Maps backend bucket keys to human-readable section names
+// Maps the backend bucket terms into readable section names
 const LABELS: Record<string, string> = {
   cs_core_lower:         "Lower-Division Core",
   cs_core_upper:         "Upper-Division Core",
@@ -82,7 +78,9 @@ const LABELS: Record<string, string> = {
   dsci_depth:            "DSCI Depth Requirement",
 };
 
-// Shown at the bottom of unsatisfied open buckets — describes what courses still count
+// For the final row in every section, 
+// such that if they're missing classes from a range (300 or 400 level)
+// indicate the level/type  here
 const BUCKET_LEFTOVERS: Record<string, string> = {
   cs_upper_electives:    "300/400-level CS courses required",
   cs_upper_div_elective: "300/400-level CS courses required",
@@ -102,15 +100,11 @@ const BUCKET_LEFTOVERS: Record<string, string> = {
   math_minor_credits: "MATH courses required (200+ level, 15 must be 300+)",
 };
 
-// ---- Helper functions -------------------------------------------------------
-
-// Takes a full bucket key like "MAJOR_CS_2022-2023:cs_upper_core" and returns a display name
 function bucketLabels(key: string): string {
   const tail = key.split(":").pop() ?? key;
   return LABELS[tail] ?? tail.replace(/_/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase());
 }
 
-// Converts an attempt ID like "2023F-CS313-01" to "Fall 2023"
 function parsedTerm(attemptId: string): string {
   const m = attemptId.match(/^(\d{4})([FWSU])-/);
   if (!m) return attemptId;
@@ -118,16 +112,13 @@ function parsedTerm(attemptId: string): string {
   return `${season} ${m[1]}`;
 }
 
-// Builds the link URL for a course, e.g. CS212 -> /class?q=CS+212
+// makes the URL needed to access a given course (following a specific format)
 function classURL(courseId: string): string {
   const m = courseId.match(/^([A-Z]{2,5})(\d+[A-Z]?)$/);
   if (!m) return `/class?q=${encodeURIComponent(courseId)}`;
   return `/class?q=${encodeURIComponent(m[1])}+${encodeURIComponent(m[2])}`;
 }
 
-// ---- Data transformation ----------------------------------------------------
-
-// Transforms raw assignments and slack from the API into renderable sections
 function getSections(
   assignments: parsedData["assignments"],
   slack: parsedData["slack"]
@@ -136,7 +127,6 @@ function getSections(
     ([bucketKey, courses]: [string, Array<{ attempt_id: string; course_id: string }>]) => {
       const depth = bucketKey.split(":").length;
 
-      // Slot entries are fixed requirements (specific courses must be taken)
       const slots = Object.entries(slack).filter(
         ([k]) => k.startsWith(bucketKey + ":") && k.split(":").length === depth + 1
       );
@@ -144,7 +134,6 @@ function getSections(
       const taken = new Map(courses.map((c) => [c.course_id, c]));
 
       if (slots.length > 0) {
-        // Fixed bucket — show required courses and mark missing ones
         const rows = slots.map(([slotKey]) => {
           const courseId = slotKey.split(":").pop()!;
           const attempt  = taken.get(courseId);
@@ -154,7 +143,6 @@ function getSections(
         });
         return { id: bucketKey, label: bucketLabels(bucketKey), satisfied: slots.every(([, v]) => v === 0), rows };
       } else {
-        // Open bucket — any qualifying course counts (electives, science sequences, etc.)
         const rows = courses.map((c) => ({ course_id: c.course_id, attempt_id: c.attempt_id, term: parsedTerm(c.attempt_id) }));
         return { id: bucketKey, label: bucketLabels(bucketKey), satisfied: slack[bucketKey] === 0, rows };
       }
@@ -162,7 +150,6 @@ function getSections(
   );
 }
 
-// Splits a flat list of sections into degree type / major / minor groups
 function programGrouping(sections: section[]): groupedSections {
   const degreeType: section[] = [];
   const major: section[]      = [];
@@ -188,9 +175,7 @@ function programGrouping(sections: section[]): groupedSections {
   };
 }
 
-// ---- Components -------------------------------------------------------------
 
-// Collapsible card for a single requirement bucket
 function RequirementSection({ section: s, slack }: { section: section; slack: number }) {
   const [open, setOpen] = useState(true);
   const tail    = s.id.split(":").pop() ?? "";
@@ -250,12 +235,9 @@ function RequirementSection({ section: s, slack }: { section: section; slack: nu
   );
 }
 
-// ---- Page -------------------------------------------------------------------
-
 export default function DegreeInfo() {
   const location = useLocation()
 
-  // Try router state first (normal flow after upload), then fall back to localStorage (page refresh)
   const auditedData = useState<parsedData | null>(() => {
     if (location.state?.auditData) return location.state.auditData as parsedData
     const stored = localStorage.getItem("auditData")
