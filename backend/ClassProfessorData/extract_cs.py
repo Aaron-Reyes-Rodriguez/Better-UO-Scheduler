@@ -5,8 +5,7 @@ Purpose: Data-processing script for the Better-UO-Scheduler (Quackademics)
          Excel file and produces four aggregated CSV files used by the backend
          API: per-term course+professor data, all-time course data, all-time
          professor data, and course+professor (all-time) data.
-Created: 2024
-Authors: Aaron Reyes-Rodriguez and contributors
+Authors: Aaron Reyes-Rodriguez and Will Kelley
 
 System: Better-UO-Scheduler (Quackademics)
   Run this script once (or whenever the source data is updated) to regenerate
