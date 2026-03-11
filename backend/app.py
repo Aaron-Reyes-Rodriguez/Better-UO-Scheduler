@@ -178,6 +178,11 @@ def update_professor_tags(professor_id: str, req: ProfessorTagsRequest):
     except KeyError:
         raise HTTPException(status_code=404, detail=f"Professor not found: {professor_id}")
 
+@app.get("/class/{class_id}/professors")
+def get_class_professors(class_id: str, limit: int = Query(default=50, ge=1, le=200)):
+    """Return professors who taught a class (ordered by total students)."""
+    return {"results": apiHelper.classProfessors(class_id, limit)}
+
 
 @app.get("/suggest/classes")
 def suggest_classes(q: str = Query(default="", min_length=1), limit: int = Query(default=8, ge=1, le=20)):

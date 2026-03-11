@@ -13,6 +13,7 @@ System: Better-UO-Scheduler (Quackademics)
   lookups against the pre-built classes.json and professors.json files.
 """
 
+import csv
 # json: standard library module for reading/writing JSON data files.
 import json
 # re: standard library regex module used for fuzzy name matching.
@@ -51,6 +52,7 @@ TAG_COLUMNS = {
 COLUMN_TO_TAG = {v: k for k, v in TAG_COLUMNS.items()}
 
 
+# Normalize class IDs so "CS 110" and "cs110" match.
 def _normalize_class_key(class_id: str) -> str:
     """
     Normalise a raw class identifier to the form used as a JSON key.
@@ -65,6 +67,7 @@ def _normalize_class_key(class_id: str) -> str:
     return ''.join((class_id or '').upper().split())
 
 
+# Compact a string for fuzzy matching (lowercase + alnum only).
 def _compact(value: str) -> str:
     """
     Produce a compact lowercase alphanumeric representation of a string by
@@ -79,6 +82,7 @@ def _compact(value: str) -> str:
     return ''.join(ch.lower() for ch in (value or '') if ch.isalnum())
 
 
+# Common nickname expansions to improve professor matching.
 NICKNAMES = {
     "phil": "phillip",
     "philip": "phillip",
@@ -93,6 +97,7 @@ NICKNAMES = {
 }
 
 
+# Tokenize a name/query and normalize nicknames.
 def _name_tokens(value: str) -> tuple[str, ...]:
     """
     Tokenise a string for name-matching purposes, replacing common nicknames
@@ -110,6 +115,7 @@ def _name_tokens(value: str) -> tuple[str, ...]:
     return tuple(normalized)
 
 
+# Build compact aliases for "Last, First" and "First Last".
 def _professor_aliases(key: str, display_name: str) -> set[str]:
     """
     Build a set of compact alias strings for a professor to support searches in
@@ -160,6 +166,7 @@ def _prof_display_tokens(record: dict, key: str) -> tuple[str, ...]:
     return _name_tokens(record.get("professor_name", key))
 
 
+# Cached JSON loads to avoid re-reading on every request.
 @lru_cache(maxsize=1)
 def _load_class_data() -> dict:
     """
@@ -185,6 +192,29 @@ def _load_prof_data() -> dict:
     with open("ClassProfessorData/jsonData/professors.json", "r") as f:
         return json.load(f)
 
+
+@lru_cache(maxsize=1)
+def _load_course_professors() -> dict:
+    """Build mapping of normalized course_id -> {professor_name: total_students}."""
+    path = "ClassProfessorData/course_professor.csv"
+    mapping = {}
+    with open(path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            course_id = (row.get("course_id") or "").strip()
+            professor = (row.get("professor") or "").strip()
+            if not course_id or not professor:
+                continue
+            total_students = 0
+            try:
+                total_students = int(float(row.get("total_students") or 0))
+            except ValueError:
+                total_students = 0
+
+            key = _normalize_class_key(course_id)
+            by_prof = mapping.setdefault(key, {})
+            by_prof[professor] = by_prof.get(professor, 0) + total_students
+    return mapping
 
 
 def get_db_connection():
@@ -225,7 +255,13 @@ def init_db():
 
 def _load_prof_tags(professor_id: str) -> list[dict]:
     """Load tags for a professor from the pivot table. Returns tags with count >= 1 as dicts."""
-    conn = get_db_connection()
+    if not os.environ.get("DATABASE_URL"):
+        return []
+    try:
+        conn = get_db_connection()
+    except Exception as e:
+        print(f"Error loading tags for {professor_id}: {e}")
+        return []
     try:
         with conn.cursor() as cur:
             tag_cols = ", ".join(TAG_COLUMNS.values())
@@ -351,6 +387,18 @@ def professorFinder(professor_id):
     return result
 
 
+def classProfessors(class_id: str, limit: int = 50) -> list[str]:
+    if not class_id:
+        return []
+    key = _normalize_class_key(class_id)
+    mapping = _load_course_professors()
+    profs = mapping.get(key, {})
+    if not profs:
+        return []
+    ordered = sorted(profs.items(), key=lambda x: (-x[1], x[0]))
+    return [name for name, _count in ordered[: max(1, min(limit, 200))]]
+
+
 def classSuggestions(query: str, limit: int = 8) -> list[str]:
     """
     Return a ranked list of class name suggestions matching a partial query.
@@ -460,6 +508,9 @@ def updateProfessorTags(professor_id: str, tags: list[str]) -> list[str]:
     # Ensure professor exists, throws KeyError if not
     prof = professorFinder(professor_id)
     clean_prof_id = prof.get("professor", professor_id)
+
+    if not os.environ.get("DATABASE_URL"):
+        return _load_prof_tags(clean_prof_id)
     
     unique_tags = list(dict.fromkeys(tags))
     if not unique_tags:
@@ -470,7 +521,11 @@ def updateProfessorTags(professor_id: str, tags: list[str]) -> list[str]:
     if not valid_tags:
         return _load_prof_tags(clean_prof_id)
         
-    conn = get_db_connection()
+    try:
+        conn = get_db_connection()
+    except Exception as e:
+        print(f"Error updating tags for {clean_prof_id}: {e}")
+        return _load_prof_tags(clean_prof_id)
     try:
         with conn.cursor() as cur:
             # Build the INSERT with ON CONFLICT to increment tag columns
