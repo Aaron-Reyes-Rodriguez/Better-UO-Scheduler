@@ -46,7 +46,7 @@ function collapseDistribution(dist: GradeDist): GradeDist {
 }
 
 export default function GeneralClass() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams/*, setSearchParams*/] = useSearchParams();
   const navigate = useNavigate();
   const initialQuery = searchParams.get('q') ?? '';
 
@@ -81,13 +81,13 @@ export default function GeneralClass() {
     }
   };
 
-  const load = async () => {
-    const trimmed = courseKey.trim();
-    if (trimmed) {
-      setSearchParams({ q: trimmed });
-    }
-    await loadByValue(courseKey);
-  };
+  // const load = async () => {
+  //   const trimmed = courseKey.trim();
+  //   if (trimmed) {
+  //     setSearchParams({ q: trimmed });
+  //   }
+  //   await loadByValue(courseKey);
+  // };
 
   // Read initial query string on mount.
   useEffect(() => {
@@ -133,6 +133,7 @@ export default function GeneralClass() {
         >
           Back to Search
         </button>
+        {/*
         <input
           value={courseKey}
           onChange={(e) => setCourseKey(e.target.value)}
@@ -145,6 +146,7 @@ export default function GeneralClass() {
         <button onClick={load} style={{ padding: '8px 14px', borderRadius: 8 }} disabled={loading}>
           {loading ? 'Loading...' : 'Load'}
         </button>
+        */}
       </div>
 
       {loading && <div style={{ marginTop: 12 }}>Loading...</div>}
