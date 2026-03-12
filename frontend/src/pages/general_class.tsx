@@ -1,3 +1,15 @@
+/**
+ * @file general_class.tsx
+ * @description Class detail page for Quackademics (Better-UO-Scheduler).
+ *   Reads the course key from the URL query string ("q"), fetches aggregate
+ *   grade distribution / GPA stats via the backend API, and lists professors
+ *   associated with the course for quick navigation.
+ * @authors Will Kelley
+ *
+ * System: Better-UO-Scheduler (Quackademics)
+ *   Mounted by React Router at path "/class". Typically navigated to from the
+ *   Search page using "/class?q=...".
+ */
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getClass, getClassProfessors } from '../api';

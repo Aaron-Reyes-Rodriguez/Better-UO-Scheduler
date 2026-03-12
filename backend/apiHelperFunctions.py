@@ -4,7 +4,7 @@ Purpose: Data-access and business-logic helpers for the Better-UO-Scheduler
          backend (Quackademics). Provides functions for looking up class and
          professor records from static JSON files, generating typeahead
          suggestions, and managing professor tags stored in PostgreSQL.
-Authors: Aaron Reyes-Rodriguez, Daniel Asiamah
+Authors: Aaron Reyes-Rodriguez, Daniel Asiamah, Will Kelley
 
 System: Better-UO-Scheduler (Quackademics)
   This module is imported by app.py (the FastAPI server). It is responsible for

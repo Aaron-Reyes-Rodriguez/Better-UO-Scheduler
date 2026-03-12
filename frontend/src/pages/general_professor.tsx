@@ -1,3 +1,15 @@
+/**
+ * @file general_professor.tsx
+ * @description Professor detail page for Quackademics (Better-UO-Scheduler).
+ *   Reads the professor name from the URL query string ("q"), fetches aggregate
+ *   grade distribution / GPA stats and taught-course list via the backend API,
+ *   and computes a weighted department baseline from per-course stats.
+ * @authors Will Kelley
+ *
+ * System: Better-UO-Scheduler (Quackademics)
+ *   Mounted by React Router at path "/professor". Typically navigated to from
+ *   the Search page using "/professor?q=...".
+ */
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getClass, getProfessor } from '../api';
