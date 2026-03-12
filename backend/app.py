@@ -34,6 +34,12 @@ from typing import List, Optional, Dict, Any
 import os
 import re
 import logging
+from dotenv import load_dotenv
+
+# Load .env file so local developers get DATABASE_URL, CORS_ORIGINS, etc.
+# In production the real env vars take precedence.
+load_dotenv()
+
 # deg_guide solver: internal library that evaluates which degree requirements a
 # student has satisfied given their course history.
 from deg_guide.solver.model import load_courses, load_program, solve_degree_audit
