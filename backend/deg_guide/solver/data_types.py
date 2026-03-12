@@ -46,4 +46,5 @@ class CourseAttempt:
     grading_basis: str       # "graded" | "pnp"
     term: str | None = None
     subtitle: str | None = None
+    grade: str | None = None  # letter grade: "A", "B-", "C+", etc.; or "P", "P*", "NP", "W", "IP"
 

@@ -342,6 +342,8 @@ def load_program_by_type(program_type: str, code: str, year: str):
     
     if program_type == "degree_types":
         path = f"deg_guide/data/programs/degree_types/{code}_{year}.json"
+    elif program_type == "bachelor":
+        path = f"deg_guide/data/programs/bachelor/{code}_{year}.json"
     elif program_type == "majors":
         path = f"deg_guide/data/programs/majors/{code}/{code}_{year}.json"
     elif program_type == "minors":
@@ -374,6 +376,93 @@ class AuditRequest(BaseModel):
 def audit_cs(req: AuditRequest):
     return solve_degree_audit(COURSES, set(req.taken_courses), [BS, MAJOR_CS])
 '''
+def build_bucket_hints(programs_to_audit: list) -> dict:
+    """
+    Derive hint strings for open/credit-pool buckets directly from the program
+    JSON structure — no hard-coded lookup tables needed on the frontend.
+
+    Reads each requirement's type, min_credits, where, constraints, k, and
+    from_set to produce strings like:
+      "30 credits of 200+ level MATH courses required (15 must be 300+)"
+
+    Args:
+        programs_to_audit: list of loaded program objects (from load_program)
+
+    Returns:
+        dict keyed by "{program.id}:{requirement.id}" -> hint string
+    """
+    hints = {}
+
+    for program in programs_to_audit:
+        for req in program.requirements:
+            req_id   = getattr(req, "id",   None)
+            req_type = getattr(req, "type", None)
+            if not req_id or not req_type:
+                continue
+
+            bucket_key = f"{program.id}:{req_id}"
+            hint       = None
+
+            if req_type == "credit_pool":
+                min_credits = getattr(req, "min_credits", None)
+                where       = getattr(req, "where", None) or {}
+                subject     = where.get("subject", "")
+                subject_in  = where.get("subject_in", [])
+                min_num     = where.get("min_number", None)
+                from_set    = getattr(req, "from_set", None)
+                constraints = getattr(req, "constraints", None) or []
+
+                # Build extra clause from sub-constraints (e.g. "15 must be 300+")
+                constraint_parts = []
+                for c in constraints:
+                    c_min_credits = c.get("min_credits") if isinstance(c, dict) else getattr(c, "min_credits", None)
+                    c_where       = (c.get("where", {}) if isinstance(c, dict) else getattr(c, "where", None)) or {}
+                    c_min_num     = c_where.get("min_number")
+                    if c_min_credits and c_min_num:
+                        constraint_parts.append(f"{c_min_credits} must be {c_min_num}+")
+                extra = f" ({', '.join(constraint_parts)})" if constraint_parts else ""
+
+                subject_str = subject or (", ".join(subject_in) if subject_in else "")
+                if subject_str and min_num:
+                    hint = f"{min_credits} credits of {min_num}+ level {subject_str} courses required{extra}"
+                elif from_set:
+                    hint = f"{min_credits} credits from {from_set.replace('_', ' ')} required{extra}"
+                elif min_credits:
+                    hint = f"{min_credits} credits required{extra}"
+
+                # Add submin-specific hints for credit_pool constraints (e.g. "credits in CS 410:499")
+                # so the frontend can show "8 credits in CS 410:499 still needed" when that's the binding constraint
+                for j, c in enumerate(constraints):
+                    c_min_credits = c.get("min_credits") if isinstance(c, dict) else getattr(c, "min_credits", None)
+                    c_where       = (c.get("where", {}) if isinstance(c, dict) else getattr(c, "where", None)) or {}
+                    c_subject     = c_where.get("subject", subject)
+                    c_min_num     = c_where.get("min_number")
+                    c_max_num     = c_where.get("max_number")
+                    if c_min_credits and c_subject:
+                        if c_min_num is not None and c_max_num is not None:
+                            submin_hint = f"credits in {c_subject} {c_min_num}:{c_max_num}"
+                        elif c_min_num is not None:
+                            submin_hint = f"credits in {c_subject} {c_min_num}+"
+                        else:
+                            submin_hint = f"{c_min_credits} credits from {c_subject}"
+                        hints[f"{bucket_key}:submin:{j}"] = submin_hint
+
+            elif req_type == "choose_k":
+                k        = getattr(req, "k",                None)
+                from_set = getattr(req, "from_set",          None)
+                from_req = getattr(req, "from_requirements", None)
+
+                if from_set and k:
+                    hint = f"{k} course(s) from {from_set.replace('_', ' ')} required"
+                elif from_req and k:
+                    hint = f"{k} option(s) required"
+
+            if hint:
+                hints[bucket_key] = hint
+
+    return hints
+
+
 class AttemptIn(BaseModel):
     """
     A single course-attempt record used in manual audit requests.
@@ -385,6 +474,7 @@ class AttemptIn(BaseModel):
         grading_basis (str): "graded" | "pass_fail" | "unknown".
         term (Optional[str]): Term string (e.g. "Winter 2026").
         subtitle (Optional[str]): Section subtitle for variable-title courses.
+        grade (Optional[str]): Letter grade (e.g. "A-", "B+") for min_grade requirements.
     """
     attempt_id: str
     course_id: str
@@ -392,6 +482,7 @@ class AttemptIn(BaseModel):
     grading_basis: str
     term: Optional[str] = None
     subtitle: Optional[str] = None
+    grade: Optional[str] = None
 
 
 class AuditRequest(BaseModel):
@@ -500,6 +591,16 @@ async def upload_transcript(file: UploadFile):
           logger.info(f"  ✓ Loaded: {degree_program.id}")
       else:
           logger.warning(f"  ✗ Failed to load: {degree_json_path}")
+
+      # Load shared bachelor requirements (Written English, Upper-division, 180 credits, etc.)
+      bach_program = load_program_by_type("bachelor", "BACH", degree_catalog_year)
+      if not bach_program and degree_catalog_year != DEFAULT_CATALOG_YEAR:
+          bach_program = load_program_by_type("bachelor", "BACH", DEFAULT_CATALOG_YEAR)
+          if bach_program:
+              logger.info(f"  BACH_{degree_catalog_year} not found, using {DEFAULT_CATALOG_YEAR}")
+      if bach_program:
+          programs_to_audit.append(bach_program)
+          logger.info(f"  ✓ Loaded: {bach_program.id} (shared bachelor requirements)")
   else:
       logger.warning(f"  ✗ No code mapping for: '{program_name}'")
   
@@ -581,6 +682,7 @@ async def upload_transcript(file: UploadFile):
             grading_basis=a["grading_basis"],
             term=a.get('term'),      
             subtitle=a.get('subtitle'),
+            grade=a.get('grade'),
         )
         for a in parsedData["taken_attempts"]
     ]
@@ -603,6 +705,7 @@ async def upload_transcript(file: UploadFile):
   returnData["student_name"] = broad_data.get("student_name")
   returnData["broad_data"] = broad_data
   returnData["parsedData"] = parsedData  # frontend stores this for re-audit calls
+  returnData["bucket_hints"] = build_bucket_hints(programs_to_audit)
 
   return returnData
 
@@ -642,6 +745,11 @@ def re_audit(req: ReAuditRequest):
               "code": degree_code,
               "catalog_year": degree_catalog_year,
           }
+      bach_program = load_program_by_type("bachelor", "BACH", degree_catalog_year)
+      if not bach_program and degree_catalog_year != DEFAULT_CATALOG_YEAR:
+          bach_program = load_program_by_type("bachelor", "BACH", DEFAULT_CATALOG_YEAR)
+      if bach_program:
+          programs_to_audit.append(bach_program)
 
   # Load majors
   majors_to_load = broad_data.get("declared_majors") or (
@@ -693,6 +801,7 @@ def re_audit(req: ReAuditRequest):
           grading_basis=a["grading_basis"],
           term=a.get("term"),
           subtitle=a.get("subtitle"),
+          grade=a.get("grade"),
       )
       for a in parsedData.get("taken_attempts", [])
   ]
@@ -703,6 +812,7 @@ def re_audit(req: ReAuditRequest):
   returnData["student_name"] = broad_data.get("student_name")
   returnData["broad_data"] = broad_data
   returnData["parsedData"] = parsedData
+  returnData["bucket_hints"] = build_bucket_hints(programs_to_audit)
 
   return returnData
 
@@ -783,6 +893,7 @@ def audit_cs(req: AuditRequest, year: str = DEFAULT_CATALOG_YEAR, degree_type: s
             grading_basis=a.grading_basis,
             term=a.term,
             subtitle=a.subtitle,
+            grade=getattr(a, "grade", None),
         )
         for a in req.taken_attempts
     ]

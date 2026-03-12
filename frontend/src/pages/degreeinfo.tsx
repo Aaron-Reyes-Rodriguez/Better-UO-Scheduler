@@ -30,6 +30,7 @@ type AuditData = {
   completion_percentage: number;
   student_name?: string | null;
   labels?: Record<string, string>;
+  bucket_hints?: Record<string, string>;
   choices?: Choice[];
   parsedData?: Record<string, unknown>;
   assignments: Record<string, Array<{ attempt_id: string; course_id: string }>>;
@@ -67,12 +68,49 @@ function parseTerm(attemptId: string): string {
 }
 
 function classUrl(courseId: string): string {
-  const m = courseId.match(/^([A-Z]{2,5})(\d+[A-Z]?)$/);
-  if (!m) return `/class?q=${encodeURIComponent(courseId)}`;
+  // Strip trailing Z suffix (e.g. MATH251Z -> MATH251) before building URL
+  const normalized = courseId.replace(/Z$/, "");
+  const m = normalized.match(/^([A-Z]{2,5})(\d+[A-Z]?)$/);
+  if (!m) return `/class?q=${encodeURIComponent(normalized)}`;
   return `/class?q=${encodeURIComponent(m[1])}+${encodeURIComponent(m[2])}`;
 }
 
 // ---- Data -------------------------------------------------------------------
+
+/**
+ * For credit_pool requirements with submin constraints (e.g. "12 credits in CS 410+"),
+ * the binding constraint may be the submin (e.g. "8 credits in CS 410:499 still needed")
+ * rather than the main pool total. This matches DuckWeb's display.
+ */
+function getEffectiveSlackAndHint(
+  sectionId: string,
+  slack: Record<string, number>,
+  bucketHints?: Record<string, string>
+): { slack: number; hint: string | undefined; isCredits: boolean } {
+  const mainSlack = slack[sectionId] ?? 0;
+  const mainHint = bucketHints?.[sectionId];
+
+  // Check for submin slack keys (e.g. MAJOR_CS:cs_upper_electives:submin:0)
+  const subminKeys = Object.keys(slack).filter(
+    (k) => k.startsWith(sectionId + ":submin:") && slack[k] > 0
+  );
+  if (subminKeys.length > 0) {
+    // Use the first submin with slack > 0 (binding constraint) - matches DuckWeb "Still needed: 8 Credits in CS 410:499"
+    const subminKey = subminKeys[0];
+    const subminSlack = slack[subminKey];
+    const subminHint = bucketHints?.[subminKey];
+    return {
+      slack: subminSlack,
+      hint: subminHint || mainHint,
+      isCredits: true,
+    };
+  }
+  return {
+    slack: mainSlack,
+    hint: mainHint,
+    isCredits: !!mainHint?.toLowerCase().includes("credit"),
+  };
+}
 
 function getSections(
   assignments: AuditData["assignments"],
@@ -100,7 +138,10 @@ function getSections(
         return { id: bucketKey, label: bucketLabel(bucketKey, apiLabels), satisfied: slots.every(([, v]) => v === 0), rows };
       } else {
         const rows = courses.map((c) => ({ course_id: c.course_id, attempt_id: c.attempt_id, term: parseTerm(c.attempt_id) }));
-        return { id: bucketKey, label: bucketLabel(bucketKey, apiLabels), satisfied: slack[bucketKey] === 0, rows };
+        // For credit_pool with submin: satisfied only when main AND all submin slacks are 0
+        const subminKeys = Object.keys(slack).filter((k) => k.startsWith(bucketKey + ":submin:"));
+        const allSlacksZero = (slack[bucketKey] ?? 0) === 0 && subminKeys.every((k) => (slack[k] ?? 0) === 0);
+        return { id: bucketKey, label: bucketLabel(bucketKey, apiLabels), satisfied: allSlacksZero, rows };
       }
     }
   );
@@ -109,19 +150,23 @@ function getSections(
 // ---- Grouping ---------------------------------------------------------------
 
 type GroupedSections = {
+  bachelor: Section[];
   degreeType: Section[];
   major: Section[];
   minors: { code: string; sections: Section[] }[];
 };
 
 function groupByProgram(sections: Section[]): GroupedSections {
+  const bachelor: Section[] = [];
   const degreeType: Section[] = [];
   const major: Section[] = [];
   const minorMap = new Map<string, Section[]>();
 
   for (const s of sections) {
     const programId = s.id.split(":")[0];
-    if (programId.startsWith("UO_BS") || programId.startsWith("UO_BA")) {
+    if (programId.startsWith("UO_BACH")) {
+      bachelor.push(s);
+    } else if (programId.startsWith("UO_BS") || programId.startsWith("UO_BA")) {
       degreeType.push(s);
     } else if (programId.startsWith("MAJOR_")) {
       major.push(s);
@@ -133,6 +178,7 @@ function groupByProgram(sections: Section[]): GroupedSections {
   }
 
   return {
+    bachelor,
     degreeType,
     major,
     minors: Array.from(minorMap.entries()).map(([code, secs]) => ({ code, sections: secs })),
@@ -141,8 +187,23 @@ function groupByProgram(sections: Section[]): GroupedSections {
 
 // ---- Components -------------------------------------------------------------
 
-function RequirementSection({ section }: { section: Section }) {
+function RequirementSection({
+  section,
+  slack,
+  hint,
+  isCredits,
+}: {
+  section: Section;
+  slack: number;
+  hint?: string;
+  isCredits?: boolean;
+}) {
   const [open, setOpen] = useState(true);
+  const showhint     = !section.satisfied && !!hint && slack > 0;
+  // Fixed-slot sections: count rows with no attempt (specific courses not yet taken)
+  const missingCount = section.rows.filter((r) => !r.attempt_id).length;
+  // Credit-pool fallback: all shown courses completed but still not enough credits
+  const creditShortfall = !section.satisfied && missingCount === 0 && !hint && slack > 0;
 
   return (
     <div className="di-section">
@@ -183,6 +244,30 @@ function RequirementSection({ section }: { section: Section }) {
                 </td>
               </tr>
             ))}
+            {/* Fixed-slot: specific required courses not yet taken */}
+            {!section.satisfied && missingCount > 0 && (
+              <tr className="di-row-hint">
+                <td className="di-td di-td-hint" colSpan={3}>
+                  {missingCount} class{missingCount !== 1 ? "es" : ""} for this section missing
+                </td>
+              </tr>
+            )}
+            {/* Credit-pool with backend hint (from bucket_hints) */}
+            {showhint && (
+              <tr className="di-row-hint">
+                <td className="di-td di-td-hint" colSpan={3}>
+                  {slack} more {isCredits ? `credit${slack !== 1 ? "s" : ""}` : `class${slack !== 1 ? "es" : ""}`} needed — {hint}
+                </td>
+              </tr>
+            )}
+            {/* Credit-pool fallback: courses exist but credits still short */}
+            {creditShortfall && (
+              <tr className="di-row-hint">
+                <td className="di-td di-td-hint" colSpan={3}>
+                  {slack} more credit{slack !== 1 ? "s" : ""} needed for this section
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       )}
@@ -269,7 +354,7 @@ export default function DegreeInfo() {
     return <p className="di-state-msg error">No transcript data found. Please upload your transcript first.</p>
   }
 
-  const { broad_data: bd, programs_loaded: prog, student_name, labels: apiLabels, assignments, slack, choices } = auditData
+  const { broad_data: bd, programs_loaded: prog, student_name, labels: apiLabels, bucket_hints: bucketHints, assignments, slack, choices } = auditData
   const sections  = getSections(assignments, slack, apiLabels)
   const grouped   = groupByProgram(sections)
   const displayName = student_name ?? bd.student_name ?? null
@@ -302,12 +387,27 @@ export default function DegreeInfo() {
       </div>
 
       <div className="di-body">
+        {/* UO Bachelor Degree (shared university-wide requirements) */}
+        {grouped.bachelor.length > 0 && (
+          <div className="di-program-group">
+            <h2 className="di-group-title">UO Bachelor Degree</h2>
+            <p className="di-group-subtitle">Shared university-wide requirements</p>
+            {grouped.bachelor.map((s) => {
+              const { slack: effSlack, hint: effHint, isCredits } = getEffectiveSlackAndHint(s.id, auditData.slack, bucketHints);
+              return <RequirementSection key={s.id} section={s} slack={effSlack} hint={effHint} isCredits={isCredits} />;
+            })}
+          </div>
+        )}
+
         {/* Degree type (BS/BA) requirements */}
         {grouped.degreeType.length > 0 && (
           <div className="di-program-group">
             <h2 className="di-group-title">{prog.degree_type.code} Degree Requirements</h2>
             <p className="di-group-subtitle">General requirements for the {prog.degree_type.code} degree</p>
-            {grouped.degreeType.map((s) => <RequirementSection key={s.id} section={s} />)}
+            {grouped.degreeType.map((s) => {
+              const { slack: effSlack, hint: effHint, isCredits } = getEffectiveSlackAndHint(s.id, auditData.slack, bucketHints);
+              return <RequirementSection key={s.id} section={s} slack={effSlack} hint={effHint} isCredits={isCredits} />;
+            })}
           </div>
         )}
 
@@ -332,7 +432,10 @@ export default function DegreeInfo() {
               </div>
             )}
 
-            {grouped.major.map((s) => <RequirementSection key={s.id} section={s} />)}
+            {grouped.major.map((s) => {
+              const { slack: effSlack, hint: effHint, isCredits } = getEffectiveSlackAndHint(s.id, auditData.slack, bucketHints);
+              return <RequirementSection key={s.id} section={s} slack={effSlack} hint={effHint} isCredits={isCredits} />;
+            })}
           </div>
         )}
 
@@ -348,7 +451,10 @@ export default function DegreeInfo() {
                 {minor.catalog_year ? `Catalog ${minor.catalog_year}` : ""}
               </p>
               {minorSections.length > 0 ? (
-                minorSections.map((s) => <RequirementSection key={s.id} section={s} />)
+                minorSections.map((s) => {
+                  const { slack: effSlack, hint: effHint, isCredits } = getEffectiveSlackAndHint(s.id, auditData.slack, bucketHints);
+                  return <RequirementSection key={s.id} section={s} slack={effSlack} hint={effHint} isCredits={isCredits} />;
+                })
               ) : (
                 <p className="di-minor-empty">No requirement data available for this minor.</p>
               )}
