@@ -1,9 +1,9 @@
 # Better-UO-Scheduler
 
 ## Link
-~~~
+
 https://main.d3f30e6npwa1ai.amplifyapp.com/
-~~~
+
 
 ## Local Host Set Up if not using the link above
 
