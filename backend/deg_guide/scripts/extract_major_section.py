@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-extract_major_section.py
+File: extract_major_section.py
+Purpose: Extract a major (or any section) from a large catalog PDF by locating 
+         a start header pattern and an end header pattern.
+Authors: Daniel Asiamah
 
-Extract a major (or any section) from a large catalog PDF by locating a start
-header pattern and an end header pattern, then exporting:
-  - a PDF excerpt (page-exact)
-  - optional per-page text dump for downstream parsing/diffing
+System: Better-UO-Scheduler (Quackademics)
+  This tool exports:
+    - a PDF excerpt (page-exact)
+    - optional per-page text dump for downstream parsing/diffing
 
 Requires:
   pip install pdfplumber pypdf
@@ -36,6 +39,15 @@ class Match:
 
 
 def normalize(s: str) -> str:
+    """
+    Normalize text by standardising dashes and removing soft hyphens.
+
+    Args:
+        s (str): The raw text string.
+
+    Returns:
+        str: The normalized string.
+    """
     # Normalize weird dashes and whitespace; keep it simple.
     return (
         s.replace("\u2013", "-")
@@ -45,7 +57,16 @@ def normalize(s: str) -> str:
 
 
 def iter_page_text(pdf_path: Path) -> Iterable[Tuple[int, str]]:
-    """Yield (page_index, text) for each page."""
+    """
+    Yield text from each page of a PDF file.
+
+    Args:
+        pdf_path (Path): Path to the PDF file.
+
+    Yields:
+        Tuple[int, str]: A tuple containing the 0-based page index and the
+        normalized text of that page.
+    """
     with pdfplumber.open(str(pdf_path)) as pdf:
         for i, page in enumerate(pdf.pages):
             text = page.extract_text() or ""
@@ -59,6 +80,14 @@ def find_best_page(
 ) -> Optional[Match]:
     """
     Find the most likely start page by scanning text pages and scoring matches.
+
+    Args:
+        pages: An iterable of (page_index, normalized_text) pairs.
+        start_re (re.Pattern): Regex pattern to find the section header.
+        boost_re (Optional[re.Pattern]): Optional regex to boost scoring if found.
+
+    Returns:
+        Optional[Match]: The best Match object found, or None if no match.
     """
     best: Optional[Match] = None
     for idx, text in pages:
@@ -93,6 +122,12 @@ def build_heading_regexes(major: str) -> Tuple[re.Pattern, re.Pattern]:
 
     Start: match the exact major phrase as a heading-ish line.
     End: match another heading-ish line that likely starts the next section.
+
+    Args:
+        major (str): The name of the major to extract.
+
+    Returns:
+        Tuple[re.Pattern, re.Pattern]: A tuple of (start_regex, end_regex).
     """
     major_esc = re.escape(major.strip())
     # Start: allow minor variations in whitespace, BA/BS, parentheses, etc.
@@ -117,8 +152,22 @@ def locate_section(
     max_pages_forward: int = 80,
 ) -> Tuple[int, int]:
     """
-    Return (start_page_index, end_page_index_inclusive).
+    Locate the start and end pages of a section in a PDF.
+
     If end_regex is None, infer end by scanning for a likely "next heading" after start.
+
+    Args:
+        pdf_path (Path): Path to the catalog PDF.
+        start_regex (str): Regex pattern to identify the start of the section.
+        end_regex (Optional[str]): Regex pattern to identify the end of the section.
+        search_from_page (int): 0-based page index to start searching from.
+        max_pages_forward (int): Maximum pages to scan forward looking for the end.
+
+    Returns:
+        Tuple[int, int]: A tuple of (start_page_index, end_page_index_inclusive).
+
+    Raises:
+        SystemExit: If the start heading cannot be found.
     """
     start_re = re.compile(start_regex, re.IGNORECASE | re.MULTILINE)
     end_re = re.compile(end_regex, re.IGNORECASE | re.MULTILINE) if end_regex else None
@@ -173,6 +222,15 @@ def export_pdf_pages(
     start_idx: int,
     end_idx: int,
 ) -> None:
+    """
+    Extract a range of pages from a PDF and save it as a new PDF file.
+
+    Args:
+        src_pdf (Path): Path to the source PDF.
+        dst_pdf (Path): Path to save the extracted PDF.
+        start_idx (int): 0-based index of the first page to extract.
+        end_idx (int): 0-based index of the last page to extract (inclusive).
+    """
     reader = PdfReader(str(src_pdf))
     writer = PdfWriter()
     for i in range(start_idx, end_idx + 1):
@@ -188,6 +246,15 @@ def export_text_dump(
     start_idx: int,
     end_idx: int,
 ) -> None:
+    """
+    Extract text from a range of pages in a PDF and save it as a text file.
+
+    Args:
+        src_pdf (Path): Path to the source PDF.
+        dst_txt (Path): Path to save the extracted text.
+        start_idx (int): 0-based index of the first page to extract.
+        end_idx (int): 0-based index of the last page to extract (inclusive).
+    """
     lines: List[str] = []
     with pdfplumber.open(str(src_pdf)) as pdf:
         for i in range(start_idx, end_idx + 1):
@@ -200,6 +267,12 @@ def export_text_dump(
 
 
 def main() -> None:
+    """
+    CLI entry point for extracting a major section from a catalog PDF.
+    
+    Parses command-line arguments to find the start and end of a given major 
+    section in a PDF file, then exports a new PDF excerpt and optionally a text dump.
+    """
     ap = argparse.ArgumentParser(description="Extract a major/section from a catalog PDF.")
     ap.add_argument("pdf", type=Path, help="Path to the large catalog PDF")
     ap.add_argument("--major", type=str, default=None,

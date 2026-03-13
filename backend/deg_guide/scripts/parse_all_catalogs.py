@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
-Parse all courses from UO_ALL_CLASSES.pdf and generate JSON catalog files.
-Run from the backend directory: python deg_guide/scripts/parse_all_catalogs.py
+File: parse_all_catalogs.py
+Purpose: Parse all courses from UO_ALL_CLASSES.pdf text dumps and generate 
+         JSON catalog files containing parsed course metadata for degree audits.
+Authors: Daniel Asiamah
+
+System: Better-UO-Scheduler (Quackademics)
+  Run from the backend directory: python deg_guide/scripts/parse_all_catalogs.py
 """
 import json
 import re
@@ -9,7 +14,16 @@ import sys
 from pathlib import Path
 
 def parse_credits(credits_str):
-    """Parse credit string like '4 Credits' or '1-5 Credits' into credits and credit_range."""
+    """
+    Parse a credit string denoting credit counts.
+    
+    Args:
+        credits_str (str): Raw credits string (e.g., '4 Credits', '1-5 Credits').
+        
+    Returns:
+        tuple[int, dict | None]: A default credit integer and a dictionary containing
+        the credit range min/max bounds (or None if a fixed credit count).
+    """
     match = re.match(r'(\d+)-(\d+)', credits_str.strip())
     if match:
         min_c, max_c = int(match.group(1)), int(match.group(2))
@@ -23,7 +37,15 @@ def parse_credits(credits_str):
     return 4, None
 
 def extract_prereqs(text):
-    """Extract prerequisite course IDs from requisites text."""
+    """
+    Extract prerequisite course IDs from a block of text.
+    
+    Args:
+        text (str): Free text potentially containing prerequisites.
+        
+    Returns:
+        list[str]: A list of unique formatted normalized course IDs.
+    """
     prereqs = []
     pattern = r'\b([A-Z]{2,4})\s*(\d{3}[A-Z]*)\b'
     matches = re.findall(pattern, text)
@@ -32,7 +54,15 @@ def extract_prereqs(text):
     return list(set(prereqs))
 
 def extract_equivalents(lines):
-    """Extract equivalent courses from 'Equivalent to:' lines."""
+    """
+    Extract equivalent courses from 'Equivalent to:' lines.
+    
+    Args:
+        lines (list[str]): Lines of text corresponding to a course description.
+        
+    Returns:
+        list[str]: A list of unique normalized course IDs that count as equivalents.
+    """
     equivs = []
     for line in lines:
         if "Equivalent to:" in line:
@@ -43,7 +73,15 @@ def extract_equivalents(lines):
     return list(set(equivs))
 
 def extract_tags(lines):
-    """Extract tags like 'Science Area', 'BS Math', etc."""
+    """
+    Extract recognized tag keywords like 'Science Area' or 'BS Math'.
+    
+    Args:
+        lines (list[str]): Lines of text containing the course description block.
+        
+    Returns:
+        list[str]: A list of internal tag identifiers mapped correctly.
+    """
     tags = []
     full_text = '\n'.join(lines)
     tag_patterns = [
@@ -58,7 +96,17 @@ def extract_tags(lines):
     return tags
 
 def parse_subject_from_text(text_lines, subject_code, subject_name):
-    """Parse all courses for a subject from text lines."""
+    """
+    Parse all courses belonging to a specific subject out of text lines.
+    
+    Args:
+        text_lines (list[str]): Lines of text covering the specific subject.
+        subject_code (str): The common code for a subject (e.g., 'CS').
+        subject_name (str): The full subject name.
+        
+    Returns:
+        list[dict]: A list of dictionary objects tracking parsed course metadata.
+    """
     courses = []
     
     # Join lines and split by course pattern
@@ -132,7 +180,16 @@ def parse_subject_from_text(text_lines, subject_code, subject_name):
     return courses
 
 def find_subject_sections(lines):
-    """Find all subject sections in the PDF text."""
+    """
+    Find all subject sections in a block of PDF text.
+    
+    Args:
+        lines (list[str]): Complete text line blocks from the catalogue dump.
+        
+    Returns:
+        dict: Values mapping subject codes to sub-dictionaries with code, 
+              name, and related text lines.
+    """
     sections = {}
     current_subject = None
     current_code = None
@@ -183,6 +240,10 @@ def find_subject_sections(lines):
     return sections
 
 def main():
+    """
+    CLI script entrypoint that parses all subjects using a text source
+    and writes them individually into separate internal JSON files.
+    """
     if len(sys.argv) < 2:
         print("Usage: python parse_all_catalogs.py <path_to_pdf_text>")
         print("  The PDF text should be extracted to a text file first.")

@@ -1,8 +1,16 @@
+"""
+File: data_types.py
+Purpose: Define the core data structures used by the degree audit solver.
+Authors: Daniel Asiamah
+
+System: Better-UO-Scheduler (Quackademics)
+"""
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 
 @dataclass(frozen=True)
 class Course:
+    """Represents a catalog course definition with parsing-friendly traits."""
     id: str
     subject: str
     number: int
@@ -14,6 +22,7 @@ class Course:
 
 @dataclass(frozen=True)
 class Requirement:
+    """Represents a specific degree requirement rule (all_of, choose_k, etc)."""
     id: str
     type: str  # "all_of" | "choose_k" | "credits_at_least" | "credit_pool"
     label: Optional[str] = None                        # human-readable name for frontend display
@@ -31,6 +40,7 @@ class Requirement:
 
 @dataclass(frozen=True)
 class Program:
+    """Represents an entire degree program composed of rule sets and requirements."""
     id: str
     name: str
     requirements: List[Requirement]
@@ -40,6 +50,7 @@ class Program:
 
 @dataclass(frozen=True)
 class CourseAttempt:
+    """Represents a student's attempt at a course from the parsed transcript."""
     attempt_id: str          # unique per transcript row (term+course+section, etc.)
     course_id: str           # "CS422"
     credits_taken: int

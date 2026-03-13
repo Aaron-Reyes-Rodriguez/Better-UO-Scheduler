@@ -1,13 +1,27 @@
 #!/usr/bin/env python3
 """
-Parse course catalog PDF text and generate JSON catalog files.
+File: parse_catalog.py
+Purpose: Parse course catalog PDF text and generate JSON catalog files,
+         providing the standalone templates for specific course generation runs.
+Authors: Daniel Asiamah
+
+System: Better-UO-Scheduler (Quackademics)
 """
 import json
 import re
 from pathlib import Path
 
 def parse_credits(credits_str):
-    """Parse credit string like '4 Credits' or '1-5 Credits' into credits and credit_range."""
+    """
+    Parse a credit string denoting credit counts.
+    
+    Args:
+        credits_str (str): Raw credits string (e.g., '4 Credits', '1-5 Credits').
+        
+    Returns:
+        tuple[int, dict | None]: A default credit integer and a dictionary containing
+        the credit range min/max bounds (or None if a fixed credit count).
+    """
     credits_str = credits_str.strip()
     
     # Variable credits: "1-5 Credits"
@@ -25,7 +39,15 @@ def parse_credits(credits_str):
     return 4, None
 
 def extract_prereqs(text):
-    """Extract prerequisite course IDs from text."""
+    """
+    Extract prerequisite course IDs from a block of text.
+    
+    Args:
+        text (str): Free text potentially containing prerequisites.
+        
+    Returns:
+        list[str]: A list of unique formatted normalized course IDs.
+    """
     prereqs = []
     # Look for patterns like "MATH 251Z", "CS 211", "BI 221Z"
     pattern = r'\b([A-Z]{2,4})\s*(\d{3}[A-Z]*)\b'
@@ -35,7 +57,15 @@ def extract_prereqs(text):
     return list(set(prereqs))
 
 def extract_equivalents(text):
-    """Extract equivalent courses from 'Equivalent to:' line."""
+    """
+    Extract equivalent courses from 'Equivalent to:' line.
+    
+    Args:
+        text (str): Free text potentially containing course equivalents.
+        
+    Returns:
+        list[str]: A list of unique formatted course ID strings.
+    """
     equivs = []
     if "Equivalent to:" in text:
         equiv_section = text.split("Equivalent to:")[-1].split("\n")[0]
@@ -46,7 +76,15 @@ def extract_equivalents(text):
     return list(set(equivs))
 
 def extract_tags(text):
-    """Extract tags like 'Science Area', 'BS Math', etc."""
+    """
+    Extract recognized tag keywords like 'Science Area' or 'BS Math'.
+    
+    Args:
+        text (str): Block of text containing the course description.
+        
+    Returns:
+        list[str]: A list of internal tag identifiers mapped correctly.
+    """
     tags = []
     tag_patterns = [
         ("science_area", r"Science Area"),
@@ -62,7 +100,16 @@ def extract_tags(text):
     return tags
 
 def parse_course_block(block, subject_code):
-    """Parse a single course block into a course dict."""
+    """
+    Parse a single course block into a dictionary with metadata keys.
+    
+    Args:
+        block (str): Multi-line course description block string.
+        subject_code (str): Course subject code identifier.
+        
+    Returns:
+        dict: The parsed course properties correctly modeled.
+    """
     lines = block.strip().split('\n')
     if not lines:
         return None
@@ -151,7 +198,16 @@ def parse_course_block(block, subject_code):
     return course
 
 def parse_subject_section(text, subject_code):
-    """Parse all courses from a subject section."""
+    """
+    Parse all courses cleanly from a broader continuous subject text section.
+    
+    Args:
+        text (str): Aggregated subject module string.
+        subject_code (str): The subject code the courses fall under.
+        
+    Returns:
+        list[dict]: Output dictionaries mapped to the contained parsed courses.
+    """
     courses = []
     
     # Split by course pattern
@@ -181,6 +237,10 @@ def parse_subject_section(text, subject_code):
     return courses
 
 def main():
+    """
+    Template CLI entrypoint indicating generation practices for creating
+    custom manual catalogue data dumps into standard locations.
+    """
     # Define subjects and their raw text (you'd read from PDF in practice)
     # For now, this is a template - the actual parsing would read from PDF
     

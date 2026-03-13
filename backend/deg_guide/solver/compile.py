@@ -1,3 +1,10 @@
+"""
+File: compile.py
+Purpose: Translates high-level Program requirements into an OR-Tools CP-SAT model.
+Authors: Daniel Asiamah
+
+System: Better-UO-Scheduler (Quackademics)
+"""
 from __future__ import annotations
 
 from typing import Dict, List, Set, Tuple
@@ -45,6 +52,17 @@ def matches_where(course: Course, where: dict | None) -> bool:
 
 
 def eligible_courses_for_req(req: Requirement, program: Program, courses: Dict[str, Course]) -> List[Course]:
+    """
+    Determine the set of candidate courses that can possibly fulfill a requirement.
+
+    Args:
+        req (Requirement): The requirement definition with match logic.
+        program (Program): The parent program providing sets definitions.
+        courses (Dict[str, Course]): A complete catalog mapping of courses.
+
+    Returns:
+        List[Course]: Courses satisfying the requirement bounds and NOT excluded.
+    """
 
     if getattr(req, "from_requirements", None):
         return []
@@ -96,6 +114,17 @@ def _grade_meets_min(grade: str | None, min_grade: str) -> bool:
 
 
 def matches_attempt_where(att: CourseAttempt, where: dict | None) -> bool:
+    """
+    Check if a specific course attempt satisfies a requirement's strict completion filters 
+    (like required grades or grading basis).
+    
+    Args:
+        att (CourseAttempt): The attempt details including grade and taken status.
+        where (dict | None): The filtering dictionary specifying passing conditions.
+        
+    Returns:
+        bool: True if the attempt passes constraints.
+    """
     if not where:
         return True
     gb = where.get("grading_basis")
@@ -131,6 +160,17 @@ def _course_selected_bool(
 ) -> cp_model.IntVar:
     """
     Returns a BoolVar = 1 if any attempt for this course_id is assigned to req_key.
+    
+    Args:
+        model: Active OR-Tools model to register the variable within.
+        taken_attempt_objs: List of completed attempt metadata.
+        x: Assignment decision variables.
+        req_key: Bound requirement internal identifier.
+        course_id: Bound course identifier.
+        name: Internal boolean var target name.
+    
+    Returns:
+        cp_model.IntVar: A model boolean variable tracking requirement assignment.
     """
     vars_for_course = [
         x[(att.attempt_id, req_key)]
@@ -146,6 +186,16 @@ def _course_selected_bool(
 
 
 def _slacks_for_req_key(slack: Dict[str, cp_model.IntVar], req_key: str) -> List[cp_model.IntVar]:
+    """
+    Locates child slack variables derived from parent requirements for nested compilation routing.
+    
+    Args:
+        slack: Dictionary mapping slack integer decision variables.
+        req_key: Internal target requirement identifier.
+        
+    Returns:
+        List[cp_model.IntVar]: Gathered related slack properties bound to child entities.
+    """
     # child slack vars can be stored as:
     # - slack[req_key] for choose_k / credits_at_least / credit_pool
     # - slack[f"{req_key}:{cid}"] for all_of
@@ -163,6 +213,14 @@ def build_model(
 ):
     """
     Build CP-SAT model with x[c, r] assignment vars and requirement constraints.
+    
+    Args:
+        courses (Dict[str, Course]): Parsed course catalog context.
+        taken_attempts (List[CourseAttempt]): The parsed set of course attempts from a particular student.
+        programs (List[Program]): The list of target degree programs to be built and evaluated.
+        
+    Returns:
+        A tuple of the instantiated model, decision variables, slack structures, and bounding sets.
     """
     logger.debug("=== BUILD MODEL START ===")
     logger.debug(f"Total courses in catalog: {len(courses)}")

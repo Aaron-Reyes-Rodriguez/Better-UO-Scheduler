@@ -1,3 +1,11 @@
+"""
+File: model.py
+Purpose: Entrypoint to orchestrate degree audit resolution loading catalogue 
+         and running compiler and constraints solver components.
+Authors: Daniel Asiamah
+
+System: Better-UO-Scheduler (Quackademics)
+"""
 import json
 import logging
 from typing import Dict, List, Set, Any
@@ -115,6 +123,15 @@ def load_courses(path: str) -> tuple[Dict[str, Course], Dict[str, str]]:
     return courses, equiv_map
 
 def load_program(path: str) -> Program:
+    """
+    Load a strictly formatted Program configuration from a JSON specification.
+
+    Args:
+        path (str): The physical path identifying the JSON program file.
+
+    Returns:
+        Program: A built data class object detailing its bound requirements.
+    """
     data = json.load(open(path, "r", encoding="utf-8"))
     reqs: List[Requirement] = []
     for r in data["requirements"]:
@@ -197,6 +214,23 @@ def _has_descendant_assignments(req_id: str, program: Program, assignments: dict
 
 def solve_degree_audit(courses, taken_attempts, programs, equiv_map: Dict[str, str] = None,
                        selections: Dict[str, str] = None) -> dict:
+    """
+    Evaluate transcript status against target degree schemas.
+    
+    Runs a constraint solver tracking attempt usage to map all completed/taken
+    courses against strict graduation requirement definitions, isolating missed requirements as 'slacks'.
+    
+    Args:
+        courses: Dictionary mapping course ids to metadata components.
+        taken_attempts: Transcripts records showing course grades/status mapping.
+        programs: System degree architecture logic.
+        equiv_map: Equivalence cross-listing resolution tracking mapping.
+        selections: Optional user-choice decision resolutions for variable pathways.
+        
+    Returns:
+        dict: High level JSON-compatible return mapping degree progression coverage,
+              raw internal solver bindings, and completion statuses metrics.
+    """
     logger.debug("=== SOLVE DEGREE AUDIT START ===")
 
     original_programs = programs
