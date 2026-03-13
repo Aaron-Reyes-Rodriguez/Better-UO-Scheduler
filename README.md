@@ -7,7 +7,6 @@ https://quackademics.me
 
 ## Local Host Set Up if not using the link above
 
-
 ## Frontend Setup
 Change Directory
 ~~~
@@ -43,6 +42,6 @@ uvicorn app:app --reload
 ~~~
 
 ## Getting it on your browser
-Copy the local host link that appeared after "npm run dev" and paste it into your browser
+Copy the local host link that appeared after "npm run dev" and paste it into your browser, and wait a few seconds for the page to load all the data
 
 
