@@ -2,7 +2,7 @@
 
 ## Link
 
-https://main.d3f30e6npwa1ai.amplifyapp.com/
+https://quackademics.me
 
 
 ## Local Host Set Up if not using the link above
@@ -40,8 +40,9 @@ pip install -r requirements.txt
 Run
 ~~~
 uvicorn app:app --reload
-
 ~~~
 
 ## Getting it on your browser
 Copy the local host link that appeared after "npm run dev" and paste it into your browser
+
+

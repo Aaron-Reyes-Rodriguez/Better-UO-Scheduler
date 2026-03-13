@@ -6,13 +6,17 @@
  *   requirement sections, and renders them grouped by degree type, major, and
  *   minor. Supports live re-auditing when the student changes a track or
  *   concentration selection via dropdown.
- * @authors Daniel Saito and contributors
+ * @authors Both Daniels and other contributors
  *
  * System: Better-UO-Scheduler (Quackademics)
  *   Mounted by the React Router at path "/audit". Receives auditData from
  *   FileUploader via navigation state. Communicates with the backend via the
  *   reAudit API call when track/concentration selections change. All requirement
  *   data is derived from program JSON files loaded by the backend solver.
+ * 
+ * AI was of big help helping me get a framework and generally helping me through with
+ * Typescript and CSS. Helping solving errors and giving suggestions to code that wasn't
+ * outright working.
  */
 
 // useState: section open/close state, audit data, dropdown selections, re-audit loading flag
