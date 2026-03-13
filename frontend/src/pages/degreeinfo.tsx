@@ -2,7 +2,7 @@
  * @file degreeinfo.tsx
  * @description Degree audit results page for Quackademics (Better-UO-Scheduler).
  *   Reads the audit response passed via React Router state after a transcript
- *   upload (or sessionStorage on page refresh), transforms it into collapsible
+ *   upload (or localStorage on page refresh), transforms it into collapsible
  *   requirement sections, and renders them grouped by degree type, major, and
  *   minor. Supports live re-auditing when the student changes a track or
  *   concentration selection via dropdown.
@@ -362,16 +362,16 @@ function initSelections(choices: Choice[]): Record<string, string> {
 /**
  * DegreeInfo – main degree audit page component.
  *
- * Reads auditData from React Router state (post-upload) or sessionStorage (page refresh).
+ * Reads auditData from React Router state (post-upload) or localStorage (page refresh).
  * Renders requirement sections grouped by bachelor requirements, degree type, major, and minors.
  */
 export default function DegreeInfo() {
   const location = useLocation()
 
-  // Router state is the normal path after upload; sessionStorage handles page refresh
+  // Router state is the normal path after upload; localStorage handles page refresh
   const [auditData, setAuditData] = useState<AuditData | null>(() => {
     if (location.state?.auditData) return location.state.auditData as AuditData
-    const stored = sessionStorage.getItem("auditData")
+    const stored = localStorage.getItem("auditData")
     if (stored) {
       try { return JSON.parse(stored) as AuditData } catch { return null }
     }
@@ -380,14 +380,14 @@ export default function DegreeInfo() {
 
   const [selections, setSelections] = useState<Record<string, string>>(() => {
     const data = (location.state?.auditData as AuditData | undefined)
-      ?? (() => { try { return JSON.parse(sessionStorage.getItem("auditData") ?? "") as AuditData } catch { return null } })()
+      ?? (() => { try { return JSON.parse(localStorage.getItem("auditData") ?? "") as AuditData } catch { return null } })()
     return initSelections(data?.choices ?? [])
   })
 
   // True while waiting for a re-audit response — fades the body and disables dropdowns
   const [reAuditing, setReAuditing] = useState(false)
 
-  // Fires on dropdown change — calls re-audit and updates sessionStorage so selections survive a refresh
+  // Fires on dropdown change — calls re-audit and updates localStorage so selections survive a refresh
   const handleChoiceChange = useCallback(async (reqId: string, selected: string) => {
     if (!auditData?.parsedData) return
     const next = { ...selections, [reqId]: selected }
@@ -396,7 +396,7 @@ export default function DegreeInfo() {
     try {
       const data = await reAudit(auditData.parsedData, next) as AuditData
       setAuditData(data)
-      sessionStorage.setItem("auditData", JSON.stringify(data))
+      localStorage.setItem("auditData", JSON.stringify(data))
     } catch (err) {
       console.error("Re-audit failed:", err)
     } finally {
