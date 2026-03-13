@@ -4,7 +4,6 @@ Purpose: PDF transcript parser for the Better-UO-Scheduler (Quackademics) backen
          Extracts course attempt records, grade information, and broad student
          metadata (name, GPA, declared majors/minors, catalog years) from
          Ducks-On-Track PDF transcripts exported from the UO DegreeWorks system.
-Created: 2024
 Authors: Daniel Asiamah
 
 System: Better-UO-Scheduler (Quackademics)

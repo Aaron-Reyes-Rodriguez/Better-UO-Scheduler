@@ -6,7 +6,7 @@
  *   requirement sections, and renders them grouped by degree type, major, and
  *   minor. Supports live re-auditing when the student changes a track or
  *   concentration selection via dropdown.
- * @authors Both Daniels and other contributors
+ * @authors Both Daniels
  *
  * System: Better-UO-Scheduler (Quackademics)
  *   Mounted by the React Router at path "/audit". Receives auditData from

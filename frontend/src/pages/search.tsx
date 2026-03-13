@@ -3,7 +3,6 @@
  * @description Search page for Quackademics (Better-UO-Scheduler). Provides
  *   an autocomplete search bar that lets users look up classes or professors.
  *   Debounced typeahead suggestions are fetched from the backend API.
- * @created 2024
  * @authors Will Kelley
  *
  * System: Better-UO-Scheduler (Quackademics)

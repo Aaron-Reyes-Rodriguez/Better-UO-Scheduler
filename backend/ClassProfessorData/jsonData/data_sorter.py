@@ -4,7 +4,6 @@ Purpose: Data transformation utilities for the Better-UO-Scheduler (Quackademics
          project. Converts aggregated CSV files (produced by extract_cs.py) into
          the JSON files (classes.json and professors.json) that the backend API
          reads at startup, and also generates the frontend auto-complete lists.
-Created: 2024
 Authors: Aaron Reyes-Rodriguez and Will Kelley
 
 System: Better-UO-Scheduler (Quackademics)

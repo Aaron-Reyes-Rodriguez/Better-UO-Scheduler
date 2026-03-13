@@ -4,7 +4,6 @@
  *   Quackademics (Better-UO-Scheduler). Displays current tag vote counts and
  *   provides a modal for eligible users (those who have uploaded a transcript)
  *   to vote on Rate-My-Professor-style descriptive tags for a professor.
- * @created March 9 2026
  * @authors Aaron Reyes-Rodriguez
  *
  * System: Better-UO-Scheduler (Quackademics)

@@ -4,7 +4,6 @@ Purpose: Main FastAPI application server for the Quackademics / Better-UO-Schedu
          backend. Defines all REST API routes, handles transcript upload and PDF
          parsing, runs the degree-audit solver, manages professor tags via a
          PostgreSQL database, and provides class/professor lookup endpoints.
-Created: 2024
 Authors: Aaron Reyes-Rodriguez, Daniel Asiamah
 
 System: Better-UO-Scheduler (Quackademics)
