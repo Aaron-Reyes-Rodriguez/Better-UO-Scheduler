@@ -7,7 +7,6 @@ https://quackademics.me
 
 ## Local Host Set Up if not using the link above
 
-
 ## Frontend Setup
 Change Directory
 ~~~
