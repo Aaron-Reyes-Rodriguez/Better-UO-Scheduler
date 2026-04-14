@@ -54,7 +54,7 @@ import tempfile
 import uuid
 # psycopg2: PostgreSQL adapter used for direct database operations (health-check,
 # professor-tags table management via apiHelperFunctions).
-import psycopg2
+# import psycopg2  # commented out — not needed without SQL
 
 # Configure logging with more readable format
 logging.basicConfig(
@@ -99,18 +99,18 @@ def health():
     """Simple ping to check the API is up (e.g. for Render)."""
     return {"status": "ok"}
 
-@app.get("/db-health")
-def db_health():
-    """Check database connectivity."""
-    db_url = os.environ.get("DATABASE_URL")
-    if not db_url:
-        raise HTTPException(status_code=500, detail="DATABASE_URL is not set")
-    try:
-        conn = psycopg2.connect(db_url, connect_timeout=5)
-        conn.close()
-        return {"status": "ok", "database": "connected"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"DB connection failed: {str(e)}")
+# @app.get("/db-health")
+# def db_health():
+#     """Check database connectivity."""
+#     db_url = os.environ.get("DATABASE_URL")
+#     if not db_url:
+#         raise HTTPException(status_code=500, detail="DATABASE_URL is not set")
+#     try:
+#         conn = psycopg2.connect(db_url, connect_timeout=5)
+#         conn.close()
+#         return {"status": "ok", "database": "connected"}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"DB connection failed: {str(e)}")
 
 @app.get("/class/{class_id}")
 def get_class(class_id: str):
@@ -258,11 +258,11 @@ VALID_CATALOG_YEARS = ["2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025
 DEFAULT_CATALOG_YEAR = "2025-2026"
 
 # Init Professor Tags Database
-try:
-    apiHelper.init_db()
-    logger.info("Professor tags database table initialized successfully.")
-except Exception as e:
-    logger.error(f"Failed to initialize professor tags database: {e}")
+# try:
+#     apiHelper.init_db()
+#     logger.info("Professor tags database table initialized successfully.")
+# except Exception as e:
+#     logger.error(f"Failed to initialize professor tags database: {e}")
 
 # Mapping from program name to code (also tracks what we've implemented)
 DEGREE_TYPE_MAP = {

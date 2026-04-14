@@ -21,9 +21,9 @@ import re
 # from disk only once and cached for the lifetime of the process.
 from functools import lru_cache
 # psycopg2: PostgreSQL adapter used to store and retrieve professor tag votes.
-import psycopg2
+# import psycopg2  # commented out — not needed without SQL
 # RealDictCursor: cursor factory that returns rows as dicts keyed by column name.
-from psycopg2.extras import RealDictCursor
+# from psycopg2.extras import RealDictCursor  # commented out — not needed without SQL
 import os
 
 PROF_TAGS_FILE = "ClassProfessorData/jsonData/professor_tags.json"
@@ -216,76 +216,76 @@ def _load_course_professors() -> dict:
     return mapping
 
 
-def get_db_connection():
-    """
-    Create and return a new psycopg2 database connection using the DATABASE_URL
-    environment variable.
+# def get_db_connection():
+#     """
+#     Create and return a new psycopg2 database connection using the DATABASE_URL
+#     environment variable.
+#
+#     Returns:
+#         psycopg2.connection: An open PostgreSQL connection object.
+#
+#     Raises:
+#         ValueError: If the DATABASE_URL environment variable is not set.
+#     """
+#     db_url = os.environ.get("DATABASE_URL")
+#     if not db_url:
+#         raise ValueError("DATABASE_URL environment variable is not set")
+#     return psycopg2.connect(db_url)
 
-    Returns:
-        psycopg2.connection: An open PostgreSQL connection object.
-
-    Raises:
-        ValueError: If the DATABASE_URL environment variable is not set.
-    """
-    db_url = os.environ.get("DATABASE_URL")
-    if not db_url:
-        raise ValueError("DATABASE_URL environment variable is not set")
-    return psycopg2.connect(db_url)
-
-def init_db():
-    """Create the professor_tags table with one column per tag."""
-    conn = get_db_connection()
-    try:
-        with conn.cursor() as cur:
-            # Build column definitions for each tag
-            tag_col_defs = ",\n                    ".join(
-                f"{col} INTEGER DEFAULT 0" for col in TAG_COLUMNS.values()
-            )
-            cur.execute(f"""
-                CREATE TABLE IF NOT EXISTS professor_tags (
-                    id SERIAL PRIMARY KEY,
-                    professor_id VARCHAR NOT NULL UNIQUE,
-                    {tag_col_defs}
-                )
-            """)
-        conn.commit()
-    finally:
-        conn.close()
+# def init_db():
+#     """Create the professor_tags table with one column per tag."""
+#     conn = get_db_connection()
+#     try:
+#         with conn.cursor() as cur:
+#             # Build column definitions for each tag
+#             tag_col_defs = ",\n                    ".join(
+#                 f"{col} INTEGER DEFAULT 0" for col in TAG_COLUMNS.values()
+#             )
+#             cur.execute(f"""
+#                 CREATE TABLE IF NOT EXISTS professor_tags (
+#                     id SERIAL PRIMARY KEY,
+#                     professor_id VARCHAR NOT NULL UNIQUE,
+#                     {tag_col_defs}
+#                 )
+#             """)
+#         conn.commit()
+#     finally:
+#         conn.close()
 
 def _load_prof_tags(professor_id: str) -> list[dict]:
-    """Load tags for a professor from the pivot table. Returns tags with count >= 1 as dicts."""
-    if not os.environ.get("DATABASE_URL"):
-        return []
-    try:
-        conn = get_db_connection()
-    except Exception as e:
-        print(f"Error loading tags for {professor_id}: {e}")
-        return []
-    try:
-        with conn.cursor() as cur:
-            tag_cols = ", ".join(TAG_COLUMNS.values())
-            cur.execute(f"""
-                SELECT {tag_cols}
-                FROM professor_tags 
-                WHERE professor_id = %s
-            """, (professor_id,))
-            row = cur.fetchone()
-            if not row:
-                return []
-            # Return tag dicts with name and count where count >= 1
-            col_names = list(TAG_COLUMNS.values())
-            tags = []
-            for i, count in enumerate(row):
-                if count and count >= 1:
-                    tags.append({"name": COLUMN_TO_TAG[col_names[i]], "count": count})
-            # Sort by count descending
-            tags.sort(key=lambda x: -x["count"])
-            return tags
-    except Exception as e:
-        print(f"Error loading tags for {professor_id}: {e}")
-        return []
-    finally:
-        conn.close()
+    """Load tags for a professor. DB disabled — returns empty list."""
+    return []
+    # --- Original DB implementation (commented out) ---
+    # if not os.environ.get("DATABASE_URL"):
+    #     return []
+    # try:
+    #     conn = get_db_connection()
+    # except Exception as e:
+    #     print(f"Error loading tags for {professor_id}: {e}")
+    #     return []
+    # try:
+    #     with conn.cursor() as cur:
+    #         tag_cols = ", ".join(TAG_COLUMNS.values())
+    #         cur.execute(f"""
+    #             SELECT {tag_cols}
+    #             FROM professor_tags
+    #             WHERE professor_id = %s
+    #         """, (professor_id,))
+    #         row = cur.fetchone()
+    #         if not row:
+    #             return []
+    #         col_names = list(TAG_COLUMNS.values())
+    #         tags = []
+    #         for i, count in enumerate(row):
+    #             if count and count >= 1:
+    #                 tags.append({"name": COLUMN_TO_TAG[col_names[i]], "count": count})
+    #         tags.sort(key=lambda x: -x["count"])
+    #         return tags
+    # except Exception as e:
+    #     print(f"Error loading tags for {professor_id}: {e}")
+    #     return []
+    # finally:
+    #     conn.close()
 
 def classFinder(class_id):
     """
@@ -486,73 +486,58 @@ def professorSuggestions(query: str, limit: int = 8) -> list[str]:
 
 
 def updateProfessorTags(professor_id: str, tags: list[str]) -> list[str]:
-    """
-    Increment the vote count for each specified tag for a professor in the
-    professor_tags PostgreSQL table. On first vote an INSERT is performed;
-    subsequent votes use ON CONFLICT … DO UPDATE to increment the column.
-
-    Args:
-        professor_id (str): Raw professor identifier (will be resolved and
-            normalised via professorFinder before database write).
-        tags (list[str]): List of tag display-names to vote for. Duplicate
-            and unrecognised tags are silently ignored.
-
-    Returns:
-        list[str]: Updated list of TagWithCount dicts for this professor from
-            the database after the write, filtered to tags with count >= 1.
-
-    Raises:
-        KeyError: If the professor cannot be found.
-    """
+    """DB disabled — returns empty list. Professor existence is still validated."""
     # Ensure professor exists, throws KeyError if not
     prof = professorFinder(professor_id)
-    clean_prof_id = prof.get("professor", professor_id)
-
-    if not os.environ.get("DATABASE_URL"):
-        return _load_prof_tags(clean_prof_id)
-    
-    unique_tags = list(dict.fromkeys(tags))
-    if not unique_tags:
-        return _load_prof_tags(clean_prof_id)
-    
-    # Filter to only valid tags that have column mappings
-    valid_tags = [t for t in unique_tags if t in TAG_COLUMNS]
-    if not valid_tags:
-        return _load_prof_tags(clean_prof_id)
-        
-    try:
-        conn = get_db_connection()
-    except Exception as e:
-        print(f"Error updating tags for {clean_prof_id}: {e}")
-        return _load_prof_tags(clean_prof_id)
-    try:
-        with conn.cursor() as cur:
-            # Build the INSERT with ON CONFLICT to increment tag columns
-            tag_col_names = [TAG_COLUMNS[t] for t in valid_tags]
-            
-            # Insert a new row with count=1 for selected tags, or increment on conflict
-            all_cols = list(TAG_COLUMNS.values())
-            insert_values = []
-            for col in all_cols:
-                if col in tag_col_names:
-                    insert_values.append("1")
-                else:
-                    insert_values.append("0")
-            
-            update_parts = [f"{col} = professor_tags.{col} + 1" for col in tag_col_names]
-            
-            cur.execute(f"""
-                INSERT INTO professor_tags (professor_id, {", ".join(all_cols)})
-                VALUES (%s, {", ".join(insert_values)})
-                ON CONFLICT (professor_id) 
-                DO UPDATE SET {", ".join(update_parts)}
-            """, (clean_prof_id,))
-        conn.commit()
-    except Exception as e:
-        print(f"Error updating tags for {clean_prof_id}: {e}")
-        conn.rollback()
-    finally:
-        conn.close()
-        
-    return _load_prof_tags(clean_prof_id)
+    return []
+    # --- Original DB implementation (commented out) ---
+    # clean_prof_id = prof.get("professor", professor_id)
+    #
+    # if not os.environ.get("DATABASE_URL"):
+    #     return _load_prof_tags(clean_prof_id)
+    #
+    # unique_tags = list(dict.fromkeys(tags))
+    # if not unique_tags:
+    #     return _load_prof_tags(clean_prof_id)
+    #
+    # # Filter to only valid tags that have column mappings
+    # valid_tags = [t for t in unique_tags if t in TAG_COLUMNS]
+    # if not valid_tags:
+    #     return _load_prof_tags(clean_prof_id)
+    #
+    # try:
+    #     conn = get_db_connection()
+    # except Exception as e:
+    #     print(f"Error updating tags for {clean_prof_id}: {e}")
+    #     return _load_prof_tags(clean_prof_id)
+    # try:
+    #     with conn.cursor() as cur:
+    #         # Build the INSERT with ON CONFLICT to increment tag columns
+    #         tag_col_names = [TAG_COLUMNS[t] for t in valid_tags]
+    #
+    #         # Insert a new row with count=1 for selected tags, or increment on conflict
+    #         all_cols = list(TAG_COLUMNS.values())
+    #         insert_values = []
+    #         for col in all_cols:
+    #             if col in tag_col_names:
+    #                 insert_values.append("1")
+    #             else:
+    #                 insert_values.append("0")
+    #
+    #         update_parts = [f"{col} = professor_tags.{col} + 1" for col in tag_col_names]
+    #
+    #         cur.execute(f"""
+    #             INSERT INTO professor_tags (professor_id, {", ".join(all_cols)})
+    #             VALUES (%s, {", ".join(insert_values)})
+    #             ON CONFLICT (professor_id)
+    #             DO UPDATE SET {", ".join(update_parts)}
+    #         """, (clean_prof_id,))
+    #     conn.commit()
+    # except Exception as e:
+    #     print(f"Error updating tags for {clean_prof_id}: {e}")
+    #     conn.rollback()
+    # finally:
+    #     conn.close()
+    #
+    # return _load_prof_tags(clean_prof_id)
 
