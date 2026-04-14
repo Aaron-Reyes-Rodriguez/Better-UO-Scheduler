@@ -7,7 +7,6 @@ https://quackademics.me
 
 ## Local Host Set Up if not using the link above
 
-
 ## Frontend Setup
 Change Directory
 ~~~
@@ -43,6 +42,6 @@ uvicorn app:app --reload
 ~~~
 
 ## Getting it on your browser
-Copy the local host link that appeared after "npm run dev" and paste it into your browser
+Copy the local host link that appeared after "npm run dev" and paste it into your browser and give it a minute or 2 to load the data. After running the backend once you see "INFO: Application startup complete." you can click the link and start using the website locally.
 
 
