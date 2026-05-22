@@ -13,7 +13,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getClass, getProfessor } from '../api';
-import ProfessorTags from './components/ProfessorTags';
+
 
 type GradeDist = Record<string, number>;
 
@@ -44,12 +44,29 @@ type ProfessorData = {
   courses_taught?: string;
   avg_gpa?: number;
   gradeDistribution?: GradeDist;
-  tags?: { name: string; count: number }[];
   stats?: {
     averageGrade?: number;
     totalStudents?: number;
   };
 };
+
+// Convert a numeric GPA (0.0–4.3) to its closest UO letter grade.
+// UO scale: A=4.0, B=3.0, C=2.0, D=1.0, F=0; +/- = ±0.3
+function gpaToLetterGrade(gpa: number): string {
+  if (gpa >= 4.3) return 'A+';
+  if (gpa >= 4.0) return 'A';
+  if (gpa >= 3.7) return 'A-';
+  if (gpa >= 3.3) return 'B+';
+  if (gpa >= 3.0) return 'B';
+  if (gpa >= 2.7) return 'B-';
+  if (gpa >= 2.3) return 'C+';
+  if (gpa >= 2.0) return 'C';
+  if (gpa >= 1.7) return 'C-';
+  if (gpa >= 1.3) return 'D+';
+  if (gpa >= 1.0) return 'D';
+  if (gpa >= 0.7) return 'D-';
+  return 'F';
+}
 
 type CourseData = {
   course_id?: string;
@@ -266,20 +283,18 @@ export default function GeneralProfessor() {
               </button>
             </div>
 
-            {/* Tags Component */}
-            <ProfessorTags 
-               professorId={data.professor || professorName} 
-               initialTags={data.tags} 
-            />
+
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(220px, 1fr))', gap: 12 }}>
               <div style={{ border: '1px solid #ddd', borderRadius: 12, padding: 14 }}>
-                <div style={{ fontSize: 12, color: '#666', textTransform: 'uppercase' }}>Professor AVG GPA</div>
-                <div style={{ fontSize: 42, fontWeight: 700 }}>{typeof profAvg === 'number' ? profAvg.toFixed(3) : 'N/A'}</div>
+                <div style={{ fontSize: 12, color: '#666', textTransform: 'uppercase' }}>Professor AVG Grade</div>
+                <div style={{ fontSize: 42, fontWeight: 700 }}>{typeof profAvg === 'number' ? gpaToLetterGrade(profAvg) : 'N/A'}</div>
+                {typeof profAvg === 'number' && <div style={{ fontSize: 14, color: '#888', marginTop: 4 }}>({profAvg.toFixed(2)} GPA)</div>}
               </div>
               <div style={{ border: '1px solid #ddd', borderRadius: 12, padding: 14 }}>
-                <div style={{ fontSize: 12, color: '#666', textTransform: 'uppercase' }}>Department AVG GPA (courses taught)</div>
-                <div style={{ fontSize: 42, fontWeight: 700 }}>{typeof departmentAvg === 'number' ? departmentAvg.toFixed(3) : 'N/A'}</div>
+                <div style={{ fontSize: 12, color: '#666', textTransform: 'uppercase' }}>Department AVG Grade (courses taught)</div>
+                <div style={{ fontSize: 42, fontWeight: 700 }}>{typeof departmentAvg === 'number' ? gpaToLetterGrade(departmentAvg) : 'N/A'}</div>
+                {typeof departmentAvg === 'number' && <div style={{ fontSize: 14, color: '#888', marginTop: 4 }}>({departmentAvg.toFixed(2)} GPA)</div>}
               </div>
             </div>
 
@@ -299,7 +314,7 @@ export default function GeneralProfessor() {
                         }}
                       />
                     </div>
-                    <div>{profAvg.toFixed(2)}</div>
+                    <div>{gpaToLetterGrade(profAvg)} ({profAvg.toFixed(2)})</div>
                   </div>
                 )}
                 {typeof departmentAvg === 'number' && (
@@ -315,7 +330,7 @@ export default function GeneralProfessor() {
                         }}
                       />
                     </div>
-                    <div>{departmentAvg.toFixed(2)}</div>
+                    <div>{gpaToLetterGrade(departmentAvg)} ({departmentAvg.toFixed(2)})</div>
                   </div>
                 )}
                 {courseStats.slice(0, 12).map((course) => (
@@ -343,7 +358,7 @@ export default function GeneralProfessor() {
                         }}
                       />
                     </div>
-                    <div>{course.avg.toFixed(2)}</div>
+                    <div>{gpaToLetterGrade(course.avg)} ({course.avg.toFixed(2)})</div>
                   </div>
                 ))}
               </div>

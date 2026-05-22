@@ -46,6 +46,24 @@ type CourseData = {
   };
 };
 
+// Convert a numeric GPA (0.0–4.3) to its closest UO letter grade.
+// UO scale: A=4.0, B=3.0, C=2.0, D=1.0, F=0; +/- = ±0.3
+function gpaToLetterGrade(gpa: number): string {
+  if (gpa >= 4.3) return 'A+';
+  if (gpa >= 4.0) return 'A';
+  if (gpa >= 3.7) return 'A-';
+  if (gpa >= 3.3) return 'B+';
+  if (gpa >= 3.0) return 'B';
+  if (gpa >= 2.7) return 'B-';
+  if (gpa >= 2.3) return 'C+';
+  if (gpa >= 2.0) return 'C';
+  if (gpa >= 1.7) return 'C-';
+  if (gpa >= 1.3) return 'D+';
+  if (gpa >= 1.0) return 'D';
+  if (gpa >= 0.7) return 'D-';
+  return 'F';
+}
+
 // Combine +/- buckets into letter buckets for the "clean" view.
 function collapseDistribution(dist: GradeDist): GradeDist {
   return {
@@ -207,10 +225,11 @@ export default function GeneralClass() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) 1fr', gap: 16 }}>
               <div style={{ border: '1px solid #ddd', borderRadius: 12, padding: 16 }}>
-                <div style={{ fontSize: 12, color: '#666', textTransform: 'uppercase', letterSpacing: 0.6 }}>AVG GPA</div>
+                <div style={{ fontSize: 12, color: '#666', textTransform: 'uppercase', letterSpacing: 0.6 }}>AVG Grade</div>
                 <div style={{ fontSize: 56, fontWeight: 700, lineHeight: 1.05, marginTop: 8 }}>
-                  {typeof avgGpa === 'number' ? avgGpa.toFixed(3) : 'N/A'}
+                  {typeof avgGpa === 'number' ? gpaToLetterGrade(avgGpa) : 'N/A'}
                 </div>
+                {typeof avgGpa === 'number' && <div style={{ fontSize: 16, color: '#888', marginTop: 4 }}>({avgGpa.toFixed(2)} GPA)</div>}
                 <div style={{ marginTop: 12, height: 10, borderRadius: 999, background: '#e5e7eb', overflow: 'hidden' }}>
                   <div
                     style={{
@@ -220,7 +239,7 @@ export default function GeneralClass() {
                     }}
                   />
                 </div>
-                <div style={{ marginTop: 6, color: '#6b7280', fontSize: 12 }}>Scale: 0.0 to 4.0</div>
+                <div style={{ marginTop: 6, color: '#6b7280', fontSize: 12 }}>Scale: F to A</div>
               </div>
 
               <div style={{ border: '1px solid #ddd', borderRadius: 12, padding: 16 }}>
